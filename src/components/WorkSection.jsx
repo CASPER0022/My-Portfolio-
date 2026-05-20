@@ -206,8 +206,8 @@ export default function WorkSection() {
   return (
     <section 
       id="work" 
-      className="w-full pt-32 pb-24 px-8 select-none flex flex-col items-center justify-center" 
-      style={{ background: '#F7F7F7' }}
+      className="w-full px-8 select-none flex flex-col items-center justify-center" 
+      style={{ background: '#F7F7F7', paddingTop: '120px', paddingBottom: '100px' }}
     >
       <div className="max-w-[1000px] w-full flex flex-col items-center gap-12">
         

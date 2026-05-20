@@ -77,13 +77,14 @@ export default function ExperienceSection() {
     <section
       ref={containerRef}
       id="experience"
-      className="w-full bg-[#f8f9fb] relative py-32 select-none overflow-hidden"
+      style={{ paddingTop: '120px', paddingBottom: '120px' }}
+      className="w-full bg-[#f8f9fb] relative select-none overflow-hidden"
     >
       {/* Editorial Container with max 1400px width and generous side padding */}
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-20 relative">
         
         {/* Centered Editorial Header */}
-        <div className="flex flex-col items-center mb-20 text-center w-full">
+        <div style={{ marginBottom: '100px' }} className="flex flex-col items-center text-center w-full">
           <div className="flex flex-col items-center mb-2">
             <span className="text-[10px] font-mono font-bold tracking-[0.4em] text-[#3b6fd4] uppercase">
               01 / JOURNEY
@@ -104,7 +105,7 @@ export default function ExperienceSection() {
           {/* VERTICAL TRACK LINE (2px solid dark navy #0f1f4b spine) */}
           <motion.div
             style={{ opacity: timelineOpacity }}
-            className="absolute left-6 md:left-1/2 -translate-x-1/2 top-0 bottom-24 w-[2px] pointer-events-none z-10"
+            className="absolute left-1/2 -translate-x-1/2 top-0 bottom-24 w-[2px] pointer-events-none z-10"
           >
             {/* Background Light-Navy Spine */}
             <div className="w-full h-full bg-[#0f1f4b]/10 rounded-full" />
@@ -130,6 +131,9 @@ export default function ExperienceSection() {
                   id={exp.id}
                   onViewportEnter={() => setActiveIndex(idx)}
                   viewport={{ once: false, amount: 0.4 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: idx * 0.2, ease: 'easeOut' }}
                   className="relative w-full min-h-[220px]"
                 >
                   {/* MOBILE ONLY NODE (Absolute positioned at left-6, hidden on desktop) */}
@@ -151,7 +155,7 @@ export default function ExperienceSection() {
                   <div className="flex flex-col md:grid md:grid-cols-[1fr_120px_1fr] w-full items-start gap-4 md:gap-0">
                     
                     {/* Left Column: Date + Company + Role */}
-                    <div className="w-full flex flex-col text-left md:text-right pl-16 pr-4 md:pl-0 md:pr-0 pt-3 md:justify-start">
+                    <div className="w-full flex flex-col text-left md:text-right pl-16 pr-8 md:pl-0 md:pr-0 pt-3 md:justify-start">
                       <span className="text-[12px] font-sans font-bold text-[#3b6fd4] tracking-wide mb-1.5 uppercase">
                         {exp.date}
                       </span>
@@ -199,7 +203,7 @@ export default function ExperienceSection() {
                     </div>
 
                     {/* Right Column: Detailed Experience Card */}
-                    <div className="w-full flex items-start justify-start pl-16 pr-4 md:pl-0 md:pr-0">
+                    <div className="w-full flex items-start justify-start pl-8 pr-16 md:pl-0 md:pr-0">
                       <motion.div
                         animate={{
                           opacity: isNodeActive ? 1 : 0.85,
@@ -255,7 +259,7 @@ export default function ExperienceSection() {
           </div>
 
           {/* FOOTER: Below last entry, sparkle icon and italic journey continues */}
-          <div className="flex items-center justify-center gap-2 mt-24 relative z-20 select-none">
+          <div style={{ marginTop: '80px' }} className="flex items-center justify-center gap-2 relative z-20 select-none">
             <span className="text-[#3b6fd4] text-sm font-bold">✦</span>
             <span className="text-[13px] text-gray-500 font-sans italic">
               The journey continues...
