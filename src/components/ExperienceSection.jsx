@@ -206,88 +206,38 @@ export default function ExperienceSection() {
                           y: isNodeActive ? 0 : 4
                         }}
                         transition={{ duration: 0.4 }}
-                        style={{
-                          backgroundColor: '#ffffff',
-                          border: '1px solid #e2e8f0',
-                          borderRadius: '16px',
-                          padding: '32px',
-                          boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
-                          width: '100%',
-                          maxWidth: '580px',
-                          textAlign: 'left',
-                          position: 'relative'
-                        }}
-                        className="hover:shadow-md transition-shadow duration-300 group"
+                        className="w-full max-w-[580px] text-left relative bg-white !border !border-[#e2e8f0] !rounded-[16px] !p-6 md:!p-8 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-md transition-all duration-300 group"
                       >
                         {/* Category Label */}
-                        <span style={{
-                          display: 'block',
-                          fontSize: '10px',
-                          fontWeight: 'bold',
-                          letterSpacing: '0.15em',
-                          color: '#3b6fd4',
-                          textTransform: 'uppercase',
-                          marginBottom: '14px',
-                          userSelect: 'none'
-                        }}>
+                        <span className="block text-[10px] font-bold tracking-[0.15em] text-[#3b6fd4] uppercase !mb-3.5 select-none">
                           {exp.subtitle}
                         </span>
                         
                         {/* Summary Paragraph */}
-                        <p style={{
-                          fontSize: '14px',
-                          lineHeight: '1.6',
-                          color: '#475569',
-                          fontFamily: 'Inter, sans-serif',
-                          marginBottom: '20px'
-                        }}>
+                        <p className="text-[14px] leading-relaxed text-[#475569] font-sans !mb-5">
                           {exp.desc}
                         </p>
 
                         {/* Bullet Points with sparkle prefix icon in blue */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
+                        <div className="flex flex-col gap-3.5 !mb-6">
                           {exp.bullets.map((bullet, bIdx) => (
-                            <div key={bIdx} style={{ display: 'flex', alignItems: 'start', gap: '12px', fontSize: '14px', lineHeight: '1.6', color: '#475569', fontFamily: 'Inter, sans-serif' }}>
-                              <span style={{ color: '#3b6fd4', fontWeight: 'bold', userSelect: 'none', marginTop: '2px' }}>✦</span>
+                            <div key={bIdx} className="flex items-start gap-3 text-[14px] leading-relaxed text-[#475569] font-sans">
+                              <span className="text-[#3b6fd4] font-bold select-none mt-0.5">✦</span>
                               <span>{bullet}</span>
                             </div>
                           ))}
                         </div>
 
                         {/* Tech Stack Label & navy border pills */}
-                        <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '20px' }}>
-                          <h4 style={{
-                            display: 'block',
-                            fontSize: '10px',
-                            fontFamily: 'monospace',
-                            fontWeight: 'bold',
-                            letterSpacing: '0.15em',
-                            color: '#94a3b8',
-                            textTransform: 'uppercase',
-                            marginBottom: '12px',
-                            userSelect: 'none'
-                          }}>
+                        <div className="!border-t !border-[#e2e8f0] !pt-5 !mt-5">
+                          <h4 className="block text-[10px] font-mono font-bold tracking-[0.15em] text-[#94a3b8] uppercase !mb-3 select-none">
                             TECH STACK
                           </h4>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                          <div className="flex flex-wrap gap-2">
                             {exp.tags.map((tag) => (
                               <span
                                 key={`${exp.id}-${tag}`}
-                                style={{
-                                  display: 'inline-block',
-                                  fontSize: '10px',
-                                  fontWeight: 'bold',
-                                  fontFamily: 'JetBrains Mono, monospace',
-                                  color: '#0f1f4b',
-                                  border: '1px solid #0f1f4b',
-                                  padding: '4px 12px',
-                                  borderRadius: '9999px',
-                                  backgroundColor: '#ffffff',
-                                  userSelect: 'none',
-                                  cursor: 'default',
-                                  transition: 'all 0.2s ease'
-                                }}
-                                className="hover:bg-[#0f1f4b] hover:text-white hover:scale-105"
+                                className="inline-block text-[10px] font-bold font-mono text-[#0f1f4b] !border !border-[#0f1f4b] !px-3.5 !py-1.5 !rounded-full bg-white hover:bg-[#0f1f4b] hover:text-white hover:scale-105 transition-all duration-200 cursor-default select-none"
                               >
                                 {tag}
                               </span>
