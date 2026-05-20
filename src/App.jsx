@@ -3,6 +3,7 @@ import Cursor from './components/Cursor'
 import SplashLoader from './components/SplashLoader'
 import Navbar from './components/Navbar'
 import LandingSection from './components/LandingSection'
+import ExperienceSection from './components/ExperienceSection'
 import WorkSection from './components/WorkSection'
 import ApproachSection from './components/ApproachSection'
 import CVSection from './components/CVSection'
@@ -21,13 +22,14 @@ export default function App() {
   useEffect(() => {
     if (showHero) return
 
-    const sections = ['landing', 'work', 'approach', 'cv', 'contact']
+    const sections = ['landing', 'experience', 'work', 'approach', 'cv', 'contact']
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = entry.target.id
           // Capitalize active state to match Navbar links
           if (id === 'landing') setActive('Landing')
+          else if (id === 'experience') setActive('WORK')
           else if (id === 'work') setActive('WORK')
           else if (id === 'approach') setActive('APPROACH')
           else if (id === 'cv') setActive('CV')
@@ -54,6 +56,7 @@ export default function App() {
   const handleNav = useCallback((section) => {
     let id = section.toLowerCase()
     if (id === 'landing' || id === 'hero') id = 'landing'
+    if (id === 'work') id = 'experience'
 
     const el = document.getElementById(id)
     if (el) {
@@ -83,6 +86,11 @@ export default function App() {
         {/* Section 1: Landing (Precisely 100vh viewport) */}
         <div id="landing" className="w-full min-h-screen bg-white relative">
           <LandingSection onViewWork={handleViewWork} />
+        </div>
+
+        {/* Section 1.5: Curated Work Experience Journey */}
+        <div id="experience" className="w-full bg-white relative">
+          <ExperienceSection />
         </div>
 
         {/* Section 2: Selected Work (Auto height for luxury 3-column 6-card grid) */}
