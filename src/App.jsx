@@ -91,17 +91,17 @@ export default function App() {
         </div>
 
         {/* Section 1.25: About Me Section */}
-        <div id="about" className="w-full relative" style={{ background: '#ededed' }}>
+        <div id="about" className="w-full relative" style={{ background: 'linear-gradient(to bottom, #112240, #0a0c14)' }}>
           <AboutSection />
         </div>
 
         {/* Section 1.5: Curated Work Experience Journey */}
-        <div id="experience" className="w-full bg-white relative">
+        <div id="experience" className="w-full relative" style={{ background: '#f8f9fb' }}>
           <ExperienceSection />
         </div>
 
         {/* Section 2: Selected Work (Auto height for luxury 3-column 6-card grid) */}
-        <div id="work" className="w-full relative" style={{ background: '#ededed' }}>
+        <div id="work" className="w-full relative" style={{ background: '#f8f9fb' }}>
           <WorkSection />
         </div>
 

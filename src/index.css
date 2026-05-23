@@ -57,13 +57,13 @@ body {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(0,0,0,0.06);
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 .navbar.scrolled {
   box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 }
 .navbar.dark {
-  background: rgba(8,12,24,0.96);
+  background: rgba(10, 12, 20, 0.96);
   border-bottom-color: rgba(255,255,255,0.06);
 }
 .nav-logo {
@@ -76,6 +76,10 @@ body {
   background: none;
   border: none;
   line-height: 1;
+  transition: color 0.3s ease;
+}
+.navbar.dark .nav-logo {
+  color: #ffffff;
 }
 .nav-links {
   display: flex;
@@ -92,12 +96,22 @@ body {
   background: none;
   border: none;
   cursor: none;
-  transition: color 0.2s ease;
+  transition: color 0.3s ease;
   padding: 0;
   position: relative;
 }
 .nav-link:hover { color: #111111; }
 .nav-link.active { color: #111111; }
+
+.navbar.dark .nav-link {
+  color: rgba(255, 255, 255, 0.55);
+}
+.navbar.dark .nav-link:hover {
+  color: #ffffff;
+}
+.navbar.dark .nav-link.active {
+  color: #ffffff;
+}
 
 /* ── HERO SECTION ── */
 .hero-section {

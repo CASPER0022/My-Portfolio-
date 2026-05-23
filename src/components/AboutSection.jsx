@@ -56,20 +56,20 @@ export default function AboutSection() {
 
   return (
     <section
-      className="w-full relative select-none overflow-hidden text-[#1d1d1f]"
+      className="w-full relative select-none overflow-hidden text-white"
       style={{
         paddingTop: '80px',
         paddingBottom: '80px',
-        background: '#ededed',
+        background: 'linear-gradient(to bottom, #112240, #0a0c14)',
         boxSizing: 'border-box'
       }}
     >
       {/* Decorative Grid Mesh Overlay */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[linear-gradient(rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:32px_32px]" />
 
       {/* Floating abstract glowing orbs */}
-      <div className="absolute top-1/3 -right-48 w-96 h-96 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/3 -left-48 w-96 h-96 bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/3 -right-48 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/3 -left-48 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Main Content Container with Guaranteed Luxury Margins & Perfect Centering */}
       <div 
@@ -104,7 +104,7 @@ export default function AboutSection() {
                   position: 'absolute',
                   inset: 0,
                   borderRadius: '24px',
-                  background: 'linear-gradient(to top right, rgba(99, 102, 241, 0.15), rgba(59, 130, 246, 0.2))',
+                  background: 'linear-gradient(to top right, rgba(99, 102, 241, 0.25), rgba(59, 130, 246, 0.3))',
                   transform: 'rotate(-6deg) translate(-24px, 24px)',
                   zIndex: -10,
                   filter: 'blur(2px)',
@@ -118,24 +118,24 @@ export default function AboutSection() {
                   position: 'absolute',
                   inset: 0,
                   borderRadius: '24px',
-                  background: '#ffffff',
-                  border: '1px solid rgba(0, 0, 0, 0.05)',
+                  background: '#0c1a36',
+                  border: '1px solid rgba(255, 255, 255, 0.05)',
                   transform: 'rotate(-3deg) translate(-12px, 12px)',
                   zIndex: -10,
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.06)',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
                   transition: 'transform 0.5s ease'
                 }}
               />
               
               {/* Layer 3: Main photo container */}
-              <div className="w-full h-full rounded-[24px] overflow-hidden border border-black/[0.04] shadow-xl relative group bg-[#ffffff]">
+              <div className="w-full h-full rounded-[24px] overflow-hidden border border-white/[0.08] shadow-2xl relative group bg-[#0e1b35]">
                 <img 
                   src="/albin.png" 
                   alt="Albin John Portrait"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 {/* Clean glass-like glare gradient on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#ededed]/40 via-transparent to-transparent opacity-75 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b132b]/60 via-transparent to-transparent opacity-75 pointer-events-none" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none" />
               </div>
             </div>
@@ -151,10 +151,10 @@ export default function AboutSection() {
           >
             {/* Editorial Header Block aligned Left with Right Column */}
             <div className="flex flex-col items-start w-full">
-              <span className="text-[10px] font-mono font-bold tracking-[0.4em] uppercase mb-3" style={{ color: '#86868b' }}>
+              <span className="text-[10px] font-mono font-bold tracking-[0.4em] text-blue-400 uppercase mb-3">
                 01 / INTRODUCING ALBIN
               </span>
-              <h2 className="font-sans font-extrabold text-4xl md:text-[50px] tracking-tight leading-none relative pb-5" style={{ color: '#1d1d1f' }}>
+              <h2 className="font-sans font-extrabold text-4xl md:text-[50px] text-white tracking-tight leading-none relative pb-5">
                 About Me
                 <span className="absolute bottom-0 left-0 w-16 h-[3px] bg-blue-500 rounded-full" />
               </h2>
@@ -162,10 +162,10 @@ export default function AboutSection() {
 
             {/* Rewritten Profile Copy */}
             <div className="flex flex-col gap-5">
-              <p className="text-base md:text-[17px] leading-[1.8] text-slate-600 font-sans font-normal">
+              <p className="text-base md:text-[17px] leading-[1.8] text-gray-300/95 font-sans font-normal">
                 I am a Computer Science student at IIIT Kottayam and a dedicated Full-Stack Engineer who thrives at the intersection of robust backend architectures and fluid, interactive frontend designs. Over the past 2 years, I have focused on engineering scalable web architectures, crafting high-performance user experiences, and exploring intelligent systems.
               </p>
-              <p className="text-base md:text-[17px] leading-[1.8] text-slate-600 font-sans font-normal">
+              <p className="text-base md:text-[17px] leading-[1.8] text-gray-300/95 font-sans font-normal">
                 What drives me is the challenge of transforming complex algorithmic concepts into clean, accessible, and high-impact digital products. Armed with a strong foundation in modern tech stacks, I approach software engineering not just as writing code, but as building reliable, scalable systems that solve tangible, real-world problems.
               </p>
             </div>
@@ -180,7 +180,7 @@ export default function AboutSection() {
             height: '1px',
             marginTop: '60px',
             marginBottom: '35px',
-            background: 'linear-gradient(to right, transparent, rgba(0, 0, 0, 0.08), transparent)'
+            background: 'linear-gradient(to right, transparent, rgba(59, 130, 246, 0.45), transparent)'
           }}
         />
 
@@ -213,12 +213,14 @@ export default function AboutSection() {
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 style={{
-                  background: '#ffffff',
-                  border: '1px solid rgba(0, 0, 0, 0.045)',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
                   padding: '40px 24px',
                   boxShadow: hoveredIdx === idx
-                    ? '0 20px 40px -10px rgba(0, 0, 0, 0.06), 0 10px 20px -8px rgba(0, 0, 0, 0.04)'
-                    : '0 8px 24px -10px rgba(0, 0, 0, 0.03)',
+                    ? '0 15px 35px rgba(59, 130, 246, 0.15), 0 8px 24px rgba(0, 0, 0, 0.2)'
+                    : '0 8px 32px 0 rgba(0, 0, 0, 0.15)',
                   cursor: 'pointer',
                   transform: hoveredIdx === idx ? 'translateY(-6px)' : 'none',
                   transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -236,25 +238,25 @@ export default function AboutSection() {
                 <div 
                   className="p-3.5 rounded-2xl mb-5 flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
                   style={{
-                    background: `${s.accentColor}10`,
-                    border: `1px solid ${s.accentColor}20`
+                    background: `${s.accentColor}15`,
+                    border: `1px solid ${s.accentColor}25`
                   }}
                 >
                   {s.icon}
                 </div>
                 
                 {/* Bold Number centered */}
-                <span className="font-sans font-extrabold text-3xl md:text-4xl tracking-tight leading-none mb-3 transition-colors duration-300" style={{ color: '#1d1d1f' }}>
+                <span className="font-sans font-extrabold text-3xl md:text-4xl tracking-tight leading-none mb-3 transition-colors duration-300" style={{ color: '#ffffff' }}>
                   {s.num}
                 </span>
                 
                 {/* Elegant Label centered */}
-                <span className="text-[12px] md:text-[13px] font-sans font-semibold tracking-wide transition-colors duration-300 leading-snug" style={{ color: '#64748b' }}>
+                <span className="text-[12px] md:text-[13px] font-sans font-semibold tracking-wide transition-colors duration-300 leading-snug" style={{ color: '#94a3b8' }}>
                   {s.label}
                 </span>
 
                 {/* Light glow reflection border on hover */}
-                <div className="absolute inset-0 border border-transparent group-hover:border-black/5 rounded-[24px] pointer-events-none transition-all duration-300" />
+                <div className="absolute inset-0 border border-transparent group-hover:border-white/10 rounded-[24px] pointer-events-none transition-all duration-300" />
               </div>
             ))}
           </motion.div>

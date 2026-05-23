@@ -17,7 +17,7 @@ export default function Navbar({ active, onNav }) {
       setScrolled(window.scrollY > 20)
       
       // Programmatic viewport dark section scan (immune to observer overlaps)
-      const darkSections = ['approach']
+      const darkSections = ['about', 'approach']
       let currentIsDark = false
       
       for (const id of darkSections) {
@@ -41,8 +41,7 @@ export default function Navbar({ active, onNav }) {
 
   return (
     <header className={`navbar ${isDark ? 'dark' : ''} ${scrolled ? 'scrolled' : ''}`}>
-      <button className="nav-logo" onClick={() => onNav('Landing')}
-        style={{ color: isDark ? '#ffffff' : '#111111' }}>
+      <button className="nav-logo" onClick={() => onNav('Landing')}>
         Albin.
       </button>
       <nav className="nav-links">
@@ -50,7 +49,6 @@ export default function Navbar({ active, onNav }) {
           const isActive = active === l.label || active.toLowerCase() === l.id || (l.id === 'work' && active === 'WORK_DARK')
           return (
             <button key={l.id} className={`nav-link ${isActive ? 'active' : ''}`}
-              style={{ color: isDark ? (isActive ? '#ffffff' : 'rgba(255,255,255,0.55)') : undefined }}
               onClick={() => onNav(l.label)}>
               {l.label}
             </button>

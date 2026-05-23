@@ -141,12 +141,12 @@ function ProjectCard({ p, i }) {
         transformStyle: 'preserve-3d',
         perspective: '1000px',
         borderRadius: '24px',
-        background: 'linear-gradient(135deg, #ffffff 0%, #f7f9fc 100%)',
+        background: '#ffffff',
         padding: '12px 12px 20px 12px',
         boxShadow: hovered 
           ? '0 30px 60px -15px rgba(0,0,0,0.12), 0 15px 30px -10px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1)' 
           : '0 8px 24px -10px rgba(0,0,0,0.03), 0 4px 12px -8px rgba(0,0,0,0.01), inset 0 1px 0 rgba(255,255,255,0.8)',
-        border: hovered ? '1px solid rgba(0,0,0,0.08)' : '1px solid rgba(0,0,0,0.035)',
+        border: hovered ? '1px solid rgba(0,0,0,0.12)' : '1px solid #e2e8f0',
         cursor: 'pointer',
         transition: 'box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s',
         display: 'flex',
