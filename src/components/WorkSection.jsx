@@ -151,8 +151,7 @@ function ProjectCard({ p, i }) {
         transition: 'box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        minHeight: '495px',
+        minHeight: '525px',
         boxSizing: 'border-box',
         position: 'relative',
         WebkitFontSmoothing: 'antialiased',
@@ -164,10 +163,10 @@ function ProjectCard({ p, i }) {
         scale: 1.025
       }}
     >
-      <div style={{ transformStyle: 'preserve-3d', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', flexGrow: 1 }}>
+      <div style={{ transformStyle: 'preserve-3d', display: 'flex', flexDirection: 'column', height: '100%', flexGrow: 1 }}>
         
         <div>
-          {/* Cute Sized Viewport Container (h-180px) with translateZ perspective */}
+          {/* Cute Sized Viewport Container (h-210px) with translateZ perspective */}
           <div 
             style={{ 
               borderRadius: '16px', 
@@ -175,7 +174,7 @@ function ProjectCard({ p, i }) {
               transform: 'translateZ(20px)',
               transformStyle: 'preserve-3d',
               overflow: 'hidden',
-              height: '180px',
+              height: '210px',
               width: '100%',
               display: 'flex',
               alignItems: 'center',
@@ -296,61 +295,64 @@ function ProjectCard({ p, i }) {
                 color: '#475569',
                 fontFamily: 'system-ui, -apple-system, sans-serif',
                 fontWeight: '400',
-                marginBottom: '20px',
+                marginBottom: '14px',
                 userSelect: 'none'
               }}
             >
               {p.desc}
             </p>
+
+            {/* Tech Badges (Nested directly under description for consistent vertical flow) */}
+            <div 
+              style={{ 
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '6px',
+                marginBottom: '4px',
+                transform: 'translateZ(20px)'
+              }}
+            >
+              {p.tech.map((t, idx) => (
+                <span 
+                  key={idx}
+                  style={{
+                    fontSize: '9.5px',
+                    fontFamily: 'monospace',
+                    fontWeight: 'bold',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    background: '#f1f5f9',
+                    color: '#475569',
+                    border: '1px solid #e2e8f0',
+                    transition: 'all 0.2s ease',
+                    userSelect: 'none'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#e2e8f0';
+                    e.currentTarget.style.borderColor = '#cbd5e1';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#f1f5f9';
+                    e.currentTarget.style.borderColor = '#e2e8f0';
+                  }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+
           </div>
         </div>
 
-        {/* Bottom Details Section (Tech Stacks + Links) with translateZ */}
+        {/* Bottom Details Section (Links Bar Only) with translateZ and marginTop auto */}
         <div 
           style={{ 
             transform: 'translateZ(25px)',
             paddingLeft: '8px',
-            paddingRight: '8px'
+            paddingRight: '8px',
+            marginTop: 'auto'
           }}
         >
-          {/* Tech Badges */}
-          <div 
-            style={{ 
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '6px',
-              marginBottom: '20px'
-            }}
-          >
-            {p.tech.map((t, idx) => (
-              <span 
-                key={idx}
-                style={{
-                  fontSize: '9.5px',
-                  fontFamily: 'monospace',
-                  fontWeight: 'bold',
-                  padding: '4px 10px',
-                  borderRadius: '6px',
-                  background: '#f1f5f9',
-                  color: '#475569',
-                  border: '1px solid #e2e8f0',
-                  transition: 'all 0.2s ease',
-                  userSelect: 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#e2e8f0';
-                  e.currentTarget.style.borderColor = '#cbd5e1';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#f1f5f9';
-                  e.currentTarget.style.borderColor = '#e2e8f0';
-                }}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
           {/* Links Bar */}
           <div 
             style={{ 

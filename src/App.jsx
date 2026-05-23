@@ -32,7 +32,7 @@ export default function App() {
           if (id === 'landing') setActive('Landing')
           else if (id === 'about') setActive('ABOUT')
           else if (id === 'experience') setActive('WORK')
-          else if (id === 'work') setActive('WORK')
+          else if (id === 'work') setActive('WORK_DARK')
           else if (id === 'approach') setActive('APPROACH')
           else if (id === 'cv') setActive('CV')
           else if (id === 'contact') setActive('CONTACT')
