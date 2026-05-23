@@ -77,7 +77,7 @@ export default function ExperienceSection() {
     <section
       ref={containerRef}
       id="experience"
-      style={{ paddingTop: '120px', paddingBottom: '120px' }}
+      style={{ paddingTop: '120px', paddingBottom: '60px' }}
       className="w-full bg-[#f8f9fb] relative select-none overflow-hidden"
     >
       {/* Editorial Container with max 1400px width and generous side padding */}
