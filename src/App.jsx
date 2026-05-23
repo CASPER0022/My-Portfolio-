@@ -101,7 +101,7 @@ export default function App() {
         </div>
 
         {/* Section 2: Selected Work (Auto height for luxury 3-column 6-card grid) */}
-        <div id="work" className="w-full bg-[#F7F7F7] relative">
+        <div id="work" className="w-full relative" style={{ background: 'linear-gradient(to bottom, #112240, #0a0c14)' }}>
           <WorkSection />
         </div>
 

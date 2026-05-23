@@ -128,7 +128,7 @@ export default function AboutSection() {
               {/* Layer 3: Main photo container */}
               <div className="w-full h-full rounded-[24px] overflow-hidden border border-white/[0.08] shadow-2xl relative group bg-[#0e1b35]">
                 <img 
-                  src="/profile.png" 
+                  src="/albin.png" 
                   alt="Albin John Portrait"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
