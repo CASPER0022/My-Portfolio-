@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import TechDiagramSVG from './TechDiagramSVG'
 import AIBrainReveal from './AIBrainReveal'
+import RobotCanvas from './RobotCanvas'
 
 export default function LandingSection({ onViewWork }) {
   const sectionRef = useRef(null)
@@ -152,84 +153,7 @@ export default function LandingSection({ onViewWork }) {
         <AIBrainReveal />
       </motion.div>
 
-      {/* 3. PORTRAIT PROFILE PHOTO LAYER (zIndex: 2, perfectly aligned, slides away on hover) */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          zIndex: 2
-        }}
-      >
-        <div className="hero-grid" style={{ height: '100%' }}>
-          {/* Spacer Left Column to match layout exactly */}
-          <div style={{ visibility: 'hidden' }} />
-          
-          {/* Right Column containing the clean borderless profile image */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            width: '100%',
-            padding: '2.5rem',
-            transform: 'translateY(-70px)',
-            position: 'relative'
-          }}>
-            {/* The photo itself (No frame box, no double-borders, just massive and borderless!) */}
-            <img 
-              src="/profile.png" 
-              alt="Albin John Portrait"
-              style={{
-                width: 'min(500px, 95%)',
-                aspectRatio: '0.82',
-                objectFit: 'cover',
-                borderRadius: '32px',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.04)',
-                pointerEvents: 'none',
-                // Smoothly slide out to the right when hovered (or initially hidden)
-                transform: (!hasRevealed || isHovered) 
-                  ? 'translateX(120%) scale(0.85) rotate(12deg)' 
-                  : 'translateX(0) scale(1) rotate(0deg)',
-                opacity: (!hasRevealed || isHovered) ? 0 : 1,
-                filter: (!hasRevealed || isHovered) ? 'blur(8px)' : 'blur(0px)',
-                // Elastic bouncy transition for the magic entry on mouse leave!
-                transition: (!hasRevealed || isHovered) 
-                  ? 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease'
-                  : 'transform 0.95s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease, filter 0.5s ease'
-              }}
-            />
 
-            {/* Glowing Cyber Ash Particle Emitter */}
-            {(isHovered && hasRevealed) && Array.from({ length: 22 }).map((_, idx) => {
-              const size = Math.random() * 5 + 3; // size between 3px and 8px
-              const delay = Math.random() * 0.35;
-              const duration = Math.random() * 0.7 + 0.5;
-              const topVal = Math.random() * 70 + 15; // percentage
-              const rightVal = Math.random() * 40 + 20; // percentage
-              const animName = `ashDrift${(idx % 3) + 1}`;
-              const color = Math.random() > 0.45 ? '#00f0ff' : '#ffffff';
-              
-              return (
-                <div 
-                  key={idx}
-                  style={{
-                    position: 'absolute',
-                    top: `${topVal}%`,
-                    right: `${rightVal}%`,
-                    width: `${size}px`,
-                    height: `${size}px`,
-                    borderRadius: '50%',
-                    background: color,
-                    boxShadow: `0 0 8px ${color}, 0 0 16px ${color}`,
-                    pointerEvents: 'none',
-                    zIndex: 15,
-                    animation: `${animName} ${duration}s cubic-bezier(0.1, 0.8, 0.3, 1) ${delay}s forwards`
-                  }}
-                />
-              );
-            })}
-          </div>
-        </div>
-      </div>
 
       {/* 4. STATIC HERO LAYOUT */}
       <div className="hero-grid" style={{ position: 'relative', zIndex: 2 }}>
@@ -314,7 +238,7 @@ export default function LandingSection({ onViewWork }) {
           </motion.div>
         </div>
 
-        {/* Right Column Spacer (Transparent active hover capture zone, aligned at translateY(-70px)) */}
+        {/* Right Column containing the interactive 3D robot */}
         <div 
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => {
@@ -329,14 +253,47 @@ export default function LandingSection({ onViewWork }) {
             width: '100%',
             padding: '2.5rem',
             transform: 'translateY(-70px)',
-            background: 'transparent'
+            position: 'relative'
           }}
         >
+          {/* Transparent click-to-drag WebGL container */}
           <div style={{
             width: 'min(500px, 95%)',
             aspectRatio: '0.82',
-            background: 'transparent'
-          }} />
+            pointerEvents: 'auto'
+          }}>
+            <RobotCanvas />
+          </div>
+
+          {/* Glowing Cyber Ash Particle Emitter */}
+          {(isHovered && hasRevealed) && Array.from({ length: 22 }).map((_, idx) => {
+            const size = Math.random() * 5 + 3; // size between 3px and 8px
+            const delay = Math.random() * 0.35;
+            const duration = Math.random() * 0.7 + 0.5;
+            const topVal = Math.random() * 70 + 15; // percentage
+            const rightVal = Math.random() * 40 + 20; // percentage
+            const animName = `ashDrift${(idx % 3) + 1}`;
+            const color = Math.random() > 0.45 ? '#00f0ff' : '#ffffff';
+            
+            return (
+              <div 
+                key={idx}
+                style={{
+                  position: 'absolute',
+                  top: `${topVal}%`,
+                  right: `${rightVal}%`,
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  borderRadius: '50%',
+                  background: color,
+                  boxShadow: `0 0 8px ${color}, 0 0 16px ${color}`,
+                  pointerEvents: 'none',
+                  zIndex: 15,
+                  animation: `${animName} ${duration}s cubic-bezier(0.1, 0.8, 0.3, 1) ${delay}s forwards`
+                }}
+              />
+            );
+          })}
         </div>
       </div>
 
