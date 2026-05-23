@@ -3,6 +3,7 @@ import Cursor from './components/Cursor'
 import SplashLoader from './components/SplashLoader'
 import Navbar from './components/Navbar'
 import LandingSection from './components/LandingSection'
+import AboutSection from './components/AboutSection'
 import ExperienceSection from './components/ExperienceSection'
 import WorkSection from './components/WorkSection'
 import ApproachSection from './components/ApproachSection'
@@ -22,13 +23,14 @@ export default function App() {
   useEffect(() => {
     if (showHero) return
 
-    const sections = ['landing', 'experience', 'work', 'approach', 'cv', 'contact']
+    const sections = ['landing', 'about', 'experience', 'work', 'approach', 'cv', 'contact']
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = entry.target.id
           // Capitalize active state to match Navbar links
           if (id === 'landing') setActive('Landing')
+          else if (id === 'about') setActive('ABOUT')
           else if (id === 'experience') setActive('WORK')
           else if (id === 'work') setActive('WORK')
           else if (id === 'approach') setActive('APPROACH')
@@ -86,6 +88,11 @@ export default function App() {
         {/* Section 1: Landing (Precisely 100vh viewport) */}
         <div id="landing" className="w-full min-h-screen bg-white relative">
           <LandingSection onViewWork={handleViewWork} />
+        </div>
+
+        {/* Section 1.25: About Me Section */}
+        <div id="about" className="w-full bg-[#0D1D3D] relative">
+          <AboutSection />
         </div>
 
         {/* Section 1.5: Curated Work Experience Journey */}

@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react'
 export default function Navbar({ active, onNav }) {
   const [scrolled, setScrolled] = useState(false)
   const links = [
+    { id: 'about',    label: 'ABOUT' },
     { id: 'work',     label: 'WORK' },
     { id: 'approach', label: 'APPROACH' },
     { id: 'cv',       label: 'CV' },
     { id: 'contact',  label: 'CONTACT' },
   ]
-  const isDark = active === 'Approach'
+  const isDark = active?.toUpperCase() === 'APPROACH' || active?.toUpperCase() === 'ABOUT'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
