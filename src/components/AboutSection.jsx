@@ -2,12 +2,62 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 export default function AboutSection() {
+  const stats = [
+    {
+      num: '3+',
+      label: 'Years of Experience',
+      accentColor: '#3B82F6',
+      accentColor2: '#60A5FA',
+      icon: (
+        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      )
+    },
+    {
+      num: '80+',
+      label: 'LeetCode Problems Solved',
+      accentColor: '#6366F1',
+      accentColor2: '#818CF8',
+      icon: (
+        <svg className="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+          <polyline points="16 18 22 12 16 6"/>
+          <polyline points="8 6 2 12 8 18"/>
+        </svg>
+      )
+    },
+    {
+      num: '8+',
+      label: 'Completed Projects',
+      accentColor: '#06B6D4',
+      accentColor2: '#22D3EE',
+      icon: (
+        <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+      )
+    },
+    {
+      num: '13+',
+      label: 'Course Certifications',
+      accentColor: '#8B5CF6',
+      accentColor2: '#A78BFA',
+      icon: (
+        <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="7"/>
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+        </svg>
+      )
+    }
+  ]
+
   return (
     <section
       className="w-full relative select-none overflow-hidden text-white"
       style={{
         paddingTop: '160px',
-        paddingBottom: '160px',
+        paddingBottom: '80px',
         background: 'linear-gradient(to bottom, #0b132b, #112240, #0b132b)',
         boxSizing: 'border-box'
       }}
@@ -43,11 +93,34 @@ export default function AboutSection() {
             {/* Wrapper with locked dimensions */}
             <div className="relative w-[260px] sm:w-[290px] md:w-[320px] aspect-[4/5]">
               
-              {/* Layer 1: Outermost skewed decorative glowing backing (Rotated oppositely to original) */}
-              <div className="absolute inset-0 rounded-[24px] bg-gradient-to-tr from-indigo-500/25 to-blue-600/30 transform -rotate-[4deg] -translate-x-3 translate-y-3 -z-10 filter blur-[2px] transition-transform duration-500 hover:rotate-0 hover:translate-x-0 hover:translate-y-0" />
+              {/* Layer 1: Outermost skewed decorative glowing backing (Guaranteed bottom and left shift) */}
+              <div 
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '24px',
+                  background: 'linear-gradient(to top right, rgba(99, 102, 241, 0.25), rgba(59, 130, 246, 0.3))',
+                  transform: 'rotate(-6deg) translate(-24px, 24px)',
+                  zIndex: -10,
+                  filter: 'blur(2px)',
+                  transition: 'transform 0.5s ease'
+                }}
+              />
 
-              {/* Layer 2: Intermediate skewed solid card background */}
-              <div className="absolute inset-0 rounded-[24px] bg-[#0c1a36] border border-white/[0.05] transform rotate-[3deg] translate-x-2 -translate-y-2 -z-10 shadow-lg transition-transform duration-500 hover:rotate-0 hover:translate-x-0 hover:translate-y-0" />
+              {/* Layer 2: Intermediate skewed solid card background (Guaranteed bottom and left shift) */}
+              <div 
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '24px',
+                  background: '#0c1a36',
+                  border: '1px solid rgba(255, 255, 255, 0.05)',
+                  transform: 'rotate(-3deg) translate(-12px, 12px)',
+                  zIndex: -10,
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+                  transition: 'transform 0.5s ease'
+                }}
+              />
               
               {/* Layer 3: Main photo container */}
               <div className="w-full h-full rounded-[24px] overflow-hidden border border-white/[0.08] shadow-2xl relative group bg-[#0e1b35]">
@@ -63,7 +136,7 @@ export default function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Right Column: Editorial Header + Story + Accent Stat Badges */}
+          {/* Right Column: Editorial Header + Story */}
           <motion.div
             className="flex flex-col gap-8 order-1 lg:order-2"
             initial={{ opacity: 0, x: 40 }}
@@ -91,54 +164,92 @@ export default function AboutSection() {
                 What drives me is the challenge of transforming complex algorithmic concepts into clean, accessible, and high-impact digital products. Armed with a strong foundation in modern tech stacks, I approach software engineering not just as writing code, but as building reliable, scalable systems that solve tangible, real-world problems.
               </p>
             </div>
-
-            {/* Modern Sidebar Stat Badges (Side-by-side layout with left-accent borders & SVG Icons) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
-              
-              {/* Stat Badge 1: Projects */}
-              <div 
-                className="flex items-center p-5 rounded-[16px] border border-white/[0.04] border-l-4 border-l-blue-500 bg-white/[0.02] backdrop-blur-md shadow-md hover:bg-white/[0.04] transition-all duration-300 group"
-              >
-                <div className="p-3 rounded-xl bg-blue-500/10 mr-4 transition-transform duration-300 group-hover:scale-110">
-                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <polyline points="16 18 22 12 16 6"/>
-                    <polyline points="8 6 2 12 8 18"/>
-                  </svg>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-sans font-extrabold text-2xl md:text-3xl text-white tracking-tight">
-                    10+
-                  </span>
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-gray-400 uppercase">
-                    Projects Done
-                  </span>
-                </div>
-              </div>
-
-              {/* Stat Badge 2: Years Experience */}
-              <div 
-                className="flex items-center p-5 rounded-[16px] border border-white/[0.04] border-l-4 border-l-indigo-500 bg-white/[0.02] backdrop-blur-md shadow-md hover:bg-white/[0.04] transition-all duration-300 group"
-              >
-                <div className="p-3 rounded-xl bg-indigo-500/10 mr-4 transition-transform duration-300 group-hover:scale-110">
-                  <svg className="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                  </svg>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-sans font-extrabold text-2xl md:text-3xl text-white tracking-tight">
-                    2 Years
-                  </span>
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-gray-400 uppercase">
-                    In Engineering
-                  </span>
-                </div>
-              </div>
-
-            </div>
           </motion.div>
 
         </div>
+
+        {/* Visual Divider Line (Accented blue glowing line with balanced spacing) */}
+        <div 
+          style={{
+            width: '100%',
+            height: '1px',
+            marginTop: '60px',
+            marginBottom: '35px',
+            background: 'linear-gradient(to right, transparent, rgba(59, 130, 246, 0.45), transparent)'
+          }}
+        />
+
+        {/* Row 2: 4-Column Balanced Centered Stats Grid (Guaranteed centered and narrower alignment) */}
+        <div 
+          style={{ 
+            width: '100%', 
+            paddingLeft: '20px', 
+            paddingRight: '20px', 
+            boxSizing: 'border-box' 
+          }}
+        >
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+            style={{
+              maxWidth: '1200px',
+              margin: '0 auto',
+              boxSizing: 'border-box'
+            }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+          >
+            {stats.map((s, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center text-center rounded-[24px] transition-all duration-300 group relative overflow-hidden"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  padding: '40px 24px',
+                  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.15)',
+                  cursor: 'none'
+                }}
+              >
+                {/* Top Accent Gradient Border */}
+                <div 
+                  className="absolute top-0 inset-x-0 h-[4px] transition-all duration-300 opacity-60 group-hover:opacity-100"
+                  style={{
+                    background: `linear-gradient(to right, ${s.accentColor}, ${s.accentColor2})`
+                  }}
+                />
+
+                {/* Glassmorphic Icon Badge centered */}
+                <div 
+                  className="p-3.5 rounded-2xl mb-5 flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    background: `${s.accentColor}15`,
+                    border: `1px solid ${s.accentColor}25`
+                  }}
+                >
+                  {s.icon}
+                </div>
+                
+                {/* Bold White Number centered */}
+                <span className="font-sans font-extrabold text-3xl md:text-4xl text-white tracking-tight leading-none mb-3 group-hover:text-blue-200 transition-colors duration-300">
+                  {s.num}
+                </span>
+                
+                {/* Elegant Gray Label centered */}
+                <span className="text-[12px] md:text-[13px] font-sans font-semibold tracking-wide text-gray-400 group-hover:text-white transition-colors duration-300 leading-snug">
+                  {s.label}
+                </span>
+
+                {/* Light glow reflection border on hover */}
+                <div className="absolute inset-0 border border-transparent group-hover:border-white/10 rounded-[24px] pointer-events-none transition-all duration-300" />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
       </div>
     </section>
   )
