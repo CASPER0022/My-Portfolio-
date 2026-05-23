@@ -56,9 +56,9 @@ export default function AboutSection() {
     <section
       className="w-full relative select-none overflow-hidden text-white"
       style={{
-        paddingTop: '160px',
+        paddingTop: '80px',
         paddingBottom: '80px',
-        background: '#0a0c14',
+        background: 'linear-gradient(to bottom, #112240, #0a0c14)',
         boxSizing: 'border-box'
       }}
     >
