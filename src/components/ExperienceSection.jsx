@@ -81,10 +81,28 @@ export default function ExperienceSection() {
       className="w-full bg-[#f8f9fb] relative select-none overflow-hidden"
     >
       {/* Editorial Container with max 1400px width and generous side padding */}
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-20 relative">
+      <div 
+        className="max-w-[1400px] w-full px-6 md:px-20 relative"
+        style={{
+          maxWidth: '1400px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          position: 'relative'
+        }}
+      >
         
         {/* Centered Editorial Header */}
-        <div style={{ marginBottom: '100px' }} className="flex flex-col items-center text-center w-full">
+        <div 
+          style={{
+            marginBottom: '100px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            width: '100%'
+          }}
+        >
           <div className="flex flex-col items-center mb-2">
             <span className="text-[10px] font-mono font-bold tracking-[0.4em] text-[#3b6fd4] uppercase">
               01 / JOURNEY

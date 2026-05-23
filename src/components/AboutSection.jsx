@@ -58,7 +58,7 @@ export default function AboutSection() {
       style={{
         paddingTop: '160px',
         paddingBottom: '80px',
-        background: 'linear-gradient(to bottom, #0b132b, #112240, #0b132b)',
+        background: '#0a0c14',
         boxSizing: 'border-box'
       }}
     >
@@ -69,10 +69,13 @@ export default function AboutSection() {
       <div className="absolute top-1/3 -right-48 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/3 -left-48 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Main Content Container with Guaranteed Luxury Margins */}
+      {/* Main Content Container with Guaranteed Luxury Margins & Perfect Centering */}
       <div 
-        className="max-w-[1400px] mx-auto w-full relative z-10"
+        className="w-full relative z-10"
         style={{
+          maxWidth: '1400px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           paddingLeft: 'max(32px, 8vw)',
           paddingRight: 'max(32px, 8vw)',
           boxSizing: 'border-box'
@@ -192,7 +195,8 @@ export default function AboutSection() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
             style={{
               maxWidth: '1200px',
-              margin: '0 auto',
+              marginLeft: 'auto',
+              marginRight: 'auto',
               boxSizing: 'border-box'
             }}
             initial={{ opacity: 0, y: 40 }}

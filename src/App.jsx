@@ -91,7 +91,7 @@ export default function App() {
         </div>
 
         {/* Section 1.25: About Me Section */}
-        <div id="about" className="w-full bg-[#0D1D3D] relative">
+        <div id="about" className="w-full bg-[#0a0c14] relative">
           <AboutSection />
         </div>
 
