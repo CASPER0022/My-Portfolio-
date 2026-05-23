@@ -6,7 +6,7 @@ const projects = [
     id: 1,
     cat: 'CAT. 01',
     title: 'LegalEase',
-    desc: 'An AI-powered legal document intelligence platform with advanced RAG architectures. Features semantic search and citation extraction for modern legal practitioners.',
+    desc: 'An AI-powered legal document intelligence platform with advanced RAG architectures.',
     tech: ['React.js', 'FastAPI', 'LangChain', 'ChromaDB', 'Python'],
     github: 'https://github.com/AlbinJohn/LegalEase',
     live: 'https://legalease-demo.vercel.app',
@@ -16,7 +16,7 @@ const projects = [
     id: 2,
     cat: 'CAT. 02',
     title: 'Casper',
-    desc: 'A high-performance multi-agent conversational AI assistant engineered with LangGraph. Offers autonomous orchestration and tool-calling workflows.',
+    desc: 'A high-performance multi-agent conversational AI assistant engineered with LangGraph.',
     tech: ['React.js', 'LangGraph', 'FastAPI', 'Python', 'OpenAI'],
     github: 'https://github.com/AlbinJohn/casper-agent',
     live: 'https://casper-ai.vercel.app',
@@ -26,7 +26,7 @@ const projects = [
     id: 3,
     cat: 'CAT. 03',
     title: 'AuthentiScan',
-    desc: 'A hybrid AI-powered image forgery detection platform. Combines frequency domain analysis and deep CNN feature extraction for pixel-level integrity localization.',
+    desc: 'A hybrid AI-powered image forgery detection platform.',
     tech: ['PyTorch', 'FastAPI', 'React.js', 'OpenCV', 'Python'],
     github: 'https://github.com/AlbinJohn/AuthentiScan',
     live: 'https://authentiscan-detector.vercel.app',
@@ -36,7 +36,7 @@ const projects = [
     id: 4,
     cat: 'CAT. 04',
     title: 'NeuralFlow',
-    desc: 'An intelligent workflow automation engine powered by autonomous LLM orchestrators. Features an interactive visual drag-and-drop canvas.',
+    desc: 'An intelligent workflow automation engine powered by autonomous LLM orchestrators.',
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS'],
     github: 'https://github.com/AlbinJohn/NeuralFlow',
     live: 'https://neuralflow-app.vercel.app',
@@ -46,7 +46,7 @@ const projects = [
     id: 5,
     cat: 'CAT. 05',
     title: 'VisionEdge',
-    desc: 'A real-time computer vision analytics system for industrial assembly monitoring. Leverages custom deep learning models for automated defect detection.',
+    desc: 'A real-time computer vision analytics system for industrial assembly monitoring.',
     tech: ['PyTorch', 'OpenCV', 'Python', 'FastAPI', 'Docker'],
     github: 'https://github.com/AlbinJohn/VisionEdge',
     live: 'https://visionedge-analytics.vercel.app',
@@ -56,7 +56,7 @@ const projects = [
     id: 6,
     cat: 'CAT. 06',
     title: 'VectorMind',
-    desc: 'An enterprise-grade RAG search engine featuring sub-second vector retrieval. Engineered with Qdrant vector database and hybrid dense-sparse embeddings.',
+    desc: 'An enterprise-grade RAG search engine featuring sub-second vector retrieval.',
     tech: ['React.js', 'FastAPI', 'Qdrant', 'OpenAI', 'Python'],
     github: 'https://github.com/AlbinJohn/VectorMind',
     live: 'https://vectormind-search.vercel.app',
@@ -142,7 +142,7 @@ function ProjectCard({ p, i }) {
         perspective: '1000px',
         borderRadius: '24px',
         background: 'linear-gradient(135deg, #ffffff 0%, #f7f9fc 100%)',
-        padding: '24px 20px',
+        padding: '12px 12px 20px 12px',
         boxShadow: hovered 
           ? '0 30px 60px -15px rgba(0,0,0,0.12), 0 15px 30px -10px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1)' 
           : '0 8px 24px -10px rgba(0,0,0,0.03), 0 4px 12px -8px rgba(0,0,0,0.01), inset 0 1px 0 rgba(255,255,255,0.8)',
@@ -151,7 +151,7 @@ function ProjectCard({ p, i }) {
         transition: 'box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '525px',
+        minHeight: '380px',
         boxSizing: 'border-box',
         position: 'relative',
         WebkitFontSmoothing: 'antialiased',
@@ -295,52 +295,15 @@ function ProjectCard({ p, i }) {
                 color: '#475569',
                 fontFamily: 'system-ui, -apple-system, sans-serif',
                 fontWeight: '400',
-                marginBottom: '14px',
-                userSelect: 'none'
+                marginBottom: '4px',
+                userSelect: 'none',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
               }}
             >
               {p.desc}
             </p>
-
-            {/* Tech Badges (Nested directly under description for consistent vertical flow) */}
-            <div 
-              style={{ 
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '6px',
-                marginBottom: '4px',
-                transform: 'translateZ(20px)'
-              }}
-            >
-              {p.tech.map((t, idx) => (
-                <span 
-                  key={idx}
-                  style={{
-                    fontSize: '9.5px',
-                    fontFamily: 'monospace',
-                    fontWeight: 'bold',
-                    padding: '4px 10px',
-                    borderRadius: '6px',
-                    background: '#f1f5f9',
-                    color: '#475569',
-                    border: '1px solid #e2e8f0',
-                    transition: 'all 0.2s ease',
-                    userSelect: 'none'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#e2e8f0';
-                    e.currentTarget.style.borderColor = '#cbd5e1';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#f1f5f9';
-                    e.currentTarget.style.borderColor = '#e2e8f0';
-                  }}
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-
           </div>
         </div>
 
@@ -471,7 +434,7 @@ export default function WorkSection() {
       style={{ background: 'transparent', paddingTop: '60px', paddingBottom: '100px' }}
     >
       <style dangerouslySetInnerHTML={{ __html: styleSheet }} />
-      <div className="max-w-[1200px] w-full flex flex-col items-center gap-12">
+      <div className="max-w-[1080px] w-full flex flex-col items-center gap-12">
         
         {/* Perfectly Centered Editorial Header */}
         <motion.div 
@@ -481,15 +444,15 @@ export default function WorkSection() {
           viewport={{ once: true }}
           className="text-center flex flex-col items-center gap-2.5"
         >
-          <p className="text-[9px] font-mono font-bold tracking-[0.6em] text-blue-400 uppercase pl-[0.6em]">SELECTED WORK</p>
+          <p className="text-[9px] font-mono font-bold tracking-[0.6em] uppercase pl-[0.6em]" style={{ color: '#86868b' }}>SELECTED WORK</p>
           <div className="flex items-center justify-center gap-3 relative">
             {/* Centered custom wedge pointer matching template signature */}
             <div className="w-5 h-5 flex items-center justify-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.06)] translate-y-[-1px] select-none">
-              <svg viewBox="0 0 100 100" className="w-4 h-4 text-white" fill="currentColor">
+              <svg viewBox="0 0 100 100" className="w-4 h-4" style={{ color: '#1d1d1f' }} fill="currentColor">
                 <path d="M25 15 L75 50 L25 85 Z" />
               </svg>
             </div>
-            <h2 className="font-display font-bold text-4xl md:text-5xl text-white tracking-tight">Featured Projects</h2>
+            <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight" style={{ color: '#1d1d1f' }}>Featured Projects</h2>
           </div>
         </motion.div>
 

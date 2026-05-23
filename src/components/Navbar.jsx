@@ -17,7 +17,7 @@ export default function Navbar({ active, onNav }) {
       setScrolled(window.scrollY > 20)
       
       // Programmatic viewport dark section scan (immune to observer overlaps)
-      const darkSections = ['about', 'work', 'approach']
+      const darkSections = ['approach']
       let currentIsDark = false
       
       for (const id of darkSections) {

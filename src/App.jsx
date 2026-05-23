@@ -32,7 +32,7 @@ export default function App() {
           if (id === 'landing') setActive('Landing')
           else if (id === 'about') setActive('ABOUT')
           else if (id === 'experience') setActive('WORK')
-          else if (id === 'work') setActive('WORK_DARK')
+          else if (id === 'work') setActive('WORK')
           else if (id === 'approach') setActive('APPROACH')
           else if (id === 'cv') setActive('CV')
           else if (id === 'contact') setActive('CONTACT')
@@ -91,7 +91,7 @@ export default function App() {
         </div>
 
         {/* Section 1.25: About Me Section */}
-        <div id="about" className="w-full relative" style={{ background: 'linear-gradient(to bottom, #112240, #0a0c14)' }}>
+        <div id="about" className="w-full relative" style={{ background: '#ededed' }}>
           <AboutSection />
         </div>
 
@@ -101,7 +101,7 @@ export default function App() {
         </div>
 
         {/* Section 2: Selected Work (Auto height for luxury 3-column 6-card grid) */}
-        <div id="work" className="w-full relative" style={{ background: 'linear-gradient(to bottom, #112240, #0a0c14)' }}>
+        <div id="work" className="w-full relative" style={{ background: '#ededed' }}>
           <WorkSection />
         </div>
 
