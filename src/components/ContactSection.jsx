@@ -50,7 +50,7 @@ export default function ContactSection() {
   }
 
   const copyEmail = () => {
-    navigator.clipboard.writeText('nakulkrishnakumar86@gmail.com')
+    navigator.clipboard.writeText('albinjohn2427@gmail.com')
     setCopied(true)
     setTimeout(() => setCopied(false), 2500)
   }
@@ -138,7 +138,7 @@ export default function ContactSection() {
     }
   }
 
-  const rightCardStyle = {
+  const inlineCardStyle = {
     background: '#ffffff',
     borderRadius: '24px',
     padding: '28px 32px',
@@ -174,8 +174,17 @@ export default function ContactSection() {
   return (
     <section 
       id="contact" 
-      className="relative w-full min-h-screen py-24 overflow-hidden flex flex-col justify-center bg-[#fafafb] select-none"
-      style={{ boxSizing: 'border-box' }}
+      className="relative w-full min-h-screen overflow-hidden select-none bg-[#fafafb]"
+      style={{
+        boxSizing: 'border-box',
+        width: '100%',
+        paddingTop: '160px',
+        paddingBottom: '160px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
     >
       {/* Interactive Drawing Canvas */}
       <canvas 
@@ -214,8 +223,17 @@ export default function ContactSection() {
 
       {/* Main Content Container Wrapper */}
       <div 
-        className="relative z-20 w-full flex flex-col gap-12 mx-auto pointer-events-none"
-        style={{ maxWidth: '1080px', paddingLeft: 'max(24px, 4vw)', paddingRight: 'max(24px, 4vw)', boxSizing: 'border-box' }}
+        className="relative z-20 w-full flex flex-col mx-auto pointer-events-none"
+        style={{
+          maxWidth: '1080px',
+          width: '100%',
+          paddingLeft: 'max(24px, 4vw)',
+          paddingRight: 'max(24px, 4vw)',
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '64px'
+        }}
       >
         
         {/* Perfectly Centered Elegant Header */}
@@ -251,147 +269,146 @@ export default function ContactSection() {
         {/* Form and Stack Grid (Responsive columns) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full">
           
-          {/* Left Column: Form Card with Full Inline Styles */}
-          <form 
-            onSubmit={handleSubmit}
-            className="lg:col-span-7 pointer-events-auto"
-            style={{
-              background: '#ffffff',
-              borderRadius: '24px',
-              padding: '40px',
-              border: '1px solid rgba(0, 0, 0, 0.08)',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.01)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '24px',
-              boxSizing: 'border-box',
-              textAlign: 'left'
-            }}
-          >
-            <div>
-              <h3 className="font-sans font-extrabold text-2xl text-gray-900 tracking-tight" style={{ margin: 0 }}>
-                Send a Message
-              </h3>
-            </div>
-
-            {/* Row 1: Name and Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full">
-              {/* Name */}
-              <div className="flex flex-col text-left">
-                <label style={labelStyle}>Name *</label>
-                <input 
-                  type="text"
-                  name="name"
-                  required
-                  value={formState.name}
-                  onChange={handleInputChange}
-                  placeholder="Your name"
-                  style={inputStyle('name')}
-                  onFocus={() => setFocusedField('name')}
-                  onBlur={() => setFocusedField(null)}
-                />
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col text-left">
-                <label style={labelStyle}>Email *</label>
-                <input 
-                  type="email"
-                  name="email"
-                  required
-                  value={formState.email}
-                  onChange={handleInputChange}
-                  placeholder="your@email.com"
-                  style={inputStyle('email')}
-                  onFocus={() => setFocusedField('email')}
-                  onBlur={() => setFocusedField(null)}
-                />
-              </div>
-            </div>
-
-            {/* Subject */}
-            <div className="flex flex-col text-left w-full">
-              <label style={labelStyle}>Subject</label>
-              <input 
-                type="text"
-                name="subject"
-                value={formState.subject}
-                onChange={handleInputChange}
-                placeholder="What's this about?"
-                style={inputStyle('subject')}
-                onFocus={() => setFocusedField('subject')}
-                onBlur={() => setFocusedField(null)}
-              />
-            </div>
-
-            {/* Message */}
-            <div className="flex flex-col text-left w-full">
-              <label style={labelStyle}>Message *</label>
-              <textarea 
-                name="message"
-                required
-                rows="5"
-                value={formState.message}
-                onChange={handleInputChange}
-                placeholder="Tell me about your project, idea, or just say hello..."
-                style={{ ...inputStyle('message'), resize: 'none', height: '140px' }}
-                onFocus={() => setFocusedField('message')}
-                onBlur={() => setFocusedField(null)}
-              />
-            </div>
-
-            {/* Submit Button */}
-            <button 
-              type="submit"
-              disabled={isSubmitting}
-              onMouseEnter={() => setBtnHovered(true)}
-              onMouseLeave={() => setBtnHovered(false)}
+          {/* Left Column Stack: Send Msg Form + Info Cards */}
+          <div className="lg:col-span-7 flex flex-col gap-6 w-full pointer-events-auto">
+            
+            {/* 1. Send a Message Form */}
+            <form 
+              onSubmit={handleSubmit}
               style={{
-                width: '100%',
-                padding: '16px 24px',
-                borderRadius: '12px',
-                background: btnHovered ? '#4f46e5' : '#6366f1',
-                color: '#ffffff',
-                fontSize: '12px',
-                fontWeight: '800',
-                fontFamily: 'system-ui, -apple-system, sans-serif',
-                textTransform: 'uppercase',
-                letterSpacing: '0.15em',
-                border: 'none',
-                outline: 'none',
-                boxShadow: btnHovered ? '0 12px 30px rgba(99, 102, 241, 0.35)' : '0 8px 20px rgba(99, 102, 241, 0.2)',
+                background: '#ffffff',
+                borderRadius: '24px',
+                padding: '40px',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.01)',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '8px',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                transform: btnHovered ? 'translateY(-2px)' : 'none',
-                opacity: isSubmitting ? 0.6 : 1
+                flexDirection: 'column',
+                gap: '24px',
+                boxSizing: 'border-box',
+                textAlign: 'left'
               }}
             >
-              {isSubmitting ? (
-                <span>SENDING MESSAGE...</span>
-              ) : submitSuccess ? (
-                <span className="text-emerald-300 flex items-center gap-2">
-                  MESSAGE SENT SUCCESSFULLY! ✓
-                </span>
-              ) : (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span>SEND MESSAGE</span>
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: btnHovered ? 'translateX(2px) translateY(-1px)' : 'none', transition: 'transform 0.3s ease' }}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                  </svg>
-                </div>
-              )}
-            </button>
-          </form>
+              <div>
+                <h3 className="font-sans font-extrabold text-2xl text-gray-900 tracking-tight" style={{ margin: 0 }}>
+                  Send a Message
+                </h3>
+              </div>
 
-          {/* Right Column: Stack of Info Cards with Full Inline Styles */}
-          <div className="lg:col-span-5 flex flex-col gap-6 w-full pointer-events-auto">
-            
-            {/* Box 1: Contact Information */}
-            <div style={rightCardStyle}>
+              {/* Row 1: Name and Email */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full">
+                {/* Name */}
+                <div className="flex flex-col text-left">
+                  <label style={labelStyle}>Name *</label>
+                  <input 
+                    type="text"
+                    name="name"
+                    required
+                    value={formState.name}
+                    onChange={handleInputChange}
+                    placeholder="Your name"
+                    style={inputStyle('name')}
+                    onFocus={() => setFocusedField('name')}
+                    onBlur={() => setFocusedField(null)}
+                  />
+                </div>
+
+                {/* Email */}
+                <div className="flex flex-col text-left">
+                  <label style={labelStyle}>Email *</label>
+                  <input 
+                    type="email"
+                    name="email"
+                    required
+                    value={formState.email}
+                    onChange={handleInputChange}
+                    placeholder="your@email.com"
+                    style={inputStyle('email')}
+                    onFocus={() => setFocusedField('email')}
+                    onBlur={() => setFocusedField(null)}
+                  />
+                </div>
+              </div>
+
+              {/* Subject */}
+              <div className="flex flex-col text-left w-full">
+                <label style={labelStyle}>Subject</label>
+                <input 
+                  type="text"
+                  name="subject"
+                  value={formState.subject}
+                  onChange={handleInputChange}
+                  placeholder="What's this about?"
+                  style={inputStyle('subject')}
+                  onFocus={() => setFocusedField('subject')}
+                  onBlur={() => setFocusedField(null)}
+                />
+              </div>
+
+              {/* Message */}
+              <div className="flex flex-col text-left w-full">
+                <label style={labelStyle}>Message *</label>
+                <textarea 
+                  name="message"
+                  required
+                  rows="5"
+                  value={formState.message}
+                  onChange={handleInputChange}
+                  placeholder="Tell me about your project, idea, or just say hello..."
+                  style={{ ...inputStyle('message'), resize: 'none', height: '140px' }}
+                  onFocus={() => setFocusedField('message')}
+                  onBlur={() => setFocusedField(null)}
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                onMouseEnter={() => setBtnHovered(true)}
+                onMouseLeave={() => setBtnHovered(false)}
+                style={{
+                  width: '100%',
+                  padding: '16px 24px',
+                  borderRadius: '12px',
+                  background: btnHovered ? '#4f46e5' : '#6366f1',
+                  color: '#ffffff',
+                  fontSize: '12px',
+                  fontWeight: '800',
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.15em',
+                  border: 'none',
+                  outline: 'none',
+                  boxShadow: btnHovered ? '0 12px 30px rgba(99, 102, 241, 0.35)' : '0 8px 20px rgba(99, 102, 241, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  transform: btnHovered ? 'translateY(-2px)' : 'none',
+                  opacity: isSubmitting ? 0.6 : 1
+                }}
+              >
+                {isSubmitting ? (
+                  <span>SENDING MESSAGE...</span>
+                ) : submitSuccess ? (
+                  <span className="text-emerald-300 flex items-center gap-2">
+                    MESSAGE SENT SUCCESSFULLY! ✓
+                  </span>
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>SEND MESSAGE</span>
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: btnHovered ? 'translateX(2px) translateY(-1px)' : 'none', transition: 'transform 0.3s ease' }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                  </div>
+                )}
+              </button>
+            </form>
+
+            {/* 2. Contact Information (Placed directly below Send Msg) */}
+            <div style={inlineCardStyle}>
               <h4 className="font-sans font-extrabold text-lg text-gray-900 tracking-tight uppercase" style={{ margin: 0 }}>
                 Contact Information
               </h4>
@@ -400,15 +417,15 @@ export default function ContactSection() {
                 {/* Email Info */}
                 <div style={{ display: 'flex', gap: '14px', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                   <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
-                    <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#e0e7ff', border: '1px solid #c7d2fe', display: 'flex', alignItems: 'center', justifyOrigin: 'center', justifyContent: 'center', color: '#4f46e5', flexShrink: 0 }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#e0e7ff', border: '1px solid #c7d2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4f46e5', flexShrink: 0 }}>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                       </svg>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
                       <span style={{ fontSize: '10px', fontMono: 'true', fontWeight: 'bold', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Email Address</span>
-                      <a href="mailto:nakulkrishnakumar86@gmail.com" style={{ fontSize: '13px', fontFamily: 'monospace', fontWeight: 'bold', color: '#1f2937', textDecoration: 'none', wordBreak: 'break-all' }}>
-                        nakulkrishnakumar86@gmail.com
+                      <a href="mailto:albinjohn2427@gmail.com" style={{ fontSize: '13px', fontFamily: 'monospace', fontWeight: 'bold', color: '#1f2937', textDecoration: 'none', wordBreak: 'break-all' }}>
+                        albinjohn2427@gmail.com
                       </a>
                     </div>
                   </div>
@@ -453,8 +470,8 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Box 2: Connect With Me Social Rows */}
-            <div style={rightCardStyle}>
+            {/* 3. Connect With Me Social Rows */}
+            <div style={inlineCardStyle}>
               <h4 className="font-sans font-extrabold text-lg text-gray-900 tracking-tight uppercase" style={{ margin: 0 }}>
                 Connect With Me
               </h4>
@@ -488,15 +505,17 @@ export default function ContactSection() {
                     )
                   },
                   {
-                    key: 'discord',
-                    name: 'Discord',
-                    desc: 'Chat with me',
-                    url: 'https://discord.com',
-                    color: '#5865f2',
-                    bg: 'rgba(88, 101, 242, 0.05)',
+                    key: 'instagram',
+                    name: 'Instagram',
+                    desc: 'Follow my journey',
+                    url: 'https://instagram.com',
+                    color: '#e1306c',
+                    bg: 'rgba(225, 48, 108, 0.05)',
                     icon: (
-                      <svg className="w-4 h-4 text-[#5865f2]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.094 13.094 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z" />
+                      <svg className="w-4 h-4 text-[#e1306c]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                       </svg>
                     )
                   }
@@ -527,8 +546,8 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Box 3: Currently Available Pulsing Card */}
-            <div style={rightCardStyle}>
+            {/* 4. Currently Available Card */}
+            <div style={inlineCardStyle}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <span style={{ position: 'relative', display: 'flex', width: '12px', height: '12px' }}>
                   <span style={{ position: 'absolute', display: 'inline-flex', width: '100%', height: '100%', borderRadius: '9999px', background: '#34d399', opacity: 0.75, animation: 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite' }}></span>
@@ -545,10 +564,65 @@ export default function ContactSection() {
 
           </div>
 
+          {/* Right Column: 3D Model Integration Viewport Placeholder */}
+          <div 
+            className="lg:col-span-5 pointer-events-auto flex flex-col justify-between relative"
+            style={{
+              background: '#ffffff',
+              borderRadius: '28px',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.015), 0 4px 12px rgba(0, 0, 0, 0.005)',
+              overflow: 'hidden',
+              boxSizing: 'border-box',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '40px',
+              minHeight: '520px',
+              width: '100%',
+              alignSelf: 'stretch'
+            }}
+          >
+            {/* Interactive Grid backdrop */}
+            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#6366f1_1px,transparent_1px)] bg-[size:16px_16px]" />
+            
+            {/* Holographic Glowing Orbs */}
+            <div className="absolute w-[200px] h-[200px] rounded-full bg-indigo-500/10 blur-[60px] animate-pulse" />
+
+            {/* Glowing 3D Vector Cage Mockup */}
+            <div className="relative z-10 w-44 h-44 flex items-center justify-center mb-6">
+              {/* Rotating vector grid compass/sphere in SVG */}
+              <svg className="w-full h-full text-indigo-500/35 animate-[spin_12s_linear_infinite]" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
+                <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M50 0 V100 M0 50 H100" stroke="currentColor" strokeWidth="0.5" />
+                <circle cx="50" cy="50" r="3" fill="#6366f1" />
+                {/* Simulated depth mesh lines */}
+                <ellipse cx="50" cy="50" rx="40" ry="12" stroke="currentColor" strokeWidth="1" />
+                <ellipse cx="50" cy="50" rx="12" ry="40" stroke="currentColor" strokeWidth="1" />
+              </svg>
+              {/* Inner glowing dot */}
+              <div className="absolute w-6 h-6 rounded-full bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center animate-ping" />
+            </div>
+
+            <div className="relative z-10 text-center flex flex-col items-center gap-2">
+              <span className="text-[9px] font-mono font-bold tracking-[0.3em] text-indigo-500 bg-indigo-50 border border-indigo-150 px-2.5 py-1.5 rounded-full uppercase leading-none mb-1">
+                3D VIEWPORT READY
+              </span>
+              <h4 className="font-sans font-extrabold text-lg text-gray-900 leading-tight" style={{ margin: 0 }}>
+                3D Model Canvas
+              </h4>
+              <p className="text-xs text-gray-400 font-sans max-w-[280px] leading-relaxed" style={{ margin: '4px 0 0 0' }}>
+                Ready for Three.js / React Three Fiber integration. Grid mesh and dynamic lighting active.
+              </p>
+            </div>
+          </div>
+
         </div>
 
         {/* Instructions */}
-        <div style={{ marginTop: '12px', width: '100%', textAlign: 'center', fontSize: '10.5px', fontModel: 'true', fontFamily: 'monospace', letterSpacing: '0.12em', color: '#9ca3af', textTransform: 'uppercase' }}>
+        <div style={{ marginTop: '12px', width: '100%', textPosition: 'center', fontSize: '10.5px', fontModel: 'true', fontFamily: 'monospace', letterSpacing: '0.12em', color: '#9ca3af', textTransform: 'uppercase' }}>
           Move your cursor to leave a mark · Double-click to clear canvas
         </div>
 
