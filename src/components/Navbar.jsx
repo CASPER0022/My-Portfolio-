@@ -8,7 +8,7 @@ export default function Navbar({ active, onNav }) {
     { id: 'about',    label: 'ABOUT' },
     { id: 'work',     label: 'WORK' },
     { id: 'skills',   label: 'SKILLS' },
-    { id: 'cv',       label: 'CV' },
+    { id: 'cv',       label: 'CERTIFICATIONS' },
     { id: 'contact',  label: 'CONTACT' },
   ]
 

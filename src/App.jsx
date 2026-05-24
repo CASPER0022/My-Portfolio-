@@ -34,7 +34,7 @@ export default function App() {
           else if (id === 'experience') setActive('WORK')
           else if (id === 'work') setActive('WORK')
           else if (id === 'skills') setActive('SKILLS')
-          else if (id === 'cv') setActive('CV')
+          else if (id === 'cv') setActive('CERTIFICATIONS')
           else if (id === 'contact') setActive('CONTACT')
         }
       })
