@@ -10,6 +10,7 @@ import SkillsSection from './components/SkillsSection'
 import CVSection from './components/CVSection'
 import ExtracurricularSection from './components/ExtracurricularSection'
 import ContactSection from './components/ContactSection'
+import Footer from './components/Footer'
 
 export default function App() {
   const [showHero, setShowHero] = useState(true)
@@ -125,10 +126,10 @@ export default function App() {
           <div className="w-full flex-grow flex items-center justify-center">
             <ContactSection />
           </div>
-          <footer className="w-full text-center py-8 text-xs text-gray-400 font-sans tracking-widest bg-[#ededed] border-t border-gray-200/40">
-            © 2026 Albin John · Built with precision
-          </footer>
         </div>
+
+        {/* Section 6: Premium Footer */}
+        <Footer />
       </div>
     </div>
   )

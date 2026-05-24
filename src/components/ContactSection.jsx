@@ -89,6 +89,8 @@ function GyroscopeCanvas() {
     let clickTime = 0
     let startX = 0
     let startY = 0
+    let animTimeScale = 0.8
+    let mixer = null
 
     const handlePointerDown = (event) => {
       drag.isDragging = true
@@ -138,9 +140,11 @@ function GyroscopeCanvas() {
         const dist = Math.hypot(event.clientX - startX, event.clientY - startY)
         
         if (dist < 6 && elapsed < 250) {
-          // Give it a magical, fast Y-axis spin burst on click!
+          // Give the whole container a spin impulse
           spinSpeed.y = 0.26
           spinSpeed.x = 0.03
+          // Boost internal concentric rings speed to warp velocity!
+          animTimeScale = 4.0
         }
       }
     }
@@ -149,7 +153,7 @@ function GyroscopeCanvas() {
     window.addEventListener('pointermove', handlePointerMove)
     window.addEventListener('pointerup', handlePointerUp)
 
-    // 7. GLB Loader
+    // 7. GLB Loader with animation parsing
     const loader = new GLTFLoader()
     let loadedModel = null
 
@@ -192,6 +196,21 @@ function GyroscopeCanvas() {
         drag.rotY = 0.45
         drag.rotX = 0.25
 
+        // 7.5. Skeletal Animation Setup to perfectly preserve concentric alignment
+        if (gltf.animations && gltf.animations.length > 0) {
+          mixer = new THREE.AnimationMixer(loadedModel)
+          
+          // Play pre-baked concentric spinning animation
+          const spinAction = mixer.clipAction(gltf.animations[0])
+          spinAction.play()
+
+          // Play accompanying enchant glow rune animation if present
+          if (gltf.animations[1]) {
+            const enchantAction = mixer.clipAction(gltf.animations[1])
+            enchantAction.play()
+          }
+        }
+
         setLoading(false)
       },
       (xhr) => {
@@ -210,13 +229,22 @@ function GyroscopeCanvas() {
     const clock = new THREE.Clock()
 
     const animate = () => {
+      const delta = clock.getDelta()
       const elapsedTime = clock.getElapsedTime()
+
+      // Smooth decay of kinetic speed boost back to stable elegant idle
+      animTimeScale += (0.8 - animTimeScale) * 0.04
+
+      if (mixer) {
+        mixer.timeScale = animTimeScale
+        mixer.update(delta)
+      }
 
       if (modelGroup && loadedModel) {
         if (drag.isDragging) {
           // Controlled by move handler directly
         } else {
-          // Dynamic inertia momentum rotation + damping friction
+          // Dynamic inertia momentum rotation + damping friction for the outer rig
           modelGroup.rotation.y += spinSpeed.y
           modelGroup.rotation.x += spinSpeed.x
           
@@ -469,7 +497,8 @@ export default function ContactSection() {
     gap: '20px',
     boxSizing: 'border-box',
     textAlign: 'left',
-    width: '100%'
+    width: '100%',
+    pointerEvents: 'auto'
   }
 
   const socialRowStyle = (key, hoveredColor, activeBg) => {
@@ -498,8 +527,8 @@ export default function ContactSection() {
       style={{
         boxSizing: 'border-box',
         width: '100%',
-        paddingTop: '160px',
-        paddingBottom: '160px',
+        paddingTop: '140px',
+        paddingBottom: '48px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -534,7 +563,7 @@ export default function ContactSection() {
           boxSizing: 'border-box',
           display: 'flex',
           flexDirection: 'column',
-          gap: '64px'
+          gap: '36px'
         }}
       >
         
@@ -568,8 +597,11 @@ export default function ContactSection() {
           </p>
         </div>
 
-        {/* Form and Stack Grid (Responsive columns) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full">
+        {/* Tighter responsive wrapper to group grid and bottom card together with small vertical gap */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
+          
+          {/* Form and Stack Grid (Responsive columns) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full">
           
           {/* Left Column Stack: Send Msg Form + Info Cards */}
           <div className="lg:col-span-7 flex flex-col gap-6 w-full pointer-events-auto">
@@ -772,7 +804,45 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* 3. Connect With Me Social Rows */}
+          </div>
+
+          {/* Right Column: 3D Gyroscope & Connect With Me Stack */}
+          <div className="lg:col-span-5 flex flex-col gap-6 w-full pointer-events-auto">
+            
+            {/* 3D Gyroscope Viewport Card */}
+            <div 
+              style={{
+                background: '#ffffff',
+                borderRadius: '24px',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.01)',
+                overflow: 'hidden',
+                boxSizing: 'border-box',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '40px',
+                aspectRatio: '1 / 1',
+                width: '100%',
+                position: 'relative'
+              }}
+            >
+              {/* Interactive Grid backdrop */}
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#6366f1_1px,transparent_1px)] bg-[size:16px_16px]" />
+
+              {/* 3D Canvas Subsystem */}
+              <GyroscopeCanvas />
+              
+              {/* Viewport Info Overlay */}
+              <div className="absolute bottom-6 left-6 right-6 pointer-events-none text-center flex flex-col items-center gap-1 z-10">
+                <span className="text-[8.5px] font-mono font-bold tracking-[0.22em] text-indigo-500 bg-indigo-50/90 border border-indigo-100/60 px-3 py-1 rounded-full uppercase leading-none mb-1 shadow-sm">
+                  Click to Spin · Drag to Orbit
+                </span>
+              </div>
+            </div>
+
+            {/* 4. Connect With Me Social Rows */}
             <div style={inlineCardStyle}>
               <h4 className="font-sans font-extrabold text-lg text-gray-900 tracking-tight uppercase" style={{ margin: 0 }}>
                 Connect With Me
@@ -820,6 +890,19 @@ export default function ContactSection() {
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                       </svg>
                     )
+                  },
+                  {
+                    key: 'x',
+                    name: 'X ',
+                    desc: 'Follow my thoughts',
+                    url: 'https://x.com',
+                    color: '#0f1419',
+                    bg: 'rgba(15, 20, 25, 0.05)',
+                    icon: (
+                      <svg className="w-4 h-4 text-[#0f1419]" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    )
                   }
                 ].map((social) => (
                   <a 
@@ -848,63 +931,26 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* 4. Currently Available Card */}
-            <div style={inlineCardStyle}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{ position: 'relative', display: 'flex', width: '12px', height: '12px' }}>
-                  <span style={{ position: 'absolute', display: 'inline-flex', width: '100%', height: '100%', borderRadius: '9999px', background: '#34d399', opacity: 0.75, animation: 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite' }}></span>
-                  <span style={{ position: 'relative', display: 'inline-flex', width: '12px', height: '12px', borderRadius: '9999px', background: '#10b981' }}></span>
-                </span>
-                <span style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: '850', fontSize: '11px', color: '#1f2937', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Currently Available
-                </span>
-              </div>
-              <p style={{ fontSize: '12.5px', color: '#6b7280', fontFamily: 'system-ui, -apple-system, sans-serif', lineHeight: '1.6', margin: '4px 0 0 0', fontWeight: '500' }}>
-                Open for freelance projects, internships, and collaboration opportunities. Let's build something amazing together!
-              </p>
-            </div>
-
-          </div>
-
-          {/* Right Column: 3D Gyroscope Viewport */}
-          <div 
-            className="lg:col-span-5 pointer-events-auto flex flex-col justify-center relative"
-            style={{
-              background: '#ffffff',
-              borderRadius: '24px',
-              border: '1px solid rgba(0, 0, 0, 0.08)',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.01)',
-              overflow: 'hidden',
-              boxSizing: 'border-box',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: '40px',
-              aspectRatio: '1 / 1',
-              width: '100%',
-              alignSelf: 'start'
-            }}
-          >
-            {/* Interactive Grid backdrop */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#6366f1_1px,transparent_1px)] bg-[size:16px_16px]" />
-
-            {/* 3D Canvas Subsystem */}
-            <GyroscopeCanvas />
-            
-            {/* Viewport Info Overlay */}
-            <div className="absolute bottom-6 left-6 right-6 pointer-events-none text-center flex flex-col items-center gap-1 z-10">
-              <span className="text-[8.5px] font-mono font-bold tracking-[0.22em] text-indigo-500 bg-indigo-50/90 border border-indigo-100/60 px-3 py-1 rounded-full uppercase leading-none mb-1 shadow-sm">
-                Click to Spin · Drag to Orbit
-              </span>
-            </div>
           </div>
 
         </div>
 
-        {/* Instructions */}
-        <div style={{ marginTop: '12px', width: '100%', textAlign: 'center', fontSize: '10.5px', fontFamily: 'monospace', letterSpacing: '0.12em', color: '#9ca3af', textTransform: 'uppercase' }}>
-          Move your cursor to leave a mark · Double-click to clear canvas
+        {/* 5. Currently Available Card (Spans both Left & Right columns) */}
+        <div style={inlineCardStyle}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ position: 'relative', display: 'flex', width: '12px', height: '12px' }}>
+              <span style={{ position: 'absolute', display: 'inline-flex', width: '100%', height: '100%', borderRadius: '9999px', background: '#34d399', opacity: 0.75, animation: 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite' }}></span>
+              <span style={{ position: 'relative', display: 'inline-flex', width: '12px', height: '12px', borderRadius: '9999px', background: '#10b981' }}></span>
+            </span>
+            <span style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontWeight: '850', fontSize: '11px', color: '#1f2937', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Currently Available
+            </span>
+          </div>
+          <p style={{ fontSize: '12.5px', color: '#6b7280', fontFamily: 'system-ui, -apple-system, sans-serif', lineHeight: '1.6', margin: '4px 0 0 0', fontWeight: '500' }}>
+            Open for freelance projects, internships, and collaboration opportunities. Let's build something amazing together!
+          </p>
+        </div>
+
         </div>
 
       </div>
