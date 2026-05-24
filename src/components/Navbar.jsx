@@ -9,7 +9,7 @@ export default function Navbar({ active, onNav }) {
     { id: 'work',     label: 'WORK' },
     { id: 'skills',   label: 'SKILLS' },
     { id: 'cv',       label: 'CERTIFICATIONS' },
-    { id: 'contact',  label: 'CONTACT' },
+    { id: 'contact',  label: 'CONTACT' }
   ]
 
   useEffect(() => {
