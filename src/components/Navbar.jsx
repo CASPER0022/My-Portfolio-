@@ -7,7 +7,7 @@ export default function Navbar({ active, onNav }) {
   const links = [
     { id: 'about',    label: 'ABOUT' },
     { id: 'work',     label: 'WORK' },
-    { id: 'approach', label: 'APPROACH' },
+    { id: 'skills',   label: 'SKILLS' },
     { id: 'cv',       label: 'CV' },
     { id: 'contact',  label: 'CONTACT' },
   ]
@@ -17,7 +17,7 @@ export default function Navbar({ active, onNav }) {
       setScrolled(window.scrollY > 20)
       
       // Programmatic viewport dark section scan (immune to observer overlaps)
-      const darkSections = ['about', 'approach']
+      const darkSections = ['about', 'skills']
       let currentIsDark = false
       
       for (const id of darkSections) {

@@ -6,7 +6,7 @@ import LandingSection from './components/LandingSection'
 import AboutSection from './components/AboutSection'
 import ExperienceSection from './components/ExperienceSection'
 import WorkSection from './components/WorkSection'
-import ApproachSection from './components/ApproachSection'
+import SkillsSection from './components/SkillsSection'
 import CVSection from './components/CVSection'
 import ContactSection from './components/ContactSection'
 
@@ -23,7 +23,7 @@ export default function App() {
   useEffect(() => {
     if (showHero) return
 
-    const sections = ['landing', 'about', 'work', 'experience', 'approach', 'cv', 'contact']
+    const sections = ['landing', 'about', 'work', 'experience', 'skills', 'cv', 'contact']
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -33,7 +33,7 @@ export default function App() {
           else if (id === 'about') setActive('ABOUT')
           else if (id === 'experience') setActive('WORK')
           else if (id === 'work') setActive('WORK')
-          else if (id === 'approach') setActive('APPROACH')
+          else if (id === 'skills') setActive('SKILLS')
           else if (id === 'cv') setActive('CV')
           else if (id === 'contact') setActive('CONTACT')
         }
@@ -104,9 +104,9 @@ export default function App() {
           <ExperienceSection />
         </div>
 
-        {/* Section 3: Systemic Approach */}
-        <div id="approach" className="w-full bg-[#0a0c14] relative">
-          <ApproachSection />
+        {/* Section 3: Technical Skills & Expertise */}
+        <div id="skills" className="w-full bg-[#0a0c14] relative">
+          <SkillsSection />
         </div>
 
         {/* Section 4: CV Timeline */}
