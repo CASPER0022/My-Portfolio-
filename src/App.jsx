@@ -8,6 +8,7 @@ import ExperienceSection from './components/ExperienceSection'
 import WorkSection from './components/WorkSection'
 import SkillsSection from './components/SkillsSection'
 import CVSection from './components/CVSection'
+import ExtracurricularSection from './components/ExtracurricularSection'
 import ContactSection from './components/ContactSection'
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
   useEffect(() => {
     if (showHero) return
 
-    const sections = ['landing', 'about', 'work', 'experience', 'skills', 'cv', 'contact']
+    const sections = ['landing', 'about', 'work', 'experience', 'skills', 'cv', 'extracurricular', 'contact']
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -34,7 +35,7 @@ export default function App() {
           else if (id === 'experience') setActive('WORK')
           else if (id === 'work') setActive('WORK')
           else if (id === 'skills') setActive('SKILLS')
-          else if (id === 'cv') setActive('CERTIFICATIONS')
+          else if (id === 'cv' || id === 'extracurricular') setActive('CERTIFICATIONS')
           else if (id === 'contact') setActive('CONTACT')
         }
       })
@@ -112,6 +113,11 @@ export default function App() {
         {/* Section 4: CV Timeline */}
         <div id="cv" className="w-full bg-[#ededed] relative">
           <CVSection />
+        </div>
+
+        {/* Section 4.5: Leadership & Extracurricular Section */}
+        <div id="extracurricular" className="w-full bg-[#0a0c14] relative">
+          <ExtracurricularSection />
         </div>
 
         {/* Section 5: Dynamic Contact & Canvas Drawing */}
