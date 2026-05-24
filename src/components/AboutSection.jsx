@@ -209,7 +209,7 @@ export default function AboutSection() {
             {stats.map((s, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center text-center rounded-[24px] transition-all duration-300 group relative overflow-hidden"
+                className="flex flex-col items-center text-center rounded-[24px] transition-all duration-300 group relative"
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 style={{
@@ -217,7 +217,7 @@ export default function AboutSection() {
                   backdropFilter: 'blur(20px)',
                   WebkitBackdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255, 255, 255, 0.06)',
-                  padding: '40px 24px',
+                  padding: '48px 24px 32px 24px',
                   boxShadow: hoveredIdx === idx
                     ? '0 15px 35px rgba(59, 130, 246, 0.15), 0 8px 24px rgba(0, 0, 0, 0.2)'
                     : '0 8px 32px 0 rgba(0, 0, 0, 0.15)',
@@ -230,16 +230,27 @@ export default function AboutSection() {
                 <div 
                   className="absolute top-0 inset-x-0 h-[4px] transition-all duration-300 opacity-60 group-hover:opacity-100"
                   style={{
-                    background: `linear-gradient(to right, ${s.accentColor}, ${s.accentColor2})`
+                    background: `linear-gradient(to right, ${s.accentColor}, ${s.accentColor2})`,
+                    borderTopLeftRadius: '24px',
+                    borderTopRightRadius: '24px'
                   }}
                 />
 
-                {/* Glassmorphic Icon Badge centered */}
+                {/* Premium Circular Icon Badge on Top Border */}
                 <div 
-                  className="p-3.5 rounded-2xl mb-5 flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                  className="absolute rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                   style={{
-                    background: `${s.accentColor}15`,
-                    border: `1px solid ${s.accentColor}25`
+                    top: '0',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '42px',
+                    height: '42px',
+                    background: '#0b1224',
+                    border: `2px solid ${s.accentColor}`,
+                    boxShadow: hoveredIdx === idx
+                      ? `0 0 16px ${s.accentColor}77`
+                      : `0 0 10px ${s.accentColor}33`,
+                    zIndex: 20
                   }}
                 >
                   {s.icon}
