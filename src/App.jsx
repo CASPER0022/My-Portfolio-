@@ -23,7 +23,7 @@ export default function App() {
   useEffect(() => {
     if (showHero) return
 
-    const sections = ['landing', 'about', 'experience', 'work', 'approach', 'cv', 'contact']
+    const sections = ['landing', 'about', 'work', 'experience', 'approach', 'cv', 'contact']
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -58,7 +58,6 @@ export default function App() {
   const handleNav = useCallback((section) => {
     let id = section.toLowerCase()
     if (id === 'landing' || id === 'hero') id = 'landing'
-    if (id === 'work') id = 'experience'
 
     const el = document.getElementById(id)
     if (el) {
@@ -95,14 +94,14 @@ export default function App() {
           <AboutSection />
         </div>
 
-        {/* Section 1.5: Curated Work Experience Journey */}
-        <div id="experience" className="w-full relative" style={{ background: '#f8f9fb' }}>
-          <ExperienceSection />
-        </div>
-
         {/* Section 2: Selected Work (Auto height for luxury 3-column 6-card grid) */}
         <div id="work" className="w-full relative" style={{ background: '#f8f9fb' }}>
           <WorkSection />
+        </div>
+
+        {/* Section 1.5: Curated Work Experience Journey */}
+        <div id="experience" className="w-full relative" style={{ background: '#f8f9fb' }}>
+          <ExperienceSection />
         </div>
 
         {/* Section 3: Systemic Approach */}

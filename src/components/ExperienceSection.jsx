@@ -142,6 +142,7 @@ export default function ExperienceSection() {
           <div className="flex flex-col gap-16 md:gap-24 relative z-20">
             {experiences.map((exp, idx) => {
               const isNodeActive = activeIndex === idx
+              const isEven = idx % 2 === 0
 
               return (
                 <motion.div
@@ -173,7 +174,7 @@ export default function ExperienceSection() {
                   <div className="flex flex-col md:grid md:grid-cols-[1fr_120px_1fr] w-full items-start gap-4 md:gap-0">
                     
                     {/* Left Column: Date + Company + Role */}
-                    <div className="w-full flex flex-col text-left md:text-right pl-16 pr-8 md:pl-0 md:pr-0 pt-3 md:justify-start">
+                    <div className={`w-full flex flex-col text-left pl-16 pr-8 md:pl-0 md:pr-0 pt-3 md:justify-start ${isEven ? 'md:text-right md:order-1' : 'md:text-left md:order-3'}`}>
                       <span className="text-[12px] font-sans font-bold text-[#3b6fd4] tracking-wide mb-1.5 uppercase">
                         {exp.date}
                       </span>
@@ -186,7 +187,7 @@ export default function ExperienceSection() {
                     </div>
 
                     {/* Center Column: Node (Desktop Grid Node - Aligns perfectly and stays separated) */}
-                    <div className="hidden md:flex items-center justify-center w-full pt-3">
+                    <div className="hidden md:flex items-center justify-center w-full pt-3 md:order-2">
                       <div className="relative w-12 h-12 flex items-center justify-center">
                         
                         {/* Glowing outer aura rings for active node */}
@@ -221,7 +222,7 @@ export default function ExperienceSection() {
                     </div>
 
                     {/* Right Column: Detailed Experience Card */}
-                    <div className="w-full flex items-start justify-start pl-8 pr-16 md:pl-0 md:pr-0">
+                    <div className={`w-full flex items-start justify-start pl-8 pr-16 md:pl-0 md:pr-0 ${isEven ? 'md:justify-start md:order-3' : 'md:justify-end md:order-1'}`}>
                       <motion.div
                         animate={{
                           opacity: isNodeActive ? 1 : 0.85,
