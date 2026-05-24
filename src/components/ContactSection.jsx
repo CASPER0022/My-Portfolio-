@@ -1,18 +1,338 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
-const stickers = [
-  { label: '01 MUMO', bg: '#f5c5c5', rot: '-8deg', top: '8%', left: '3%', delay: '0s' },
-  { label: '06 BUKHOORIE', bg: '#5a3e28', rot: '-3deg', top: '28%', left: '2%', delay: '0.6s', dark: true },
-  { label: '04 PORTAPALM', bg: '#d4c9a8', rot: '4deg', top: '50%', left: '1%', delay: '1.2s' },
-  { label: '$ BLACKFOREST', bg: '#1a3a1a', rot: '-6deg', top: '72%', left: '3%', delay: '0.3s', dark: true },
-  { label: '02 CASCADER', bg: '#c8d8e8', rot: '5deg', top: '88%', left: '2%', delay: '0.9s' },
-  { label: '03 VERSA GRIP', bg: '#c8a860', rot: '6deg', top: '8%', right: '3%', delay: '0.4s' },
-  { label: 'CONCEPT LIBRARY', bg: '#e85020', rot: '-4deg', top: '30%', right: '1%', delay: '1s', dark: true },
-  { label: '05 MYCROCHET', bg: '#8b5e3c', rot: '8deg', top: '52%', right: '2%', delay: '0.7s', dark: true },
-  { label: '02 CASCADER.', bg: '#ddeeff', rot: '-7deg', top: '74%', right: '3%', delay: '0.2s' },
-  { label: '$ DIGITAL', bg: '#1a3a1a', rot: '3deg', top: '90%', right: '2%', delay: '1.4s', dark: true },
-]
+function GyroscopeCanvas() {
+  const containerRef = useRef(null)
+  const canvasRef = useRef(null)
+  const [loading, setLoading] = useState(true)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    if (!containerRef.current || !canvasRef.current) return
+
+    let width = containerRef.current.clientWidth
+    let height = containerRef.current.clientHeight
+
+    // 1. Scene Setup
+    const scene = new THREE.Scene()
+    scene.background = null // Transparent for premium glass integrations
+
+    // 2. Camera Setup
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100)
+    camera.position.set(0, 0, 7.5)
+
+    // 3. Renderer Setup
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvasRef.current,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    })
+    renderer.setSize(width, height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.toneMapping = THREE.ACESFilmicToneMapping
+    renderer.toneMappingExposure = 1.3
+
+    // 4. Model Group
+    const modelGroup = new THREE.Group()
+    scene.add(modelGroup)
+
+    // 5. Lights - Premium Studio Setup for stunning metallic reflections
+    const ambientLight = new THREE.AmbientLight('#ffffff', 1.8)
+    scene.add(ambientLight)
+
+    // Rich dual-color key/fill scheme for luxurious color reflections
+    const coolKeyLight = new THREE.DirectionalLight('#6366f1', 4.5) // Sleek indigo top-left
+    coolKeyLight.position.set(-6, 8, 5)
+    scene.add(coolKeyLight)
+
+    const warmFillLight = new THREE.DirectionalLight('#d946ef', 3.0) // Vibrant magenta top-right
+    warmFillLight.position.set(6, 5, 4)
+    scene.add(warmFillLight)
+
+    const backRimLight = new THREE.DirectionalLight('#ffffff', 3.5) // High-contrast rim light from behind
+    backRimLight.position.set(0, -2, -6)
+    scene.add(backRimLight)
+
+    const centerGlowLight = new THREE.PointLight('#8b5cf6', 8, 12) // Dynamic center glow core
+    centerGlowLight.position.set(0, 0, 1.5)
+    scene.add(centerGlowLight)
+
+    // 5.5. Soft Levitating Drop Shadow Plane below the Gyroscope
+    const shadowCanvas = document.createElement('canvas')
+    shadowCanvas.width = 128
+    shadowCanvas.height = 128
+    const shadowCtx = shadowCanvas.getContext('2d')
+    const shadowGrad = shadowCtx.createRadialGradient(64, 64, 0, 64, 64, 64)
+    shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.35)') // Soft dark center
+    shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)')    // Fades out completely
+    shadowCtx.fillStyle = shadowGrad
+    shadowCtx.fillRect(0, 0, 128, 128)
+    const shadowTexture = new THREE.CanvasTexture(shadowCanvas)
+
+    const shadowPlaneGeo = new THREE.PlaneGeometry(3.0, 3.0)
+    const shadowPlaneMat = new THREE.MeshBasicMaterial({
+      map: shadowTexture,
+      transparent: true,
+      opacity: 0.4,
+      depthWrite: false
+    })
+    const shadowPlane = new THREE.Mesh(shadowPlaneGeo, shadowPlaneMat)
+    shadowPlane.rotation.x = -Math.PI / 2
+    shadowPlane.position.set(0, -2.25, 0) // Position directly below the floating gyroscope
+    scene.add(shadowPlane)
+
+    // 6. Interaction Trackers for Spin Momentum & Click Impulses
+    const drag = { isDragging: false, prevX: 0, prevY: 0, rotX: 0, rotY: 0 }
+    const spinSpeed = { y: 0, x: 0 }
+    let clickTime = 0
+    let startX = 0
+    let startY = 0
+
+    const handlePointerDown = (event) => {
+      drag.isDragging = true
+      clickTime = Date.now()
+      startX = event.clientX
+      startY = event.clientY
+      drag.prevX = event.clientX
+      drag.prevY = event.clientY
+      drag.rotY = modelGroup.rotation.y
+      drag.rotX = modelGroup.rotation.x
+      
+      // Stop ongoing momentum on touch/click so user can grab immediately
+      spinSpeed.y = 0
+      spinSpeed.x = 0
+      
+      if (containerRef.current) containerRef.current.style.cursor = 'grabbing'
+    }
+
+    const handlePointerMove = (event) => {
+      if (drag.isDragging) {
+        const deltaX = event.clientX - drag.prevX
+        const deltaY = event.clientY - drag.prevY
+        
+        drag.rotY += deltaX * 0.007
+        drag.rotX += deltaY * 0.007
+        drag.rotX = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, drag.rotX))
+        
+        modelGroup.rotation.y = drag.rotY
+        modelGroup.rotation.x = drag.rotX
+        
+        // Accumulate drag speed for inertial momentum spinning on release
+        spinSpeed.y = deltaX * 0.015
+        spinSpeed.x = deltaY * 0.015
+        
+        drag.prevX = event.clientX
+        drag.prevY = event.clientY
+      }
+    }
+
+    const handlePointerUp = (event) => {
+      if (drag.isDragging) {
+        drag.isDragging = false
+        if (containerRef.current) containerRef.current.style.cursor = 'grab'
+        
+        // Check if it was a quick click/tap rather than a full drag
+        const elapsed = Date.now() - clickTime
+        const dist = Math.hypot(event.clientX - startX, event.clientY - startY)
+        
+        if (dist < 6 && elapsed < 250) {
+          // Give it a magical, fast Y-axis spin burst on click!
+          spinSpeed.y = 0.26
+          spinSpeed.x = 0.03
+        }
+      }
+    }
+
+    containerRef.current.addEventListener('pointerdown', handlePointerDown)
+    window.addEventListener('pointermove', handlePointerMove)
+    window.addEventListener('pointerup', handlePointerUp)
+
+    // 7. GLB Loader
+    const loader = new GLTFLoader()
+    let loadedModel = null
+
+    loader.load(
+      '/models/magical_gyroscope.glb',
+      (gltf) => {
+        loadedModel = gltf.scene
+
+        loadedModel.traverse((child) => {
+          if (child.isMesh) {
+            child.castShadow = true
+            child.receiveShadow = true
+            if (child.material) {
+              child.material.roughness = 0.12 // Highly polished metallic luster
+              child.material.metalness = 0.96 // High quality chrome feel
+              if (child.material.emissive) {
+                child.material.emissiveIntensity = 3.0
+              }
+            }
+          }
+        })
+
+        // Auto center and scale
+        const box = new THREE.Box3().setFromObject(loadedModel)
+        const size = box.getSize(new THREE.Vector3())
+        const center = box.getCenter(new THREE.Vector3())
+
+        loadedModel.position.x -= center.x
+        loadedModel.position.y -= center.y
+        loadedModel.position.z -= center.z
+
+        const targetHeight = 4.0
+        const scaleFactor = targetHeight / Math.max(size.x, size.y, size.z)
+        modelGroup.scale.setScalar(scaleFactor)
+        modelGroup.add(loadedModel)
+
+        // Initialize at an elegant 3/4 isometric resting pose
+        modelGroup.rotation.y = 0.45
+        modelGroup.rotation.x = 0.25
+        drag.rotY = 0.45
+        drag.rotX = 0.25
+
+        setLoading(false)
+      },
+      (xhr) => {
+        if (xhr.total > 0) {
+          setProgress(Math.round((xhr.loaded / xhr.total) * 100))
+        } else {
+          setProgress(prev => Math.min(prev + 3, 99))
+        }
+      },
+      (error) => {
+        console.error('Error loading gyroscope model:', error)
+      }
+    )
+
+    // 8. Animation Loop
+    const clock = new THREE.Clock()
+
+    const animate = () => {
+      const elapsedTime = clock.getElapsedTime()
+
+      if (modelGroup && loadedModel) {
+        if (drag.isDragging) {
+          // Controlled by move handler directly
+        } else {
+          // Dynamic inertia momentum rotation + damping friction
+          modelGroup.rotation.y += spinSpeed.y
+          modelGroup.rotation.x += spinSpeed.x
+          
+          // Clamp X pitch to prevent flipping upside down
+          modelGroup.rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, modelGroup.rotation.x))
+          
+          spinSpeed.y *= 0.96 // Friction damping
+          spinSpeed.x *= 0.96
+          
+          // Gentle Z-axis wobble following active rotation speed
+          modelGroup.rotation.z += (Math.cos(elapsedTime * 2.0) * spinSpeed.y * 0.15 - modelGroup.rotation.z) * 0.05
+
+          // Synchronize drag tracking values with current rotation
+          drag.rotY = modelGroup.rotation.y
+          drag.rotX = modelGroup.rotation.x
+        }
+
+        // Levitating floating bob (always active for dynamic premium presentation)
+        const bob = Math.sin(elapsedTime * 1.5)
+        const targetPosY = bob * 0.12
+        modelGroup.position.y += (targetPosY - modelGroup.position.y) * 0.05
+
+        // Synchronize contact shadow scaling and opacity with float bob!
+        if (shadowPlane) {
+          shadowPlane.material.opacity = 0.42 - bob * 0.08
+          const shadowScale = 1.0 + bob * 0.05
+          shadowPlane.scale.set(shadowScale, shadowScale, 1)
+        }
+      }
+
+      renderer.render(scene, camera)
+    }
+
+    renderer.setAnimationLoop(animate)
+
+    // 9. Resize Handler
+    const handleResize = () => {
+      if (!containerRef.current) return
+      width = containerRef.current.clientWidth
+      height = containerRef.current.clientHeight
+      camera.aspect = width / height
+      camera.updateProjectionMatrix()
+      renderer.setSize(width, height)
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    }
+
+    const resizeObserver = new ResizeObserver(() => handleResize())
+    resizeObserver.observe(containerRef.current)
+
+    // 10. Cleanup
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.removeEventListener('pointerdown', handlePointerDown)
+      }
+      window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('pointerup', handlePointerUp)
+      resizeObserver.disconnect()
+      renderer.setAnimationLoop(null)
+
+      scene.traverse((object) => {
+        if (object.isMesh) {
+          object.geometry.dispose()
+          if (object.material.isMaterial) {
+            object.material.dispose()
+            // Dispose embedded textures to prevent memory leaks
+            for (const key of Object.keys(object.material)) {
+              const val = object.material[key]
+              if (val && typeof val.dispose === 'function') val.dispose()
+            }
+          } else {
+            for (const mat of object.material) {
+              mat.dispose()
+              for (const key of Object.keys(mat)) {
+                const val = mat[key]
+                if (val && typeof val.dispose === 'function') val.dispose()
+              }
+            }
+          }
+        }
+      })
+      shadowTexture.dispose()
+      renderer.dispose()
+    }
+  }, [])
+
+  return (
+    <div 
+      ref={containerRef} 
+      className="relative w-full h-full flex items-center justify-center cursor-grab pointer-events-auto"
+      style={{ width: '100%', height: '100%', touchAction: 'none' }}
+    >
+      <canvas ref={canvasRef} className="w-full h-full block" style={{ outline: 'none' }} />
+
+      {loading && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 backdrop-blur-md rounded-[28px] p-6 z-20">
+          <div className="w-[85%] max-w-[260px] font-mono text-[10px] text-indigo-650">
+            <div className="flex justify-between border-b border-indigo-100 pb-2 mb-3">
+              <span>[ SPATIAL_LOADER ]</span>
+              <span className="animate-pulse text-indigo-600">LOADING</span>
+            </div>
+            <div className="flex justify-between mb-2">
+              <span className="text-[10px] font-bold text-gray-800">LOADING 3D MODEL</span>
+              <span className="font-bold text-indigo-600">{progress}%</span>
+            </div>
+            <div className="w-full h-1 bg-indigo-50 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-indigo-650 transition-all duration-300"
+                style={{ width: `${progress}%`, backgroundColor: '#6366f1' }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function ContactSection() {
   const canvasRef = useRef(null)
@@ -202,24 +522,6 @@ export default function ContactSection() {
       {/* Futuristic Glowing Orbs */}
       <div className="absolute top-1/4 -left-48 w-[500px] h-[500px] bg-indigo-600/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 -right-48 w-[500px] h-[500px] bg-violet-600/5 rounded-full blur-[140px] pointer-events-none" />
-
-      {/* Floating Stickers */}
-      <div className="absolute inset-0 pointer-events-none z-10 select-none">
-        {stickers.map((s, i) => (
-          <div key={i} className="sticker absolute select-none"
-            style={{
-              top: s.top, left: s.left, right: s.right,
-              '--rot': s.rot,
-              animationDelay: s.delay,
-              width: '90px'
-            }}>
-            <div className="rounded-xl p-2.5 text-center shadow-sm border border-black/5"
-              style={{ background: s.bg, color: s.dark ? '#fff' : '#333', fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.04em', lineHeight: 1.3 }}>
-              {s.label}
-            </div>
-          </div>
-        ))}
-      </div>
 
       {/* Main Content Container Wrapper */}
       <div 
@@ -564,14 +866,14 @@ export default function ContactSection() {
 
           </div>
 
-          {/* Right Column: 3D Model Integration Viewport Placeholder */}
+          {/* Right Column: 3D Gyroscope Viewport */}
           <div 
-            className="lg:col-span-5 pointer-events-auto flex flex-col justify-between relative"
+            className="lg:col-span-5 pointer-events-auto flex flex-col justify-center relative"
             style={{
               background: '#ffffff',
-              borderRadius: '28px',
+              borderRadius: '24px',
               border: '1px solid rgba(0, 0, 0, 0.08)',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.015), 0 4px 12px rgba(0, 0, 0, 0.005)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.01)',
               overflow: 'hidden',
               boxSizing: 'border-box',
               display: 'flex',
@@ -579,50 +881,29 @@ export default function ContactSection() {
               justifyContent: 'center',
               alignItems: 'center',
               padding: '40px',
-              minHeight: '520px',
+              aspectRatio: '1 / 1',
               width: '100%',
-              alignSelf: 'stretch'
+              alignSelf: 'start'
             }}
           >
             {/* Interactive Grid backdrop */}
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#6366f1_1px,transparent_1px)] bg-[size:16px_16px]" />
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#6366f1_1px,transparent_1px)] bg-[size:16px_16px]" />
+
+            {/* 3D Canvas Subsystem */}
+            <GyroscopeCanvas />
             
-            {/* Holographic Glowing Orbs */}
-            <div className="absolute w-[200px] h-[200px] rounded-full bg-indigo-500/10 blur-[60px] animate-pulse" />
-
-            {/* Glowing 3D Vector Cage Mockup */}
-            <div className="relative z-10 w-44 h-44 flex items-center justify-center mb-6">
-              {/* Rotating vector grid compass/sphere in SVG */}
-              <svg className="w-full h-full text-indigo-500/35 animate-[spin_12s_linear_infinite]" viewBox="0 0 100 100" fill="none">
-                <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
-                <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M50 0 V100 M0 50 H100" stroke="currentColor" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="3" fill="#6366f1" />
-                {/* Simulated depth mesh lines */}
-                <ellipse cx="50" cy="50" rx="40" ry="12" stroke="currentColor" strokeWidth="1" />
-                <ellipse cx="50" cy="50" rx="12" ry="40" stroke="currentColor" strokeWidth="1" />
-              </svg>
-              {/* Inner glowing dot */}
-              <div className="absolute w-6 h-6 rounded-full bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center animate-ping" />
-            </div>
-
-            <div className="relative z-10 text-center flex flex-col items-center gap-2">
-              <span className="text-[9px] font-mono font-bold tracking-[0.3em] text-indigo-500 bg-indigo-50 border border-indigo-150 px-2.5 py-1.5 rounded-full uppercase leading-none mb-1">
-                3D VIEWPORT READY
+            {/* Viewport Info Overlay */}
+            <div className="absolute bottom-6 left-6 right-6 pointer-events-none text-center flex flex-col items-center gap-1 z-10">
+              <span className="text-[8.5px] font-mono font-bold tracking-[0.22em] text-indigo-500 bg-indigo-50/90 border border-indigo-100/60 px-3 py-1 rounded-full uppercase leading-none mb-1 shadow-sm">
+                Click to Spin · Drag to Orbit
               </span>
-              <h4 className="font-sans font-extrabold text-lg text-gray-900 leading-tight" style={{ margin: 0 }}>
-                3D Model Canvas
-              </h4>
-              <p className="text-xs text-gray-400 font-sans max-w-[280px] leading-relaxed" style={{ margin: '4px 0 0 0' }}>
-                Ready for Three.js / React Three Fiber integration. Grid mesh and dynamic lighting active.
-              </p>
             </div>
           </div>
 
         </div>
 
         {/* Instructions */}
-        <div style={{ marginTop: '12px', width: '100%', textPosition: 'center', fontSize: '10.5px', fontModel: 'true', fontFamily: 'monospace', letterSpacing: '0.12em', color: '#9ca3af', textTransform: 'uppercase' }}>
+        <div style={{ marginTop: '12px', width: '100%', textAlign: 'center', fontSize: '10.5px', fontFamily: 'monospace', letterSpacing: '0.12em', color: '#9ca3af', textTransform: 'uppercase' }}>
           Move your cursor to leave a mark · Double-click to clear canvas
         </div>
 
