@@ -96,11 +96,37 @@ export default function App() {
 
         {/* Section 1.25: About Me Section */}
         <div id="about" className="w-full relative" style={{ background: 'linear-gradient(to bottom, #112240, #0a0c14)' }}>
+          {/* Top smooth light-to-dark transition out of Landing section */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '10px',
+              background: 'linear-gradient(to bottom, #ffffff, transparent)',
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}
+          />
           <AboutSection />
         </div>
 
         {/* Section 2: Selected Work (Auto height for luxury 3-column 6-card grid) */}
         <div id="work" className="w-full relative overflow-hidden" style={{ background: '#f8f9fb' }}>
+          {/* Top smooth dark transition out of About section */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '10px',
+              background: 'linear-gradient(to bottom, #0a0c14, transparent)',
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}
+          />
           {/* Background Image Layer with reduced opacity */}
           <div 
             style={{ 
@@ -110,7 +136,7 @@ export default function App() {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              opacity: 0.65, // Barely visible, subtle luxury topographic contours
+              opacity: 0.15, // Extremely subtle luxury topographic contours
               pointerEvents: 'none',
               zIndex: 0
             }}
@@ -139,6 +165,19 @@ export default function App() {
           <div style={{ position: 'relative', zIndex: 1 }}>
             <ExperienceSection />
           </div>
+          {/* Bottom smooth dark transition into Skills section */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '10px',
+              background: 'linear-gradient(to top, #0a0c14, transparent)',
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}
+          />
         </div>
 
         {/* Section 3: Technical Skills & Expertise */}
@@ -147,17 +186,56 @@ export default function App() {
         </div>
 
         {/* Section 4: CV Timeline */}
-        <div id="cv" className="w-full bg-[#ededed] relative">
+        <div id="cv" className="w-full bg-[#ededed] relative overflow-hidden">
+          {/* Top smooth dark-to-light transition out of Skills section */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '10px',
+              background: 'linear-gradient(to bottom, #0a0c14, transparent)',
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}
+          />
           <CVSection />
         </div>
 
         {/* Section 4.5: Leadership & Extracurricular Section */}
         <div id="extracurricular" className="w-full bg-[#0a0c14] relative">
+          {/* Top smooth light-to-dark transition out of CV section */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '10px',
+              background: 'linear-gradient(to bottom, #ededed, transparent)',
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}
+          />
           <ExtracurricularSection />
         </div>
 
         {/* Section 5: Dynamic Contact & Canvas Drawing */}
-        <div id="contact" className="w-full bg-[#ededed] relative flex flex-col justify-between">
+        <div id="contact" className="w-full bg-[#ededed] relative flex flex-col justify-between overflow-hidden">
+          {/* Top smooth dark-to-light transition out of Extracurricular section */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '10px',
+              background: 'linear-gradient(to bottom, #0a0c14, transparent)',
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}
+          />
           <div className="w-full flex-grow flex items-center justify-center">
             <ContactSection />
           </div>
