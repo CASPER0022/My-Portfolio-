@@ -314,7 +314,7 @@ export default function SkillsSection() {
       style={{
         paddingTop: '100px',
         paddingBottom: '120px',
-        background: '#0a0c14',
+        background: 'transparent',
         boxSizing: 'border-box'
       }}
     >
@@ -385,17 +385,15 @@ export default function SkillsSection() {
                 onMouseEnter={() => setHoveredCardIdx(idx)}
                 onMouseLeave={() => setHoveredCardIdx(null)}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.02)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  background: isHovered ? '#161e30' : '#101524', // Solid premium dark slate, completely non-transparent
                   border: isHovered 
-                    ? `1px solid ${cat.accentColor}40` 
-                    : '1px solid rgba(255, 255, 255, 0.05)',
+                    ? `1px solid ${cat.accentColor}50` 
+                    : '1px solid rgba(255, 255, 255, 0.06)',
                   borderRadius: '24px',
                   padding: '36px',
                   boxShadow: isHovered
-                    ? `0 20px 40px ${cat.accentColor}10, inset 0 1px 0 rgba(255,255,255,0.05)`
-                    : '0 8px 32px 0 rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255,255,255,0.02)',
+                    ? `0 20px 40px rgba(0, 0, 0, 0.35), 0 0 20px ${cat.accentColor}15, inset 0 1px 0 rgba(255,255,255,0.05)`
+                    : '0 8px 32px 0 rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.02)',
                   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                   minHeight: '280px',
                   display: 'flex',

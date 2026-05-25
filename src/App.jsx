@@ -181,12 +181,28 @@ export default function App() {
         </div>
 
         {/* Section 3: Technical Skills & Expertise */}
-        <div id="skills" className="w-full bg-[#0a0c14] relative">
-          <SkillsSection />
+        <div id="skills" className="w-full relative overflow-hidden" style={{ background: '#0a0c14' }}>
+          {/* Background Image Layer with reduced opacity */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: "url('skills_tech_bg.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.25, // Subtle, luxurious futuristic technology node patterns
+              pointerEvents: 'none',
+              zIndex: 0
+            }}
+          />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <SkillsSection />
+          </div>
         </div>
 
         {/* Section 4: CV Timeline */}
-        <div id="cv" className="w-full bg-[#ededed] relative overflow-hidden">
+        <div id="cv" className="w-full relative overflow-hidden" style={{ background: '#ededed' }}>
           {/* Top smooth dark-to-light transition out of Skills section */}
           <div 
             style={{ 
@@ -200,7 +216,23 @@ export default function App() {
               pointerEvents: 'none'
             }}
           />
-          <CVSection />
+          {/* Background Image Layer with reduced opacity */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: "url('cv_timeline_bg.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.25, // Subtle academic vector curves
+              pointerEvents: 'none',
+              zIndex: 0
+            }}
+          />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <CVSection />
+          </div>
         </div>
 
         {/* Section 4.5: Leadership & Extracurricular Section */}
