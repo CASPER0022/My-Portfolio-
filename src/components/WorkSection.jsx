@@ -10,7 +10,7 @@ const projects = [
     tech: ['React.js', 'FastAPI', 'LangChain', 'ChromaDB', 'Python'],
     github: 'https://github.com/AlbinJohn/LegalEase',
     live: 'https://legalease-demo.vercel.app',
-    img: '/projects/legal ease/legalease.jpg'
+    img: 'Projects/Legal ease/legalease.jpg'
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const projects = [
     tech: ['React.js', 'LangGraph', 'FastAPI', 'Python', 'OpenAI'],
     github: 'https://github.com/AlbinJohn/casper-agent',
     live: 'https://casper-ai.vercel.app',
-    img: '/projects/casper/casper.jpg'
+    img: 'Projects/casper/casper.jpg'
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const projects = [
     tech: ['PyTorch', 'FastAPI', 'React.js', 'OpenCV', 'Python'],
     github: 'https://github.com/AlbinJohn/AuthentiScan',
     live: 'https://authentiscan-detector.vercel.app',
-    img: '/projects/Authentiscan/authentiscan.jpg'
+    img: 'Projects/Authentiscan/authentiscan.jpg'
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const projects = [
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS'],
     github: 'https://github.com/AlbinJohn/NeuralFlow',
     live: 'https://neuralflow-app.vercel.app',
-    img: '/projects/spectral gcn/spectral gcn.jpg'
+    img: 'Projects/spectral gcn/spectral gcn.jpg'
   },
   {
     id: 5,
@@ -50,7 +50,7 @@ const projects = [
     tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Prisma'],
     github: 'https://github.com/AlbinJohn/VisionEdge',
     live: 'https://visionedge-analytics.vercel.app',
-    img: '/projects/spicenest/spicenest.jpg'
+    img: 'Projects/spicenest/spicenest.jpg'
   },
   {
     id: 6,
@@ -60,7 +60,7 @@ const projects = [
     tech: ['C++', 'C', 'OpenMP'],
     github: 'https://github.com/AlbinJohn/VectorMind',
     live: 'https://vectormind-search.vercel.app',
-    img: '/projects/parallel processing/parallel processing.jpg'
+    img: 'Projects/parallel processing/parallel processing.jpg'
   }
 ]
 

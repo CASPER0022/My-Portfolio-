@@ -132,7 +132,7 @@ export default function App() {
             style={{ 
               position: 'absolute',
               inset: 0,
-              backgroundImage: "url('/luxury_topo_bg.png')",
+              backgroundImage: "url('luxury_topo_bg.png')",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
@@ -153,7 +153,7 @@ export default function App() {
             style={{ 
               position: 'absolute',
               inset: 0,
-              backgroundImage: "url('/experience_topo_bg.png')",
+              backgroundImage: "url('experience_topo_bg.png')",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
