@@ -11,10 +11,12 @@ import CVSection from './components/CVSection'
 import ExtracurricularSection from './components/ExtracurricularSection'
 import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
+import ProjectDetailsView from './components/ProjectDetailsView'
 
 export default function App() {
   const [showHero, setShowHero] = useState(true)
   const [active, setActive] = useState('Landing')
+  const [selectedProject, setSelectedProject] = useState(null)
 
   const handleHeroDone = useCallback(() => {
     setShowHero(false)
@@ -64,11 +66,15 @@ export default function App() {
     if (id === 'projects') id = 'work'
     if (id === 'certifications') id = 'cv'
 
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-      setActive(section)
-    }
+    setSelectedProject(null)
+
+    setTimeout(() => {
+      const el = document.getElementById(id)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+        setActive(section)
+      }
+    }, 50)
   }, [])
 
   const handleViewWork = useCallback(() => handleNav('PROJECTS'), [handleNav])
@@ -78,16 +84,30 @@ export default function App() {
       <Cursor />
       {showHero && <SplashLoader onDone={handleHeroDone} />}
 
-      {/* Standard Document Flow with Sticky/Fixed Navigation */}
-      <div 
+      {/* Floating Top Navbar (Sticky by index.css rules) */}
+      {!showHero && <Navbar active={selectedProject ? 'PROJECTS' : active} onNav={handleNav} />}
+
+      {/* Conditionally display separate Project Page */}
+      {selectedProject ? (
+        <ProjectDetailsView 
+          project={selectedProject} 
+          onBack={() => {
+            setSelectedProject(null)
+            setTimeout(() => {
+              const el = document.getElementById('work')
+              if (el) el.scrollIntoView({ behavior: 'instant' })
+            }, 80)
+          }} 
+        />
+      ) : (
+        /* Standard Document Flow with Sticky/Fixed Navigation */
+        <div 
         style={{ 
           opacity: showHero ? 0 : 1, 
           transition: 'opacity 0.5s ease 0.3s',
           pointerEvents: showHero ? 'none' : 'auto'
         }}
       >
-        {/* Floating Top Navbar (Sticky by index.css rules) */}
-        <Navbar active={active} onNav={handleNav} />
 
         {/* Section 1: Landing (Precisely 100vh viewport) */}
         <div id="landing" className="w-full min-h-screen bg-white relative">
@@ -142,7 +162,7 @@ export default function App() {
             }}
           />
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <WorkSection />
+            <WorkSection onSelectProject={setSelectedProject} />
           </div>
         </div>
 
@@ -225,7 +245,7 @@ export default function App() {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              opacity: 0.25, // Subtle academic vector curves
+              opacity: 0.15, // Extremely subtle academic vector curves
               pointerEvents: 'none',
               zIndex: 0
             }}
@@ -276,6 +296,7 @@ export default function App() {
         {/* Section 6: Premium Footer */}
         <Footer />
       </div>
+      )}
     </div>
   )
 }

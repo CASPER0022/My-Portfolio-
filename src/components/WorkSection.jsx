@@ -65,7 +65,7 @@ const projects = [
 ]
 
 // Animated Tactile 3D Project Card Component
-function ProjectCard({ p, i }) {
+function ProjectCard({ p, i, onSelect }) {
   const cardRef = useRef(null)
   const [hovered, setHovered] = useState(false)
   
@@ -134,6 +134,7 @@ function ProjectCard({ p, i }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
+      onClick={() => onSelect(p)}
       className="hover-card-border-glow"
       style={{
         rotateX,
@@ -384,7 +385,7 @@ function ProjectCard({ p, i }) {
   )
 }
 
-export default function WorkSection() {
+export default function WorkSection({ onSelectProject }) {
   const containerVariants = {
     hidden: {},
     visible: {
@@ -469,7 +470,7 @@ export default function WorkSection() {
           className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {projects.map((p, i) => (
-            <ProjectCard key={p.id} p={p} i={i} />
+            <ProjectCard key={p.id} p={p} i={i} onSelect={onSelectProject} />
           ))}
         </motion.div>
 

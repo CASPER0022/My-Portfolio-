@@ -9,7 +9,7 @@ export default function ExtracurricularSection() {
       id: 1,
       title: "Inter-IIIT Tournament",
       subtitle: "National Arena",
-      img: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=600&auto=format&fit=crop&q=80",
+      img: "extracurricular/extra3.jpeg",
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
@@ -21,7 +21,7 @@ export default function ExtracurricularSection() {
       id: 2,
       title: "Blue House Contingent",
       subtitle: "Championship Runner-Up",
-      img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&auto=format&fit=crop&q=80",
+      img: "extracurricular/extra2.jpeg",
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.303-1.2-.81-1.543-1.66-1.11-3.1-2.16-4.185-3.09a1.5 1.5 0 00-1.01-.397H7.5a1.5 1.5 0 00-1.01.397c-1.086.93-2.525 1.98-4.185 3.09A1.875 1.875 0 001.5 15.375V18.75m18 0v-11.25A2.25 2.25 0 0017.25 5.25h-3m3 13.5H3.75m13.5-.001V18.75m0-13.5A2.25 2.25 0 0015 3h-6a2.25 2.25 0 00-2.25 2.25V15" />
@@ -32,7 +32,7 @@ export default function ExtracurricularSection() {
       id: 3,
       title: "Event Operations",
       subtitle: "200+ Participant Logistics",
-      img: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&auto=format&fit=crop&q=80",
+      img: "extracurricular/extra1.jpeg",
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
@@ -229,23 +229,23 @@ export default function ExtracurricularSection() {
 
           </div>
 
-          {/* Right Column: Grid Image Gallery (High-Fidelity Placeholders) */}
-          <div className="lg:col-span-5 grid grid-cols-2 gap-4 items-stretch min-h-[350px] lg:min-h-auto">
-            {/* Main Tall Image Card */}
+          {/* Right Column: Grid Image Gallery (2 Squares Up, 1 Wide Down) */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-4 items-stretch">
+            
+            {/* Top Left: Card 1 (Inter-IIIT Tournament) */}
             <div 
               onMouseEnter={() => setHoveredIdx(1)}
               onMouseLeave={() => setHoveredIdx(null)}
-              className="col-span-2 sm:col-span-1 rounded-[24px] overflow-hidden border border-white/5 relative bg-gradient-to-br from-blue-900/10 to-slate-900 flex flex-col justify-end transition-all duration-300 hover:border-blue-500/25 shadow-lg group"
-              style={{ padding: '24px' }}
+              className="col-span-2 sm:col-span-1 rounded-[24px] overflow-hidden border border-white/5 relative bg-slate-900 flex flex-col justify-end transition-all duration-300 hover:border-blue-500/25 shadow-lg group"
+              style={{ padding: '20px', height: '230px' }}
             >
-              <div className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-60 group-hover:scale-105 transition-all duration-500" 
-                style={{ backgroundImage: `url(${galleryItems[0].img})` }} 
+              <div className="absolute inset-0 bg-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                style={{ backgroundImage: `url(${galleryItems[0].img})`, backgroundPosition: 'center 15%' }} 
               />
-              {/* Fallback elegant grid overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent z-10" />
               
-              <div className="relative z-20 flex flex-col gap-2 text-left">
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30 text-[#3b82f6] shadow-md mb-2">
+              <div className="relative z-20 flex flex-col gap-1 text-left">
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30 text-[#3b82f6] shadow-md mb-1">
                   {galleryItems[0].icon}
                 </div>
                 <div>
@@ -255,55 +255,50 @@ export default function ExtracurricularSection() {
               </div>
             </div>
 
-            {/* Right stacked cards column */}
-            <div className="col-span-2 sm:col-span-1 flex flex-col gap-4">
+            {/* Top Right: Card 2 (Blue House Contingent) */}
+            <div 
+              onMouseEnter={() => setHoveredIdx(2)}
+              onMouseLeave={() => setHoveredIdx(null)}
+              className="col-span-2 sm:col-span-1 rounded-[24px] overflow-hidden border border-white/5 relative bg-slate-900 flex flex-col justify-end transition-all duration-300 hover:border-purple-500/25 shadow-lg group"
+              style={{ padding: '20px', height: '230px' }}
+            >
+              <div className="absolute inset-0 bg-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                style={{ backgroundImage: `url(${galleryItems[1].img})`, backgroundPosition: 'center 20%' }} 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent z-10" />
               
-              {/* Stack Card 1 */}
-              <div 
-                onMouseEnter={() => setHoveredIdx(2)}
-                onMouseLeave={() => setHoveredIdx(null)}
-                className="flex-1 rounded-[24px] overflow-hidden border border-white/5 relative bg-gradient-to-br from-indigo-900/10 to-slate-900 flex flex-col justify-end transition-all duration-300 hover:border-purple-500/25 shadow-lg group min-h-[160px]"
-                style={{ padding: '24px' }}
-              >
-                <div className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-60 group-hover:scale-105 transition-all duration-500" 
-                  style={{ backgroundImage: `url(${galleryItems[1].img})` }} 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent z-10" />
-                
-                <div className="relative z-20 flex flex-col gap-2 text-left">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-purple-500/10 border border-purple-500/30 text-purple-400 shadow-md mb-2">
-                    {galleryItems[1].icon}
-                  </div>
-                  <div>
-                    <p className="text-[9px] font-mono font-bold text-purple-400 uppercase tracking-wider">{galleryItems[1].subtitle}</p>
-                    <h4 className="font-sans font-bold text-sm text-white mt-0.5">{galleryItems[1].title}</h4>
-                  </div>
+              <div className="relative z-20 flex flex-col gap-1 text-left">
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-purple-500/10 border border-purple-500/30 text-purple-400 shadow-md mb-1">
+                  {galleryItems[1].icon}
+                </div>
+                <div>
+                  <p className="text-[9px] font-mono font-bold text-purple-400 uppercase tracking-wider">{galleryItems[1].subtitle}</p>
+                  <h4 className="font-sans font-bold text-sm text-white mt-0.5">{galleryItems[1].title}</h4>
                 </div>
               </div>
+            </div>
 
-              {/* Stack Card 2 */}
-              <div 
-                onMouseEnter={() => setHoveredIdx(3)}
-                onMouseLeave={() => setHoveredIdx(null)}
-                className="flex-1 rounded-[24px] overflow-hidden border border-white/5 relative bg-gradient-to-br from-cyan-900/10 to-slate-900 flex flex-col justify-end transition-all duration-300 hover:border-cyan-500/25 shadow-lg group min-h-[160px]"
-                style={{ padding: '24px' }}
-              >
-                <div className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-60 group-hover:scale-105 transition-all duration-500" 
-                  style={{ backgroundImage: `url(${galleryItems[2].img})` }} 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent z-10" />
-                
-                <div className="relative z-20 flex flex-col gap-2 text-left">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shadow-md mb-2">
-                    {galleryItems[2].icon}
-                  </div>
-                  <div>
-                    <p className="text-[9px] font-mono font-bold text-cyan-400 uppercase tracking-wider">{galleryItems[2].subtitle}</p>
-                    <h4 className="font-sans font-bold text-sm text-white mt-0.5">{galleryItems[2].title}</h4>
-                  </div>
+            {/* Bottom Row: Card 3 (Event Operations - Full-width Horizontal Banner) */}
+            <div 
+              onMouseEnter={() => setHoveredIdx(3)}
+              onMouseLeave={() => setHoveredIdx(null)}
+              className="col-span-2 rounded-[24px] overflow-hidden border border-white/5 relative bg-slate-900 flex flex-col justify-end transition-all duration-300 hover:border-cyan-500/25 shadow-lg group"
+              style={{ padding: '20px', height: '270px' }}
+            >
+              <div className="absolute inset-0 bg-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                style={{ backgroundImage: `url(${galleryItems[2].img})`, backgroundPosition: 'center 25%' }} 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent z-10" />
+              
+              <div className="relative z-20 flex flex-col gap-1 text-left">
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shadow-md mb-1">
+                  {galleryItems[2].icon}
+                </div>
+                <div>
+                  <p className="text-[9px] font-mono font-bold text-cyan-400 uppercase tracking-wider">{galleryItems[2].subtitle}</p>
+                  <h4 className="font-sans font-bold text-sm text-white mt-0.5">{galleryItems[2].title}</h4>
                 </div>
               </div>
-
             </div>
 
           </div>
