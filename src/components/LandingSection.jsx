@@ -159,8 +159,7 @@ export default function LandingSection({ onViewWork }) {
       <div className="hero-grid" style={{ position: 'relative', zIndex: 2 }}>
         
         {/* Left Column (Relative container) */}
-        <div style={{ display:'flex', flexDirection:'column', justifyContent:'flex-end',
-          padding:'clamp(2rem,5vw,4.5rem)', paddingBottom:'clamp(2.5rem,5vw,4rem)', gap:'1.5rem', position: 'relative' }}>
+        <div className="hero-content-col" style={{ position: 'relative' }}>
           
           {/* DEFAULT BLACK HEADING */}
           <h1 className="hero-name" style={{ color: '#111111' }}>
@@ -203,17 +202,12 @@ export default function LandingSection({ onViewWork }) {
           </p>
 
           {/* WHITE TEXT SPOTLIGHT OVERLAY (zIndex: 5, pointer-events: none, masked) */}
-          <motion.div className="absolute inset-0 pointer-events-none"
+          <motion.div 
+            className="hero-content-col absolute inset-0 pointer-events-none"
             style={{
               zIndex: 5,
               maskImage: 'url(#gooey-mask)',
-              WebkitMaskImage: 'url(#gooey-mask)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              padding: 'clamp(2rem,5vw,4.5rem)',
-              paddingBottom: 'clamp(2.5rem,5vw,4rem)',
-              gap: '1.5rem'
+              WebkitMaskImage: 'url(#gooey-mask)'
             }}>
             {/* White Heading */}
             <h1 className="hero-name" style={{ color: '#ffffff' }}>
@@ -245,23 +239,10 @@ export default function LandingSection({ onViewWork }) {
             setIsHovered(false)
             if (!hasRevealed) setHasRevealed(true)
           }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            width: '100%',
-            padding: '2.5rem',
-            transform: 'translateY(-70px)',
-            position: 'relative'
-          }}
+          className="hero-robot-container"
         >
           {/* Transparent click-to-drag WebGL container */}
-          <div style={{
-            width: 'min(500px, 95%)',
-            aspectRatio: '0.82',
-            pointerEvents: 'auto'
-          }}>
+          <div className="hero-robot-canvas-wrapper">
             <RobotCanvas />
           </div>
 

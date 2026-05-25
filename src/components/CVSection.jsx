@@ -129,7 +129,7 @@ export default function CVSection() {
   return (
     <section 
       id="cv" 
-      className="w-full relative select-none px-10 md:px-16 flex flex-col items-center justify-center"
+      className="w-full relative select-none px-4 sm:px-10 md:px-16 flex flex-col items-center justify-center"
       style={{ paddingTop: '80px', paddingBottom: '120px', background: 'transparent' }}
     >
       <div className="max-w-[1080px] w-full flex flex-col gap-12 mx-auto">

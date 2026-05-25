@@ -135,7 +135,7 @@ function ProjectCard({ p, i, onSelect }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
       onClick={() => onSelect(p)}
-      className="hover-card-border-glow"
+      className="project-card-container hover-card-border-glow"
       style={{
         rotateX,
         rotateY,
@@ -143,7 +143,6 @@ function ProjectCard({ p, i, onSelect }) {
         perspective: '1000px',
         borderRadius: '24px',
         background: '#ffffff',
-        padding: '12px 12px 20px 12px',
         boxShadow: hovered 
           ? '0 30px 60px -15px rgba(0,0,0,0.12), 0 15px 30px -10px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,1)' 
           : '0 8px 24px -10px rgba(0,0,0,0.03), 0 4px 12px -8px rgba(0,0,0,0.01), inset 0 1px 0 rgba(255,255,255,0.8)',
@@ -152,7 +151,6 @@ function ProjectCard({ p, i, onSelect }) {
         transition: 'box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '380px',
         boxSizing: 'border-box',
         position: 'relative',
         WebkitFontSmoothing: 'antialiased',
@@ -169,13 +167,13 @@ function ProjectCard({ p, i, onSelect }) {
         <div>
           {/* Cute Sized Viewport Container (h-210px) with translateZ perspective */}
           <div 
+            className="project-card-image-wrapper"
             style={{ 
               borderRadius: '16px', 
               background: '#f1f5f9',
               transform: 'translateZ(20px)',
               transformStyle: 'preserve-3d',
               overflow: 'hidden',
-              height: '210px',
               width: '100%',
               display: 'flex',
               alignItems: 'center',
@@ -258,9 +256,9 @@ function ProjectCard({ p, i, onSelect }) {
 
           {/* Content Details with subtle translateZ perspective for 3D alignment */}
           <div 
+            className="project-card-details-wrapper"
             style={{ 
               transform: 'translateZ(15px)',
-              padding: '20px 8px 4px 8px',
               textAlign: 'left'
             }}
           >
@@ -279,10 +277,10 @@ function ProjectCard({ p, i, onSelect }) {
               {p.cat}
             </p>
             <h3 
+              className="project-card-title"
               style={{
                 fontFamily: 'system-ui, -apple-system, sans-serif',
                 fontWeight: '800',
-                fontSize: '20px',
                 color: '#0f1f4b',
                 marginBottom: '10px',
                 lineHeight: '1.2',
@@ -294,8 +292,8 @@ function ProjectCard({ p, i, onSelect }) {
               {p.title}
             </h3>
             <p 
+              className="project-card-desc"
               style={{
-                fontSize: '13px',
                 lineHeight: '1.65',
                 color: '#475569',
                 fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -323,10 +321,10 @@ function ProjectCard({ p, i, onSelect }) {
         >
           {/* Links Bar */}
           <div 
+            className="project-card-links-bar"
             style={{ 
               display: 'flex',
               alignItems: 'center',
-              gap: '20px',
               paddingTop: '16px',
               borderTop: '1px solid #e2e8f0'
             }}
@@ -467,7 +465,7 @@ export default function WorkSection({ onSelectProject }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="w-full grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6"
         >
           {projects.map((p, i) => (
             <ProjectCard key={p.id} p={p} i={i} onSelect={onSelectProject} />

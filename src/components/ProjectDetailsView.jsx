@@ -110,6 +110,7 @@ export default function ProjectDetailsView({ project, onBack }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="project-details-container"
       style={{
         background: '#f8f9fb',
         position: 'relative',
@@ -117,8 +118,6 @@ export default function ProjectDetailsView({ project, onBack }) {
         width: '100%',
         paddingTop: '22px', // Snapped closer to the sticky Navbar
         paddingBottom: '100px',
-        paddingLeft: '24px',
-        paddingRight: '24px',
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
@@ -260,30 +259,9 @@ export default function ProjectDetailsView({ project, onBack }) {
         </div>
 
         {/* WooCommerce Split Row: Left for Image, Right for Product Info */}
-        <div 
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '48px',
-            width: '100%',
-            alignItems: 'start'
-          }}
-        >
+        <div className="project-details-hero-row">
           {/* Left Column: Big Product-style Image */}
-          <div 
-            style={{
-              flex: '1 1 480px',
-              height: '420px',
-              borderRadius: '28px',
-              overflow: 'hidden',
-              border: '1px solid rgba(226, 232, 240, 0.9)',
-              boxShadow: '0 20px 45px rgba(0,0,0,0.04)',
-              background: '#ffffff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
+          <div className="project-details-img-col">
             <img 
               src={project.img} 
               alt={project.title} 
@@ -296,15 +274,7 @@ export default function ProjectDetailsView({ project, onBack }) {
           </div>
 
           {/* Right Column: Title (Name), Subtitle, Tech Stack, Overview */}
-          <div 
-            style={{
-              flex: '1 1 400px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '24px',
-              textAlign: 'left'
-            }}
-          >
+          <div className="project-details-text-col">
             {/* Title Block */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex' }}>
@@ -325,18 +295,7 @@ export default function ProjectDetailsView({ project, onBack }) {
                   {project.cat}
                 </span>
               </div>
-              <h1 
-                style={{
-                  fontSize: '38px',
-                  fontFamily: 'system-ui, -apple-system, sans-serif',
-                  fontWeight: '900',
-                  letterSpacing: '-0.02em',
-                  color: '#0f1f4b',
-                  margin: '4px 0 0 0',
-                  textTransform: 'uppercase',
-                  lineHeight: '1.1'
-                }}
-              >
+              <h1 className="project-details-title">
                 {project.title}
               </h1>
               <p 

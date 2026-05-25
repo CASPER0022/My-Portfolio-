@@ -194,7 +194,7 @@ export default function AboutSection() {
           }}
         >
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
             style={{
               maxWidth: '1200px',
               marginLeft: 'auto',
@@ -209,7 +209,7 @@ export default function AboutSection() {
             {stats.map((s, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center text-center rounded-[24px] transition-all duration-300 group relative"
+                className="about-stat-card flex flex-col items-center text-center rounded-[24px] transition-all duration-300 group relative"
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 style={{
@@ -217,7 +217,6 @@ export default function AboutSection() {
                   backdropFilter: 'blur(20px)',
                   WebkitBackdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255, 255, 255, 0.06)',
-                  padding: '48px 24px 32px 24px',
                   boxShadow: hoveredIdx === idx
                     ? '0 15px 35px rgba(59, 130, 246, 0.15), 0 8px 24px rgba(0, 0, 0, 0.2)'
                     : '0 8px 32px 0 rgba(0, 0, 0, 0.15)',
@@ -231,8 +230,8 @@ export default function AboutSection() {
                   className="absolute top-0 inset-x-0 h-[4px] transition-all duration-300 opacity-60 group-hover:opacity-100"
                   style={{
                     background: `linear-gradient(to right, ${s.accentColor}, ${s.accentColor2})`,
-                    borderTopLeftRadius: '24px',
-                    borderTopRightRadius: '24px'
+                    borderTopLeftRadius: 'inherit',
+                    borderTopRightRadius: 'inherit'
                   }}
                 />
 

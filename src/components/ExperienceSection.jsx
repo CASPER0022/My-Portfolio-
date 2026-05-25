@@ -125,7 +125,7 @@ export default function ExperienceSection() {
           {/* VERTICAL TRACK LINE (2px solid dark navy #0f1f4b spine) */}
           <motion.div
             style={{ opacity: timelineOpacity }}
-            className="absolute left-1/2 -translate-x-1/2 top-0 bottom-24 w-[2px] pointer-events-none z-10"
+            className="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 bottom-24 w-[2px] pointer-events-none z-10"
           >
             {/* Background Light-Navy Spine */}
             <div className="w-full h-full bg-[#0f1f4b]/10 rounded-full" />
@@ -157,8 +157,8 @@ export default function ExperienceSection() {
                   transition={{ duration: 0.6, delay: idx * 0.2, ease: 'easeOut' }}
                   className="relative w-full min-h-[220px]"
                 >
-                  {/* MOBILE ONLY NODE (Absolute positioned at left-6, hidden on desktop) */}
-                  <div className="absolute left-6 -translate-x-1/2 top-4 flex md:hidden items-center justify-center z-30 pt-3">
+                  {/* MOBILE ONLY NODE (Absolute positioned at left-8, hidden on desktop) */}
+                  <div className="absolute left-8 -translate-x-1/2 top-4 flex md:hidden items-center justify-center z-30 pt-3">
                     <div className="relative w-20 h-20 flex items-center justify-center">
                       <div
                         className={`w-18 h-18 rounded-full border-2 bg-white flex items-center justify-center p-2 overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.05)] ${
@@ -185,7 +185,7 @@ export default function ExperienceSection() {
                   <div className="flex flex-col md:grid md:grid-cols-[1fr_120px_1fr] w-full items-start gap-4 md:gap-0">
                     
                     {/* Left Column: Date + Company + Role */}
-                    <div className={`w-full flex flex-col text-left pl-20 pr-8 md:pl-0 md:pr-0 pt-3 md:justify-start ${isEven ? 'md:text-right md:order-1' : 'md:text-left md:order-3'}`}>
+                    <div className={`w-full flex flex-col text-left pl-20 pr-4 md:pl-0 md:pr-0 pt-3 md:justify-start ${isEven ? 'md:text-right md:order-1' : 'md:text-left md:order-3'}`}>
                       <span className="text-[12px] font-sans font-bold text-[#3b6fd4] tracking-wide mb-1.5 uppercase">
                         {exp.date}
                       </span>
@@ -241,7 +241,7 @@ export default function ExperienceSection() {
                     </div>
 
                     {/* Right Column: Detailed Experience Card */}
-                    <div className={`w-full flex items-start justify-start pl-8 pr-16 md:pl-0 md:pr-0 ${isEven ? 'md:justify-start md:order-3' : 'md:justify-end md:order-1'}`}>
+                    <div className={`w-full flex items-start justify-start pl-20 pr-4 md:pl-0 md:pr-0 ${isEven ? 'md:justify-start md:order-3' : 'md:justify-end md:order-1'}`}>
                       <motion.div
                         animate={{
                           opacity: isNodeActive ? 1 : 0.85,

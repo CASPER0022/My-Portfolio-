@@ -113,6 +113,91 @@ body {
   color: #ffffff;
 }
 
+/* Hamburger Button */
+.burger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 16px;
+  background: none;
+  border: none;
+  cursor: none;
+  padding: 0;
+  z-index: 60;
+  position: relative;
+}
+.burger-btn span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #111111;
+  border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, background-color 0.35s ease;
+}
+.navbar.dark .burger-btn span {
+  background: #ffffff;
+}
+.burger-btn.open span {
+  background: #ffffff !important;
+}
+.burger-btn.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.burger-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+.burger-btn.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Menu Fullscreen Drawer Overlay */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 20, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu-link {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  background: none;
+  border: none;
+  cursor: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.mobile-menu-link:hover, .mobile-menu-link.active {
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none !important;
+  }
+  .burger-btn {
+    display: flex !important;
+  }
+}
+
 /* ── HERO SECTION ── */
 .hero-section {
   position: relative;
@@ -400,4 +485,217 @@ body {
 .animate-spin-slow {
   animation: spinSlow 12s linear infinite;
   transform-origin: center;
+}
+
+/* ── PROJECT DETAILS RESPONSIVENESS ── */
+.project-details-container {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.project-details-hero-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  width: 100%;
+  align-items: start;
+}
+.project-details-img-col {
+  flex: 1 1 480px;
+  height: 420px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.04);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-details-text-col {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: left;
+}
+.project-details-title {
+  font-size: 38px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #0f1f4b;
+  margin: 4px 0 0 0;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+@media (max-width: 768px) {
+  .project-details-container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .project-details-hero-row {
+    gap: 24px !important;
+  }
+  .project-details-img-col {
+    flex: 1 1 100% !important;
+    height: 240px !important;
+    border-radius: 20px !important;
+  }
+  .project-details-text-col {
+    flex: 1 1 100% !important;
+    gap: 20px !important;
+  }
+  .project-details-title {
+    font-size: 28px !important;
+  }
+}
+
+/* ── HERO CONTENT COLUMN TYPOGRAPHY & LAYOUT ── */
+.hero-content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem, 5vw, 4.5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  gap: 1.5rem;
+}
+
+/* ── HERO ROBOT CANVAS WRAPPER ── */
+.hero-robot-canvas-wrapper {
+  width: min(500px, 95%);
+  aspect-ratio: 0.82;
+  pointer-events: auto;
+}
+
+/* ── HERO ROBOT CONTAINER RESPONSIVENESS ── */
+.hero-robot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 2.5rem;
+  transform: translateY(-70px);
+  position: relative;
+}
+@media (max-width: 1024px) {
+  .hero-robot-container {
+    transform: translateY(0) !important;
+    padding: 1.5rem !important;
+  }
+  .hero-content-col {
+    justify-content: flex-start !important;
+    padding-top: 3rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content-col {
+    padding: 1.75rem !important;
+    padding-top: 3rem !important; /* Elegant top spacing, not too close, not too far */
+    padding-bottom: 2.25rem !important;
+    gap: 1.25rem !important;
+    justify-content: flex-start !important;
+  }
+  .hero-name {
+    /* Scale down heading dynamically on mobile to prevent overflow */
+    font-size: clamp(1.6rem, 7.5vw, 2.2rem) !important;
+  }
+  .hero-robot-container {
+    /* Pull the floating 3D robot up on phone screens to prevent overlapping the stats bar */
+    transform: translateY(-190px) !important;
+    padding: 1rem !important;
+    margin-bottom: -85px !important;
+  }
+  .hero-robot-canvas-wrapper {
+    /* Make the 3D model smaller on mobile and dramatically shrink the touch-draggable area */
+    width: 220px !important;
+    height: 260px !important;
+    aspect-ratio: auto !important;
+    margin: 0 auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content-col {
+    /* Gains massive horizontal space on S20 Ultra screens by narrowing side margins */
+    padding: 1.25rem !important;
+    padding-top: 1.5rem !important; /* Balanced breathing room on extremely narrow screens */
+    padding-bottom: 2rem !important;
+    gap: 1rem !important;
+    justify-content: flex-start !important;
+  }
+  .hero-name {
+    /* Guarantees the wide "ENGINEERING" word is fully visible on a single line on S20 Ultra */
+    font-size: clamp(1.4rem, 8.5vw, 1.85rem) !important;
+  }
+}
+
+/* ── ABOUT SECTION STAT CARDS RESPONSIVENESS ── */
+.about-stat-card {
+  padding: 48px 24px 32px 24px;
+}
+@media (max-width: 768px) {
+  .about-stat-card {
+    padding: 32px 14px 22px 14px !important; /* Compact padding to prevent text squishing in 2-column mobile layout */
+    border-radius: 18px !important;
+  }
+}
+
+/* ── PROJECT CARDS RESPONSIVENESS ── */
+.project-card-container {
+  padding: 12px 12px 20px 12px;
+  min-height: 380px;
+}
+.project-card-image-wrapper {
+  height: 210px;
+}
+.project-card-details-wrapper {
+  padding: 20px 8px 4px 8px;
+}
+.project-card-title {
+  font-size: 20px;
+}
+.project-card-desc {
+  font-size: 13px;
+}
+.project-card-links-bar {
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .project-card-container {
+    padding: 8px 8px 12px 8px !important;
+    min-height: 280px !important;
+    border-radius: 16px !important;
+  }
+  .project-card-image-wrapper {
+    height: 105px !important; /* Perfect cute proportion for 2-in-a-row */
+    border-radius: 10px !important;
+  }
+  .project-card-details-wrapper {
+    padding: 10px 4px 2px 4px !important;
+  }
+  .project-card-title {
+    font-size: 13px !important; /* Scale down to prevent title text wrap issues */
+    margin-bottom: 4px !important;
+  }
+  .project-card-desc {
+    font-size: 10.5px !important;
+    margin-bottom: 2px !important;
+    line-height: 1.4 !important;
+  }
+  .project-card-links-bar {
+    gap: 8px !important; /* Tighter gap so links stay on a single line */
+    padding-top: 10px !important;
+  }
+  .project-card-links-bar a {
+    font-size: 10px !important;
+    gap: 3px !important;
+  }
+  .project-card-links-bar a svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
 }
