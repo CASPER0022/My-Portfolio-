@@ -5,11 +5,13 @@ export default function Navbar({ active, onNav }) {
   const [isDark, setIsDark] = useState(false)
   
   const links = [
-    { id: 'about',    label: 'ABOUT' },
-    { id: 'work',     label: 'WORK' },
-    { id: 'skills',   label: 'SKILLS' },
-    { id: 'cv',       label: 'CERTIFICATIONS' },
-    { id: 'contact',  label: 'CONTACT' }
+    { id: 'about',           label: 'ABOUT' },
+    { id: 'work',            label: 'PROJECTS' },
+    { id: 'experience',      label: 'EXPERIENCE' },
+    { id: 'skills',          label: 'SKILLS' },
+    { id: 'cv',              label: 'CERTIFICATIONS' },
+    { id: 'extracurricular', label: 'EXTRACURRICULAR' },
+    { id: 'contact',         label: 'CONTACT' }
   ]
 
   useEffect(() => {

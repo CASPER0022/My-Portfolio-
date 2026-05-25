@@ -33,10 +33,11 @@ export default function App() {
           // Capitalize active state to match Navbar links
           if (id === 'landing') setActive('Landing')
           else if (id === 'about') setActive('ABOUT')
-          else if (id === 'experience') setActive('WORK')
-          else if (id === 'work') setActive('WORK')
+          else if (id === 'work') setActive('PROJECTS')
+          else if (id === 'experience') setActive('EXPERIENCE')
           else if (id === 'skills') setActive('SKILLS')
-          else if (id === 'cv' || id === 'extracurricular') setActive('CERTIFICATIONS')
+          else if (id === 'cv') setActive('CERTIFICATIONS')
+          else if (id === 'extracurricular') setActive('EXTRACURRICULAR')
           else if (id === 'contact') setActive('CONTACT')
         }
       })
@@ -60,6 +61,8 @@ export default function App() {
   const handleNav = useCallback((section) => {
     let id = section.toLowerCase()
     if (id === 'landing' || id === 'hero') id = 'landing'
+    if (id === 'projects') id = 'work'
+    if (id === 'certifications') id = 'cv'
 
     const el = document.getElementById(id)
     if (el) {
@@ -68,7 +71,7 @@ export default function App() {
     }
   }, [])
 
-  const handleViewWork = useCallback(() => handleNav('work'), [handleNav])
+  const handleViewWork = useCallback(() => handleNav('PROJECTS'), [handleNav])
 
   return (
     <div style={{ background: '#ffffff', minHeight: '100vh', position: 'relative' }}>

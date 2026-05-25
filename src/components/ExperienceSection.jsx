@@ -5,51 +5,53 @@ const experiences = [
   {
     id: 'exp-1',
     num: '1',
-    company: 'Klyonix Innovations',
+    company: 'KlyONIX Tech Consulting Pvt Ltd.',
+    logo: 'public/experience/klyonix.jpg',
     role: 'AI/ML Intern',
-    date: '2025 – Present',
+    date: '2026 Feb – Present',
     active: true,
     subtitle: 'AI INTEGRATION & INTELLIGENT SYSTEMS',
     desc: 'Working on AI-powered CRM systems, customer support agents, RAG pipelines, LangGraph workflows, testing AI integrations, and intelligent automation solutions.',
     bullets: [
-      'Engineered autonomous RAG pipelines with LangGraph, improving response accuracy by 35%.',
-      'Developed multi-agent customer support workflows with advanced tool-calling.',
-      'Integrated vector search, semantic caching, and intelligent routing for scalable AI systems.'
+      'Developed a multi-tenant enterprise chatbot using hybrid RAG + Text-to-SQL architecture to enable natural language querying over relational databases (PostgreSQL, MySQL) and real-time business insights',
+      'Engineered a dynamic SQL generation pipeline to retrieve key metrics (sales, profit, attendance), reducing manual reporting effort by 60%, and optimized prompt-chaining for accurate handling of complex temporal queries and multi-table joins',
+      'Implemented role-based access control (RBAC) at the LLM reasoning layer to enforce secure, hierarchy-based data access while ensuring high accuracy in natural language to SQL translation'
     ],
     tags: ['Python', 'LangChain', 'LangGraph', 'FastAPI', 'React', 'ChromaDB', 'OpenAI']
   },
   {
     id: 'exp-2',
     num: '2',
-    company: 'Origin Labs',
-    role: 'ML Engineer Intern',
-    date: 'Future Opportunity',
+    company: 'AI4SEES',
+    logo: 'public/experience/ai4sees.jpg',
+    role: 'AI & Web Dev Intern',
+    date: '2025 May - 2025 August',
     active: false,
     subtitle: 'ROBOTICS & MULTI-AGENT SYSTEMS',
     desc: 'Developing intelligent robotic systems, multi-agent decision frameworks, and production-safe AI workflows.',
     bullets: [
-      'Designing simulation environments for multi-agent coordinated decision frameworks.',
-      'Architecting resilient AI workflows with predictive safety bounds.',
-      'Integrating ML inference pipelines on embedded robotic hardware.'
+      'Engineered an end-to-end computer vision system using YOLOv8 for real-time object detection, segmentation,and hazard tracking, and fine-tuned a theft detection model on edge-case datasets to improve performance in high-noise environments',
+      'Optimized the inference pipeline for high-FPS video streams and integrated ML outputs with a responsive React.js frontend for real-time visualization and monitoring'
     ],
-    tags: ['PyTorch', 'ROS2', 'LangGraph', 'FastAPI', 'Python', 'Docker']
+    tags: ['PyTorch', 'OpenCV','YoloV8', 'LangGraph', 'FastAPI', 'Python', 'Docker']
   },
-  {
-    id: 'exp-3',
-    num: '3',
-    company: 'Freelance AI Developer',
-    role: 'AI/ML Developer',
-    date: '2024 – Present',
-    active: true,
-    subtitle: 'AI APPLICATIONS & INTELLIGENT SOFTWARE',
-    desc: 'Building AI applications, legal assistants, conversational agents, and intelligent software products for real-world use cases.',
-    bullets: [
-      'Built LLM-powered legal assistants with RAG and document understanding.',
-      'Developed intelligent chatbots and AI agents for multiple industries.',
-      'End-to-end development of scalable AI applications and APIs.'
-    ],
-    tags: ['Python', 'LangChain', 'FastAPI', 'React', 'ChromaDB', 'PostgreSQL', 'OpenAI']
-  }
+  // {
+  //   id: 'exp-3',
+  //   num: '3',
+  //   company: 'Freelance AI Developer',
+  //   logo: 'public/experience/freelance.jpg',
+  //   role: 'AI/ML Developer',
+  //   date: '2024 – Present',
+  //   active: true,
+  //   subtitle: 'AI APPLICATIONS & INTELLIGENT SOFTWARE',
+  //   desc: 'Building AI applications, legal assistants, conversational agents, and intelligent software products for real-world use cases.',
+  //   bullets: [
+  //     'Built LLM-powered legal assistants with RAG and document understanding.',
+  //     'Developed intelligent chatbots and AI agents for multiple industries.',
+  //     'End-to-end development of scalable AI applications and APIs.'
+  //   ],
+  //   tags: ['Python', 'LangChain', 'FastAPI', 'React', 'ChromaDB', 'PostgreSQL', 'OpenAI']
+  // }
 ]
 
 export default function ExperienceSection() {
@@ -157,15 +159,24 @@ export default function ExperienceSection() {
                 >
                   {/* MOBILE ONLY NODE (Absolute positioned at left-6, hidden on desktop) */}
                   <div className="absolute left-6 -translate-x-1/2 top-4 flex md:hidden items-center justify-center z-30 pt-3">
-                    <div className="relative w-12 h-12 flex items-center justify-center">
+                    <div className="relative w-20 h-20 flex items-center justify-center">
                       <div
-                        className={`w-10 h-10 rounded-full border-2 flex items-center justify-center ${
-                          exp.active ? 'bg-[#0f1f4b] border-[#0f1f4b] text-white' : 'bg-white border-[#e2e8f0] text-[#0f1f4b]'
+                        className={`w-18 h-18 rounded-full border-2 bg-white flex items-center justify-center p-2 overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.05)] ${
+                          exp.active ? 'border-[#0f1f4b]' : 'border-[#e2e8f0]'
                         }`}
                       >
-                        <span className="font-sans text-[13px] font-bold">
-                          {exp.num}
-                        </span>
+                        {exp.logo ? (
+                          <img 
+                            src={exp.logo} 
+                            alt={`${exp.company} logo`} 
+                            className="w-full h-full object-contain rounded-full" 
+                            style={{ imageRendering: 'high-quality' }}
+                          />
+                        ) : (
+                          <span className="font-sans text-[13px] font-bold text-[#0f1f4b]">
+                            {exp.num}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -174,7 +185,7 @@ export default function ExperienceSection() {
                   <div className="flex flex-col md:grid md:grid-cols-[1fr_120px_1fr] w-full items-start gap-4 md:gap-0">
                     
                     {/* Left Column: Date + Company + Role */}
-                    <div className={`w-full flex flex-col text-left pl-16 pr-8 md:pl-0 md:pr-0 pt-3 md:justify-start ${isEven ? 'md:text-right md:order-1' : 'md:text-left md:order-3'}`}>
+                    <div className={`w-full flex flex-col text-left pl-20 pr-8 md:pl-0 md:pr-0 pt-3 md:justify-start ${isEven ? 'md:text-right md:order-1' : 'md:text-left md:order-3'}`}>
                       <span className="text-[12px] font-sans font-bold text-[#3b6fd4] tracking-wide mb-1.5 uppercase">
                         {exp.date}
                       </span>
@@ -188,7 +199,7 @@ export default function ExperienceSection() {
 
                     {/* Center Column: Node (Desktop Grid Node - Aligns perfectly and stays separated) */}
                     <div className="hidden md:flex items-center justify-center w-full pt-3 md:order-2">
-                      <div className="relative w-12 h-12 flex items-center justify-center">
+                      <div className="relative w-20 h-20 flex items-center justify-center">
                         
                         {/* Glowing outer aura rings for active node */}
                         <motion.div
@@ -200,23 +211,31 @@ export default function ExperienceSection() {
                           className="absolute inset-0 rounded-full bg-[#0f1f4b]/15 blur-[4px]"
                         />
                         
-                        {/* Central Circle Badge with Number */}
+                        {/* Central Circle Badge with Logo */}
                         <motion.div
                           animate={{
                             scale: isNodeActive ? 1.1 : 1,
                             borderColor: isNodeActive ? '#0f1f4b' : '#e2e8f0',
-                            backgroundColor: exp.active ? '#0f1f4b' : '#ffffff',
                             boxShadow: isNodeActive 
                               ? '0 6px 20px rgba(15,31,75,0.2)' 
                               : '0 2px 6px rgba(0,0,0,0.02)'
                           }}
                           transition={{ duration: 0.3 }}
                           style={{ borderStyle: 'solid' }}
-                          className="w-10 h-10 rounded-full border-2 flex items-center justify-center z-30"
+                          className="w-18 h-18 rounded-full border-2 bg-white flex items-center justify-center z-30 p-2 overflow-hidden"
                         >
-                          <span className={`font-sans text-[13px] font-bold ${exp.active ? 'text-white' : 'text-[#0f1f4b]'}`}>
-                            {exp.num}
-                          </span>
+                          {exp.logo ? (
+                            <img 
+                              src={exp.logo} 
+                              alt={`${exp.company} logo`} 
+                              className="w-full h-full object-contain rounded-full" 
+                              style={{ imageRendering: 'high-quality' }}
+                            />
+                          ) : (
+                            <span className={`font-sans text-[13px] font-bold ${exp.active ? 'text-white' : 'text-[#0f1f4b]'}`}>
+                              {exp.num}
+                            </span>
+                          )}
                         </motion.div>
                       </div>
                     </div>
