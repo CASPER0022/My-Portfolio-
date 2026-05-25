@@ -4,63 +4,63 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 const projects = [
   {
     id: 1,
-    cat: 'CAT. 01',
+    cat: 'Project. 01',
     title: 'LegalEase',
     desc: 'An AI-powered legal document intelligence platform with advanced RAG architectures.',
     tech: ['React.js', 'FastAPI', 'LangChain', 'ChromaDB', 'Python'],
     github: 'https://github.com/AlbinJohn/LegalEase',
     live: 'https://legalease-demo.vercel.app',
-    img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80'
+    img: 'public/projects/legal ease/legalease.jpg'
   },
   {
     id: 2,
-    cat: 'CAT. 02',
+    cat: 'Project. 02',
     title: 'Casper',
     desc: 'A high-performance multi-agent conversational AI assistant engineered with LangGraph.',
     tech: ['React.js', 'LangGraph', 'FastAPI', 'Python', 'OpenAI'],
     github: 'https://github.com/AlbinJohn/casper-agent',
     live: 'https://casper-ai.vercel.app',
-    img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80'
+    img: 'public/projects/casper/casper.jpg'
   },
   {
     id: 3,
-    cat: 'CAT. 03',
+    cat: 'Project. 03',
     title: 'AuthentiScan',
     desc: 'A hybrid AI-powered image forgery detection platform.',
     tech: ['PyTorch', 'FastAPI', 'React.js', 'OpenCV', 'Python'],
     github: 'https://github.com/AlbinJohn/AuthentiScan',
     live: 'https://authentiscan-detector.vercel.app',
-    img: 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?w=800&auto=format&fit=crop&q=80'
+    img: 'public/projects/Authentiscan/authentiscan.jpg'
   },
   {
     id: 4,
-    cat: 'CAT. 04',
-    title: 'NeuralFlow',
-    desc: 'An intelligent workflow automation engine powered by autonomous LLM orchestrators.',
+    cat: 'Project. 04',
+    title: 'Spectral Encoder GCN',
+    desc: 'A research-driven graph neural network framework applying extended spectral encoding to diverse network types, with Jupyter notebooks, datasets, and LaTeX paper.',
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS'],
     github: 'https://github.com/AlbinJohn/NeuralFlow',
     live: 'https://neuralflow-app.vercel.app',
-    img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&auto=format&fit=crop&q=80'
+    img: 'public/projects/spectral gcn/spectral gcn.jpg'
   },
   {
     id: 5,
-    cat: 'CAT. 05',
-    title: 'VisionEdge',
-    desc: 'A real-time computer vision analytics system for industrial assembly monitoring.',
-    tech: ['PyTorch', 'OpenCV', 'Python', 'FastAPI', 'Docker'],
+    cat: 'Project. 05',
+    title: 'SpiceNest',
+    desc: 'A modern full-stack eCommerce platform for premium Kerala spices, featuring secure payments, cart management, and product browsing.',
+    tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Prisma'],
     github: 'https://github.com/AlbinJohn/VisionEdge',
     live: 'https://visionedge-analytics.vercel.app',
-    img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&auto=format&fit=crop&q=80'
+    img: 'public/projects/spicenest/spicenest.jpg'
   },
   {
     id: 6,
-    cat: 'CAT. 06',
-    title: 'VectorMind',
-    desc: 'An enterprise-grade RAG search engine featuring sub-second vector retrieval.',
-    tech: ['React.js', 'FastAPI', 'Qdrant', 'OpenAI', 'Python'],
+    cat: 'Project. 06',
+    title: 'Parallel Image Processing',
+    desc: 'Medical image processor leveraging C++ and OpenMP for efficient serial and parallel PNG transformations, featuring negative and edge detection filters.',
+    tech: ['C++', 'C', 'OpenMP'],
     github: 'https://github.com/AlbinJohn/VectorMind',
     live: 'https://vectormind-search.vercel.app',
-    img: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop&q=80'
+    img: 'public/projects/parallel processing/parallel processing.jpg'
   }
 ]
 
@@ -156,7 +156,7 @@ function ProjectCard({ p, i }) {
         position: 'relative',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
-        backfaceVisibility: 'hidden'
+        isolation: 'isolate'
       }}
       whileHover={{ 
         y: -10,
@@ -189,8 +189,12 @@ function ProjectCard({ p, i }) {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                opacity: 0.95,
-                pointerEvents: 'none'
+                opacity: 1,
+                pointerEvents: 'none',
+                imageRendering: 'high-quality',
+                willChange: 'transform',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden'
               }}
               animate={{ scale: hovered ? 1.05 : 1 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}

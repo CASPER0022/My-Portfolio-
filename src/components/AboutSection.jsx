@@ -16,7 +16,7 @@ export default function AboutSection() {
       )
     },
     {
-      num: '80+',
+      num: '250+',
       label: 'LeetCode Problems Solved',
       accentColor: '#6366F1',
       accentColor2: '#818CF8',
@@ -28,7 +28,7 @@ export default function AboutSection() {
       )
     },
     {
-      num: '8+',
+      num: '20+',
       label: 'Completed Projects',
       accentColor: '#06B6D4',
       accentColor2: '#22D3EE',
@@ -39,7 +39,7 @@ export default function AboutSection() {
       )
     },
     {
-      num: '13+',
+      num: '15+',
       label: 'Course Certifications',
       accentColor: '#8B5CF6',
       accentColor2: '#A78BFA',
@@ -166,7 +166,7 @@ export default function AboutSection() {
                 I am a Computer Science student at IIIT Kottayam and a dedicated Full-Stack Engineer who thrives at the intersection of robust backend architectures and fluid, interactive frontend designs. Over the past 2 years, I have focused on engineering scalable web architectures, crafting high-performance user experiences, and exploring intelligent systems.
               </p>
               <p className="text-base md:text-[17px] leading-[1.8] text-gray-300/95 font-sans font-normal">
-                What drives me is the challenge of transforming complex algorithmic concepts into clean, accessible, and high-impact digital products. Armed with a strong foundation in modern tech stacks, I approach software engineering not just as writing code, but as building reliable, scalable systems that solve tangible, real-world problems.
+                I enjoy turning complex ideas into simple and practical solutions. I focus on building reliable applications that are easy to use, scalable, and capable of solving real-world problems.
               </p>
             </div>
           </motion.div>
