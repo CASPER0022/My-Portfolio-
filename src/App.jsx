@@ -100,13 +100,45 @@ export default function App() {
         </div>
 
         {/* Section 2: Selected Work (Auto height for luxury 3-column 6-card grid) */}
-        <div id="work" className="w-full relative" style={{ background: '#f8f9fb' }}>
-          <WorkSection />
+        <div id="work" className="w-full relative overflow-hidden" style={{ background: '#f8f9fb' }}>
+          {/* Background Image Layer with reduced opacity */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: "url('/luxury_topo_bg.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.65, // Barely visible, subtle luxury topographic contours
+              pointerEvents: 'none',
+              zIndex: 0
+            }}
+          />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <WorkSection />
+          </div>
         </div>
 
         {/* Section 1.5: Curated Work Experience Journey */}
-        <div id="experience" className="w-full relative" style={{ background: '#f8f9fb' }}>
-          <ExperienceSection />
+        <div id="experience" className="w-full relative overflow-hidden" style={{ background: '#f8f9fb' }}>
+          {/* Background Image Layer with reduced opacity */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: "url('/experience_topo_bg.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.15, // Barely visible, subtle luxury architectural lines
+              pointerEvents: 'none',
+              zIndex: 0
+            }}
+          />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <ExperienceSection />
+          </div>
         </div>
 
         {/* Section 3: Technical Skills & Expertise */}

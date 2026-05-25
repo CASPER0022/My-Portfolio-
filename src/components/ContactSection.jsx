@@ -741,112 +741,16 @@ export default function ContactSection() {
               </button>
             </form>
 
-            {/* 2. Contact Information (Placed directly below Send Msg) */}
-            <div style={inlineCardStyle}>
-              <h4 className="font-sans font-extrabold text-lg text-gray-900 tracking-tight uppercase" style={{ margin: 0 }}>
-                Contact Information
-              </h4>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '4px' }}>
-                {/* Email Info */}
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                  <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
-                    <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#e0e7ff', border: '1px solid #c7d2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4f46e5', flexShrink: 0 }}>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                      </svg>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
-                      <span style={{ fontSize: '10px', fontMono: 'true', fontWeight: 'bold', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Email Address</span>
-                      <a href="mailto:albinjohn2427@gmail.com" style={{ fontSize: '13px', fontFamily: 'monospace', fontWeight: 'bold', color: '#1f2937', textDecoration: 'none', wordBreak: 'break-all' }}>
-                        albinjohn2427@gmail.com
-                      </a>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={copyEmail}
-                    style={{
-                      flexShrink: 0,
-                      padding: '6px 12px',
-                      borderRadius: '8px',
-                      border: '1px solid rgba(0,0,0,0.06)',
-                      background: '#f9fafb',
-                      fontSize: '10px',
-                      fontFamily: 'monospace',
-                      fontWeight: 'bold',
-                      color: '#4b5563',
-                      textTransform: 'uppercase',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = '#e0e7ff'; e.currentTarget.style.color = '#4f46e5'; e.currentTarget.style.borderColor = '#c7d2fe'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = '#f9fafb'; e.currentTarget.style.color = '#4b5563'; e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)'; }}
-                  >
-                    {copied ? 'Copied ✓' : 'Copy'}
-                  </button>
-                </div>
-
-                {/* Location Info */}
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'center', width: '100%' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#ecfdf5', border: '1px solid #a7f3d0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669', flexShrink: 0 }}>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1115 0z" />
-                    </svg>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
-                    <span style={{ fontSize: '10px', fontMono: 'true', fontWeight: 'bold', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Location</span>
-                    <span style={{ fontSize: '13px', fontSans: 'true', fontWeight: 'bold', color: '#1f2937' }}>
-                      India
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
 
-          {/* Right Column: 3D Gyroscope & Connect With Me Stack */}
+          {/* Right Column: Connect With Me & Contact Info Stack */}
           <div className="lg:col-span-5 flex flex-col gap-6 w-full pointer-events-auto">
             
-            {/* 3D Gyroscope Viewport Card */}
-            <div 
-              style={{
-                background: '#ffffff',
-                borderRadius: '24px',
-                border: '1px solid rgba(0, 0, 0, 0.08)',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.01)',
-                overflow: 'hidden',
-                boxSizing: 'border-box',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '40px',
-                aspectRatio: '1 / 1',
-                width: '100%',
-                position: 'relative'
-              }}
-            >
-              {/* Interactive Grid backdrop */}
-              <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#6366f1_1px,transparent_1px)] bg-[size:16px_16px]" />
-
-              {/* 3D Canvas Subsystem */}
-              <GyroscopeCanvas />
-              
-              {/* Viewport Info Overlay */}
-              <div className="absolute bottom-6 left-6 right-6 pointer-events-none text-center flex flex-col items-center gap-1 z-10">
-                <span className="text-[8.5px] font-mono font-bold tracking-[0.22em] text-indigo-500 bg-indigo-50/90 border border-indigo-100/60 px-3 py-1 rounded-full uppercase leading-none mb-1 shadow-sm">
-                  Click to Spin · Drag to Orbit
-                </span>
-              </div>
-            </div>
-
-            {/* 4. Connect With Me Social Rows */}
+            {/* 1. Connect With Me Social Rows */}
             <div style={inlineCardStyle}>
-              <h4 className="font-sans font-extrabold text-lg text-gray-900 tracking-tight uppercase" style={{ margin: 0 }}>
+              <h3 className="font-sans font-extrabold text-lg text-gray-900 tracking-tight uppercase" style={{ margin: 0 }}>
                 Connect With Me
-              </h4>
+              </h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '4px', width: '100%' }}>
                 {[
@@ -919,7 +823,7 @@ export default function ContactSection() {
                         {social.icon}
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
-                        <span style={{ fontSize: '13px', fontWeight: '800', color: '#1f2937', lineHeight: '1.2' }}>{social.name}</span>
+                        <span style={{ fontSize: '13px', fontWeight: '850', color: '#1f2937', lineHeight: '1.2' }}>{social.name}</span>
                         <span style={{ fontSize: '10px', color: '#9ca3af', fontFamily: 'system-ui, -apple-system, sans-serif', marginTop: '2px', lineHeight: '1' }}>{social.desc}</span>
                       </div>
                     </div>
@@ -928,6 +832,69 @@ export default function ContactSection() {
                     </svg>
                   </a>
                 ))}
+              </div>
+            </div>
+
+            {/* 2. Contact Information Card */}
+            <div style={inlineCardStyle}>
+              <h3 className="font-sans font-extrabold text-lg text-gray-900 tracking-tight uppercase" style={{ margin: 0 }}>
+                Contact Information
+              </h3>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '4px' }}>
+                {/* Email Info */}
+                <div style={{ display: 'flex', gap: '14px', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#e0e7ff', border: '1px solid #c7d2fe', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4f46e5', flexShrink: 0 }}>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                      </svg>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+                      <span style={{ fontSize: '10px', fontMono: 'true', fontWeight: 'bold', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Email Address</span>
+                      <a href="mailto:albinjohn2427@gmail.com" style={{ fontSize: '13px', fontFamily: 'monospace', fontWeight: 'bold', color: '#1f2937', textDecoration: 'none', wordBreak: 'break-all' }}>
+                        albinjohn2427@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={copyEmail}
+                    style={{
+                      flexShrink: 0,
+                      padding: '6px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid rgba(0,0,0,0.06)',
+                      background: '#f9fafb',
+                      fontSize: '10px',
+                      fontFamily: 'monospace',
+                      fontWeight: 'bold',
+                      color: '#4b5563',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = '#e0e7ff'; e.currentTarget.style.color = '#4f46e5'; e.currentTarget.style.borderColor = '#c7d2fe'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = '#f9fafb'; e.currentTarget.style.color = '#4b5563'; e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)'; }}
+                  >
+                    {copied ? 'Copied ✓' : 'Copy'}
+                  </button>
+                </div>
+
+                {/* Location Info */}
+                <div style={{ display: 'flex', gap: '14px', alignItems: 'center', width: '100%' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#ecfdf5', border: '1px solid #a7f3d0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669', flexShrink: 0 }}>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1115 0z" />
+                    </svg>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+                    <span style={{ fontSize: '10px', fontMono: 'true', fontWeight: 'bold', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '2px' }}>Location</span>
+                    <span style={{ fontSize: '13px', fontSans: 'true', fontWeight: 'bold', color: '#1f2937' }}>
+                      India
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
