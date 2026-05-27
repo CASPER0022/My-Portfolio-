@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import Cursor from './components/Cursor'
 import SplashLoader from './components/SplashLoader'
 import Navbar from './components/Navbar'
@@ -297,6 +298,7 @@ export default function App() {
         <Footer />
       </div>
       )}
+      <Analytics />
     </div>
   )
 }
