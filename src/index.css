@@ -604,14 +604,14 @@ body {
   }
   .hero-robot-container {
     /* Pull the floating 3D robot up on phone screens to prevent overlapping the stats bar */
-    transform: translateY(-190px) !important;
+    transform: translateY(-145px) !important;
     padding: 1rem !important;
     margin-bottom: -85px !important;
   }
   .hero-robot-canvas-wrapper {
     /* Make the 3D model smaller on mobile and dramatically shrink the touch-draggable area */
     width: 220px !important;
-    height: 260px !important;
+    height: 190px !important;      /* ROBOT PHONE IVADE SET CHEYYAAADAAA*/
     aspect-ratio: auto !important;
     margin: 0 auto !important;
   }
@@ -667,7 +667,7 @@ body {
 @media (max-width: 768px) {
   .project-card-container {
     padding: 8px 8px 12px 8px !important;
-    min-height: 280px !important;
+    min-height: 200px !important;
     border-radius: 16px !important;
   }
   .project-card-image-wrapper {
@@ -699,3 +699,22 @@ body {
     height: 12px !important;
   }
 }
+
+/* ── PHONE ONLY LAYOUT SPACING FIX ── */
+@media (max-width: 640px) {
+  #work, #experience, #cv, #extracurricular {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+/* ── MOBILE CURSOR HIDER ── */
+@media (max-width: 768px) {
+  body, html, * {
+    cursor: auto !important;
+  }
+  .custom-cursor {
+    display: none !important;
+  }
+}
+

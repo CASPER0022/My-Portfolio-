@@ -248,8 +248,26 @@ export default function LandingSection({ onViewWork }) {
           className="hero-robot-container"
         >
           {/* Transparent click-to-drag WebGL container */}
-          <div className="hero-robot-canvas-wrapper">
+          <div className="hero-robot-canvas-wrapper relative">
             <RobotCanvas />
+          </div>
+
+          {/* Swipe Side Guides for Mobile Scrolling (only visible on mobile screens) */}
+          <div className="absolute left-[6%] inset-y-0 w-10 flex flex-col items-center justify-center pointer-events-none md:hidden" style={{ zIndex: 20 }}>
+            <div className="flex flex-col items-center gap-2.5 opacity-55" style={{ animation: 'bounce 2s infinite' }}>
+              <span className="text-[10px] font-mono font-bold tracking-[0.25em] text-gray-500 [writing-mode:vertical-lr] uppercase pl-1">Swipe Side</span>
+              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </div>
+          <div className="absolute right-[6%] inset-y-0 w-10 flex flex-col items-center justify-center pointer-events-none md:hidden" style={{ zIndex: 20 }}>
+            <div className="flex flex-col items-center gap-2.5 opacity-55" style={{ animation: 'bounce 2s infinite' }}>
+              <span className="text-[10px] font-mono font-bold tracking-[0.25em] text-gray-500 [writing-mode:vertical-lr] uppercase pl-1">Swipe Side</span>
+              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
           </div>
 
           {/* Glowing Cyber Ash Particle Emitter */}
