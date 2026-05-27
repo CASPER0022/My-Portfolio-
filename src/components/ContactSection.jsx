@@ -800,7 +800,7 @@ export default function ContactSection() {
                     key: 'github',
                     name: 'GitHub',
                     desc: 'Check out my projects',
-                    url: 'https://github.com/AlbinJohn',
+                    url: 'https://github.com/CASPER0022/',
                     color: '#111827',
                     bg: 'rgba(17, 24, 39, 0.05)',
                     icon: (
@@ -813,7 +813,7 @@ export default function ContactSection() {
                     key: 'linkedin',
                     name: 'LinkedIn',
                     desc: 'Connect professionally',
-                    url: 'https://linkedin.com/in/AlbinJohn',
+                    url: 'https://www.linkedin.com/in/albin-john-/',
                     color: '#0a66c2',
                     bg: 'rgba(10, 102, 194, 0.05)',
                     icon: (
@@ -826,7 +826,7 @@ export default function ContactSection() {
                     key: 'instagram',
                     name: 'Instagram',
                     desc: 'Follow my journey',
-                    url: 'https://instagram.com',
+                    url: 'https://www.instagram.com/albin_joh_n/',
                     color: '#e1306c',
                     bg: 'rgba(225, 48, 108, 0.05)',
                     icon: (
@@ -841,7 +841,7 @@ export default function ContactSection() {
                     key: 'leetcode',
                     name: 'LeetCode',
                     desc: 'Solve coding puzzles',
-                    url: 'https://leetcode.com/u/AlbinJohn/',
+                    url: 'https://leetcode.com/u/casper22/',
                     color: '#ffa116',
                     bg: 'rgba(255, 161, 22, 0.05)',
                     icon: (

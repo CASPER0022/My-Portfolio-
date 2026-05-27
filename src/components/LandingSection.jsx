@@ -187,12 +187,18 @@ export default function LandingSection({ onViewWork }) {
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            <button className="btn-secondary">
+            <a 
+              href="https://drive.google.com/file/d/1wGqYz-720LmxE6E9mCxl8OibwVAsmZX5/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary"
+              style={{ textDecoration: 'none' }}
+            >
               Download Resume
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M8 3v8M5 8l3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </button>
+            </a>
           </div>
 
           {/* Prompt text — positioned above white layer */}
