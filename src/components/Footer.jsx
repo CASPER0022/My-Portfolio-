@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 export default function Footer() {
-  const [views, setViews] = useState(0)
   const [hoveredLink, setHoveredLink] = useState(null)
   const [heartScale, setHeartScale] = useState(1)
   const [hoveredSocialFooter, setHoveredSocialFooter] = useState(null)
 
   useEffect(() => {
-    // Local persistent view counter
-    const key = 'albin_portfolio_views'
-    let currentViews = localStorage.getItem(key)
-    if (!currentViews) {
-      const seed = 1 // Start at 1 on first ever visit
-      localStorage.setItem(key, seed.toString())
-      setViews(seed)
-    } else {
-      const nextViews = parseInt(currentViews, 10) + 1
-      localStorage.setItem(key, nextViews.toString())
-      setViews(nextViews)
-    }
-
     // A fun beating heart micro-animation
     const interval = setInterval(() => {
       setHeartScale(1.2)
@@ -283,39 +269,6 @@ export default function Footer() {
                   </a>
                 )
               })}
-            </div>
-
-            {/* Futuristic view counter pill */}
-            <div 
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '6px 14px',
-                borderRadius: '100px',
-                background: 'rgba(99, 102, 241, 0.08)',
-                border: '1px solid rgba(99, 102, 241, 0.2)',
-                alignSelf: 'start',
-                marginTop: '4px'
-              }}
-            >
-              {/* Pulsing cyan status indicator */}
-              <span style={{ position: 'relative', display: 'flex', width: '6px', height: '6px' }}>
-                <span style={{ position: 'absolute', display: 'inline-flex', width: '100%', height: '100%', borderRadius: '9999px', background: '#22d3ee', opacity: 0.75, animation: 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite' }} />
-                <span style={{ position: 'relative', display: 'inline-flex', width: '6px', height: '6px', borderRadius: '9999px', background: '#06b6d4' }} />
-              </span>
-              <span 
-                style={{
-                  fontSize: '9.5px',
-                  fontFamily: 'monospace',
-                  fontWeight: 'bold',
-                  color: '#e0e7ff',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase'
-                }}
-              >
-                {views.toLocaleString()} views
-              </span>
             </div>
           </div>
         </div>

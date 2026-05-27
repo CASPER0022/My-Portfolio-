@@ -136,10 +136,12 @@ const getTechLogo = (name) => {
   if (norm.includes('react')) {
     return (
       <svg className="w-[18px] h-[18px] text-[#61dafb] animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <ellipse rx="10" ry="4.5" transform="rotate(0)" />
-        <ellipse rx="10" ry="4.5" transform="rotate(60)" />
-        <ellipse rx="10" ry="4.5" transform="rotate(120)" />
-        <circle r="2" fill="currentColor" />
+        <g transform="translate(12, 12)">
+          <ellipse rx="10" ry="4.5" transform="rotate(0)" />
+          <ellipse rx="10" ry="4.5" transform="rotate(60)" />
+          <ellipse rx="10" ry="4.5" transform="rotate(120)" />
+          <circle r="2" fill="currentColor" />
+        </g>
       </svg>
     )
   }

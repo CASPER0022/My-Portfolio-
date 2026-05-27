@@ -386,15 +386,57 @@ export default function ContactSection() {
     setFormState(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setTimeout(() => {
+
+    // Web3Forms API Key integration
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY_HERE"
+
+    if (!accessKey || accessKey.includes("YOUR_WEB3FORMS_ACCESS_KEY")) {
+      console.warn("Web3Forms Access Key is missing! Set it in your .env file as VITE_WEB3FORMS_ACCESS_KEY.")
+      // Simulate submission if no key is set so the UI still displays nicely for demos
+      setTimeout(() => {
+        setIsSubmitting(false)
+        setSubmitSuccess(true)
+        setFormState({ name: '', email: '', subject: '', message: '' })
+        setTimeout(() => setSubmitSuccess(false), 4500)
+      }, 1500)
+      return
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formState.name,
+          email: formState.email,
+          subject: formState.subject || "New Message from Portfolio",
+          message: formState.message,
+          from_name: `${formState.name} via Portfolio Contact`
+        })
+      })
+
+      const result = await response.json()
+      if (result.success) {
+        setSubmitSuccess(true)
+        setFormState({ name: '', email: '', subject: '', message: '' })
+        setTimeout(() => setSubmitSuccess(false), 4500)
+      } else {
+        console.error("Web3Forms submission failed:", result)
+        alert("Oops! Something went wrong. Please try again or email me directly at albinjohn2427@gmail.com")
+      }
+    } catch (err) {
+      console.error("Web3Forms request error:", err)
+      alert("Network error. Please try again or email me directly at albinjohn2427@gmail.com")
+    } finally {
       setIsSubmitting(false)
-      setSubmitSuccess(true)
-      setFormState({ name: '', email: '', subject: '', message: '' })
-      setTimeout(() => setSubmitSuccess(false), 4500)
-    }, 1800)
+    }
   }
 
   const copyEmail = () => {
