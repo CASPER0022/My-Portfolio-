@@ -105,7 +105,7 @@ export default function LandingSection({ onViewWork }) {
   }, [])
 
   const stats = [
-    { n: '10+', label: 'Projects Built' },
+    { n: '20+', label: 'Projects Built' },
     { n: 'AI/ML', label: 'Specialization' },
     { n: 'Full Stack', label: 'Engineering' },
     { n: 'Open', label: 'to Opportunities' },
@@ -278,11 +278,11 @@ export default function LandingSection({ onViewWork }) {
         </div>
       </div>
 
-      {/* STATS BAR */}
+      {/* Default Stats Bar */}
       <motion.div className="stats-bar"
         initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: 'easeOut', delay: 0.7 }}
-        style={{ position:'relative', zIndex:10 }}>
+        style={{ position:'relative', zIndex: 2 }}>
         {stats.map((s, i) => (
           <div key={i} className="stat-item">
             <span className="stat-number">{s.n}</span>
@@ -290,6 +290,35 @@ export default function LandingSection({ onViewWork }) {
           </div>
         ))}
       </motion.div>
+
+      {/* Section-wide White Stats Spotlight Overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          maskImage: 'url(#gooey-mask)',
+          WebkitMaskImage: 'url(#gooey-mask)',
+          zIndex: 12,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-end'
+        }}
+      >
+        <motion.div className="stats-bar"
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.7 }}
+          style={{ 
+            borderTop: '1px solid rgba(255,255,255,0.2)',
+            background: 'transparent'
+          }}
+        >
+          {stats.map((s, i) => (
+            <div key={i} className="stat-item" style={{ borderRight: i < stats.length - 1 ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+              <span className="stat-number" style={{ color: '#ffffff' }}>{s.n}</span>
+              <span className="stat-label" style={{ color: 'rgba(255,255,255,0.8)' }}>{s.label}</span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <div className="scroll-indicator" style={{ zIndex:10 }}>

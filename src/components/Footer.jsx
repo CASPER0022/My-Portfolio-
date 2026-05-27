@@ -230,15 +230,13 @@ export default function Footer() {
                   hoverBg: 'rgba(225, 48, 108, 0.15)'
                 },
                 {
-                  key: 'x',
-                  url: 'https://x.com',
+                  key: 'leetcode',
+                  url: 'https://leetcode.com/u/AlbinJohn/',
                   icon: (
-                    <svg style={{ width: '12px', height: '12px' }} fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
+                    <img src="/leetcode_logo.png" alt="LeetCode" style={{ width: '13px', height: '13px', objectFit: 'contain' }} />
                   ),
-                  color: '#ffffff',
-                  hoverBg: 'rgba(255, 255, 255, 0.1)'
+                  color: '#ffa116',
+                  hoverBg: 'rgba(255, 161, 22, 0.15)'
                 }
               ].map((item) => {
                 const isHovered = hoveredSocialFooter === item.key

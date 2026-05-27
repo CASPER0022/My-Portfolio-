@@ -1,10 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+
+function CountUp({ to, duration = 1.5, suffix = "+" }) {
+  const [count, setCount] = useState(0)
+  const countRef = useRef(null)
+  const hasAnimated = useRef(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true
+          let start = 0
+          const end = parseInt(to, 10)
+          if (isNaN(end)) {
+            setCount(to)
+            return
+          }
+          const totalTicks = 60
+          const tickDuration = (duration * 1000) / totalTicks
+          let currentTick = 0
+
+          const timer = setInterval(() => {
+            currentTick++
+            const progress = currentTick / totalTicks
+            const easeProgress = 1 - Math.pow(1 - progress, 2) // Quadratic ease-out slowdown
+            const currentVal = Math.round(easeProgress * end)
+
+            setCount(currentVal)
+
+            if (currentTick >= totalTicks) {
+              clearInterval(timer)
+              setCount(end)
+            }
+          }, tickDuration)
+
+          return () => clearInterval(timer)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (countRef.current) {
+      observer.observe(countRef.current)
+    }
+
+    return () => {
+      if (countRef.current) {
+        observer.unobserve(countRef.current)
+      }
+    }
+  }, [to, duration])
+
+  return <span ref={countRef}>{count}{suffix}</span>
+}
 
 export default function AboutSection() {
   const stats = [
     {
-      num: '3+',
+      num: 3,
+      suffix: '+',
       label: 'Years of Experience',
       accentColor: '#3B82F6',
       accentColor2: '#60A5FA',
@@ -16,7 +72,8 @@ export default function AboutSection() {
       )
     },
     {
-      num: '250+',
+      num: 250,
+      suffix: '+',
       label: 'LeetCode Problems Solved',
       accentColor: '#6366F1',
       accentColor2: '#818CF8',
@@ -28,7 +85,8 @@ export default function AboutSection() {
       )
     },
     {
-      num: '20+',
+      num: 20,
+      suffix: '+',
       label: 'Completed Projects',
       accentColor: '#06B6D4',
       accentColor2: '#22D3EE',
@@ -39,7 +97,8 @@ export default function AboutSection() {
       )
     },
     {
-      num: '15+',
+      num: 15,
+      suffix: '+',
       label: 'Course Certifications',
       accentColor: '#8B5CF6',
       accentColor2: '#A78BFA',
@@ -257,7 +316,7 @@ export default function AboutSection() {
                 
                 {/* Bold Number centered */}
                 <span className="font-sans font-extrabold text-3xl md:text-4xl tracking-tight leading-none mb-3 transition-colors duration-300" style={{ color: '#ffffff' }}>
-                  {s.num}
+                  <CountUp to={s.num} suffix={s.suffix} />
                 </span>
                 
                 {/* Elegant Label centered */}
