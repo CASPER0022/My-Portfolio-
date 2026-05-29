@@ -9,15 +9,23 @@ const certifications = [
     issuer: 'Coursera & DeepLearning.AI',
     category: 'AI & ML',
     tag: 'Machine Learning',
-    link: '#',
+    link: '/certificates/Supervised Machine Learning Regression and Classification.pdf',
     color: '#8b5cf6'
   },
   {
-    title: 'MERN Stack & Full Stack Web Development',
-    issuer: 'Full Stack Academy',
+    title: 'The Complete Fullstack Web Development Bootcamp',
+    issuer: 'Udemy',
     category: 'Web Dev',
     tag: 'Full Stack',
-    link: '#',
+    link: '/certificates/The complete Fullstack webdevelopment bootcamp.jpg',
+    color: '#a855f7'
+  },
+  {
+    title: 'MERN Stack & Full Stack Web Development',
+    issuer: 'Infosys Springboard',
+    category: 'Web Dev',
+    tag: 'Full Stack',
+    link: '/certificates/Mern Stack and fsd.pdf',
     color: '#06b6d4'
   },
   {
@@ -25,31 +33,31 @@ const certifications = [
     issuer: 'IBM Skills Network',
     category: 'AI & ML',
     tag: 'Artificial Intelligence',
-    link: '#',
+    link: '/certificates/IBMSkillsNetwork AI0117EN Certificate _ Cognitive Class.pdf',
     color: '#3b82f6'
   },
   {
     title: 'Python Libraries for Data Science',
-    issuer: 'Coursera',
+    issuer: 'Simplilearn',
     category: 'AI & ML',
     tag: 'Data Science',
-    link: '#',
+    link: '/certificates/6781338_Python_Libraries_for_Data_Science_6285289.pdf',
     color: '#3b82f6'
   },
   {
     title: 'Introduction to Natural Language Processing (NLP)',
-    issuer: 'Cognitive Class',
+    issuer: 'Infosys Springboard',
     category: 'AI & ML',
     tag: 'NLP',
-    link: '#',
+    link: '/certificates/Introduction to Natural Language Processing.pdf',
     color: '#8b5cf6'
   },
   {
     title: 'Fundamentals of Information Security',
-    issuer: 'Cognitive Class',
+    issuer: 'Infosys Springboard',
     category: 'Cybersecurity',
     tag: 'Security',
-    link: '#',
+    link: '/certificates/Fundamentals of Information security.pdf',
     color: '#ef4444'
   },
   {
@@ -57,23 +65,23 @@ const certifications = [
     issuer: 'Cognitive Class',
     category: 'AI & ML',
     tag: 'Conversational AI',
-    link: '#',
+    link: '/certificates/Chatbot Certificate _ Cognitive Class.pdf',
     color: '#10b981'
   },
   {
     title: 'Introduction to Data Science',
-    issuer: 'Cognitive Class',
+    issuer: 'Infosys Springboard',
     category: 'AI & ML',
     tag: 'Data Science',
-    link: '#',
+    link: '/certificates/Introduction to data science.pdf',
     color: '#3b82f6'
   },
   {
     title: 'Fundamentals of JavaScript',
-    issuer: 'Cognitive Class',
+    issuer: 'Infosys Springboard',
     category: 'Web Dev',
     tag: 'Frontend',
-    link: '#',
+    link: '/certificates/Fundamentals of Javascript through rockpaper-scissors.pdf',
     color: '#eab308'
   },
   {
@@ -81,7 +89,7 @@ const certifications = [
     issuer: 'Cognitive Class',
     category: 'Web Dev',
     tag: 'Programming',
-    link: '#',
+    link: '/certificates/javascript.pdf',
     color: '#eab308'
   },
   {
@@ -89,7 +97,7 @@ const certifications = [
     issuer: 'Bharat Scouts & Guides',
     category: 'Awards',
     tag: 'State Honors',
-    link: '#',
+    link: '/certificates/Rajyapuraskar.pdf',
     color: '#f97316'
   },
   {
@@ -97,7 +105,7 @@ const certifications = [
     issuer: 'State Government',
     category: 'Awards',
     tag: 'State Honors',
-    link: '#',
+    link: '/certificates/Chief minister Shield.pdf',
     color: '#f97316'
   },
   {
@@ -105,7 +113,7 @@ const certifications = [
     issuer: 'IIIT Kottayam',
     category: 'Awards',
     tag: 'Robotics',
-    link: '#',
+    link: '/certificates/Drone Workshop.png',
     color: '#ec4899'
   }
 ]
@@ -115,6 +123,7 @@ export default function CVSection() {
   const [hoveredIdx, setHoveredIdx] = useState(null)
   const [isExpanded, setIsExpanded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [selectedCert, setSelectedCert] = useState(null)
 
   useEffect(() => {
     const handleResize = () => {
@@ -124,6 +133,53 @@ export default function CVSection() {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  useEffect(() => {
+    if (selectedCert) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [selectedCert])
+
+  const renderMiniPreview = (cert) => {
+    const isImage = cert.link.endsWith('.png') || cert.link.endsWith('.jpg') || cert.link.endsWith('.jpeg');
+    if (isImage) {
+      return (
+        <img 
+          src={cert.link} 
+          alt="preview" 
+          className="w-full h-full object-cover"
+        />
+      )
+    }
+
+    return (
+      <div className="absolute inset-0 bg-slate-50/50 flex flex-col items-center justify-center p-2 border border-slate-100 rounded-lg select-none pointer-events-none">
+        {/* Sleek Golden / Category Themed Accreditation Medal Badge */}
+        <div 
+          className="w-8 h-8 rounded-full flex items-center justify-center relative shadow-sm border transition-transform duration-300"
+          style={{
+            background: `${cert.color}12`,
+            borderColor: `${cert.color}25`,
+            color: cert.color
+          }}
+        >
+          {/* Certificate Badge Ribbon */}
+          <div className="absolute top-[80%] left-[25%] w-[4px] h-3 bg-current opacity-40 rotate-[20deg] origin-top" />
+          <div className="absolute top-[80%] right-[25%] w-[4px] h-3 bg-current opacity-40 rotate-[-20deg] origin-top" />
+          
+          {/* Badge Icon */}
+          <svg className="w-4 h-4 text-current" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+          </svg>
+        </div>
+      </div>
+    )
+  }
 
   const filteredCerts = activeTab === 'All' 
     ? certifications 
@@ -208,7 +264,8 @@ export default function CVSection() {
                   key={cert.title}
                   onMouseEnter={() => setHoveredIdx(idx)}
                   onMouseLeave={() => setHoveredIdx(null)}
-                  className="relative w-full max-w-full flex flex-col justify-between"
+                  onClick={() => setSelectedCert(cert)}
+                  className="relative w-full max-w-full flex flex-col justify-between cursor-pointer"
                   style={{
                     background: '#ffffff',
                     border: isHovered 
@@ -255,52 +312,32 @@ export default function CVSection() {
                       </p>
                       
                       {/* Right Block: Offline-Compatible CSS Certificate Mini Preview */}
-                      <div 
-                        className="flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border border-gray-150 bg-gray-50 flex items-center justify-center relative transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.01)] group-hover:border-blue-400/20"
+                      <button 
+                        onClick={() => setSelectedCert(cert)}
+                        className="flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border border-gray-150 bg-gray-50 flex items-center justify-center relative transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:border-blue-400/20 cursor-pointer hover:scale-105 group/mini"
                         style={{ perspective: '600px' }}
                       >
-                        {/* CSS Certificate Mini Blueprint */}
-                        <div className="absolute inset-1 border border-dashed border-gray-300/80 rounded-lg flex flex-col justify-between p-1.5 bg-white select-none pointer-events-none">
-                          {/* Certificate header line */}
-                          <div className="w-7 h-[2px] rounded-full bg-gray-300/80" />
-                          {/* Certificate dynamic badge/text lines */}
-                          <div className="flex flex-col gap-1 items-center w-full">
-                            <div className="w-12 h-[3px] rounded-full" style={{ background: `${cert.color}40` }} />
-                            <div className="w-8 h-[2px] rounded-full bg-gray-200" />
-                          </div>
-                          {/* Bottom seal & signatures */}
-                          <div className="flex justify-between items-center w-full px-1">
-                            <div className="w-3 h-[1.5px] rounded-full bg-gray-250" />
-                            {/* Gold Seal with ribbon */}
-                            <div className="relative w-3.5 h-3.5 rounded-full flex items-center justify-center bg-amber-400/20 border border-amber-400/50">
-                              <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                              {/* Ribbon tails */}
-                              <div className="absolute top-[80%] left-[20%] w-[2px] h-2 bg-amber-500/60 rotate-[20deg] origin-top" />
-                              <div className="absolute top-[80%] right-[20%] w-[2px] h-2 bg-amber-500/60 rotate-[-20deg] origin-top" />
-                            </div>
-                            <div className="w-3 h-[1.5px] rounded-full bg-gray-250" />
-                          </div>
-                        </div>
+                        {renderMiniPreview(cert)}
                         {/* High-end overlay with verification eye icon */}
-                        <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <svg className="w-4 h-4 text-white drop-shadow-sm" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover/mini:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <svg className="w-4 h-4 text-slate-800 drop-shadow-sm" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                             <circle cx="12" cy="12" r="3" />
                           </svg>
                         </div>
-                      </div>
+                      </button>
                     </div>
                   </div>
 
                   {/* View Certificate Link CTA */}
                   <div className="mt-6 pt-4 border-t border-gray-100/80 w-full flex justify-start">
-                    <a
-                      href={cert.link}
-                      className="inline-flex items-center gap-1.5 text-[11px] font-sans font-bold uppercase tracking-wider text-gray-500 hover:text-blue-600 transition-colors select-none"
+                    <button
+                      onClick={() => setSelectedCert(cert)}
+                      className="inline-flex items-center gap-1.5 text-[11px] font-sans font-bold uppercase tracking-wider text-gray-500 hover:text-blue-600 transition-colors select-none cursor-pointer"
                     >
                       View Certificate
-                      <span className="text-[12px] font-bold">↗</span>
-                    </a>
+                      <span className="text-[12px] font-bold">👁</span>
+                    </button>
                   </div>
                 </motion.div>
               )
@@ -338,6 +375,68 @@ export default function CVSection() {
         )}
         
       </div>
+
+      {/* Premium Certificate Preview Modal - Pure Minimalist View */}
+      <AnimatePresence>
+        {selectedCert && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-8 bg-slate-950/95 backdrop-blur-md"
+            onClick={() => setSelectedCert(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.97, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.97, y: 10 }}
+              transition={{ type: 'spring', damping: 30, stiffness: 250 }}
+              className="relative w-full max-w-3xl h-[60vh] md:h-[70vh] bg-transparent flex flex-col items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Floating Glassmorphic Controls Group (Download & Close) */}
+              <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+                <a
+                  href={selectedCert.link}
+                  download
+                  className="p-2.5 rounded-full bg-slate-900/90 backdrop-blur-md text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200 border border-white/10 shadow-xl cursor-pointer"
+                  title="Download Certificate"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                </a>
+                <button
+                  onClick={() => setSelectedCert(null)}
+                  className="p-2.5 rounded-full bg-slate-900/90 backdrop-blur-md text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200 border border-white/10 shadow-xl cursor-pointer"
+                  title="Close"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Minimalist Document Stage */}
+              <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
+                {selectedCert.link.endsWith('.png') || selectedCert.link.endsWith('.jpg') || selectedCert.link.endsWith('.jpeg') ? (
+                  <img
+                    src={selectedCert.link}
+                    alt={selectedCert.title}
+                    className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl border border-white/10 bg-white"
+                  />
+                ) : (
+                  <iframe
+                    src={`${selectedCert.link}#toolbar=0&navpanes=0&statusbar=0&messages=0`}
+                    title={selectedCert.title}
+                    className="w-full h-full border-0 rounded-2xl bg-white shadow-2xl"
+                  />
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
