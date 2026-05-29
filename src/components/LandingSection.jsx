@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import TechDiagramSVG from './TechDiagramSVG'
 import AIBrainReveal from './AIBrainReveal'
 import RobotCanvas from './RobotCanvas'
@@ -16,6 +16,18 @@ export default function LandingSection({ onViewWork }) {
 
   const [isHovered, setIsHovered] = useState(false)
   const [hasRevealed, setHasRevealed] = useState(false)
+  const [showResume, setShowResume] = useState(false)
+
+  useEffect(() => {
+    if (showResume) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [showResume])
 
   useEffect(() => {
     let x1 = -1000, y1 = -1000
@@ -187,18 +199,16 @@ export default function LandingSection({ onViewWork }) {
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            <a 
-              href="https://drive.google.com/file/d/1wGqYz-720LmxE6E9mCxl8OibwVAsmZX5/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button 
+              onClick={() => setShowResume(true)}
               className="btn-secondary"
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: 'none', background: 'none', border: '1.5px solid rgba(8,28,77,0.25)' }}
             >
               Download Resume
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M8 3v8M5 8l3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </a>
+            </button>
           </div>
 
           {/* Prompt text — positioned above white layer */}
@@ -343,6 +353,60 @@ export default function LandingSection({ onViewWork }) {
           ))}
         </motion.div>
       </div>
+
+      {/* Premium Resume Preview Modal - Similar to Certifications Modal */}
+      <AnimatePresence>
+        {showResume && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-8 bg-slate-950/95 backdrop-blur-md"
+            onClick={() => setShowResume(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.97, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.97, y: 10 }}
+              transition={{ type: 'spring', damping: 30, stiffness: 250 }}
+              className="relative w-full max-w-4xl h-[80vh] md:h-[85vh] bg-transparent flex flex-col items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Floating Glassmorphic Controls Group (Download & Close) */}
+              <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+                <a
+                  href="/resume/My Resume.pdf"
+                  download="My_Resume.pdf"
+                  className="p-2.5 rounded-full bg-slate-900/90 backdrop-blur-md text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200 border border-white/10 shadow-xl cursor-pointer"
+                  title="Download Resume"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                </a>
+                <button
+                  onClick={() => setShowResume(false)}
+                  className="p-2.5 rounded-full bg-slate-900/90 backdrop-blur-md text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200 border border-white/10 shadow-xl cursor-pointer"
+                  title="Close"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Minimalist Document Stage */}
+              <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
+                <iframe
+                  src="/resume/My Resume.pdf#toolbar=0&navpanes=0&statusbar=0&messages=0"
+                  title="Resume"
+                  className="w-full h-full border-0 rounded-2xl bg-white shadow-2xl"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Scroll indicator */}
       <div className="scroll-indicator" style={{ zIndex:10 }}>
