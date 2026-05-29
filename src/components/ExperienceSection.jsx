@@ -5,6 +5,25 @@ const experiences = [
   {
     id: 'exp-1',
     num: '1',
+    company: 'Idukki Origins · Part-time',
+    logo: 'experience/idukki origins logo.png',
+    role: 'Founder & Full-Stack Developer',
+    date: 'May 2026 – Present',
+    active: true,
+    subtitle: 'E-COMMERCE & FULL-STACK DEVELOPMENT',
+    desc: 'Engineered and deployed a high-performance e-commerce platform for authentic spices, utilizing React (Vite) on the frontend and Node.js/Express on the backend.',
+    bullets: [
+      'Designed a responsive, modern UI/UX with Tailwind CSS v4 and designed the global state using the React Context API to ensure seamless, real-time cart and catalog updates',
+      'Implemented secure user authentication and authorization utilizing JSON Web Tokens (JWT) and bcryptjs password encryption',
+      'Modeled and managed relational database schemas using Prisma ORM coupled with a cloud-hosted PostgreSQL (Neon Serverless) database',
+      'Integrated the Razorpay Node SDK to build a secure, frictionless payment overlay workflow with instant payment verification',
+      'Acted as sole product owner, overseeing everything from raw spice sourcing and branding to deployment and business strategy'
+    ],
+    tags: ['React', 'Node.js', 'Express', 'Tailwind CSS', 'Prisma', 'PostgreSQL', 'Razorpay']
+  },
+  {
+    id: 'exp-2',
+    num: '2',
     company: 'KlyONIX Tech Consulting Pvt Ltd.',
     logo: 'experience/klyonix.jpg',
     role: 'AI/ML Intern',
@@ -20,8 +39,8 @@ const experiences = [
     tags: ['Python', 'LangChain', 'LangGraph', 'FastAPI', 'React', 'ChromaDB', 'OpenAI']
   },
   {
-    id: 'exp-2',
-    num: '2',
+    id: 'exp-3',
+    num: '3',
     company: 'AI4SEES',
     logo: 'experience/ai4sees.jpg',
     role: 'AI & Web Dev Intern',
@@ -34,24 +53,7 @@ const experiences = [
       'Optimized the inference pipeline for high-FPS video streams and integrated ML outputs with a responsive React.js frontend for real-time visualization and monitoring'
     ],
     tags: ['PyTorch', 'OpenCV','YoloV8', 'LangGraph', 'FastAPI', 'Python', 'Docker']
-  },
-  // {
-  //   id: 'exp-3',
-  //   num: '3',
-  //   company: 'Freelance AI Developer',
-  //   logo: 'experience/freelance.jpg',
-  //   role: 'AI/ML Developer',
-  //   date: '2024 – Present',
-  //   active: true,
-  //   subtitle: 'AI APPLICATIONS & INTELLIGENT SOFTWARE',
-  //   desc: 'Building AI applications, legal assistants, conversational agents, and intelligent software products for real-world use cases.',
-  //   bullets: [
-  //     'Built LLM-powered legal assistants with RAG and document understanding.',
-  //     'Developed intelligent chatbots and AI agents for multiple industries.',
-  //     'End-to-end development of scalable AI applications and APIs.'
-  //   ],
-  //   tags: ['Python', 'LangChain', 'FastAPI', 'React', 'ChromaDB', 'PostgreSQL', 'OpenAI']
-  // }
+  }
 ]
 
 export default function ExperienceSection() {
