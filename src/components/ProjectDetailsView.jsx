@@ -69,7 +69,7 @@ export default function ProjectDetailsView({ project, onBack }) {
     },
     5: {
       subtitle: 'Premium Full-Stack Marketplace for Kerala Spices',
-      architectureText: 'SpiceNest is built with a resilient, modern decoupled full-stack architecture that optimizes load speed and ensures transactional consistency.',
+      architectureText: 'Idukki Origins is built with a resilient, modern decoupled full-stack architecture that optimizes load speed and ensures transactional consistency.',
       architecturePoints: [
         { title: 'React Frontend Client', desc: 'Renders high-resolution catalog grids, manages instant cart updates, and provides smooth, fluid interactions.' },
         { title: 'Express.js Gateway API', desc: 'Handles secure route control, rate limiting, and cart management logic with stateless JWT session tokens.' },

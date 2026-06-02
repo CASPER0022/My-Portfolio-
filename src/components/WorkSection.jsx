@@ -3,28 +3,38 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 const projects = [
   {
-    id: 1,
+    id: 5,
     cat: 'Project. 01',
+    title: 'Idukki Origins',
+    desc: 'A modern full-stack eCommerce platform for premium Kerala spices, featuring secure payments, cart management, and product browsing.',
+    tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Prisma'],
+    github: 'https://github.com/CASPER0022/SpiceNest',
+    live: 'https://www.idukkiorigins.com/',
+    img: 'Projects/spicenest/spicenest.jpg'
+  },
+  {
+    id: 1,
+    cat: 'Project. 02',
     title: 'LegalEase',
     desc: 'An AI-powered legal document intelligence platform with advanced RAG architectures.',
     tech: ['React.js', 'FastAPI', 'LangChain', 'ChromaDB', 'Python'],
-    github: 'https://github.com/AlbinJohn/LegalEase',
-    live: 'https://legalease-demo.vercel.app',
+    github: 'https://github.com/CASPER0022/Legal-RAG-Assistant',
+    live: 'https://legal-rag-assistant.vercel.app/',
     img: 'Projects/Legal ease/legalease.jpg'
   },
   {
     id: 2,
-    cat: 'Project. 02',
+    cat: 'Project. 03',
     title: 'Casper',
     desc: 'A high-performance multi-agent conversational AI assistant engineered with LangGraph.',
     tech: ['React.js', 'LangGraph', 'FastAPI', 'Python', 'OpenAI'],
-    github: 'https://github.com/AlbinJohn/casper-agent',
-    live: 'https://casper-ai.vercel.app',
+    github: 'https://github.com/CASPER0022/Casper-2.0-Web-Assistant',
+    live: 'https://casper.app',
     img: 'Projects/casper/casper.jpg'
   },
   {
     id: 3,
-    cat: 'Project. 03',
+    cat: 'Project. 04',
     title: 'AuthentiScan',
     desc: 'A hybrid AI-powered image forgery detection platform.',
     tech: ['PyTorch', 'FastAPI', 'React.js', 'OpenCV', 'Python'],
@@ -34,23 +44,13 @@ const projects = [
   },
   {
     id: 4,
-    cat: 'Project. 04',
+    cat: 'Project. 05',
     title: 'Spectral Encoder GCN',
     desc: 'A research-driven graph neural network framework applying extended spectral encoding to diverse network types, with Jupyter notebooks, datasets, and LaTeX paper.',
     tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS'],
     github: 'https://github.com/AlbinJohn/NeuralFlow',
     live: 'https://neuralflow-app.vercel.app',
     img: 'Projects/spectral gcn/spectral gcn.jpg'
-  },
-  {
-    id: 5,
-    cat: 'Project. 05',
-    title: 'SpiceNest',
-    desc: 'A modern full-stack eCommerce platform for premium Kerala spices, featuring secure payments, cart management, and product browsing.',
-    tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Prisma'],
-    github: 'https://github.com/AlbinJohn/VisionEdge',
-    live: 'https://visionedge-analytics.vercel.app',
-    img: 'Projects/spicenest/spicenest.jpg'
   },
   {
     id: 6,
