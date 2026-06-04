@@ -52,7 +52,8 @@ const experiences = [
       'Engineered an end-to-end computer vision system using YOLOv8 for real-time object detection, segmentation,and hazard tracking, and fine-tuned a theft detection model on edge-case datasets to improve performance in high-noise environments',
       'Optimized the inference pipeline for high-FPS video streams and integrated ML outputs with a responsive React.js frontend for real-time visualization and monitoring'
     ],
-    tags: ['PyTorch', 'OpenCV','YoloV8', 'LangGraph', 'FastAPI', 'Python', 'Docker']
+    tags: ['PyTorch', 'OpenCV','YoloV8', 'LangGraph', 'FastAPI', 'Python', 'Docker'],
+    certificate: '/internships/Experience_Albin John.pdf'
   }
 ]
 
@@ -273,9 +274,21 @@ export default function ExperienceSection() {
 
                         {/* Tech Stack Label & navy border pills */}
                         <div className="!border-t !border-[#e2e8f0] !pt-5 !mt-5">
-                          <h4 className="block text-[10px] font-mono font-bold tracking-[0.15em] text-[#94a3b8] uppercase !mb-3 select-none">
-                            TECH STACK
-                          </h4>
+                          <div className="flex justify-between items-center !mb-3 select-none">
+                            <h4 className="block text-[10px] font-mono font-bold tracking-[0.15em] text-[#94a3b8] uppercase">
+                              TECH STACK
+                            </h4>
+                            {exp.certificate && (
+                              <a
+                                href={exp.certificate}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-[11px] font-sans font-bold text-[#3b6fd4] hover:text-[#0f1f4b] transition-colors cursor-pointer"
+                              >
+                                View Certificate ↗
+                              </a>
+                            )}
+                          </div>
                           <div className="flex flex-wrap gap-2">
                             {exp.tags.map((tag) => (
                               <span

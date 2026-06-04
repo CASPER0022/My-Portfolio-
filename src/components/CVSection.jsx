@@ -5,6 +5,14 @@ const categories = ['All', 'AI & ML', 'Web Dev', 'Cybersecurity', 'Awards']
 
 const certifications = [
   {
+    title: 'AI & Web Dev Internship Certificate',
+    issuer: 'AI4SEES',
+    category: 'AI & ML',
+    tag: 'Internship',
+    link: '/internships/Experience_Albin John.pdf',
+    color: '#3b6fd4'
+  },
+  {
     title: 'Supervised Machine Learning: Regression and Classification',
     issuer: 'Coursera & DeepLearning.AI',
     category: 'AI & ML',
