@@ -9,6 +9,7 @@ export default function Navbar({ active, onNav }) {
     { id: 'about',           label: 'ABOUT' },
     { id: 'work',            label: 'PROJECTS' },
     { id: 'experience',      label: 'EXPERIENCE' },
+    { id: 'interview',       label: 'PLACEMENT MATERIALS' },
     { id: 'skills',          label: 'SKILLS' },
     { id: 'cv',              label: 'CERTIFICATIONS' },
     { id: 'extracurricular', label: 'EXTRACURRICULAR' },

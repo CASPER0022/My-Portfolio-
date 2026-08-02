@@ -4,7 +4,7 @@ import TechDiagramSVG from './TechDiagramSVG'
 import AIBrainReveal from './AIBrainReveal'
 import RobotCanvas from './RobotCanvas'
 
-export default function LandingSection({ onViewWork }) {
+export default function LandingSection({ onViewWork, onViewMaterials }) {
   const sectionRef = useRef(null)
 
   const circle1Ref = useRef(null)
@@ -195,6 +195,12 @@ export default function LandingSection({ onViewWork }) {
           <div style={{ display:'flex', gap:'0.875rem', flexWrap:'wrap', marginTop:'0.5rem', position: 'relative', zIndex: 10 }}>
             <button className="btn-primary" onClick={onViewWork}>
               View Projects
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            <button className="btn-primary" onClick={onViewMaterials} style={{ background: '#14497f' }}>
+              Placement Materials
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

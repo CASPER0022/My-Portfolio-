@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Blueprint Grid Pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.07)" stroke-width="1"/>
+      <path d="M 200 0 L 0 0 0 200" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
+    </pattern>
+    
+    <!-- Linear Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c2e52"/>
+      <stop offset="50%" stop-color="#0e1620"/>
+      <stop offset="100%" stop-color="#14497f"/>
+    </linearGradient>
+
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7fb3e8"/>
+      <stop offset="100%" stop-color="#9bd4a5"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.08)"/>
+      <stop offset="100%" stop-color="rgba(255, 255, 255, 0.02)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+
+  <!-- Decorative Blueprint Circles & Lines -->
+  <circle cx="650" cy="120" r="180" fill="none" stroke="rgba(127, 179, 232, 0.12)" stroke-width="2" stroke-dasharray="8 6"/>
+  <circle cx="650" cy="120" r="120" fill="none" stroke="rgba(127, 179, 232, 0.2)" stroke-width="1"/>
+  <circle cx="650" cy="120" r="6" fill="#7fb3e8" opacity="0.6"/>
+
+  <!-- Code Class Card Graphic (Right side) -->
+  <g transform="translate(480, 150)">
+    <rect width="260" height="220" rx="12" fill="url(#cardGrad)" stroke="rgba(127, 179, 232, 0.3)" stroke-width="1.5"/>
+    <!-- Header of card -->
+    <rect width="260" height="36" rx="12" fill="rgba(20, 73, 127, 0.4)"/>
+    <circle cx="20" cy="18" r="5" fill="#e8c07d"/>
+    <circle cx="36" cy="18" r="5" fill="#9bd4a5"/>
+    <circle cx="52" cy="18" r="5" fill="#7fb3e8"/>
+    <text x="75" y="22" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#7fb3e8" font-weight="600">class Account</text>
+    
+    <!-- Code Lines -->
+    <text x="20" y="65" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#c89bd6">private <tspan fill="#d5dee8">double balance;</tspan></text>
+    <text x="20" y="95" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#c89bd6">public <tspan fill="#7fb3e8">void</tspan> <tspan fill="#9bd4a5">withdraw</tspan><tspan fill="#d5dee8">(amt) {</tspan></text>
+    <text x="40" y="125" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#c89bd6">if <tspan fill="#d5dee8">(amt &lt;= balance)</tspan></text>
+    <text x="60" y="155" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#d5dee8">balance -= amt;</text>
+    <text x="20" y="185" font-family="'IBM Plex Mono', monospace" font-size="12" fill="#d5dee8">}</text>
+  </g>
+
+  <!-- Left Side Text & Badges -->
+  <g transform="translate(60, 0)">
+    <!-- Eyebrow -->
+    <rect x="0" y="75" width="180" height="26" rx="13" fill="rgba(127, 179, 232, 0.15)" stroke="rgba(127, 179, 232, 0.3)"/>
+    <text x="14" y="92" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" fill="#7fb3e8" letter-spacing="2">PLACEMENT PREP</text>
+
+    <!-- Main Title -->
+    <text x="0" y="155" font-family="'Space Grotesk', sans-serif" font-size="44" font-weight="800" fill="#ffffff" letter-spacing="-1">OBJECT ORIENTED</text>
+    <text x="0" y="205" font-family="'Space Grotesk', sans-serif" font-size="44" font-weight="800" fill="url(#accentGrad)" letter-spacing="-1">PROGRAMMING</text>
+
+    <!-- Subtitle -->
+    <text x="0" y="250" font-family="'Source Serif 4', Georgia, serif" font-size="18" fill="#9bd4a5" font-style="italic">Placement Field Manual &amp; Interview Notebook</text>
+
+    <!-- Tags -->
+    <g transform="translate(0, 290)">
+      <!-- Tag 1 -->
+      <rect x="0" y="0" width="70" height="28" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)"/>
+      <text x="35" y="18" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#d5dee8" font-weight="600" text-anchor="middle">JAVA</text>
+
+      <!-- Tag 2 -->
+      <rect x="80" y="0" width="65" height="28" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)"/>
+      <text x="112" y="18" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#d5dee8" font-weight="600" text-anchor="middle">C++</text>
+
+      <!-- Tag 3 -->
+      <rect x="155" y="0" width="85" height="28" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)"/>
+      <text x="197" y="18" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#d5dee8" font-weight="600" text-anchor="middle">PYTHON</text>
+
+      <!-- Tag 4 -->
+      <rect x="250" y="0" width="130" height="28" rx="6" fill="rgba(155, 212, 165, 0.15)" stroke="rgba(155, 212, 165, 0.3)"/>
+      <text x="315" y="18" font-family="'IBM Plex Mono', monospace" font-size="11" fill="#9bd4a5" font-weight="600" text-anchor="middle">110+ INTERVIEW Q&amp;A</text>
+    </g>
+
+    <!-- Bottom Accent Line -->
+    <rect x="0" y="360" width="380" height="3" rx="1.5" fill="url(#accentGrad)"/>
+  </g>
+</svg>

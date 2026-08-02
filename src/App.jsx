@@ -13,11 +13,14 @@ import ExtracurricularSection from './components/ExtracurricularSection'
 import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
 import ProjectDetailsView from './components/ProjectDetailsView'
+import InterviewSection from './components/InterviewSection'
+import InterviewDocView from './components/InterviewDocView'
 
 export default function App() {
   const [showHero, setShowHero] = useState(true)
   const [active, setActive] = useState('Landing')
   const [selectedProject, setSelectedProject] = useState(null)
+  const [selectedMaterial, setSelectedMaterial] = useState(null)
 
   const handleHeroDone = useCallback(() => {
     setShowHero(false)
@@ -28,7 +31,7 @@ export default function App() {
   useEffect(() => {
     if (showHero) return
 
-    const sections = ['landing', 'about', 'work', 'experience', 'skills', 'cv', 'extracurricular', 'contact']
+    const sections = ['landing', 'about', 'work', 'experience', 'interview', 'skills', 'cv', 'extracurricular', 'contact']
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -38,6 +41,7 @@ export default function App() {
           else if (id === 'about') setActive('ABOUT')
           else if (id === 'work') setActive('PROJECTS')
           else if (id === 'experience') setActive('EXPERIENCE')
+          else if (id === 'interview') setActive('PLACEMENT MATERIALS')
           else if (id === 'skills') setActive('SKILLS')
           else if (id === 'cv') setActive('CERTIFICATIONS')
           else if (id === 'extracurricular') setActive('EXTRACURRICULAR')
@@ -65,9 +69,11 @@ export default function App() {
     let id = section.toLowerCase()
     if (id === 'landing' || id === 'hero') id = 'landing'
     if (id === 'projects') id = 'work'
+    if (id === 'placement materials' || id === 'placement' || id === 'interview' || id === 'interview prep') id = 'interview'
     if (id === 'certifications') id = 'cv'
 
     setSelectedProject(null)
+    setSelectedMaterial(null)
 
     setTimeout(() => {
       const el = document.getElementById(id)
@@ -79,6 +85,7 @@ export default function App() {
   }, [])
 
   const handleViewWork = useCallback(() => handleNav('PROJECTS'), [handleNav])
+  const handleViewMaterials = useCallback(() => handleNav('PLACEMENT MATERIALS'), [handleNav])
 
   return (
     <div style={{ background: '#ffffff', minHeight: '100vh', position: 'relative' }}>
@@ -86,10 +93,26 @@ export default function App() {
       {showHero && <SplashLoader onDone={handleHeroDone} />}
 
       {/* Floating Top Navbar (Sticky by index.css rules) */}
-      {!showHero && <Navbar active={selectedProject ? 'PROJECTS' : active} onNav={handleNav} />}
+      {!showHero && (
+        <Navbar 
+          active={selectedMaterial ? 'PLACEMENT MATERIALS' : selectedProject ? 'PROJECTS' : active} 
+          onNav={handleNav} 
+        />
+      )}
 
-      {/* Conditionally display separate Project Page */}
-      {selectedProject ? (
+      {/* Conditionally display separate Material/Project Page */}
+      {selectedMaterial ? (
+        <InterviewDocView
+          material={selectedMaterial}
+          onBack={() => {
+            setSelectedMaterial(null)
+            setTimeout(() => {
+              const el = document.getElementById('interview')
+              if (el) el.scrollIntoView({ behavior: 'instant' })
+            }, 80)
+          }}
+        />
+      ) : selectedProject ? (
         <ProjectDetailsView 
           project={selectedProject} 
           onBack={() => {
@@ -112,7 +135,7 @@ export default function App() {
 
         {/* Section 1: Landing (Precisely 100vh viewport) */}
         <div id="landing" className="w-full min-h-screen bg-white relative">
-          <LandingSection onViewWork={handleViewWork} />
+          <LandingSection onViewWork={handleViewWork} onViewMaterials={handleViewMaterials} />
         </div>
 
         {/* Section 1.25: About Me Section */}
@@ -185,6 +208,27 @@ export default function App() {
           />
           <div style={{ position: 'relative', zIndex: 1 }}>
             <ExperienceSection />
+          </div>
+        </div>
+
+        {/* Section 1.75: Placement & Interview Materials */}
+        <div id="interview" className="w-full relative overflow-hidden" style={{ background: '#f8f9fb' }}>
+          {/* Background Image Layer with reduced opacity */}
+          <div 
+            style={{ 
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: "url('luxury_topo_bg.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.15,
+              pointerEvents: 'none',
+              zIndex: 0
+            }}
+          />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <InterviewSection onSelectMaterial={setSelectedMaterial} />
           </div>
           {/* Bottom smooth dark transition into Skills section */}
           <div 
