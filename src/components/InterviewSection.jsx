@@ -11,6 +11,16 @@ const materials = [
     tech: ['Java', 'C++', 'Python', 'SOLID Principles', 'Design Patterns'],
     fileUrl: '/interview/OOP-Field-Manual.html',
     img: 'interview/oops.png'
+  },
+  {
+    id: 'dbms',
+    cat: 'Placement Material . 02',
+    title: 'Database Management Systems',
+    shortTitle: 'DBMS Notebook',
+    desc: 'Complete database management system guide covering ER modeling, SQL query writing, normalization, ACID properties, transaction concurrency, index structures, and 150+ drill questions.',
+    tech: ['SQL', 'Database Design', 'Transactions & ACID', 'Indexing & B+ Trees', 'Normalization'],
+    fileUrl: '/interview/dbms-placement-notebook.html',
+    img: 'interview/dbms.png'
   }
 ]
 
