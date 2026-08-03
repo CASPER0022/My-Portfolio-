@@ -21,6 +21,16 @@ const materials = [
     tech: ['SQL', 'Database Design', 'Transactions & ACID', 'Indexing & B+ Trees', 'Normalization'],
     fileUrl: '/interview/dbms-placement-notebook.html',
     img: 'interview/dbms.png'
+  },
+  {
+    id: 'cn',
+    cat: 'Placement Material . 03',
+    title: 'Computer Networks',
+    shortTitle: 'CN Notebook',
+    desc: 'Deep-dive Computer Networks notebook covering the OSI and TCP/IP models, layer-by-layer protocols, physical layer, data link layer framing, subnetting arithmetic, routing, TCP/UDP transport, security, and 180+ interview Q&A.',
+    tech: ['OSI Model', 'TCP/IP', 'Subnetting', 'Routing & IP', 'Network Security'],
+    fileUrl: '/interview/computer-networks-interview-notebook.html',
+    img: 'interview/cn.png'
   }
 ]
 
