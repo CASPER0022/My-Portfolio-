@@ -15,12 +15,14 @@ import Footer from './components/Footer'
 import ProjectDetailsView from './components/ProjectDetailsView'
 import InterviewSection from './components/InterviewSection'
 import InterviewDocView from './components/InterviewDocView'
+import SecretProjectsSection from './components/SecretProjectsSection'
 
 export default function App() {
   const [showHero, setShowHero] = useState(true)
   const [active, setActive] = useState('Landing')
   const [selectedProject, setSelectedProject] = useState(null)
   const [selectedMaterial, setSelectedMaterial] = useState(null)
+  const [showSecret, setShowSecret] = useState(false)
 
   const handleHeroDone = useCallback(() => {
     setShowHero(false)
@@ -106,10 +108,12 @@ export default function App() {
           material={selectedMaterial}
           onBack={() => {
             setSelectedMaterial(null)
-            setTimeout(() => {
-              const el = document.getElementById('interview')
-              if (el) el.scrollIntoView({ behavior: 'instant' })
-            }, 80)
+            if (!showSecret) {
+              setTimeout(() => {
+                const el = document.getElementById('interview')
+                if (el) el.scrollIntoView({ behavior: 'instant' })
+              }, 80)
+            }
           }}
         />
       ) : selectedProject ? (
@@ -122,6 +126,11 @@ export default function App() {
               if (el) el.scrollIntoView({ behavior: 'instant' })
             }, 80)
           }} 
+        />
+      ) : showSecret ? (
+        <SecretProjectsSection
+          onSelectMaterial={setSelectedMaterial}
+          onBack={() => setShowSecret(false)}
         />
       ) : (
         /* Standard Document Flow with Sticky/Fixed Navigation */
@@ -339,7 +348,10 @@ export default function App() {
         </div>
 
         {/* Section 6: Premium Footer */}
-        <Footer />
+        <Footer onSecretClick={() => {
+          setShowSecret(true)
+          window.scrollTo({ top: 0, behavior: 'instant' })
+        }} />
       </div>
       )}
       <Analytics />

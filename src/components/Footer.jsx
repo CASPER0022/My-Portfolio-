@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function Footer() {
+export default function Footer({ onSecretClick }) {
   const [hoveredLink, setHoveredLink] = useState(null)
   const [heartScale, setHeartScale] = useState(1)
   const [hoveredSocialFooter, setHoveredSocialFooter] = useState(null)
@@ -77,6 +77,7 @@ export default function Footer() {
         {/* Brand Column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'left' }}>
           <h3 
+            onClick={onSecretClick}
             style={{
               fontSize: '24px',
               fontWeight: '900',
@@ -85,7 +86,8 @@ export default function Footer() {
               margin: 0,
               background: 'linear-gradient(to right, #ffffff, #9ca3af)',
               WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              WebkitTextFillColor: 'transparent',
+              cursor: 'pointer'
             }}
           >
             Albin John
