@@ -41,6 +41,16 @@ const materials = [
     tech: ['HLD & LLD', 'Scaling & Replicas', 'CAP & Consistency', 'Case Studies', 'LLD Patterns'],
     fileUrl: '/interview/system-design-notebook.html',
     img: 'interview/system_design.png'
+  },
+  {
+    id: 'machine_learning',
+    cat: 'Placement Material . 05',
+    title: 'Machine Learning',
+    shortTitle: 'Machine Learning Notebook',
+    desc: 'Deep-dive Machine Learning notebook for placement interviews, featuring 25 sections, classical algorithms (regression, naive bayes, svm, trees), deep learning (cnn, rnn, transformers), derived mathematics, and 170+ interview Q&A.',
+    tech: ['Supervised & Unsupervised', 'Derived Maths', 'Deep Learning', 'Transformers', 'Evaluation Metrics'],
+    fileUrl: '/interview/Machine-Learning-Notebook.html',
+    img: 'interview/machine learning.png'
   }
 ]
 
