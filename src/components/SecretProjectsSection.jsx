@@ -11,6 +11,16 @@ const projectMaterials = [
     tech: ['FastAPI', 'LangChain', 'ChromaDB', 'BM25 Hybrid RAG', 'Evaluation'],
     fileUrl: '/interview/LegalEase-Interview-Codex.html',
     img: 'Projects/Legal ease/legalease.jpg'
+  },
+  {
+    id: 'casper_prep',
+    cat: 'Project Prep . 02',
+    title: 'Casper Codex',
+    shortTitle: 'Casper Prep Guide',
+    desc: 'Deep-dive reference and interview preparation guide for Casper, covering stateful multi-agent topology, supervisor node routers, Sandboxed code execution, and LangGraph workflow orchestration.',
+    tech: ['LangGraph', 'FastAPI', 'Python', 'OpenAI API', 'State Machines'],
+    fileUrl: '/interview/Casper-2.0-Interview-Notebook.html',
+    img: 'Projects/casper/casper.jpg'
   }
 ]
 
