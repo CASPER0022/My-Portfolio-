@@ -51,6 +51,16 @@ const materials = [
     tech: ['Supervised & Unsupervised', 'Derived Maths', 'Deep Learning', 'Transformers', 'Evaluation Metrics'],
     fileUrl: '/interview/Machine-Learning-Notebook.html',
     img: 'interview/machine learning.png'
+  },
+  {
+    id: 'javascript',
+    cat: 'Placement Material . 06',
+    title: 'JavaScript',
+    shortTitle: 'JavaScript Notebook',
+    desc: 'Complete JavaScript notebook from variables and hoisting to async, event loops, promises, closures, prototypes, and backend Express.js APIs. Includes 155+ runnable code benches and 125+ interview Q&A.',
+    tech: ['ES6+', 'Event Loop & Async', 'Closures & Scope', 'Prototypes', 'Express.js backend'],
+    fileUrl: '/interview/javascript-notebook.html',
+    img: 'interview/javascript.png'
   }
 ]
 
