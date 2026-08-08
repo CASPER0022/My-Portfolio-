@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 const materials = [
@@ -31,6 +31,16 @@ const materials = [
     tech: ['OSI Model', 'TCP/IP', 'Subnetting', 'Routing & IP', 'Network Security'],
     fileUrl: '/interview/computer-networks-interview-notebook.html',
     img: 'interview/cn.png'
+  },
+  {
+    id: 'system_design',
+    cat: 'Placement Material . 04',
+    title: 'System Design',
+    shortTitle: 'System Design Notebook',
+    desc: 'Complete System Design notebook for placement interviews, featuring 23 sections, foundations, building blocks (scaling, caching, databases, sharding, CAP), high-level case studies (8 designs), low-level design, and 150+ interview Q&A.',
+    tech: ['HLD & LLD', 'Scaling & Replicas', 'CAP & Consistency', 'Case Studies', 'LLD Patterns'],
+    fileUrl: '/interview/system-design-notebook.html',
+    img: 'interview/system_design.png'
   }
 ]
 
@@ -355,7 +365,38 @@ function MaterialCard({ m, i, onSelect }) {
   )
 }
 
-export default function InterviewSection({ onSelectMaterial }) {
+export default function InterviewSection({ onSelectMaterial, onViewAll }) {
+  const scrollRef = useRef(null)
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const getCardStyle = () => {
+    if (windowWidth < 640) {
+      return { flex: '0 0 100%', maxWidth: '100%' }
+    }
+    if (windowWidth < 1024) {
+      return { flex: '0 0 calc((100% - 24px) / 2)', maxWidth: 'calc((100% - 24px) / 2)' }
+    }
+    return { flex: '0 0 calc((100% - 48px) / 3)', maxWidth: 'calc((100% - 48px) / 3)' }
+  }
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft } = scrollRef.current
+      // Scroll by approximately one card width plus gap (e.g. 360px)
+      const cardWidth = 360
+      const scrollTo = direction === 'left' 
+        ? scrollLeft - cardWidth 
+        : scrollLeft + cardWidth
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' })
+    }
+  }
+
   const containerVariants = {
     hidden: {},
     visible: {
@@ -376,7 +417,7 @@ export default function InterviewSection({ onSelectMaterial }) {
       className="w-full px-8 select-none flex flex-col items-center justify-center relative" 
       style={{ background: '#f8f9fb', paddingTop: '60px', paddingBottom: '100px' }}
     >
-      <div className="max-w-[1080px] w-full flex flex-col items-center gap-12">
+      <div className="max-w-[1080px] w-full flex flex-col items-center gap-12 relative">
         
         {/* Centered Editorial Header */}
         <motion.div 
@@ -405,18 +446,125 @@ export default function InterviewSection({ onSelectMaterial }) {
           </p>
         </motion.div>
 
-        {/* Responsive Grid */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {materials.map((m, i) => (
-            <MaterialCard key={m.id} m={m} i={i} onSelect={onSelectMaterial} />
-          ))}
-        </motion.div>
+        {/* Carousel Container with Arrows */}
+        <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }} className="group w-full">
+          {/* Left Arrow */}
+          <button 
+            onClick={() => scroll('left')}
+            style={{ 
+              position: 'absolute',
+              left: '-50px',
+              zIndex: 20,
+              width: '42px',
+              height: '42px',
+              borderRadius: '50%',
+              background: '#ffffff',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#475569',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#3b82f6'; e.currentTarget.style.borderColor = '#bfdbfe'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#475569'; e.currentTarget.style.borderColor = '#e2e8f0'; }}
+            className="hidden md:flex"
+            aria-label="Scroll left"
+          >
+            <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+
+          {/* Scrollable Area */}
+          <div 
+            ref={scrollRef}
+            style={{ 
+              display: 'flex', 
+              gap: '24px', 
+              overflowX: 'auto', 
+              scrollBehavior: 'smooth',
+              width: '100%',
+              padding: '12px 4px 20px 4px',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+            className="no-scrollbar"
+          >
+            {materials.map((m, i) => (
+              <div 
+                key={m.id} 
+                style={getCardStyle()}
+              >
+                <MaterialCard m={m} i={i} onSelect={onSelectMaterial} />
+              </div>
+            ))}
+          </div>
+
+          {/* Right Arrow */}
+          <button 
+            onClick={() => scroll('right')}
+            style={{ 
+              position: 'absolute',
+              right: '-50px',
+              zIndex: 20,
+              width: '42px',
+              height: '42px',
+              borderRadius: '50%',
+              background: '#ffffff',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#475569',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#3b82f6'; e.currentTarget.style.borderColor = '#bfdbfe'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#475569'; e.currentTarget.style.borderColor = '#e2e8f0'; }}
+            className="hidden md:flex"
+            aria-label="Scroll right"
+          >
+            <svg style={{ width: '20px', height: '20px' }} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+
+        {/* View More Button */}
+        <div style={{ marginTop: '12px' }}>
+          <button 
+            onClick={onViewAll}
+            style={{ 
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '12px 24px',
+              borderRadius: '9999px',
+              fontSize: '12px',
+              fontFamily: 'monospace',
+              fontWeight: 'bold',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              background: '#1d1d1f',
+              border: 'none',
+              color: '#ffffff',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = '#6366f1'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = '#1d1d1f'; }}
+          >
+            View More Materials 
+            <svg style={{ width: '14px', height: '14px' }} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </button>
+        </div>
 
       </div>
     </section>

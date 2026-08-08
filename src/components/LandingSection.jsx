@@ -199,12 +199,6 @@ export default function LandingSection({ onViewWork, onViewMaterials }) {
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            <button className="btn-primary" onClick={onViewMaterials} style={{ background: '#14497f' }}>
-              Placement Materials
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
             <button 
               onClick={() => setShowResume(true)}
               className="btn-secondary"

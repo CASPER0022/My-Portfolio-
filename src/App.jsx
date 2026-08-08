@@ -16,6 +16,7 @@ import ProjectDetailsView from './components/ProjectDetailsView'
 import InterviewSection from './components/InterviewSection'
 import InterviewDocView from './components/InterviewDocView'
 import SecretProjectsSection from './components/SecretProjectsSection'
+import AllMaterialsView from './components/AllMaterialsView'
 
 export default function App() {
   const [showHero, setShowHero] = useState(true)
@@ -23,6 +24,7 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState(null)
   const [selectedMaterial, setSelectedMaterial] = useState(null)
   const [showSecret, setShowSecret] = useState(false)
+  const [showAllMaterials, setShowAllMaterials] = useState(false)
 
   const handleHeroDone = useCallback(() => {
     setShowHero(false)
@@ -108,7 +110,7 @@ export default function App() {
           material={selectedMaterial}
           onBack={() => {
             setSelectedMaterial(null)
-            if (!showSecret) {
+            if (!showSecret && !showAllMaterials) {
               setTimeout(() => {
                 const el = document.getElementById('interview')
                 if (el) el.scrollIntoView({ behavior: 'instant' })
@@ -131,6 +133,11 @@ export default function App() {
         <SecretProjectsSection
           onSelectMaterial={setSelectedMaterial}
           onBack={() => setShowSecret(false)}
+        />
+      ) : showAllMaterials ? (
+        <AllMaterialsView
+          onSelectMaterial={setSelectedMaterial}
+          onBack={() => setShowAllMaterials(false)}
         />
       ) : (
         /* Standard Document Flow with Sticky/Fixed Navigation */
@@ -237,7 +244,13 @@ export default function App() {
             }}
           />
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <InterviewSection onSelectMaterial={setSelectedMaterial} />
+            <InterviewSection 
+              onSelectMaterial={setSelectedMaterial} 
+              onViewAll={() => {
+                setShowAllMaterials(true)
+                window.scrollTo({ top: 0, behavior: 'instant' })
+              }}
+            />
           </div>
           {/* Bottom smooth dark transition into Skills section */}
           <div 
