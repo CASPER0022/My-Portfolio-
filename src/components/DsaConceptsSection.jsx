@@ -1,90 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-const materials = [
+const dsaConcepts = [
   {
-    id: 'oops',
-    cat: 'Placement Material . 01',
-    title: 'Object-Oriented Programming',
-    shortTitle: 'OOPS Field Manual',
-    desc: 'Comprehensive placement interview manual covering OOP paradigms, four pillars, memory layouts, vtables, SOLID principles, design patterns, and 110+ placement Q&A.',
-    tech: ['Java', 'C++', 'Python', 'SOLID Principles', 'Design Patterns'],
-    fileUrl: '/interview/OOP-Field-Manual.html',
-    img: 'interview/oops.png'
-  },
-  {
-    id: 'dbms',
-    cat: 'Placement Material . 02',
-    title: 'Database Management Systems',
-    shortTitle: 'DBMS Notebook',
-    desc: 'Complete database management system guide covering ER modeling, SQL query writing, normalization, ACID properties, transaction concurrency, index structures, and 150+ drill questions.',
-    tech: ['SQL', 'Database Design', 'Transactions & ACID', 'Indexing & B+ Trees', 'Normalization'],
-    fileUrl: '/interview/dbms-placement-notebook.html',
-    img: 'interview/dbms.png'
-  },
-  {
-    id: 'cn',
-    cat: 'Placement Material . 03',
-    title: 'Computer Networks',
-    shortTitle: 'CN Notebook',
-    desc: 'Deep-dive Computer Networks notebook covering the OSI and TCP/IP models, layer-by-layer protocols, physical layer, data link layer framing, subnetting arithmetic, routing, TCP/UDP transport, security, and 180+ interview Q&A.',
-    tech: ['OSI Model', 'TCP/IP', 'Subnetting', 'Routing & IP', 'Network Security'],
-    fileUrl: '/interview/computer-networks-interview-notebook.html',
-    img: 'interview/cn.png'
-  },
-  {
-    id: 'system_design',
-    cat: 'Placement Material . 04',
-    title: 'System Design',
-    shortTitle: 'System Design Notebook',
-    desc: 'Complete System Design notebook for placement interviews, featuring 23 sections, foundations, building blocks (scaling, caching, databases, sharding, CAP), high-level case studies (8 designs), low-level design, and 150+ interview Q&A.',
-    tech: ['HLD & LLD', 'Scaling & Replicas', 'CAP & Consistency', 'Case Studies', 'LLD Patterns'],
-    fileUrl: '/interview/system-design-notebook.html',
-    img: 'interview/system_design.png'
-  },
-  {
-    id: 'machine_learning',
-    cat: 'Placement Material . 05',
-    title: 'Machine Learning',
-    shortTitle: 'Machine Learning Notebook',
-    desc: 'Deep-dive Machine Learning notebook for placement interviews, featuring 25 sections, classical algorithms (regression, naive bayes, svm, trees), deep learning (cnn, rnn, transformers), derived mathematics, and 170+ interview Q&A.',
-    tech: ['Supervised & Unsupervised', 'Derived Maths', 'Deep Learning', 'Transformers', 'Evaluation Metrics'],
-    fileUrl: '/interview/Machine-Learning-Notebook.html',
-    img: 'interview/machine learning.png'
-  },
-  {
-    id: 'javascript',
-    cat: 'Placement Material . 06',
-    title: 'JavaScript',
-    shortTitle: 'JavaScript Notebook',
-    desc: 'Complete JavaScript notebook from variables and hoisting to async, event loops, promises, closures, prototypes, and backend Express.js APIs. Includes 155+ runnable code benches and 125+ interview Q&A.',
-    tech: ['ES6+', 'Event Loop & Async', 'Closures & Scope', 'Prototypes', 'Express.js backend'],
-    fileUrl: '/interview/javascript-notebook.html',
-    img: 'interview/javascript.png'
-  },
-  {
-    id: 'os',
-    cat: 'Placement Material . 07',
-    title: 'Operating Systems',
-    shortTitle: 'OS Notebook',
-    desc: 'Complete Operating Systems study notebook for placement interviews, featuring 13 chapters, processes, threads, CPU scheduling, synchronization, deadlocks, memory management, and 130+ Q&A.',
-    tech: ['Process & IPC', 'CPU Scheduling', 'Deadlocks', 'Memory & Virtual Memory', 'File Systems'],
-    fileUrl: '/interview/operating-systems-notebook.html',
-    img: 'interview/os.png'
-  },
-  {
-    id: 'dsa',
-    cat: 'Placement Material . 08',
-    title: 'Data Structures & Algorithms',
-    shortTitle: 'DSA Field Guide',
-    desc: 'Comprehensive collection of Data Structures and Algorithms interview preparation guides, split into core concepts, patterns, complexity analyses, and topic-wise walkthroughs.',
-    tech: ['Searching & Sorting', 'Arrays & Lists', 'Trees & Graphs', 'Dynamic Programming', 'Complexity'],
-    fileUrl: '',
-    img: 'interview/dsa.png'
+    id: 'binary_search',
+    cat: 'DSA Concept . 01',
+    title: 'Binary Search',
+    shortTitle: 'Binary Search Notebook',
+    desc: 'Deep-dive Binary Search study guide, covering search spaces, dynamic ranges, numerical search, double binary search, and 30+ interview drills.',
+    tech: ['Binary Search', 'Divide & Conquer', 'Search Space', 'Drill Questions'],
+    fileUrl: '/interview/Binary-Search-Notebook.html',
+    img: 'interview/binary search.png'
   }
 ]
 
-export default function AllMaterialsView({ onSelectMaterial, onBack }) {
+export default function DsaConceptsSection({ onSelectMaterial, onBack }) {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
 
   useEffect(() => {
@@ -163,7 +93,7 @@ export default function AllMaterialsView({ onSelectMaterial, onBack }) {
             <svg style={{ width: '14px', height: '14px' }} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            Return to Portfolio
+            Return to Materials
           </button>
         </div>
 
@@ -176,7 +106,7 @@ export default function AllMaterialsView({ onSelectMaterial, onBack }) {
           className="text-center flex flex-col items-center gap-2.5"
         >
           <p className="text-[9px] font-mono font-bold tracking-[0.6em] uppercase pl-[0.6em]" style={{ color: '#6366f1' }}>
-            STUDY GUIDES &amp; MANUALS
+            ALGORITHMS &amp; DATA STRUCTURES
           </p>
           <div className="flex items-center justify-center gap-3 relative">
             <div className="w-5 h-5 flex items-center justify-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.06)] translate-y-[-1px] select-none">
@@ -185,15 +115,15 @@ export default function AllMaterialsView({ onSelectMaterial, onBack }) {
               </svg>
             </div>
             <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight" style={{ color: '#1d1d1f' }}>
-              All Placement Materials
+              DSA Concepts
             </h2>
           </div>
           <p className="text-[14px] text-gray-500 font-sans mt-2 max-w-lg leading-relaxed font-normal">
-            Complete curriculum notebooks, field manuals, and theory reference sets.
+            Topic-wise data structures &amp; algorithm visualization guides, complexity analysis, and coding patterns.
           </p>
         </motion.div>
 
-        {/* Materials Grid */}
+        {/* Concepts Grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -201,7 +131,7 @@ export default function AllMaterialsView({ onSelectMaterial, onBack }) {
           viewport={{ once: true, margin: "-40px" }}
           style={getGridStyle()}
         >
-          {materials.map((m, i) => {
+          {dsaConcepts.map((m, i) => {
             return (
               <div 
                 key={m.id}

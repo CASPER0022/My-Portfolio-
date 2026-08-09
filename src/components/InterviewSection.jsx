@@ -61,6 +61,26 @@ const materials = [
     tech: ['ES6+', 'Event Loop & Async', 'Closures & Scope', 'Prototypes', 'Express.js backend'],
     fileUrl: '/interview/javascript-notebook.html',
     img: 'interview/javascript.png'
+  },
+  {
+    id: 'os',
+    cat: 'Placement Material . 07',
+    title: 'Operating Systems',
+    shortTitle: 'OS Notebook',
+    desc: 'Complete Operating Systems study notebook for placement interviews, featuring 13 chapters, processes, threads, CPU scheduling, synchronization, deadlocks, memory management, and 130+ Q&A.',
+    tech: ['Process & IPC', 'CPU Scheduling', 'Deadlocks', 'Memory & Virtual Memory', 'File Systems'],
+    fileUrl: '/interview/operating-systems-notebook.html',
+    img: 'interview/os.png'
+  },
+  {
+    id: 'dsa',
+    cat: 'Placement Material . 08',
+    title: 'Data Structures & Algorithms',
+    shortTitle: 'DSA Field Guide',
+    desc: 'Comprehensive collection of Data Structures and Algorithms interview preparation guides, split into core concepts, patterns, complexity analyses, and topic-wise walkthroughs.',
+    tech: ['Searching & Sorting', 'Arrays & Lists', 'Trees & Graphs', 'Dynamic Programming', 'Complexity'],
+    fileUrl: '',
+    img: 'interview/dsa.png'
   }
 ]
 

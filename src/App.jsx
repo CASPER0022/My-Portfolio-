@@ -17,6 +17,7 @@ import InterviewSection from './components/InterviewSection'
 import InterviewDocView from './components/InterviewDocView'
 import SecretProjectsSection from './components/SecretProjectsSection'
 import AllMaterialsView from './components/AllMaterialsView'
+import DsaConceptsSection from './components/DsaConceptsSection'
 
 export default function App() {
   const [showHero, setShowHero] = useState(true)
@@ -25,6 +26,7 @@ export default function App() {
   const [selectedMaterial, setSelectedMaterial] = useState(null)
   const [showSecret, setShowSecret] = useState(false)
   const [showAllMaterials, setShowAllMaterials] = useState(false)
+  const [showDsaConcepts, setShowDsaConcepts] = useState(false)
 
   const handleHeroDone = useCallback(() => {
     setShowHero(false)
@@ -134,9 +136,20 @@ export default function App() {
           onSelectMaterial={setSelectedMaterial}
           onBack={() => setShowSecret(false)}
         />
+      ) : showDsaConcepts ? (
+        <DsaConceptsSection
+          onSelectMaterial={setSelectedMaterial}
+          onBack={() => setShowDsaConcepts(false)}
+        />
       ) : showAllMaterials ? (
         <AllMaterialsView
-          onSelectMaterial={setSelectedMaterial}
+          onSelectMaterial={(material) => {
+            if (material.id === 'dsa') {
+              setShowDsaConcepts(true)
+            } else {
+              setSelectedMaterial(material)
+            }
+          }}
           onBack={() => setShowAllMaterials(false)}
         />
       ) : (
@@ -245,7 +258,13 @@ export default function App() {
           />
           <div style={{ position: 'relative', zIndex: 1 }}>
             <InterviewSection 
-              onSelectMaterial={setSelectedMaterial} 
+              onSelectMaterial={(material) => {
+                if (material.id === 'dsa') {
+                  setShowDsaConcepts(true)
+                } else {
+                  setSelectedMaterial(material)
+                }
+              }} 
               onViewAll={() => {
                 setShowAllMaterials(true)
                 window.scrollTo({ top: 0, behavior: 'instant' })
