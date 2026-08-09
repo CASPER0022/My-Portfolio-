@@ -11,6 +11,16 @@ const dsaConcepts = [
     tech: ['Binary Search', 'Divide & Conquer', 'Search Space', 'Drill Questions'],
     fileUrl: '/interview/Binary-Search-Notebook.html',
     img: 'interview/binary search.png'
+  },
+  {
+    id: 'arrays',
+    cat: 'DSA Concept . 02',
+    title: 'Arrays',
+    shortTitle: 'Arrays Notebook',
+    desc: 'Complete Arrays placement revision notebook covering all 40 problems from Striver A2Z sheet, including 10 reusable patterns, brute-to-optimal progressions, complexity analysis, and C++/Python solutions.',
+    tech: ['Contiguous Blocks', 'Two Pointers', 'Sliding Window', 'In-place Swaps', 'Prefix Sums'],
+    fileUrl: '/interview/Arrays-Notebook.html',
+    img: 'interview/array.png'
   }
 ]
 
