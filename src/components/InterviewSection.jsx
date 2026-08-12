@@ -81,6 +81,16 @@ const materials = [
     tech: ['Searching & Sorting', 'Arrays & Lists', 'Trees & Graphs', 'Dynamic Programming', 'Complexity'],
     fileUrl: '',
     img: 'interview/dsa.png'
+  },
+  {
+    id: 'react',
+    cat: 'Placement Material . 09',
+    title: 'React',
+    shortTitle: 'React Notebook',
+    desc: 'Complete React study notebook from scratch, covering fundamentals, rendering cycles, hooks, state lifting, refs, optimization, useReducer, Context, React 19 features, and 100+ interview Q&A.',
+    tech: ['Hooks & State', 'Reconciliation', 'React 19', 'Optimization', 'Context API'],
+    fileUrl: '/interview/react-from-scratch-notebook.html',
+    img: 'interview/react.png'
   }
 ]
 
