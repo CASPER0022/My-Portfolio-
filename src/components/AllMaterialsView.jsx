@@ -9,7 +9,7 @@ const materials = [
     shortTitle: 'OOPS Field Manual',
     desc: 'Comprehensive placement interview manual covering OOP paradigms, four pillars, memory layouts, vtables, SOLID principles, design patterns, and 110+ placement Q&A.',
     tech: ['Java', 'C++', 'Python', 'SOLID Principles', 'Design Patterns'],
-    fileUrl: '/interview/OOP-Field-Manual.html',
+    fileUrl: '/interview/oop-placement-notebook.html',
     img: 'interview/oops.png'
   },
   {
