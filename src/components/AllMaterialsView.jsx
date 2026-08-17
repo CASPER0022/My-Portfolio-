@@ -91,6 +91,26 @@ const materials = [
     tech: ['Hooks & State', 'Reconciliation', 'React 19', 'Optimization', 'Context API'],
     fileUrl: '/interview/react-from-scratch-notebook.html',
     img: 'interview/react.png'
+  },
+  {
+    id: 'sql',
+    cat: 'Placement Material . 10',
+    title: 'SQL',
+    shortTitle: 'SQL Notebook',
+    desc: 'Complete SQL study notebook for placements, covering foundations, keys, constraints, normalization, indexes, joins, subqueries, CTEs, window functions, and 150+ interview Q&A.',
+    tech: ['Queries & Joins', 'Window Functions', 'Constraints', 'Indexes & Query Tuning', 'CTE & Subqueries'],
+    fileUrl: '/interview/sql-placement-notebook.html',
+    img: 'interview/sql.png'
+  },
+  {
+    id: 'backend_development',
+    cat: 'Placement Material . 11',
+    title: 'Backend Development',
+    shortTitle: 'Backend Notebook',
+    desc: 'Complete from-scratch backend engineering notebook covering HTTP, REST, databases, caching, auth, security (OWASP Top 10), queues, scaling, and 250+ Q&A.',
+    tech: ['HTTP & REST', 'Database & Transactions', 'Caching & Redis', 'Auth & Security', 'Scaling & System Design'],
+    fileUrl: '/interview/Backend-Development-Notebook.html',
+    img: 'interview/backend-development.png'
   }
 ]
 
