@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shipsy Interview Prep — Albin John</title>
+<style>
+:root{
+  --ink:#14212B;
+  --ink2:#4A5C6B;
+  --page:#EDF0F2;
+  --paper:#FFFFFF;
+  --rule:#D6DEE3;
+  --accent:#0E6B63;
+  --accent-soft:#E4F0EE;
+  --amber:#8A5A00;
+  --amber-soft:#FBF3E0;
+  --rose:#8C2F39;
+  --rose-soft:#FAEDED;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--page);color:var(--ink);
+  font-family:var(--sans);font-size:16.5px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{display:flex;align-items:flex-start;max-width:1400px;margin:0 auto}
+
+/* ---------- sidebar ---------- */
+nav{
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  flex:0 0 288px;background:var(--ink);color:#C9D5DD;
+  padding:28px 22px 60px;
+}
+nav .me{font-size:19px;color:#fff;font-weight:600;letter-spacing:-.01em}
+nav .sub{font-size:13px;color:#7E93A2;margin-top:4px;margin-bottom:24px;line-height:1.45}
+nav a{display:block;color:#C9D5DD;text-decoration:none;font-size:14px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+nav a:hover{color:#fff}
+nav a.top{margin-top:20px;color:#8FB8B2;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;border:0;padding-bottom:2px}
+nav a.top:first-of-type{margin-top:0}
+
+/* ---------- main ---------- */
+main{flex:1 1 auto;min-width:0;padding:0 0 120px}
+.inner{max-width:820px;margin:0 auto;padding:0 40px}
+header.hero{background:var(--paper);border-bottom:1px solid var(--rule);padding:56px 0 44px;margin-bottom:44px}
+header.hero h1{font-size:38px;line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+header.hero p{margin:0;color:var(--ink2);max-width:62ch}
+.stamp{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:12.5px;
+  font-weight:600;padding:4px 11px;border-radius:3px;margin-bottom:18px}
+
+section{background:var(--paper);border:1px solid var(--rule);border-radius:4px;
+  padding:34px 0 38px;margin:0 auto 26px;max-width:900px}
+section .inner{padding:0 44px}
+h2{font-size:26px;line-height:1.25;margin:0 0 6px;letter-spacing:-.015em}
+h2 .n{color:var(--accent);font-size:15px;font-weight:600;display:block;margin-bottom:6px}
+h3{font-size:19px;margin:34px 0 10px;letter-spacing:-.01em}
+h4{font-size:16px;margin:22px 0 6px}
+p{margin:0 0 14px;max-width:74ch}
+ul,ol{margin:0 0 16px;padding-left:22px;max-width:74ch}
+li{margin-bottom:7px}
+.lede{color:var(--ink2);font-size:17px;margin-bottom:22px;max-width:70ch}
+hr{border:0;border-top:1px solid var(--rule);margin:34px 0}
+code{background:#EEF2F4;padding:1px 5px;border-radius:3px;font-size:14px;font-family:ui-monospace,Menlo,Consolas,monospace}
+strong{font-weight:650}
+a.link{color:var(--accent)}
+
+/* ---------- Q & A ---------- */
+.q{margin:30px 0 0;padding-top:22px;border-top:1px solid var(--rule)}
+.q:first-of-type{border-top:0;padding-top:0}
+.q > .ask{font-weight:650;font-size:17px;margin:0 0 12px;display:flex;gap:10px;align-items:baseline}
+.q > .ask .tag{flex:0 0 auto;color:var(--accent);font-size:13px;font-weight:700;padding-top:2px}
+.say{
+  font-family:var(--serif);font-size:17.5px;line-height:1.72;
+  border-left:3px solid var(--accent);background:#FBFDFC;
+  padding:16px 20px;margin:0 0 14px;border-radius:0 4px 4px 0;
+}
+.say p{margin:0 0 12px;max-width:none}
+.say p:last-child{margin-bottom:0}
+.say .cue{display:block;font-family:var(--sans);font-size:11.5px;font-weight:700;
+  color:var(--accent);letter-spacing:.06em;margin-bottom:9px}
+.why{font-size:14.5px;color:var(--ink2);margin:0 0 10px;padding-left:2px}
+.why b{color:var(--ink)}
+.fu{font-size:14.5px;background:#F7F9FA;border:1px solid var(--rule);border-radius:4px;padding:12px 16px;margin:0 0 8px}
+.fu .h{font-weight:650;font-size:13px;margin-bottom:6px}
+.fu ul{margin:0;padding-left:18px}
+.fu li{margin-bottom:5px}
+
+/* ---------- callouts ---------- */
+.note,.warn,.win{border-radius:4px;padding:14px 18px;margin:18px 0;font-size:15.5px}
+.note{background:var(--accent-soft);border:1px solid #BFDCD7}
+.warn{background:var(--amber-soft);border:1px solid #EBD9AE}
+.win{background:var(--rose-soft);border:1px solid #EBCFD1}
+.note p,.warn p,.win p{max-width:none;margin-bottom:8px}
+.note p:last-child,.warn p:last-child,.win p:last-child{margin-bottom:0}
+.note .h,.warn .h,.win .h{font-weight:700;font-size:13px;letter-spacing:.04em;margin-bottom:6px}
+.note .h{color:var(--accent)} .warn .h{color:var(--amber)} .win .h{color:var(--rose)}
+
+/* ---------- tables & misc ---------- */
+table{width:100%;border-collapse:collapse;font-size:15px;margin:16px 0 20px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{background:#F4F7F8;font-size:13.5px;font-weight:650}
+.phrase{font-family:var(--serif);font-size:16.5px;background:#FBFDFC;border-left:2px solid #9CC5C0;
+  padding:9px 16px;margin:9px 0;border-radius:0 3px 3px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{border:1px solid var(--rule);border-radius:4px;padding:16px 18px;font-size:15px}
+.card h4{margin-top:0}
+.chk{list-style:none;padding-left:0}
+.chk li{padding-left:26px;position:relative}
+.chk li:before{content:"";position:absolute;left:0;top:6px;width:13px;height:13px;
+  border:1.5px solid var(--accent);border-radius:2px}
+.stack{font-size:14.5px;color:var(--ink2);margin:-4px 0 16px}
+
+@media(max-width:960px){
+  .wrap{display:block}
+  nav{position:static;height:auto;width:auto;flex:none;padding:20px 22px 26px}
+  nav a{display:inline-block;margin-right:16px;border-bottom:0}
+  nav a.top{display:block;margin-top:16px}
+  .inner,section .inner{padding:0 22px}
+  section{border-radius:0;border-left:0;border-right:0}
+  .two{grid-template-columns:1fr}
+}
+@media print{
+  nav{display:none} body{background:#fff} section{border:0;page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <div class="me">Shipsy Interview Prep</div>
+  <div class="sub">Albin John &middot; Applied AI Engineer, Customer Experience &middot; Read tonight, skim in the morning</div>
+
+  <a class="top" href="#plan">Start here</a>
+  <a href="#plan">1. How to use this tonight</a>
+  <a href="#role">2. The role, decoded</a>
+  <a href="#interviewer">3. Reading your interviewer</a>
+
+  <a class="top" href="#story">Your story</a>
+  <a href="#story">4. Tell me about yourself</a>
+  <a href="#why">5. Why Shipsy, why you</a>
+  <a href="#behavioral">6. Behavioural questions</a>
+
+  <a class="top" href="#support">The main event</a>
+  <a href="#support">7. Support &amp; escalation playbook</a>
+  <a href="#scenarios">8. 20 scenario questions</a>
+  <a href="#ai-debug">9. Using AI to fix bugs</a>
+  <a href="#phase2">10. Your Phase 2 pitch</a>
+
+  <a class="top" href="#projects">Your work</a>
+  <a href="#projects">11. Projects, one by one</a>
+  <a href="#internship">12. Internship questions</a>
+  <a href="#concepts">13. AI concepts they may test</a>
+  <a href="#logistics">14. Logistics crash course</a>
+
+  <a class="top" href="#speaking">Delivery</a>
+  <a href="#speaking">15. Speaking clearly in English</a>
+  <a href="#dontknow">16. When you don't know</a>
+  <a href="#askthem">17. Questions to ask them</a>
+
+  <a class="top" href="#mock">Final</a>
+  <a href="#mock">18. Rapid-fire mock</a>
+  <a href="#checklist">19. Last-hour checklist</a>
+</nav>
+
+<main>
+
+<header class="hero">
+  <div class="inner">
+    <span class="stamp">Interview tomorrow &middot; Applied AI Engineer &ndash; Customer Experience</span>
+    <h1>You already have what this job is asking for.<br>Tonight is about saying it clearly.</h1>
+    <p>This guide is built from your actual resume, your four GitHub repos, and Shipsy's job description. Every sample answer below is written in the way you can realistically speak it &mdash; short sentences, simple words, no showing off.</p>
+  </div>
+</header>
+
+<section id="plan">
+<div class="inner">
+<h2><span class="n">Section 1</span>How to use this tonight</h2>
+<p class="lede">Do not try to memorise this whole document. You will sound like a robot and you will panic when they ask something slightly different. Learn the <em>shapes</em> instead.</p>
+
+<h3>Tonight (about 2.5 hours)</h3>
+<ol>
+  <li><strong>45 min</strong> &mdash; Sections 2, 3, 4, 5. Say your "tell me about yourself" answer out loud <strong>five times</strong>. Out loud, not in your head. Time it. Aim for 60&ndash;75 seconds.</li>
+  <li><strong>50 min</strong> &mdash; Sections 7, 8, 9. This is the heart of the interview. Learn the <strong>ARISE</strong> steps in Section 7 until you can say them from memory. Almost every support question can be answered with them.</li>
+  <li><strong>30 min</strong> &mdash; Section 11. For each project, be able to say: what it does, why you built it that way, one hard problem you hit.</li>
+  <li><strong>20 min</strong> &mdash; Sections 15 and 16. The "I don't know" phrases. Say them out loud too, so they come naturally under pressure.</li>
+  <li><strong>Then sleep.</strong> Seriously. A tired brain speaks worse English than a slightly less prepared one.</li>
+</ol>
+
+<h3>Tomorrow morning (30 min)</h3>
+<ul>
+  <li>Re-read Section 2 (what the role really is) and Section 17 (questions to ask them).</li>
+  <li>Say your intro out loud twice more.</li>
+  <li>Read the phrases in Section 16 once. Those are your safety net.</li>
+  <li>Open your four GitHub repos in browser tabs so you can glance at them if needed.</li>
+</ul>
+
+<div class="note">
+<div class="h">THE ONE IDEA TO CARRY IN</div>
+<p>This is not a role where they need you to know everything. It is a role where they need someone who stays calm when a customer is angry, asks the right questions, communicates honestly, and then uses AI to stop the problem happening again. Every answer you give should quietly show one of those four things.</p>
+</div>
+</div>
+</section>
+
+<section id="role">
+<div class="inner">
+<h2><span class="n">Section 2</span>The role, decoded</h2>
+<p class="lede">Your senior described it as "handling clients when something goes wrong and fixing it immediately." He is right, and the JD confirms it. Here is the honest translation.</p>
+
+<h3>What Shipsy actually does</h3>
+<p>Shipsy is a logistics software company founded in 2015, headquartered in Gurgaon, with offices across the Middle East, Europe, Southeast Asia and ANZ. Their platform is used by 200+ enterprises &mdash; Aramex, DTDC, Flipkart, Reliance, DPD, Pizza Hut, Heineken. They do transportation management, route optimisation, real-time shipment visibility, and last-mile delivery software. They were named a "Customers' Choice" in Gartner's Transportation Management Systems report in 2024.</p>
+<p>Why this matters for you: when their software breaks, <strong>physical packages stop moving</strong>. A bug is not a cosmetic issue &mdash; a warehouse cannot dispatch, riders cannot mark deliveries, a client loses money every hour. That urgency is the entire reason this role exists.</p>
+
+<h3>The two phases, in plain words</h3>
+<table>
+<tr><th>Phase</th><th>What you actually do</th><th>What they're judging</th></tr>
+<tr><td><strong>Months 1&ndash;6</strong></td><td>Answer support tickets from enterprise clients. Handle escalations. Debug problems in a large codebase you didn't write. Explain technical things to non-technical client teams. Be on call across time zones.</td><td>Patience, structured troubleshooting, communication, ownership.</td></tr>
+<tr><td><strong>Months 6+</strong></td><td>Take the repetitive problems you saw and automate them. Build AI agents, RAG systems over tickets and docs, auto-triage, predictive alerts, autonomous fixes.</td><td>Whether you can spot a pattern and turn it into a system.</td></tr>
+</table>
+
+<div class="warn">
+<div class="h">THE TRAP TO AVOID</div>
+<p>Do not say "I'm really excited about Phase 2, the AI part." Every candidate says that. It signals you'll be bored and unhappy for six months of ticket work &mdash; which is exactly what they're hiring for right now.</p>
+<p><strong>Say this instead:</strong> "The Phase 1 part is what convinced me the Phase 2 part will actually work. You can't build a useful support agent if you've never sat with the tickets yourself."</p>
+</div>
+
+<h3>Read the JD's own words back to them</h3>
+<p>These five phrases are from the JD. Weave one or two into your answers naturally &mdash; it shows you actually read it:</p>
+<ul>
+  <li>"Proactive AI systems" &mdash; they want to prevent tickets, not just close them faster.</li>
+  <li>"Customer obsession" &mdash; one of their stated values.</li>
+  <li>"Systems thinking" &mdash; connect a technical fix to a business outcome.</li>
+  <li>"SLA adherence, first-call resolution, satisfaction scores" &mdash; the metrics you'd own.</li>
+  <li>"Entrepreneurial spirit &mdash; turn problems into transformative solutions."</li>
+</ul>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>What do you understand about this role?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>From what I read, it's two things joined together. For the first six months, I'd be handling real support tickets and escalations for enterprise clients &mdash; understanding the product deeply by fixing things that break. After that, the focus shifts to using AI to automate the problems I've seen repeatedly.</p>
+<p>What I like is the order of it. Most companies try to build a support AI first and then discover it doesn't understand the real problems. Here I'd learn the problems first, so anything I build later would actually be based on things I've handled myself.</p>
+</div>
+<div class="why"><b>Why this works:</b> it proves you read the JD, and it reframes six months of ticket work as an advantage rather than something to survive.</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"Are you comfortable doing support work for six months?" &rarr; Yes, and give a reason: it's the fastest way to learn a large codebase and a real business.</li>
+<li>"What if you're on a call at 2am for a Middle East client?" &rarr; Say yes plainly. On-call is in the JD; hesitating here is costly. "I understand there's an on-call rotation across time zones, and I'm okay with that."</li>
+</ul></div>
+</div>
+</div>
+</section>
+
+<section id="interviewer">
+<div class="inner">
+<h2><span class="n">Section 3</span>Reading your interviewer</h2>
+<p class="lede">I couldn't open the LinkedIn profile directly &mdash; LinkedIn blocks automated access. But a public search for a "Gangesh" at Shipsy returns someone listed as <strong>Senior Product Success Manager at Shipsy, "driving client success and engagement,"</strong> based in India. The profile URL doesn't exactly match the one you sent, so treat this as likely-but-unconfirmed.</p>
+
+<div class="note">
+<div class="h">CHECK THIS YOURSELF TONIGHT</div>
+<p>Open the profile on your phone for two minutes and look for: current title, how many years at Shipsy, previous companies, and whether their background is engineering or client-facing. That single detail changes what they'll dig into.</p>
+</div>
+
+<h3>If they are a Product Success / Client Success person (most likely)</h3>
+<ul>
+  <li>They will care far more about <strong>how you handle a client</strong> than about your model architecture.</li>
+  <li>Expect scenario questions: angry customer, missed SLA, bug you can't reproduce, an escalation from a big account.</li>
+  <li>They will watch whether you <strong>ask clarifying questions</strong> before jumping to a solution. Do it deliberately at least twice.</li>
+  <li>They will test if you can explain something technical <strong>without jargon</strong>. Practice explaining RAG to a non-technical person (Section 13 has a script).</li>
+  <li>They may not go deep on transformers or model internals. Don't force that conversation.</li>
+</ul>
+
+<h3>If they turn out to be an engineer</h3>
+<ul>
+  <li>Expect deeper questions on your projects: why LangGraph over plain LangChain, why FlashRank, how you'd debug an API failure, basic SQL and Python.</li>
+  <li>Section 11 and 13 cover these.</li>
+</ul>
+
+<h3>How to handle it live</h3>
+<p>You do not need to guess. In the first minute, when they introduce themselves, <strong>listen to their title</strong> and adjust. And you're allowed to ask:</p>
+<div class="phrase">"Before I start &mdash; could you tell me a little about your team and what you work on at Shipsy? It'll help me give you more relevant answers."</div>
+<p>This is a strong, confident opening. It also buys you thirty seconds to settle your nerves while they talk.</p>
+
+<div class="win">
+<div class="h">SMALL THING, BIG EFFECT</div>
+<p>A client-success person deals with unhappy customers all day. If you show genuine empathy for the <em>customer's</em> situation &mdash; not just the technical problem &mdash; you will stand out immediately from candidates who only talk about code.</p>
+</div>
+</div>
+</section>
+
+<section id="story">
+<div class="inner">
+<h2><span class="n">Section 4</span>Tell me about yourself</h2>
+<p class="lede">This is the one answer worth learning almost word for word &mdash; not because you should recite it, but because a strong first 60 seconds settles your nerves for the whole interview. Learn the four beats, not the exact sentences.</p>
+
+<h3>The four beats</h3>
+<ol>
+  <li><strong>Who you are now</strong> &mdash; college, year, specialisation. 10 seconds.</li>
+  <li><strong>What you actually build</strong> &mdash; your internship, in plain language. 20 seconds.</li>
+  <li><strong>Proof you build on your own too</strong> &mdash; two projects, one line each. 15 seconds.</li>
+  <li><strong>Why this role</strong> &mdash; one honest sentence connecting you to the JD. 15 seconds.</li>
+</ol>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Tell me about yourself. / Introduce yourself.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Sure. I'm Albin John, a third-year B.Tech student at IIIT Kottayam, in Computer Science with a specialisation in AI and Data Science.</p>
+<p>Most of my work has been applied AI &mdash; actually building things people use. Right now I'm an AI intern at Klyonix. I built a chatbot where a business user can ask a question in normal English, like "what were last month's sales," and the system converts it into a database query and answers with real numbers. I also added role-based access, so a manager and a junior employee asking the same question don't get the same data.</p>
+<p>Before that I interned at AI4SEES on a computer vision system using YOLOv8 for real-time detection on video streams.</p>
+<p>On my own, I've built Casper, an autonomous research agent using LangGraph, and LegalEase, a RAG-based legal assistant. I've also built a full-stack e-commerce site with payments, so I've seen the web and database side too.</p>
+<p>What drew me to this role is the order of it &mdash; first understanding real customer problems, then automating them with AI. I like that part where something breaks and you have to figure out why. That's honestly the part of building software I enjoy most.</p>
+</div>
+<div class="why"><b>Why this works:</b> the Klyonix description is in plain English with a concrete example, which immediately shows you can explain technical work to a client. The last line is a genuine claim about your temperament that happens to be exactly what a support role needs.</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"Tell me more about that role-based access part." &rarr; See Section 12.</li>
+<li>"Which of these are you most proud of?" &rarr; Pick <em>one</em> and commit. Recommended: the Klyonix chatbot, because it had real users.</li>
+<li>"You're in third year &mdash; when do you graduate?" &rarr; Answer directly: 2027. Don't apologise for it.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Walk me through your resume.</span></div>
+<div class="why" style="margin-bottom:12px"><b>Different from the above:</b> this one is chronological and slightly longer &mdash; roughly 90 seconds. Go in time order and add one <em>result</em> per item.</div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'll go in order. I joined IIIT Kottayam in 2023 for Computer Science with an AI and Data Science specialisation, and I'm at 8.92 CGPA.</p>
+<p>My first real project was LegalEase in October 2025 &mdash; a RAG system that answers legal questions from a document base. That's where I learned that plain retrieval isn't enough, so I added a re-ranking step and built an evaluation pipeline with RAGAS to actually measure whether the answers were grounded in the documents.</p>
+<p>In summer 2025 I interned at AI4SEES on computer vision &mdash; YOLOv8 for object detection and tracking on live video, and I connected the model output to a React dashboard so people could actually watch it in real time.</p>
+<p>In February this year I built Casper, an autonomous agent using LangGraph that plans its own searches, decides whether it has enough information, and then writes a summary with sources.</p>
+<p>Since February I've been an AI intern at Klyonix, building a multi-tenant chatbot with RAG and text-to-SQL over relational databases, with role-based access enforced at the LLM layer.</p>
+<p>Alongside that I built SpiceNest, a full-stack e-commerce platform with Razorpay payments, and outside academics I'm House Captain at college, coordinating events for around 500 students, and I play badminton at inter-IIIT level.</p>
+</div>
+<div class="why"><b>Note:</b> ending on leadership and sport is deliberate. It makes you a person, not a list. Both are relevant here &mdash; House Captain means handling people under pressure, which is what escalations are.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Why did you choose this field / AI?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Honestly, what pulled me in was that AI lets one person build something that would otherwise need a whole team. When I built LegalEase, I realised a person with no legal background could get a useful answer out of hundreds of pages of documents in a few seconds. That felt like real leverage.</p>
+<p>But what kept me in the field was the opposite feeling &mdash; when the system gave a confident answer that was completely wrong. Fixing that is what taught me the most. Chunking, re-ranking, evaluation. That's the part I actually enjoy: making AI reliable, not just impressive.</p>
+</div>
+<div class="why"><b>Why this works:</b> "making AI reliable, not just impressive" is exactly the mindset needed for enterprise support. It's memorable and it's true of your work.</div>
+</div>
+</div>
+</section>
+
+<section id="why">
+<div class="inner">
+<h2><span class="n">Section 5</span>Why Shipsy, why you</h2>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Why Shipsy?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Two reasons. First, the domain. Logistics is one of the few places where a software bug has a physical consequence &mdash; a package doesn't move, a rider is stuck, a warehouse can't dispatch. That makes the work feel real, and it makes support work genuinely important rather than just closing tickets.</p>
+<p>Second, the scale and the stage. You're working with 200+ enterprises like Aramex and DTDC, and you were named Customers' Choice in Gartner's TMS report. But the AI-for-support part is still being built. That's the stage I want to join &mdash; where the problems are real and large, but the solutions aren't decided yet.</p>
+</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"What do you know about our product?" &rarr; Transportation management, route optimisation, real-time shipment visibility, last-mile delivery, and warehouse management after the Stockone acquisition in 2023. First mile, middle mile, last mile. Don't overclaim beyond that.</li>
+<li>"Do you know anything about logistics?" &rarr; Be honest: "Not deeply yet &mdash; I've read about the order lifecycle and the first/middle/last mile split, and I understand the common integration points. I'd expect to learn the real depth from tickets." Then show the vocabulary from Section 14 naturally later.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Why do you want this role specifically? It's a support-heavy role.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Because I've already seen the gap this role is designed to close. At Klyonix I built a chatbot for business users, and the most valuable thing wasn't the model &mdash; it was watching people use it and get confused. The questions they asked told me what to fix, and I'd never have guessed those from my desk.</p>
+<p>This role does that at a much bigger scale. Six months of real tickets from enterprise clients is basically six months of the highest-quality data you can get on what's actually broken. Then you build for that. I'd rather do it in that order.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Why should we hire you?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Three things, briefly.</p>
+<p>One, I have the range this role needs. Support work means jumping between a database query, an API response, a frontend bug and a customer email in the same hour. I've built the backend, the frontend, the database and the AI layer myself, so I won't be blocked on any one of those.</p>
+<p>Two, I've already built the exact kind of AI systems described in Phase 2 &mdash; RAG, agents with tool-calling, vector databases, function calling. Not from a course, from projects I debugged myself.</p>
+<p>Three, and honestly the most relevant one &mdash; I don't panic when something breaks. I'm used to sitting with a problem I don't understand yet and narrowing it down step by step. In a support role I think that matters more than knowing the answer immediately.</p>
+</div>
+<div class="why"><b>Delivery tip:</b> say "three things" out loud, then count them. It makes you sound organised even if your English wobbles, and it stops you rambling.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>What are your strengths?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>My main strength is that I finish things. A lot of AI projects stop at a notebook that works once. Mine end up deployed with a frontend, error handling and a way to measure whether the output is actually good &mdash; like the RAGAS evaluation I added to LegalEase.</p>
+<p>The second is patience with debugging. In the Casper agent, the model kept getting stuck in loops, calling search again and again. It took me a while to work out it wasn't a prompt problem, it was a state problem &mdash; the agent had no budget or stopping condition. I added a step counter to the state and a rule that forces it to summarise when the budget runs out. I like that kind of problem.</p>
+</div>
+<div class="why"><b>Why this works:</b> both strengths are backed by a specific, checkable example from your own repos. Never give a strength without an example &mdash; "I'm a fast learner" with no proof is worth nothing.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>What are your weaknesses?</span></div>
+<div class="why" style="margin-bottom:12px"><b>Strategy:</b> use the real one. Naming your English up front, calmly, removes its power over you. If you stumble later, they'll read it as the thing you already told them about, not as a lack of ability.</div>
+<div class="say"><span class="cue">SAY THIS &mdash; OPTION A (recommended)</span>
+<p>My clearest weakness is that I'm still improving at explaining technical things in English, especially when I'm nervous. I know the concept well, but I sometimes take a longer route to say it.</p>
+<p>I've been working on it deliberately &mdash; writing short summaries of what I built each week, and explaining my projects out loud to friends who aren't in AI. That second one helped the most, because if they don't understand it, my explanation was the problem, not their knowledge. It's noticeably better than six months ago, and honestly a support role would push that further, which is part of the appeal.</p>
+</div>
+<div class="say"><span class="cue">SAY THIS &mdash; OPTION B (if you'd rather not raise English)</span>
+<p>I used to jump into building too early. With LegalEase I built the whole retrieval pipeline before I had any way of checking whether the answers were actually correct &mdash; so I spent days tuning things with no idea if I was improving them. That's why I added the RAGAS evaluation later.</p>
+<p>Now I try to decide how I'll measure success before I start building. It slows the first day down and saves the next five.</p>
+</div>
+<div class="warn">
+<div class="h">DO NOT SAY</div>
+<p>"I'm a perfectionist." / "I work too hard." / "I take too much responsibility." Every interviewer has heard these hundreds of times and reads them as evasion.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Where do you see yourself in 2&ndash;3 years? / Are you planning higher studies?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I want to be someone who owns a problem area end to end &mdash; understands the customer side of it, and can build the system that fixes it. In two or three years I'd like to be the person the team asks when something in that area breaks, and also the one who's automated the parts that used to break repeatedly.</p>
+<p>I'm focused on working in applied AI rather than research, so my plan is industry, not higher studies right now.</p>
+</div>
+<div class="why"><b>Note:</b> if you genuinely are considering a master's later, don't lie. Say "I'm focused on industry for now" &mdash; that's true and sufficient.</div>
+</div>
+</div>
+</section>
+
+<section id="behavioral">
+<div class="inner">
+<h2><span class="n">Section 6</span>Behavioural questions</h2>
+<p class="lede">Answer all of these with <strong>STAR</strong>: Situation (10s), Task (5s), Action (30s &mdash; the bulk), Result (10s). If you forget everything else, remember that the <em>Action</em> is the part they care about, and that every answer must end with a result.</p>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Tell me about a difficult technical problem you solved.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p><em>Situation.</em> In LegalEase, my RAG system was returning answers that sounded confident but were based on the wrong sections of the law.</p>
+<p><em>Task.</em> I had to figure out whether the problem was the model or the retrieval.</p>
+<p><em>Action.</em> I stopped looking at the final answers and started printing the retrieved chunks for each question. The chunks were the problem &mdash; they were being cut in the middle, so a section number was in one chunk and its actual content was in another. I made two changes. I moved to larger semantic chunks of about 1200 characters so a whole article stayed together, and I added a second stage &mdash; FlashRank re-ranking &mdash; which takes the top results from the vector search and re-scores them against the actual question, so weak matches get pushed out.</p>
+<p><em>Result.</em> The answers became grounded in the right sections, and when I measured it with RAGAS I got around 92% faithfulness and 88% answer relevance.</p>
+</div>
+<div class="why"><b>The hidden message:</b> "I stopped looking at the output and looked at the intermediate step" is exactly the debugging instinct a support engineer needs. Say that sentence clearly &mdash; it's the best line in the answer.</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"What is faithfulness in RAGAS?" &rarr; Whether the answer is actually supported by the retrieved documents, rather than invented. Relevance is whether the answer addresses the question asked.</li>
+<li>"How did you know 92% was good?" &rarr; Be honest &mdash; it was measured on a test set of questions I wrote against documents where I knew the correct source. It's an internal benchmark, not an industry standard.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Tell me about a time you worked in a team / handled conflict.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>As House Captain I coordinate a contingent of around 500 students across 15 or more events. The hardest part isn't the planning &mdash; it's that two event leads will both want the same court, or the same slot, and both have a fair reason.</p>
+<p>What I learned is to stop arguing about the slot and ask what each one actually needs. Usually one of them needs it for a formal match and the other just needs practice time, and once that's on the table the solution is obvious. We finished as runners-up in the intra-college meet, and more importantly nobody left the season resentful.</p>
+</div>
+<div class="why"><b>Why it lands here:</b> "stop arguing about the position and ask what they actually need" is the same skill as handling a client who says "this is critical, fix it now." It transfers directly, and if they're a client-success person they will notice.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Tell me about a time you failed or made a mistake.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>In my first version of the Klyonix chatbot, I focused entirely on getting the SQL generation accurate and treated access control as something to add later. When I demoed it internally, someone asked a question that returned data they shouldn't have been able to see. Nothing left the company, but it was a real gap.</p>
+<p>I'd assumed I could add security on top afterwards. You can't &mdash; it had to be part of how the query is built, not a filter applied at the end. So I moved the role check into the LLM layer, so the user's role constrains which tables and rows are even available before a query is generated.</p>
+<p>What I took from it is to ask "who is allowed to see this" at the design stage, not the demo stage.</p>
+</div>
+<div class="why"><b>Why this is a strong failure story:</b> it's a real mistake, it has no victim, the fix is technical and specific, and the lesson is genuinely useful. It also lets you talk about RBAC, which is impressive for a third-year student.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Tell me about a time you had to learn something quickly.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>At Klyonix the internship project was built on Frappe, which I'd never used before, and the RAG part had to fit inside their app structure rather than being a standalone Python service.</p>
+<p>What I did first was not read the documentation front to back &mdash; I found the smallest existing feature in the codebase that did something similar, traced how a request travelled through it, and copied that shape. Once I understood one path end to end, everything else made sense. I had a working retrieval endpoint in about three days.</p>
+</div>
+<div class="why"><b>Why this matters for the role:</b> you will be dropped into a huge codebase you didn't write. "I trace one request end to end first" is exactly the right answer, and it's true of how you actually work.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>How do you handle pressure or multiple things at once?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I write everything down first. When several things are urgent at the same time, the worst thing is holding them in your head, because you keep switching and finish nothing.</p>
+<p>So I list them, and then I order them by two questions: how many people are blocked, and is there a temporary way around it. Something blocking a whole team with no workaround goes first, even if something else is technically more interesting. Then I tell whoever's waiting where they are in the queue, so they're not sitting in silence.</p>
+</div>
+<div class="why"><b>Note:</b> this is quietly the correct answer to ticket prioritisation too. Saying it here means you've already established the framework before the scenario questions start.</div>
+</div>
+</div>
+</section>
+
+<section id="support">
+<div class="inner">
+<h2><span class="n">Section 7</span>Support &amp; escalation playbook</h2>
+<p class="lede">This is the section that decides your interview. Learn the framework below well enough to use it without naming it. Almost every scenario question they ask can be answered by walking through these five steps.</p>
+
+<h3>ARISE &mdash; your five steps for any customer issue</h3>
+<table>
+<tr><th>Step</th><th>What you do</th><th>Say it like this</th></tr>
+<tr><td><strong>A</strong>cknowledge</td><td>Respond fast, confirm you understand the impact, before you know the answer.</td><td>"First I'd acknowledge it quickly, so they know a human has it."</td></tr>
+<tr><td><strong>R</strong>eproduce</td><td>Get exact details. Try to see it yourself.</td><td>"Then I'd try to reproduce it with their exact order ID and timestamp."</td></tr>
+<tr><td><strong>I</strong>solate</td><td>Narrow where it breaks: their input, our API, the database, a third party, the UI.</td><td>"Then I'd narrow down which layer it's failing at."</td></tr>
+<tr><td><strong>S</strong>olve or workaround</td><td>Fix it, or give them a way to keep operating while you fix it.</td><td>"Even if the fix takes time, I'd try to unblock their operation today."</td></tr>
+<tr><td><strong>E</strong>xplain &amp; prevent</td><td>Tell them the cause in their language. Then stop it recurring &mdash; alert, doc, or automation.</td><td>"And then I'd ask why we didn't catch it before the customer did."</td></tr>
+</table>
+
+<div class="note">
+<div class="h">THE STEP THAT WINS THE INTERVIEW</div>
+<p>Most candidates stop at S. Always add the E. "And then I'd write it up so the next person doesn't have to rediscover it, and if it's the third time we've seen it, I'd look at automating the diagnosis." That single sentence connects Phase 1 to Phase 2 and is the whole point of this role.</p>
+</div>
+
+<h3>Severity: how to decide how urgent something is</h3>
+<p>Use two axes: <strong>how many people are blocked</strong>, and <strong>is there a workaround</strong>. Learn these four levels with the logistics examples &mdash; they'll make you sound like you already work there.</p>
+<table>
+<tr><th>Level</th><th>Meaning</th><th>Logistics example</th><th>Response</th></tr>
+<tr><td><strong>P1 / Critical</strong></td><td>Business stopped. No workaround.</td><td>Warehouse can't dispatch any shipments. Rider app won't let anyone mark deliveries. Tracking down for all clients.</td><td>Immediate. Escalate now. Communicate every 30&ndash;60 min.</td></tr>
+<tr><td><strong>P2 / High</strong></td><td>Major function broken, painful workaround exists.</td><td>Bulk order upload failing, so ops are creating orders one by one. Status webhooks delayed by hours.</td><td>Same day. Give the workaround immediately.</td></tr>
+<tr><td><strong>P3 / Medium</strong></td><td>Something's wrong but work continues.</td><td>A report shows the wrong count. One client's SLA dashboard has a timezone offset.</td><td>Normal queue, clear ETA.</td></tr>
+<tr><td><strong>P4 / Low</strong></td><td>Cosmetic or a request.</td><td>A label is misspelled. A client wants a new column in an export.</td><td>Log it, batch it, be honest about timelines.</td></tr>
+</table>
+
+<div class="warn">
+<div class="h">A NUANCE WORTH SAYING OUT LOUD</div>
+<p>"Severity isn't the same as the customer's urgency. A customer will often say everything is P1, and that's fair &mdash; from where they sit it is. My job isn't to argue about the label. It's to understand the business impact underneath it, and then be honest about what we're doing first and why."</p>
+<p>This is a mature answer that very few candidates give.</p>
+</div>
+
+<h3>What to collect before you escalate</h3>
+<p>If they ask "what information would you gather," this list is your answer. Learn six of them; you don't need all thirteen.</p>
+<ul>
+  <li><strong>Who</strong> &mdash; client/tenant name, the specific user, their role and permissions.</li>
+  <li><strong>What</strong> &mdash; exactly what they did, what they expected, what actually happened.</li>
+  <li><strong>Identifiers</strong> &mdash; order ID, tracking/AWB number, request or trace ID, ticket ID.</li>
+  <li><strong>When</strong> &mdash; exact timestamp <em>with timezone</em>. In a global product this is often the whole bug.</li>
+  <li><strong>Where</strong> &mdash; environment, region, web or mobile, app version, browser.</li>
+  <li><strong>Evidence</strong> &mdash; screenshot or screen recording, the API request and response, error message verbatim, relevant log lines.</li>
+  <li><strong>Frequency</strong> &mdash; once, always, or intermittent? What percentage of attempts?</li>
+  <li><strong>Blast radius</strong> &mdash; one user, one client, or everyone? How many orders affected?</li>
+  <li><strong>Started when</strong> &mdash; and did anything change around then? A deploy, a config change, a new integration on their side?</li>
+  <li><strong>Business impact</strong> &mdash; in their words. "3,000 shipments can't be dispatched" is more useful than "high priority."</li>
+  <li><strong>What you already ruled out</strong> &mdash; so engineering doesn't repeat your work.</li>
+  <li><strong>Workaround status</strong> &mdash; is the customer currently blocked or limping along?</li>
+  <li><strong>Your best hypothesis</strong> &mdash; even if uncertain. Say it as a hypothesis.</li>
+</ul>
+
+<div class="note">
+<div class="h">THE LINE TO REMEMBER</div>
+<p>"A good escalation should let an engineer start debugging in two minutes instead of spending twenty asking me questions."</p>
+</div>
+
+<h3>When to escalate</h3>
+<ul>
+  <li>It's P1 and there's no workaround &mdash; escalate immediately, don't investigate alone first.</li>
+  <li>It needs a code change, a data fix, or access you don't have.</li>
+  <li>Data integrity or security is involved &mdash; wrong data shown to the wrong client, anything that looks like a leak. Escalate instantly, never sit on it.</li>
+  <li>You're at risk of breaching an SLA &mdash; escalate <em>before</em> the breach, not after.</li>
+  <li>You've genuinely run out of hypotheses. Set yourself a time box.</li>
+  <li>The customer has asked for a manager, or the account is at risk.</li>
+</ul>
+<p><strong>The principle to state:</strong> "I'd rather escalate slightly early with good information than late with a complete investigation. The cost of escalating early is a bit of someone's time. The cost of escalating late is a customer who stopped trusting us."</p>
+
+<h3>How to communicate while you're still investigating</h3>
+<p>Three rules. Say them in this order and you'll sound experienced:</p>
+<ol>
+  <li><strong>Update on a schedule, not on progress.</strong> If you only write when you have news, silence feels like being ignored. Promise a next update time and hit it &mdash; even if the update is "no change yet."</li>
+  <li><strong>Say what you know, what you don't know, and what's next.</strong> Never fill the gap with a guess dressed as a fact.</li>
+  <li><strong>Never give an ETA you're not confident in.</strong> Give a next-update time instead. "I'll come back to you by 4pm with either a fix or a clearer estimate" is a promise you can keep.</li>
+</ol>
+
+<div class="say"><span class="cue">SAMPLE UPDATE MESSAGE &mdash; USE THIS SHAPE</span>
+<p>"Hi &mdash; quick update. We've reproduced the issue and confirmed it's affecting bulk uploads with more than 500 rows, not all uploads. We haven't identified the root cause yet; our engineering team is looking at it now.</p>
+<p>In the meantime, uploads under 500 rows are processing normally, so splitting the file will let your team keep dispatching today.</p>
+<p>I'll update you again by 4pm even if there's no change."</p>
+</div>
+<div class="why"><b>Notice the structure:</b> what we know &rarr; what we don't &rarr; what unblocks you now &rarr; when I'll write next. Four sentences. If they ask you to draft a customer message live, use exactly this shape.</div>
+</div>
+</section>
+
+<section id="scenarios">
+<div class="inner">
+<h2><span class="n">Section 8</span>20 scenario questions</h2>
+<p class="lede">These are the questions your senior warned you about. Read the answers, then close the page and try to rebuild each one from ARISE. If you can do that, you're ready.</p>
+
+<div class="q">
+<div class="ask"><span class="tag">Q1</span><span>How would you handle an angry customer?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>The first thing I'd remind myself is that the anger is about the situation, not about me. If their operations are stuck, being angry is a reasonable response.</p>
+<p>So I'd let them finish without interrupting, and then acknowledge the impact in their own terms &mdash; not "sorry for the inconvenience," but something like "so your dispatch team has been blocked since this morning and you've got 400 orders waiting." When someone hears their problem said back accurately, the temperature drops immediately.</p>
+<p>Then I'd move to what I can control. What I know so far, what I'm doing next, and when I'll come back to them. Even without a fix, that gives them something solid.</p>
+<p>The one thing I wouldn't do is get defensive or start explaining why it isn't our fault. Even if that's true, it's the wrong conversation to have while they're still blocked.</p>
+</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"What if they're rude to you personally?" &rarr; "I'd stay professional and keep the focus on the problem. If it became abusive I'd loop in my manager, but in my experience most of that heat disappears once someone feels heard."</li>
+<li>"What if it genuinely is their mistake?" &rarr; Fix first, explain later, and explain without blame: "The upload failed because the date column was in a different format &mdash; here's the corrected file, and I've also raised that our error message should have said that clearly."</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q2</span><span>A customer reports a bug. Walk me through what you do.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd acknowledge it first so they know it's picked up. Then I'd get the specifics &mdash; what exactly they did, what they expected, what happened instead, and the identifiers: order ID, timestamp with timezone, which user, and a screenshot or the error message.</p>
+<p>Then I'd try to reproduce it myself, first with their exact data. If I can reproduce it, the rest is straightforward &mdash; I'd narrow down which layer it's failing at by checking whether the request even reached our API, what the API returned, and what the logs say for that request.</p>
+<p>Once I know the cause, I'd think about two timelines: what unblocks them today, and what the permanent fix is. Those aren't always the same thing, and the first one matters more to them.</p>
+<p>Then I'd close the loop &mdash; tell them what actually caused it in plain language, and write it up internally so the next person who sees it doesn't start from zero.</p>
+</div>
+<div class="why"><b>This is just ARISE said naturally.</b> Notice you never named the framework. That's the goal.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q3</span><span>You can't reproduce the issue. What now?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>The first thing I'd accept is that it's still real for them &mdash; "can't reproduce" is information about my environment, not proof there's no bug.</p>
+<p>So I'd look for what's different between us. Usually it's one of a handful of things: their data, their user's role and permissions, their configuration, their app or browser version, the region or timezone, or the load at that moment. I'd try to reproduce with <em>their</em> exact record and <em>their</em> role rather than my test data, because that's where the difference usually lives.</p>
+<p>If I still can't, I'd stop guessing and go to the evidence &mdash; find the request in the logs by timestamp or trace ID and see what actually happened on our side. If it's intermittent, I'd ask them to send the exact time it next occurs, or get a screen recording with the browser console open.</p>
+<p>And I'd be honest with them: "I haven't been able to reproduce it yet, which is why I'm asking for these specific details" is much better than going quiet.</p>
+</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"What if the logs show nothing?" &rarr; Then the request may never have reached us &mdash; check their integration side, network, auth failures, or rate limiting. "Nothing in our logs" is itself a strong clue, not a dead end.</li>
+<li>"Give me an example of an environment difference." &rarr; Timezone is the classic one in logistics: an SLA breach report can look wrong purely because the client's ops are in Dubai and the timestamps are stored in UTC.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q4</span><span>How would you troubleshoot an issue that only happens on the customer's side?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd work from the outside in, and try to split the path in half each time rather than checking everything.</p>
+<p>The first question is: did the request even reach us? If it's in our logs, the problem is on our side. If it isn't, it's their integration, authentication, network, or something like rate limiting.</p>
+<p>If it did reach us, I'd check what we returned. If we returned a correct response and they still see something wrong, then it's on their side or in the display layer &mdash; caching, a stale page, a mapping issue in how they consume our fields.</p>
+<p>If we returned an error, I'd look at what was in the request. In my experience the most common causes are data-shaped: a field missing or in a different format, a duplicate ID, a value that's valid for them but not for us.</p>
+<p>Beyond that I'd specifically check the things that differ per customer &mdash; their configuration, their permissions and roles, their custom fields, their app version, and their timezone.</p>
+</div>
+<div class="why"><b>The key phrase:</b> "did the request even reach us?" It's the single most useful first question in integration support and it makes you sound like you've done this before.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q5</span><span>You don't know the cause of the issue. What do you do?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd try to reduce the space rather than find the answer straight away.</p>
+<p>First I'd establish what changed. Most things that break were working recently, so I'd ask when it started and what happened around then &mdash; a deploy on our side, a config change, a new integration or a data upload on theirs.</p>
+<p>Then I'd narrow the pattern. Is it all users or one user, all orders or one type, all the time or only at certain hours? Every one of those questions cuts the possibilities roughly in half.</p>
+<p>I'd also give myself a time limit &mdash; maybe 30 to 45 minutes for something urgent &mdash; and if I'm not closer by then, I'd bring in someone who knows that part of the system, with everything I've already ruled out. Sitting alone with a P1 because you want to solve it yourself is ego, not ownership.</p>
+</div>
+<div class="why"><b>That last sentence is a strong line.</b> Say it. It shows self-awareness that a manager will trust.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q6</span><span>How would you handle a critical escalation from a large client?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>For a genuine P1 I'd do three things almost at once.</p>
+<p>Acknowledge to the customer immediately and confirm we're on it &mdash; a fast acknowledgement is worth a lot before you know anything. Pull in the right people straight away rather than investigating alone first. And establish a single owner for the communication, so the client isn't hearing three different versions from three people.</p>
+<p>Then, in parallel with the fix, I'd look for anything that reduces the damage now &mdash; a workaround, a manual process, disabling one feature so the rest keeps working. For a logistics client, if the goods can keep moving today, the pressure drops enormously even before the bug is fixed.</p>
+<p>I'd keep updates on a fixed cadence, maybe every 30 minutes, even when there's nothing new.</p>
+<p>And once it's resolved, I'd make sure the root cause analysis actually happens &mdash; what broke, why it wasn't caught, and what monitoring would have caught it before the customer called us.</p>
+</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"What's an RCA?" &rarr; Root cause analysis: a short write-up of what happened, the timeline, why it happened, how it was fixed, and what will prevent a recurrence. Written after the incident is resolved, not during.</li>
+<li>"Who do you communicate with during a P1?" &rarr; The customer, your manager, the engineering owner, and account management if it's a large account. One voice to the customer.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q7</span><span>How would you prioritise five urgent tickets at once?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd rank on two things: how badly the customer is blocked, and whether there's a workaround.</p>
+<p>So a whole warehouse unable to dispatch, with no workaround, goes first &mdash; that's revenue stopping right now. Something affecting many users but with a manual workaround comes next. A single user blocked completely can outrank a hundred users mildly inconvenienced, if that one user is the only person who can approve dispatches.</p>
+<p>Then I'd adjust for two things: contractual SLAs, because some clients have committed response times, and anything touching data integrity or security, which jumps the queue regardless of how few people it affects.</p>
+<p>The part I wouldn't skip is telling the other four. A short message saying "I'm on a critical issue, I'll be with you by 3pm" costs a minute and prevents four more escalations.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q8</span><span>What if you can't fix the issue immediately? How do you tell the customer?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Honestly and early. The mistake is waiting until you have good news, because by then they've already lost confidence.</p>
+<p>I'd tell them three things: what we've confirmed so far, what we haven't figured out yet, and what they can do in the meantime to keep operating. Then I'd commit to a next update time rather than a fix time, because I can control when I write to them and I can't always control when a fix lands.</p>
+<p>I've found people accept "this will take two days, here's how to work around it" far better than a vague "we're working on it" that turns into two days of silence.</p>
+</div>
+<div class="win">
+<div class="h">IF THEY PUSH: "The client demands a fix today and it's not possible."</div>
+<p>"Then I wouldn't promise it. Committing to a date I can't hit buys a few calm hours and costs the relationship. I'd be direct about what's realistic, escalate internally to check whether anything can be pulled forward, and put all my energy into a workaround that gets them operating today even if the proper fix is Thursday."</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q9</span><span>The customer says it's a bug. You think they're using the product wrong. What do you do?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd help them first and discuss the label later. Whether it's a bug or a misunderstanding, they're still blocked, and that's the thing to fix.</p>
+<p>So I'd walk through it with them, ideally on a screen share, and show them the working path without making them feel stupid about it &mdash; something like "let me show you the flow that works for this case."</p>
+<p>But I'd also take it seriously internally. If an experienced user of our product used it in a way that seemed reasonable to them and got a wrong result, that's a product problem even if it isn't a code bug. Confusing labels, a missing validation, unclear docs. I'd raise it, because if one client hit it, others will.</p>
+</div>
+<div class="why"><b>This is a maturity test.</b> The wrong answer is "I'd explain that it's user error." The right answer treats confusion as a product signal.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q10</span><span>How do you explain a technical problem to a non-technical client?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd start from what they experienced, not from the system. So instead of "the webhook consumer failed because of a serialisation error," I'd say "your tracking status stopped updating between 2 and 4pm. Our system was receiving the updates but failing to save them, so nothing showed on your dashboard. It's fixed now and the missing updates have been backfilled."</p>
+<p>The rule I use is: tell them the impact, the cause in one plain sentence, and what's been done. And no acronyms unless they used them first.</p>
+</div>
+<div class="win">
+<div class="h">THEY MAY TEST THIS LIVE</div>
+<p>If they say "explain RAG to me like I'm not technical" or "explain what your project does to a client" &mdash; that's this skill being tested. Section 13 has scripts. Slow down and use an analogy.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q11</span><span>A customer says "your system is showing wrong data." How do you start?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>My first question is always "wrong compared to what?" Usually they're comparing our screen to something else &mdash; their own ERP, a report they exported yesterday, or what a driver told them on the phone.</p>
+<p>Once I know the two things being compared, I'd get one specific example rather than a general complaint. One order ID where the number is wrong, and what they expected it to be.</p>
+<p>Then I'd check three things in order: is the underlying data actually wrong in the database, or is it correct but displayed wrong; is it a timing issue, where their source updated after our sync; and is it a definition mismatch, where we're both right but counting different things. That last one is very common in reports &mdash; whether cancelled orders are included, whether a day ends at midnight in their timezone or in UTC.</p>
+</div>
+<div class="why"><b>"Wrong compared to what?" and the definition-mismatch point</b> are the marks of someone who has actually handled data complaints. Very strong answer for a logistics company.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q12</span><span>A client's integration suddenly stopped working. Nothing changed on our side. What do you check?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd be a bit sceptical of "nothing changed on either side," because something usually did. So I'd establish exactly when it stopped, and then check what happened around that time.</p>
+<p>On our side: any deploy, config change, or certificate or credential that expired. Expired API keys and certificates are a classic cause of "suddenly stopped" with no code change anywhere.</p>
+<p>On their side: a new version of their system, a changed field, a firewall or IP allowlist change, or a volume increase that pushed them into rate limiting.</p>
+<p>Then I'd look at the actual failure. The HTTP status code tells you a lot immediately &mdash; a 401 or 403 points at authentication or permissions, a 429 is rate limiting, a 400 means the request itself is malformed, and a 500 means it's ours. That one number usually decides who needs to fix it.</p>
+</div>
+<div class="fu"><div class="h">Know these cold</div>
+<ul>
+<li><code>200</code> success &middot; <code>201</code> created &middot; <code>400</code> bad request, malformed data &middot; <code>401</code> not authenticated &middot; <code>403</code> authenticated but not allowed &middot; <code>404</code> not found &middot; <code>409</code> conflict, often a duplicate &middot; <code>429</code> too many requests &middot; <code>500</code> our server errored &middot; <code>502/503/504</code> gateway or timeout, service unreachable or too slow.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q13</span><span>The same issue has come up five times from different clients. What would you do?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>That's the point where I'd stop treating it as a ticket and start treating it as a product problem.</p>
+<p>I'd pull the five tickets together and look for what they share &mdash; same feature, same client type, same step in the flow? Then I'd take that to engineering or product as one case with evidence, rather than five separate tickets, because five documented occurrences is a much stronger argument than one.</p>
+<p>And if the permanent fix is going to take time, I'd reduce the cost of it in the meantime &mdash; a documented resolution so anyone on the team can close it in two minutes, and ideally an automated check or an alert that catches it before the customer notices.</p>
+<p>Honestly, that repetition is exactly the input for the automation side of this role. Five identical tickets is a specification for what to build.</p>
+</div>
+<div class="why"><b>This is the single best bridge answer in the whole guide</b> &mdash; it's a support answer that ends in Phase 2 thinking. If you only fully learn one scenario, make it this one.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q14</span><span>How do you make sure you don't miss an SLA?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Mainly by not relying on memory. I'd want visibility on which tickets are closest to breaching, and I'd deal with the clock separately from the fix &mdash; because an SLA is usually about response and communication, not always about full resolution.</p>
+<p>So the first response goes out fast, always. Then, if something is at risk of breaching, I'd flag it before it breaches rather than explaining afterwards. Escalating an at-risk ticket early is a normal thing to do; explaining a breach after the fact is a much worse conversation.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q15</span><span>What does good customer support mean to you?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Two things. The customer is never left wondering what's happening &mdash; even when there's no progress, they know where it stands and when they'll hear next. And the same problem doesn't come back.</p>
+<p>The second one is what separates support that scales from support that just runs faster. If you only close tickets, the queue grows with the customer base. If every ticket also produces a doc, an alert, or an automation, the queue stops growing at the same rate.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q16</span><span>A customer wants a feature we don't have and won't take no for an answer.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd separate what they're asking for from what they're trying to achieve. Often the feature they're asking for is one solution to their problem, and there's already another way to get the same outcome with what we have.</p>
+<p>So I'd ask what they're trying to do and why, and see if an existing capability or a small configuration change gets them there.</p>
+<p>If it genuinely doesn't exist, I wouldn't invent a timeline. I'd tell them clearly that it's not available today, log it properly with their business justification so it counts in prioritisation, and tell them honestly what I can and can't promise about when it'll be looked at.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q17</span><span>You made a mistake that affected a customer. What do you do?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Say it immediately, to my team first and then the customer. The damage from a mistake is usually much smaller than the damage from a mistake that surfaced late.</p>
+<p>Then focus on containing it &mdash; what data was affected, does anything need correcting, does anyone need telling. Once it's contained, I'd own it plainly with the customer without over-apologising, because five paragraphs of apology reads as panic. What they want is: what happened, what's the impact on me, what's being done.</p>
+<p>And then I'd look at why the mistake was possible at all. If I could do it, someone else can.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q18</span><span>Two customers escalate at the same time and both are angry. What do you do?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd triage on impact, not on volume &mdash; the louder customer isn't automatically the more affected one.</p>
+<p>Then I'd immediately acknowledge both, because the worst outcome is one of them sitting in silence while I work on the other. Even a two-line message saying "I've got this, I'm currently on a critical issue, I'll be back to you within the hour" changes how the wait feels.</p>
+<p>And if both genuinely are critical, that's the moment to raise a hand and get help, rather than quietly doing a mediocre job on two things at once.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q19</span><span>How would you handle being on call at night?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd want to be prepared rather than heroic about it. Knowing the escalation path before I need it, having the runbooks and dashboards accessible, and knowing which issues genuinely need to be handled at 2am and which can wait for the morning team.</p>
+<p>At night the priority is stabilising, not perfecting &mdash; get the customer operating, then do the proper fix and the write-up in working hours. And I'd hand over clearly at the end of the shift so nothing gets dropped between people.</p>
+</div>
+<div class="why"><b>Don't hesitate on this question.</b> On-call is explicitly in the JD. Any reluctance here is expensive.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q20</span><span>What would you do in your first 30 days here?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>In the first week I'd want to understand the product the way a customer uses it &mdash; the actual order flow from creation to delivery &mdash; before touching the codebase, because otherwise the code doesn't mean anything.</p>
+<p>Then I'd read closed tickets. That's the fastest way to learn what really breaks and how the team explains things to clients, and it also tells me the tone customers expect.</p>
+<p>Through the first month I'd take tickets, shadow escalations, and keep my own notes on anything I had to ask twice about &mdash; because that list is the beginning of a documentation and automation backlog.</p>
+</div>
+<div class="why"><b>"Read closed tickets" is the standout line.</b> It's what experienced support engineers actually do first and almost no student says it.</div>
+</div>
+</div>
+</section>
+
+<section id="ai-debug">
+<div class="inner">
+<h2><span class="n">Section 9</span>Using AI to find and fix bugs</h2>
+<p class="lede">Your senior specifically flagged this. Shipsy's JD names ChatGPT, Claude, Cursor and GitHub Copilot as tools they use daily. They want someone who uses AI seriously <em>and</em> knows where it will burn them.</p>
+
+<h3>The seven ways you'd actually use AI in support work</h3>
+<ol>
+  <li><strong>Reading logs fast.</strong> Paste a large log dump and ask for the anomalies, the error clusters, and the sequence of events around a timestamp. This is where AI saves the most time.</li>
+  <li><strong>Understanding unfamiliar code.</strong> In a codebase you didn't write, asking "what does this function do and what calls it" cuts hours off the first weeks.</li>
+  <li><strong>Generating hypotheses.</strong> Give it the symptom, the error, and the context, and ask for five possible causes ranked by likelihood. You still test them &mdash; but it stops you tunnelling on your first idea.</li>
+  <li><strong>Writing throwaway tooling.</strong> A regex to slice logs, a SQL query to find affected orders, a script that reproduces the failing request. Small, verifiable, high value.</li>
+  <li><strong>Drafting customer communication.</strong> Rewrite a technical explanation into plain language for a client. You always edit it, but the blank page is the slow part.</li>
+  <li><strong>Searching past tickets.</strong> Semantic search over resolved tickets to find whether this has happened before &mdash; keyword search misses it when the customer phrased it differently.</li>
+  <li><strong>Writing the RCA draft.</strong> Give it the timeline and the findings, get a structured first draft, then correct it.</li>
+</ol>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>How would you use AI to investigate and solve a bug?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I use AI mainly to speed up the parts that are slow but not hard. The biggest one is logs &mdash; if I have hundreds of lines around the time of a failure, I'll give them to a model and ask what stands out and what the sequence of events was. That takes minutes off something that would take much longer to read manually.</p>
+<p>The second is unfamiliar code. In a large codebase I didn't write, I'll ask it to explain what a function does and what calls it, so I can find the right place to look.</p>
+<p>The third is hypotheses. I'll describe the symptom and the error and ask for the five most likely causes, ranked. That's useful mainly because it stops me getting fixated on my first idea.</p>
+<p>But I treat everything it gives me as a hypothesis, not an answer. I verify against the actual code and the actual logs before I act on it, because a model will state a wrong cause just as confidently as a right one. It narrows the search &mdash; it doesn't end it.</p>
+</div>
+<div class="why"><b>That last paragraph is the part they're testing for.</b> Someone who says "I'd ask ChatGPT and apply the fix" is a risk to enterprise clients. Say the verification part clearly.</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"What would you never put into an AI tool?" &rarr; Customer data, PII, API keys and credentials, anything under an NDA, unless it's an approved internal tool with the right data agreements. Say this &mdash; it's a real concern for a company serving Aramex and Reliance.</li>
+<li>"Does AI ever slow you down?" &rarr; Yes &mdash; when the problem is genuinely novel, chasing a plausible-sounding wrong explanation costs more time than reading the code would have. Good honest answer.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>AI suggests a solution but you're not sure it's correct. What do you do?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd treat it as a claim to be checked, and check it in a specific order.</p>
+<p>First, does the explanation actually match the code and the logs in front of me? Models will confidently reference a function or a config option that doesn't exist in our system. If I can't find the thing it's describing, the answer is wrong regardless of how reasonable it sounds.</p>
+<p>Second, does it explain <em>all</em> the symptoms? If the customer says it fails only for large uploads and the suggested cause would make every upload fail, it's not the cause.</p>
+<p>Third, I'd test it &mdash; reproduce the failure, apply the change in a safe environment, and confirm the failing case now passes and nothing else broke.</p>
+<p>And if it touches production data or anything I can't reverse, I'd have someone senior review it before it goes anywhere near a customer. For an enterprise client I'd much rather be an hour slower and right.</p>
+</div>
+<div class="why"><b>The "does it explain all the symptoms?" test</b> is a genuinely sharp point and very few candidates will make it. It shows you reason about evidence, not just tools.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>What are the risks of using AI in customer support?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Three main ones, I think.</p>
+<p>Hallucination is the obvious one &mdash; a support bot confidently telling a customer a feature exists when it doesn't, or giving a wrong procedure. That's worse than no answer, because the customer acts on it.</p>
+<p>The second is data. Customer data going into external tools, or a bot answering one client's question with another client's data because the retrieval wasn't scoped per tenant. I ran into exactly that class of problem at Klyonix, which is why I moved access control into the LLM layer.</p>
+<p>The third is subtler &mdash; using automation on problems that should have been fixed properly. If the same issue happens weekly and we build a bot to explain it faster, we've made the symptom cheaper instead of removing the cause.</p>
+<p>The way I'd manage all three is to keep a human in the loop for anything customer-facing at first, make the system cite its source so an agent can check it in one click, and let it say "I don't know" rather than guess.</p>
+</div>
+<div class="win">
+<div class="h">THIS ANSWER IS A DIFFERENTIATOR</div>
+<p>The third point &mdash; automating a symptom instead of fixing a cause &mdash; is the kind of thing a senior person says. It shows systems thinking, which the JD literally lists as a requirement.</p>
+</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Have you used AI coding tools like Copilot or Cursor?</span></div>
+<div class="why" style="margin-bottom:12px"><b>Answer honestly.</b> If you use them, say how. If you don't, say what you do use &mdash; ChatGPT or Claude for debugging and explanation &mdash; and that you're comfortable picking up an IDE-integrated tool. Do not pretend.</div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Yes, mostly for the boring parts &mdash; boilerplate, repetitive code, and explaining unfamiliar libraries. I'm careful with it on anything involving logic I have to be sure about, because it produces code that looks right and compiles but is subtly wrong, and that's harder to catch than code that fails loudly.</p>
+<p>Where it's helped me most is speed of understanding rather than speed of typing. In my internship, being able to ask "what does this do" about an unfamiliar framework got me productive in days rather than weeks.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="phase2">
+<div class="inner">
+<h2><span class="n">Section 10</span>Your Phase 2 pitch</h2>
+<p class="lede">At some point they'll ask what you'd build. Having one concrete, well-reasoned idea ready &mdash; with a metric attached &mdash; will put you above most candidates. Learn <strong>one</strong> of these properly rather than all five vaguely.</p>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>What kind of AI system would you build to reduce support load?</span></div>
+<div class="say"><span class="cue">SAY THIS &mdash; THE MAIN PITCH</span>
+<p>The first thing I'd build is a resolution assistant for the support team, not for the customer. Internal first, because the cost of being wrong is much lower.</p>
+<p>The idea is a RAG system over resolved tickets, internal runbooks and product documentation. When a new ticket comes in, it retrieves the most similar past cases and shows the agent: here are three tickets that look like this, here's how they were resolved, here's the relevant doc section. With links, so the agent can verify in one click.</p>
+<p>The reason I'd start there is that it's genuinely useful even when it's only 70% right &mdash; a wrong suggestion to an agent costs ten seconds, whereas a wrong answer to a customer costs trust. And once it's accurate enough on the internal side, some of it can move to the customer portal for the simple, repetitive questions.</p>
+<p>I'd measure it on time-to-first-response and how often agents actually click through &mdash; if they stop using it, it isn't working, regardless of what the offline evaluation says.</p>
+</div>
+<div class="why"><b>Why this is the right pitch:</b> it starts internal and low-risk, it uses exactly the skills on your resume, and it names a real success metric. The line "useful even when it's only 70% right" shows product judgement.</div>
+<div class="fu"><div class="h">Likely follow-ups</div>
+<ul>
+<li>"How would you handle multiple clients' data in that system?" &rarr; Metadata filtering per tenant at retrieval time, so a client's tickets can never surface in another client's context. Tie it to the RBAC work from your internship.</li>
+<li>"How would you know if it's giving bad suggestions?" &rarr; Track whether the suggestion matched the eventual resolution, let agents mark suggestions unhelpful, and sample-review weekly.</li>
+<li>"What if there aren't enough past tickets?" &rarr; Start with documentation and runbooks, and let the ticket corpus build over time. Also a good moment to say retrieval quality depends on the corpus, not the model.</li>
+</ul></div>
+</div>
+
+<h3>Four more ideas, one line each</h3>
+<div class="two">
+<div class="card">
+<h4>Auto-triage</h4>
+<p>Classify each incoming ticket by category, severity and the right team, from its text. Reduces the time a ticket sits in the wrong queue &mdash; which is often the biggest hidden delay in support.</p>
+</div>
+<div class="card">
+<h4>Log-reading agent</h4>
+<p>An agent with tool-calling that takes an order ID, fetches the relevant logs and API traces itself, and returns a timeline of what happened. This is essentially what Casper does, pointed at internal tools instead of web search.</p>
+</div>
+<div class="card">
+<h4>Proactive detection</h4>
+<p>Watch for anomalies per client &mdash; a spike in failed webhook deliveries, a sudden drop in status updates &mdash; and alert before the customer notices. This is the "proactive, not reactive" line from the JD.</p>
+</div>
+<div class="card">
+<h4>Draft replies with approval</h4>
+<p>Generate the first draft of a customer update from the ticket and investigation notes; the agent edits and sends. Human in the loop, big time saving, low risk.</p>
+</div>
+</div>
+
+<div class="note">
+<div class="h">CONNECT IT BACK TO CASPER</div>
+<p>If they ask how you'd build the log-reading agent, you already have the answer: "Structurally it's the same as Casper &mdash; a stateful graph where the model decides which tool to call, gets results, decides whether it has enough, and either calls another tool or writes the summary. The difference is the tools point at our logs and APIs instead of web search, and I'd keep a strict step budget so it can't loop." That's a strong moment.</p>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="inner">
+<h2><span class="n">Section 11</span>Your projects, one by one</h2>
+<p class="lede">For each project, learn three things: a <strong>30-second pitch</strong>, <strong>one design decision you can defend</strong>, and <strong>one hard problem you hit</strong>. That's what interviewers actually probe.</p>
+
+<div class="warn">
+<div class="h">READ THIS FIRST &mdash; THREE MISMATCHES TO KNOW ABOUT</div>
+<p>If your interviewer opens your GitHub while you talk, they'll see small differences from your resume. Know them so you're never caught off guard. None of these are problems &mdash; they just need a one-line explanation.</p>
+<ul style="margin-bottom:0">
+<li><strong>Casper:</strong> your resume says "task-oriented AI agent"; the repo is specifically a web research assistant. Say: "It's a task-oriented agent architecture &mdash; the task I built it for is research, so the tool it calls is web search."</li>
+<li><strong>LegalEase:</strong> resume lists OpenAI API and Streamlit; the repo now uses an Ollama-hosted model with FastAPI and React. Say: "I started on Streamlit with the OpenAI API and later moved it to FastAPI with a React frontend and a self-hosted model." That's a strength &mdash; you iterated.</li>
+<li><strong>SpiceNest:</strong> the repo README is titled "Idukki Origins" and mentions Stripe in the setup notes while the actual integration is Razorpay. Just be ready to say "Idukki Origins was the earlier name" and don't let the Stripe line confuse you.</li>
+</ul>
+</div>
+
+<h3>Casper &mdash; autonomous research agent</h3>
+<p class="stack">Python &middot; LangGraph &middot; LangChain &middot; Groq (Llama 3.1) &middot; FastAPI with Server-Sent Events &middot; React + Vite</p>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Tell me about Casper.</span></div>
+<div class="say"><span class="cue">SAY THIS &mdash; 30-SECOND PITCH</span>
+<p>Casper is an autonomous agent that answers research questions by searching the web itself, instead of answering from what the model already knows.</p>
+<p>The difference from a normal chatbot is that it runs in a loop. It decides what to search for, runs the search, reads the results, and then decides whether it has enough to answer or needs another search. When it's done, it writes a summary with the sources.</p>
+<p>I built it with LangGraph on the backend and React on the frontend, and it streams its reasoning steps to the UI live so you can watch what it's doing rather than staring at a loading spinner.</p>
+</div>
+<div class="fu"><div class="h">Follow-ups you must be ready for</div>
+<ul>
+<li><strong>"Why LangGraph and not plain LangChain?"</strong> &rarr; "A normal LangChain chain runs in a straight line, start to finish. An agent needs to loop &mdash; search, check, maybe search again. LangGraph lets you build it as a graph with cycles and a shared state, so the agent can come back to the same node with more information. That looping is the whole point of an agent."</li>
+<li><strong>"What is the state in your graph?"</strong> &rarr; "The message history, a counter for how many loops it's done, and the maximum searches allowed. The counter and the budget are what stop it running forever."</li>
+<li><strong>"What's the hardest problem you hit?"</strong> &rarr; The infinite loop. Use the story from Section 6.</li>
+<li><strong>"Why SSE and not WebSockets?"</strong> &rarr; "The data only flows one way, from the agent to the browser. SSE is simpler for that and reconnects automatically. WebSockets would be the right choice if the user needed to send messages mid-run."</li>
+<li><strong>"What would you improve?"</strong> &rarr; See below.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>How would you improve Casper?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Three things. First, it trusts whatever the search returns &mdash; I'd add a check on source quality, so it weighs an official page higher than a random blog. Second, right now the reasoning is in memory for a run; I'd persist it properly so a long-running task could resume after a crash. Third, and probably most important, I have no automated way to measure whether an answer was actually good. I'd build an evaluation set the way I did for LegalEase, because without measurement you're just tuning prompts on vibes.</p>
+</div>
+<div class="why"><b>"Tuning prompts on vibes"</b> is a nice honest phrase &mdash; but only use it if the interviewer's tone is relaxed. If they're formal, say "without a way to measure it, prompt changes are guesswork."</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>A user says Casper gave a wrong answer. How would you debug it?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd find where in the chain it went wrong, because "wrong answer" can come from three different places.</p>
+<p>First I'd look at what it actually searched for. If the query it generated was off-target, everything downstream is doomed and it's a prompt or planning problem.</p>
+<p>If the query was fine, I'd look at what the search returned. If the sources were bad or irrelevant, it's a retrieval problem.</p>
+<p>And if the sources were good but the summary contradicts them, then it's the model &mdash; it's ignoring the context, which usually means the context was too long, badly ordered, or the prompt didn't insist strongly enough on using only the retrieved material.</p>
+<p>The nice thing is the reasoning log is already streamed to the UI, so I can see all three stages for that specific run rather than guessing.</p>
+</div>
+<div class="why"><b>This is a support answer disguised as a project answer.</b> Splitting a system into stages and testing each one is exactly what they want to see. Expect them to like this.</div>
+</div>
+
+<hr>
+
+<h3>LegalEase &mdash; RAG legal assistant</h3>
+<p class="stack">Python &middot; ChromaDB &middot; all-MiniLM-L6-v2 embeddings &middot; FlashRank re-ranker &middot; RAGAS evaluation &middot; FastAPI &middot; React + Tailwind</p>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Explain LegalEase.</span></div>
+<div class="say"><span class="cue">SAY THIS &mdash; 30-SECOND PITCH</span>
+<p>LegalEase answers legal questions using an actual document base rather than the model's memory, so the answers can be traced back to a source.</p>
+<p>When you ask a question, it first searches a vector database for the most relevant sections of the legal documents. Then there's a second stage &mdash; a re-ranker that re-scores those results against the question and keeps only the best ones. Those go to the model as context, and it answers from them.</p>
+<p>The part I'm most pleased with is the evaluation. I used RAGAS to measure whether the answers were actually grounded in the retrieved documents, and got around 92% faithfulness and 88% relevance. Without that number I'd have had no idea whether my changes were helping.</p>
+</div>
+<div class="fu"><div class="h">Follow-ups you must be ready for</div>
+<ul>
+<li><strong>"Why do you need a re-ranker? Isn't vector search enough?"</strong> &rarr; "Vector search is fast but approximate &mdash; it compares one embedding of the question to one embedding of each chunk, so it retrieves things that are topically close but not actually answering the question. The re-ranker is a cross-encoder: it looks at the question and the chunk <em>together</em>, so it's much more accurate. It's too slow to run on the whole database, which is why you use it as a second stage on the top 20 or so results."</li>
+<li><strong>"Why 1200-character chunks?"</strong> &rarr; "Legal text falls apart if you cut it. A section number in one chunk and its content in another is useless. Larger chunks kept whole articles together. The trade-off is you send more irrelevant text to the model, which costs tokens and can dilute the answer &mdash; the re-ranker helps offset that."</li>
+<li><strong>"What is faithfulness?"</strong> &rarr; Whether the answer is supported by the retrieved context, rather than invented. It's the metric that catches hallucination specifically.</li>
+<li><strong>"What are the risks of a legal AI?"</strong> &rarr; A confident wrong answer that someone acts on. That's why grounding and citing sources matters more here than fluency, and why it should be framed as assistance, not advice.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>A customer says LegalEase gives irrelevant answers. How do you troubleshoot?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd check retrieval before I touch anything else, because in RAG the failure is almost always retrieval and almost never the model.</p>
+<p>So for their exact question, I'd print the chunks that came back. If the right document isn't in there, the model never had a chance &mdash; and then the question is why. Was the document actually ingested? Did the chunking split the relevant part badly? Is the question phrased in words that don't appear anywhere in the corpus?</p>
+<p>If the correct chunk <em>was</em> retrieved and the answer still ignored it, then it's a prompting or context problem &mdash; too much context, the useful part buried in the middle, or a prompt that doesn't tell the model to answer only from the provided material.</p>
+<p>And if the document genuinely isn't in the corpus, the right fix isn't a better prompt &mdash; it's for the system to say it doesn't have that information, rather than inventing something.</p>
+</div>
+<div class="win">
+<div class="h">MEMORISE THIS SENTENCE</div>
+<p>"In RAG, the failure is almost always retrieval, not generation." It's true, it's concise, and it's the kind of thing that makes an interviewer nod.</p>
+</div>
+</div>
+
+<hr>
+
+<h3>SpiceNest &mdash; full-stack e-commerce</h3>
+<p class="stack">React + Vite &middot; Tailwind v4 &middot; Node.js + Express &middot; Prisma ORM &middot; Neon serverless PostgreSQL &middot; Razorpay &middot; JWT &middot; bcryptjs</p>
+
+<div class="note">
+<div class="h">DON'T UNDER-SELL THIS ONE</div>
+<p>It's tempting to treat the non-AI project as the weak one. For <em>this</em> role it may be the most relevant thing on your resume. Shipsy's customers are enterprises running orders, payments, statuses and integrations &mdash; and you have actually built an order-and-payment flow end to end. You know what breaks in one.</p>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Tell me about SpiceNest.</span></div>
+<div class="say"><span class="cue">SAY THIS &mdash; 30-SECOND PITCH</span>
+<p>SpiceNest is a full e-commerce platform for selling Kerala spices &mdash; browsing, cart, login, checkout and real payments.</p>
+<p>The frontend is React with Tailwind, the backend is Node and Express, and the database is PostgreSQL accessed through Prisma. Authentication uses JWT with hashed passwords, and payments go through Razorpay.</p>
+<p>The most useful thing I learned from it was payment flow &mdash; you can't trust the frontend to tell you an order was paid. The confirmation has to be verified on the server against the payment provider, otherwise anyone can fake a successful payment.</p>
+</div>
+<div class="fu"><div class="h">Follow-ups</div>
+<ul>
+<li><strong>"How does JWT work?"</strong> &rarr; "When a user logs in, the server creates a signed token containing their identity and sends it back. The client sends it with each request, and the server verifies the signature rather than looking up a session. It means the server doesn't have to store session state, but it also means you can't easily invalidate a token before it expires."</li>
+<li><strong>"Why hash passwords? What does bcrypt do?"</strong> &rarr; "So that if the database is ever exposed, the actual passwords aren't. bcrypt is deliberately slow and salted, which makes brute-forcing impractical."</li>
+<li><strong>"Why Prisma instead of raw SQL?"</strong> &rarr; "Type safety and migrations, mainly. The schema is defined in one place and the client is generated from it, so a wrong column name fails at build time rather than in production. For complex analytical queries I'd still write SQL directly."</li>
+<li><strong>"What would you improve?"</strong> &rarr; No automated tests, no proper error monitoring, and stock isn't handled atomically &mdash; two people buying the last item at the same moment could both succeed. Naming that race condition yourself is impressive.</li>
+</ul></div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>A customer says "I paid but my order shows as unpaid." How would you debug it?</span></div>
+<div class="why" style="margin-bottom:12px"><b>This is the highest-value question in this section.</b> It's a customer-end support scenario on a system you built &mdash; the exact shape of their real work. Learn this one properly.</div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>First I'd establish whether the money actually moved, because that changes everything. I'd take their order ID and payment reference and check the payment provider's dashboard directly rather than trusting our own record &mdash; our record is exactly the thing they're saying is wrong.</p>
+<p>If the payment did go through and our system doesn't reflect it, then the break is between the provider and us. Most likely causes: the callback or webhook from the provider never reached our server, or it reached us and failed while processing, or the user closed the browser before being redirected back and we were relying on that redirect to confirm.</p>
+<p>I'd check our logs for that payment reference. If there's no trace of it, we never received the notification. If it's there with an error, we received it and failed to save it.</p>
+<p>For the customer, I'd fix their specific order manually straight away &mdash; they've paid, they shouldn't wait for a code fix. Then the real fix depends on the cause: if we were depending on the browser redirect, that's a design flaw and confirmation has to come from a server-side webhook with retries; if the webhook failed on our side, we need better error handling and a reconciliation job that periodically compares our orders against the provider's records and flags mismatches.</p>
+</div>
+<div class="why"><b>Everything they're testing is in that answer:</b> verify the facts before assuming, isolate which side broke, fix the customer first and the system second, and prevent recurrence with reconciliation. If you nail one project answer, make it this one.</div>
+</div>
+
+<hr>
+
+<h3>Computer vision internship &mdash; AI4SEES</h3>
+<p class="stack">YOLOv8 &middot; object detection, segmentation and tracking &middot; high-FPS video pipeline &middot; React dashboard</p>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Tell me about the computer vision work.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I built a system that watches live video and detects objects and hazards in real time, using YOLOv8. I also fine-tuned a theft detection model on difficult edge cases, because the base model handled obvious cases well and struggled with the ambiguous ones.</p>
+<p>The harder half was actually the engineering rather than the model. Running detection on a live high-FPS stream means the inference has to keep up with the frames, otherwise you fall behind and the "real-time" dashboard is showing you the past. So a lot of the work was optimising that pipeline, and then connecting the output to a React dashboard so operators could actually see it.</p>
+</div>
+<div class="fu"><div class="h">Follow-ups</div>
+<ul>
+<li>"What does fine-tuning mean?" &rarr; Taking a model already trained on general data and continuing training on your specific examples so it learns your particular cases.</li>
+<li>"What's the difference between detection and segmentation?" &rarr; Detection draws a box around the object; segmentation marks the exact pixels belonging to it.</li>
+<li>"What was the accuracy?" &rarr; If you don't remember exact numbers, say so and describe what you optimised for instead. Never invent a metric &mdash; a follow-up will expose it.</li>
+</ul></div>
+</div>
+</div>
+</section>
+
+<section id="internship">
+<div class="inner">
+<h2><span class="n">Section 12</span>Your current internship &mdash; expect the deepest questions here</h2>
+<p class="lede">The Klyonix work is the most relevant thing on your resume for this role: real users, real data, real access-control problems. Assume they will spend the most time here.</p>
+<p class="stack">RAG + text-to-SQL &middot; multi-tenant &middot; role-based access at the LLM layer &middot; built on Frappe &middot; FAISS for retrieval</p>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>Explain your internship project.</span></div>
+<div class="say"><span class="cue">SAY THIS &mdash; 45-SECOND PITCH</span>
+<p>It's a chatbot that lets business users ask questions about their company data in plain English, without knowing SQL. Someone can type "how many orders did we complete last month" and get the actual number from the database.</p>
+<p>There are two parts. For questions that need numbers or aggregations, the system generates a SQL query, runs it, and answers from the result &mdash; that's the text-to-SQL side. For questions about documents or descriptive information, it retrieves relevant content and answers from that &mdash; that's the RAG side.</p>
+<p>Two things made it harder than a demo. It's multi-tenant, so several companies use the same system and their data has to be completely separated. And I implemented role-based access at the LLM layer, so the user's role limits which tables and rows are even available before a query is generated &mdash; rather than generating a query and filtering afterwards.</p>
+</div>
+<div class="fu"><div class="h">Follow-ups you must be ready for</div>
+<ul>
+<li><strong>"Why enforce access before generating the query, not after?"</strong> &rarr; "Because filtering afterwards means the model has already seen or requested data the user shouldn't have, and any mistake in the filter is a leak. If the restricted tables aren't part of the schema the model is given, the unsafe query can't be generated in the first place. Deny by default."</li>
+<li><strong>"What if the generated SQL is wrong?"</strong> &rarr; "Validate before executing &mdash; read-only permissions, allowed tables checked against the user's role, no destructive statements, and a row limit. And show the user what was interpreted, so they can see if the question was misunderstood."</li>
+<li><strong>"How did you handle time-based questions?"</strong> &rarr; This is what the resume means by improved temporal query accuracy &mdash; "last month" and "this quarter" are ambiguous and depend on the current date and the user's timezone. Resolving those explicitly before generating SQL, rather than hoping the model gets it right, was the fix.</li>
+<li><strong>"How does the system decide between RAG and SQL?"</strong> &rarr; Be honest about how you did it &mdash; routing based on the question type. If you used a simple classifier or a prompt-based router, say so.</li>
+<li><strong>"You claimed 60% reduction in reporting effort. How was that measured?"</strong> &rarr; See the warning below.</li>
+</ul></div>
+</div>
+
+<div class="warn">
+<div class="h">ABOUT THE NUMBERS ON YOUR RESUME</div>
+<p>You have three claims that invite a follow-up: 60% reduction in reporting effort, 92% faithfulness, 88% answer relevance. Prepare an honest sentence for each.</p>
+<p>If a number was an internal estimate rather than a rigorous study, <strong>say so plainly</strong>: "That's an internal estimate &mdash; it was based on how long the reports took to produce manually before, compared to after. It wasn't a formal study." That answer costs you nothing. Being caught defending a number you can't explain costs you a lot.</p>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>What was the hardest part of that project?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>Making the SQL correct rather than just plausible. The model would produce a query that ran perfectly and returned a number that was quietly wrong &mdash; joining on the wrong column, or counting cancelled orders when the user meant completed ones.</p>
+<p>That's worse than an error, because an error is visible and a wrong number isn't. Someone makes a decision on it.</p>
+<p>What helped most was giving the model much better schema context &mdash; not just column names but what they actually mean and how tables relate &mdash; and constraining the possible queries rather than leaving it open-ended. And where a question was genuinely ambiguous, having it ask a clarifying question instead of guessing.</p>
+</div>
+<div class="why"><b>"Worse than an error, because an error is visible"</b> is an excellent line for a company whose clients make operational decisions on dashboards. Use it.</div>
+</div>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>A user says the chatbot gave them the wrong number. Walk me through it.</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>First I'd get their exact question and the number they expected, then look at the SQL the system actually generated for it. That usually answers it in one step.</p>
+<p>Most of the time it's one of three things. The question was ambiguous and the model made a different assumption than the user &mdash; different definition of "completed," or a different date range. Or the query was structurally wrong, like a join that duplicated rows and inflated a count. Or the data itself is right and the user is comparing against a report that counts something slightly differently.</p>
+<p>So I'd run the generated query myself and check it against a manually written one. If they differ, it's the model. If they match, it's a definition mismatch and the conversation is about what "completed" means, not about a bug.</p>
+<p>And whatever the cause, I'd add that question to a regression set, so the next time we change the prompt or the model we can check that this case still works.</p>
+</div>
+<div class="why"><b>Ending on the regression set is the "prevent" step.</b> Keep doing that &mdash; every troubleshooting answer should end with how you stop it recurring.</div>
+</div>
+</div>
+</section>
+
+<section id="concepts">
+<div class="inner">
+<h2><span class="n">Section 13</span>AI concepts they may test</h2>
+<p class="lede">For each concept: a simple explanation you can actually say out loud, and the follow-ups. Practise the plain-English versions &mdash; a client-success interviewer will value clarity over depth.</p>
+
+<h3>RAG (Retrieval-Augmented Generation)</h3>
+<div class="say"><span class="cue">THE PLAIN-ENGLISH VERSION &mdash; USE THIS FIRST</span>
+<p>A language model on its own answers from what it learned during training, and if it doesn't know something it tends to make it up confidently.</p>
+<p>RAG fixes that by giving it the material first. When a question comes in, the system searches a set of documents for the relevant pieces, hands those to the model, and asks it to answer using only that. So the answer is based on your actual documents, and you can point to where it came from.</p>
+<p>The simplest way to picture it: instead of asking someone to answer from memory, you hand them the right page of the manual and ask them to read it.</p>
+</div>
+<div class="fu"><div class="h">Follow-ups &mdash; and short answers</div>
+<ul>
+<li><strong>"Walk me through the pipeline."</strong> &rarr; Documents are split into chunks &rarr; each chunk is converted to an embedding and stored in a vector database &rarr; the question is embedded the same way &rarr; the closest chunks are retrieved &rarr; optionally re-ranked &rarr; passed to the model as context &rarr; the model answers from that context.</li>
+<li><strong>"Why not just fine-tune the model instead?"</strong> &rarr; "Fine-tuning changes the model's behaviour and style; it's a poor way to add facts. With RAG, updating knowledge means updating a document, not retraining. And you get citations, which fine-tuning doesn't give you. For support documentation that changes weekly, RAG is clearly the right choice."</li>
+<li><strong>"What is an embedding?"</strong> &rarr; "A list of numbers representing the meaning of a piece of text. Texts with similar meaning end up close together, so you can search by meaning rather than by exact words &mdash; someone asking about 'parcel not delivered' can match a document about 'failed delivery attempts'."</li>
+<li><strong>"What's a vector database?"</strong> &rarr; "A database built to find the nearest vectors to a given vector, quickly, across millions of items. I've used ChromaDB and FAISS."</li>
+<li><strong>"How do you choose chunk size?"</strong> &rarr; "It's a trade-off. Too small and you cut ideas in half; too large and you send a lot of irrelevant text and dilute the answer. I used around 1200 characters for legal text because sections needed to stay whole. Overlapping chunks help so an idea isn't lost at a boundary."</li>
+<li><strong>"Where does RAG fail?"</strong> &rarr; "When the answer isn't in the documents at all &mdash; then the model may still try to answer. That has to be handled explicitly by allowing it to say it doesn't know. It also struggles with questions that need to combine information from many documents at once, and with counting or aggregation, which is really a database job."</li>
+</ul></div>
+
+<h3>Hallucination</h3>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>It's when a model produces something that sounds completely reasonable but isn't true &mdash; a function that doesn't exist, a policy we don't have, a confident wrong cause for a bug.</p>
+<p>The dangerous part isn't that it's wrong, it's that it's wrong in the same confident tone as when it's right. There's no signal in the output telling you which one you're getting. That's why grounding it in real documents and showing the source matters &mdash; you're giving the person a way to check.</p>
+</div>
+
+<h3>AI agents and function calling</h3>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>A normal model can only produce text. Function calling means you describe some tools to it &mdash; search, a database query, an API call &mdash; and instead of answering directly, it can respond with "call this tool with these inputs." Your code runs the tool, gives it the result, and it continues.</p>
+<p>An agent is that in a loop, with the model deciding what to do next each time until the task is done. Casper is exactly that: it decides what to search, gets the results, decides whether it has enough, and either searches again or writes the answer.</p>
+</div>
+<div class="fu"><div class="h">Follow-ups</div>
+<ul>
+<li><strong>"What can go wrong with agents?"</strong> &rarr; "Loops &mdash; they repeat the same action forever. Cost, because each step is another model call. And error compounding: if step two is wrong, everything after it is built on that. So you need a step budget, and I'd want a human approving anything that changes data."</li>
+<li><strong>"Would you let an agent fix production issues automatically?"</strong> &rarr; "Not straight away, and not for anything destructive. I'd start with read-only actions &mdash; gathering logs, checking status, producing a diagnosis for a human. Then maybe safe reversible actions like retrying a failed webhook. Anything that changes customer data needs a person, at least until there's a real track record."</li>
+<li><strong>"Multi-agent systems?"</strong> &rarr; Several specialised agents with a coordinator &mdash; e.g. one that reads logs, one that searches past tickets, one that writes the summary. Say honestly that you've built single-agent systems, not multi-agent, if that's the case.</li>
+</ul></div>
+
+<h3>Text-to-SQL</h3>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>The model is given the database structure &mdash; the tables, the columns, what they mean &mdash; and the user's question in English, and it writes the SQL query. We run the query and answer from the result.</p>
+<p>The advantage is that the numbers are real, computed by the database, rather than the model guessing. The risk is that a query can be valid SQL and still answer the wrong question. So the important work is on the guardrails: only read permissions, restricted tables, a row limit, and showing the user how their question was interpreted.</p>
+</div>
+
+<h3>Prompt engineering &mdash; what you'd say if asked</h3>
+<ul>
+<li>Be specific about the role, the task and the output format.</li>
+<li>Give examples when the format matters &mdash; a few examples beat a long description.</li>
+<li>Explicitly allow "I don't know." Most hallucination happens because the prompt implies an answer is mandatory.</li>
+<li>Put instructions where they're not lost &mdash; models attend less to the middle of a very long context.</li>
+<li>Test changes against a fixed set of cases. Otherwise you fix one case and quietly break three.</li>
+</ul>
+
+<h3>Quick-answer bank &mdash; the one-liners</h3>
+<table>
+<tr><th>If they ask</th><th>Say roughly this</th></tr>
+<tr><td>Vector search vs keyword search</td><td>Keyword matches words; vector matches meaning. Best systems use both &mdash; hybrid search &mdash; because keyword still wins for exact IDs and codes.</td></tr>
+<tr><td>What's a cross-encoder / re-ranker</td><td>It reads the question and the document together and scores the pair, so it's much more accurate than comparing two separate embeddings &mdash; but too slow to run over everything, so it's a second stage.</td></tr>
+<tr><td>Temperature</td><td>How random the output is. Low for anything factual or structured like SQL; higher only for creative writing.</td></tr>
+<tr><td>Context window</td><td>How much text the model can consider at once. It's why you retrieve the relevant parts instead of pasting entire documents.</td></tr>
+<tr><td>Token</td><td>A chunk of text, roughly a word or part of one. Cost and limits are counted in tokens.</td></tr>
+<tr><td>REST API</td><td>A way for two systems to talk over HTTP. You call an endpoint with a method and data; you get a status code and a response.</td></tr>
+<tr><td>Webhook</td><td>The reverse of an API call &mdash; instead of you asking repeatedly for updates, the other system calls your URL when something happens. Very common in logistics for status updates.</td></tr>
+<tr><td>Idempotency</td><td>Doing the same operation twice has the same effect as doing it once. Critical for orders and payments, because retries happen and you don't want duplicate shipments.</td></tr>
+<tr><td>SQL joins</td><td>INNER keeps only matching rows; LEFT keeps everything from the left table. Getting this wrong is a very common cause of inflated counts in reports.</td></tr>
+<tr><td>Index (database)</td><td>A structure that makes lookups fast on a column. Missing indexes are a classic cause of "the dashboard is slow for this one big client."</td></tr>
+</table>
+</div>
+</section>
+
+<section id="logistics">
+<div class="inner">
+<h2><span class="n">Section 14</span>Logistics crash course</h2>
+<p class="lede">Twenty minutes here buys you more credibility than anything else in this guide. If you can use three or four of these terms naturally, you'll sound like someone who prepared for <em>Shipsy</em>, not for a generic AI interview.</p>
+
+<h3>The vocabulary</h3>
+<table>
+<tr><th>Term</th><th>What it means</th></tr>
+<tr><td>First mile</td><td>Getting goods from the seller or factory into the network &mdash; pickup.</td></tr>
+<tr><td>Middle mile / line haul</td><td>Movement between hubs and warehouses, usually long distance and bulk.</td></tr>
+<tr><td>Last mile</td><td>The final delivery to the customer's door. The most expensive and most failure-prone part.</td></tr>
+<tr><td>Hub / sorting centre</td><td>Where shipments are consolidated and sorted for onward movement.</td></tr>
+<tr><td>AWB / tracking number</td><td>The unique identifier for a shipment. In support, this is the ID you ask for first.</td></tr>
+<tr><td>Manifest</td><td>The list of shipments assigned to a vehicle or trip.</td></tr>
+<tr><td>TMS</td><td>Transportation Management System &mdash; planning and executing movement of goods. This is Shipsy's core category.</td></tr>
+<tr><td>WMS</td><td>Warehouse Management System &mdash; inventory and fulfilment inside a warehouse. Shipsy acquired Stockone for this in 2023.</td></tr>
+<tr><td>3PL</td><td>Third-party logistics &mdash; an outside company that does the shipping for a brand.</td></tr>
+<tr><td>EPOD</td><td>Electronic proof of delivery &mdash; signature or photo captured by the rider app.</td></tr>
+<tr><td>COD</td><td>Cash on delivery. Creates reconciliation problems, which means support tickets.</td></tr>
+<tr><td>SLA / TAT</td><td>Service level agreement / turnaround time &mdash; the promised delivery or response window.</td></tr>
+<tr><td>NDR</td><td>Non-delivery report &mdash; a delivery attempt failed. Customer not home, wrong address, refused.</td></tr>
+<tr><td>RTO</td><td>Return to origin &mdash; the shipment goes back to the seller after failed attempts. Expensive, so clients care a lot.</td></tr>
+<tr><td>Route optimisation</td><td>Deciding the order and path of stops to minimise time, distance or cost.</td></tr>
+<tr><td>Geofencing</td><td>A virtual boundary; used to auto-detect arrival at a hub or a customer location.</td></tr>
+</table>
+
+<h3>The order lifecycle &mdash; know this shape</h3>
+<p>Order created &rarr; assigned to a hub or a 3PL &rarr; picked up (first mile) &rarr; moved between hubs (middle mile) &rarr; assigned to a rider &rarr; out for delivery &rarr; delivered with proof, or failed attempt (NDR) &rarr; reattempt or return to origin. Status updates flow back to the client at each step, usually via webhook or API.</p>
+
+<h3>The eight bugs you'd realistically handle</h3>
+<p>If they ask "what kind of issues do you think you'd deal with here?", this list is your answer &mdash; and it is a genuinely impressive answer for a candidate with no logistics experience.</p>
+<ol>
+  <li><strong>Status not updating.</strong> Webhook not delivered, or delivered and failed to process. The classic.</li>
+  <li><strong>Duplicate orders.</strong> A client's system retried a request that actually succeeded. Solved with idempotency keys.</li>
+  <li><strong>Bulk upload failures.</strong> A CSV with a bad date format, an encoding issue, or a row limit &mdash; and often an error message that doesn't say which row failed.</li>
+  <li><strong>Timezone mismatches.</strong> An SLA report looks wrong because timestamps are stored in UTC and the client's operations run in Dubai or Sydney.</li>
+  <li><strong>Address and geocoding failures.</strong> An address that can't be resolved to coordinates, so route optimisation assigns it wrongly.</li>
+  <li><strong>Rider app sync issues.</strong> The rider was in a basement with no signal; the delivery was marked offline and synced late, so the timestamp looks wrong.</li>
+  <li><strong>Rate limiting.</strong> A client's integration suddenly gets 429s during their peak hour because their volume grew.</li>
+  <li><strong>Report count mismatches.</strong> Ours and theirs disagree because of different definitions &mdash; cancelled orders included or excluded, or a day boundary in a different timezone.</li>
+</ol>
+
+<div class="q">
+<div class="ask"><span class="tag">Q</span><span>What kind of problems do you think you'd handle in this role?</span></div>
+<div class="say"><span class="cue">SAY THIS</span>
+<p>I'd guess a lot of it is integration issues rather than the product itself being broken &mdash; status updates not reaching a client's system, bulk uploads failing on data formatting, duplicate orders from retried requests, rate limits during peak hours.</p>
+<p>Then a set of data-consistency problems, where our numbers and the client's numbers disagree. From what I've seen, those are usually definition or timezone differences rather than actual bugs, but they still take real investigation to prove.</p>
+<p>And then genuine product issues from real usage &mdash; something that works fine at normal volume and behaves differently for a client running ten times that.</p>
+<p>I'm sure I'm missing plenty. But those are the categories I'd expect, and I'd want to check that against real tickets in the first week.</p>
+</div>
+<div class="why"><b>The last line is important.</b> It shows confidence without pretending to know their business better than they do. Never claim certainty about a domain you haven't worked in &mdash; frame it as informed expectation.</div>
+</div>
+</div>
+</section>
+
+<section id="speaking">
+<div class="inner">
+<h2><span class="n">Section 15</span>Speaking clearly in English</h2>
+<p class="lede">You told me this is your weak point. Here is the honest truth: your interviewer is Indian, works with global clients daily, and is used to a range of accents and fluency levels. They are not grading your grammar. They are checking whether you can be understood by a client under pressure. Those are very different bars, and you can clear the second one tonight.</p>
+
+<h3>The six rules that fix most of it</h3>
+<ol>
+  <li><strong>Speak slower than feels natural.</strong> Nervousness makes you speed up, and speed is what makes accented English hard to follow. Deliberately slow down by about 20%. It also makes you sound more confident.</li>
+  <li><strong>Short sentences. One idea each.</strong> Long sentences are where grammar collapses. "The system searches the documents. Then it picks the best matches. Then the model answers from those." Three short sentences beat one long one, every time.</li>
+  <li><strong>Pause instead of "umm."</strong> Silence sounds thoughtful. "Umm... like... basically..." sounds unsure. When you need a moment, close your mouth and take a breath. Two seconds of silence feels enormous to you and is invisible to them.</li>
+  <li><strong>Use words you own.</strong> Don't reach for an impressive word you're unsure of. "It made the answers more accurate" is better than a misused "it augmented the fidelity." Simple English delivered confidently reads as clear thinking.</li>
+  <li><strong>Don't translate in your head.</strong> If you compose in Malayalam and translate, you'll always lag. Speak directly in simple English, even if it's plainer than what you'd say in Malayalam.</li>
+  <li><strong>Finish your answers.</strong> Don't trail off into "...so, yeah." End with a clear stop: "So that's how I'd approach it." Then be quiet and let them ask the next question.</li>
+</ol>
+
+<h3>Signposting &mdash; the single best trick</h3>
+<p>Announce your structure before you give it. It makes you sound organised even when your English is imperfect, and it stops you rambling because you've committed to a number.</p>
+<div class="phrase">"There are three things I'd check. First&hellip; Second&hellip; And third&hellip;"</div>
+<div class="phrase">"I'd approach it in two stages. The first stage is&hellip;"</div>
+<div class="phrase">"Let me answer that with an example from my internship."</div>
+<p>Say "three" only if you have three. If you run out at two, just say "those are the main two."</p>
+
+<h3>Three structures &mdash; that's all you need</h3>
+<table>
+<tr><th>Use for</th><th>Structure</th></tr>
+<tr><td>Behavioural questions ("tell me about a time&hellip;")</td><td><strong>STAR</strong> &mdash; Situation, Task, Action, Result. Spend most of the time on Action. Always end on a Result.</td></tr>
+<tr><td>Opinion questions ("why Shipsy," "what makes good support")</td><td><strong>PREP</strong> &mdash; Point, Reason, Example, Point again. Start with your answer, don't build up to it.</td></tr>
+<tr><td>Support scenarios ("a customer reports&hellip;")</td><td><strong>ARISE</strong> &mdash; Acknowledge, Reproduce, Isolate, Solve, Explain &amp; prevent. From Section 7.</td></tr>
+</table>
+
+<h3>How long should an answer be?</h3>
+<ul>
+<li>Intro / tell me about yourself: <strong>60&ndash;75 seconds</strong></li>
+<li>Most questions: <strong>30&ndash;60 seconds</strong></li>
+<li>Project deep dive or scenario: <strong>up to 90 seconds</strong></li>
+<li>Never past two minutes without checking in: <em>"Would you like me to go deeper on any part of that?"</em></li>
+</ul>
+
+<h3>Recovering mid-sentence</h3>
+<p>You will lose a sentence at some point. Everyone does. Have the recovery ready so it costs you nothing:</p>
+<div class="phrase">"Sorry &mdash; let me say that more clearly."</div>
+<div class="phrase">"Let me start that again."</div>
+<div class="phrase">"What I mean is&hellip;"</div>
+<p>Then say it in shorter sentences. Do not apologise repeatedly. One clean restart looks like self-correction; three apologies look like panic.</p>
+
+<div class="note">
+<div class="h">PRACTICE METHOD FOR TONIGHT</div>
+<p>Record yourself on your phone answering three questions: "tell me about yourself," "explain your internship project," and "how would you handle an angry customer." Play them back once. You'll immediately hear where you speed up and where you use filler. Do them again. That's twenty minutes and it's the highest-value practice available to you.</p>
+</div>
+
+<div class="win">
+<div class="h">IF YOUR ENGLISH SLIPS BADLY AT SOME POINT</div>
+<p>Don't spiral. Slow down, take a breath, and use a short sentence. And remember you already have permission &mdash; if you used the Option A weakness answer in Section 5, you told them this exact thing would happen, calmly, at the start. That reframes a stumble as honesty rather than inability.</p>
+</div>
+</div>
+</section>
+
+<section id="dontknow">
+<div class="inner">
+<h2><span class="n">Section 16</span>When you don't know the answer</h2>
+<p class="lede">This is the most valuable page in the guide. For a support role, how you behave at the edge of your knowledge <em>is</em> the job. A calm "I don't know, here's how I'd find out" beats a confident wrong answer &mdash; because in real support, a confident wrong answer goes to a customer.</p>
+
+<h3>Case 1: You have no idea at all</h3>
+<p>Do not guess. Do not go silent. Do not apologise three times. Say it plainly and pivot to method.</p>
+<div class="phrase">"I haven't worked with that. Can I tell you how I'd go about figuring it out?"</div>
+<div class="phrase">"I don't know that one. I'd want to look at the documentation and test it before giving you an answer I'm confident in."</div>
+<div class="phrase">"That's outside what I've done so far. If it came up at work, I'd ask someone on the team rather than guess &mdash; especially if a customer was waiting."</div>
+<p>Then, if you can, add one honest sentence of related knowledge: <em>"I haven't used Kafka, but I've worked with webhooks for asynchronous updates, so I understand the general idea of events being processed separately from the request."</em></p>
+
+<h3>Case 2: You know part of it</h3>
+<p>Say which part. Being precise about the boundary of your knowledge is a sign of a good engineer, not a weak one.</p>
+<div class="phrase">"I know the first part &mdash; let me answer that, and I'll be honest about where my understanding stops."</div>
+<div class="phrase">"I understand what it does; I'm less sure about how it's implemented internally."</div>
+<div class="phrase">"I've used it, but I couldn't explain the internals confidently."</div>
+
+<h3>Case 3: You need a moment to think</h3>
+<p>Thinking time is completely acceptable. Asking for it is a sign of composure.</p>
+<div class="phrase">"That's a good question &mdash; give me a few seconds to think it through."</div>
+<div class="phrase">"Let me think about that properly for a moment."</div>
+<p>Then take five to eight seconds of actual silence. Do not fill it with noise. Interviewers respect this; it reads as someone who doesn't blurt.</p>
+
+<h3>Case 4: You want to think out loud</h3>
+<p>For scenario and design questions this is often <em>better</em> than a polished answer, because they get to see how you reason.</p>
+<div class="phrase">"Let me think through this out loud &mdash; correct me if I go the wrong way."</div>
+<div class="phrase">"My first instinct is X, but let me check that against&hellip;"</div>
+<div class="phrase">"I'd start by narrowing it down. The first thing I'd want to know is&hellip;"</div>
+
+<h3>Case 5: You need the question clarified</h3>
+<p>Never answer a question you didn't understand. Asking is normal &mdash; and in a customer-facing role, it's literally the skill being tested.</p>
+<div class="phrase">"Just to make sure I understand &mdash; are you asking about A, or about B?"</div>
+<div class="phrase">"When you say 'the system,' do you mean our platform or the customer's side?"</div>
+<div class="phrase">"Could you give me a bit more context on the situation? It'd help me give you a more specific answer."</div>
+<div class="phrase">"Sorry, could you repeat that? I want to make sure I answer the right thing."</div>
+<div class="note">
+<div class="h">USE THIS DELIBERATELY AT LEAST ONCE</div>
+<p>On a scenario question, ask a clarifying question before answering &mdash; "Is this affecting one client or several?" or "Do we have a workaround available?" It demonstrates the exact instinct they're hiring for. Candidates who jump straight to a solution score worse.</p>
+</div>
+
+<h3>Case 6: You realise you gave a wrong answer</h3>
+<p>Correcting yourself is a strength. It shows you keep thinking and you'd rather be right than look right.</p>
+<div class="phrase">"Can I correct something I said earlier? I said X &mdash; thinking about it again, it's actually Y."</div>
+<div class="phrase">"Actually, let me revise that. I don't think that's right."</div>
+<p>You can do this several minutes later. It always lands well.</p>
+
+<h3>Case 7: They push back and you think you're right</h3>
+<p>Don't fold instantly, and don't dig in. Hold your position while staying open.</p>
+<div class="phrase">"My understanding is X &mdash; but I might be wrong. What's the reasoning on your side?"</div>
+<p>If they explain and they're right: <em>"That makes sense, I hadn't considered that."</em> Updating cleanly is a good look. Collapsing at the first challenge is not.</p>
+
+<div class="warn">
+<div class="h">THE FOUR THINGS NEVER TO DO</div>
+<ul style="margin-bottom:0">
+<li>Never invent a technical detail. Follow-ups will expose it, and then everything else you said becomes suspect.</li>
+<li>Never say "I don't know" and stop. Always follow with how you'd find out.</li>
+<li>Never over-apologise. One acknowledgement is enough.</li>
+<li>Never claim experience you don't have &mdash; a tool, a metric, a responsibility. One follow-up question is all it takes.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="askthem">
+<div class="inner">
+<h2><span class="n">Section 17</span>Questions to ask them</h2>
+<p class="lede">Always have questions. "No, I think you've covered everything" reads as low interest. Have five ready; you'll get through two or three.</p>
+
+<div class="note">
+<div class="h">THE FIVE TO ACTUALLY ASK &mdash; IN THIS ORDER</div>
+<ol style="margin-bottom:0">
+<li><strong>"What does a typical week look like in the first three months &mdash; roughly how much is tickets, how much is investigation, how much is building?"</strong> &mdash; practical, shows you're planning to do the work rather than romanticising it.</li>
+<li><strong>"What kinds of issues take up the most support time today? I'm curious whether it's mostly integration problems, data questions, or genuine product bugs."</strong> &mdash; the single best question here. It shows you're already thinking about what to automate, and their answer is genuinely useful to you.</li>
+<li><strong>"How much of the support workflow is automated today, and where do you think AI helps first?"</strong> &mdash; directly on the JD's Phase 2, and invites them to talk about their vision.</li>
+<li><strong>"What separates someone who does well in this role in their first year from someone who struggles?"</strong> &mdash; a strong question. Listen carefully, because the answer tells you exactly what they value.</li>
+<li><strong>"How does someone in this role work with the engineering and product teams &mdash; when something needs a code fix, what does that path look like?"</strong> &mdash; shows you understand you'd be working across teams, not alone.</li>
+</ol>
+</div>
+
+<h3>More options, by theme</h3>
+<div class="two">
+<div class="card">
+<h4>The role</h4>
+<ul style="padding-left:18px;margin-bottom:0">
+<li>How is success measured in the first six months?</li>
+<li>How big is the team, and how are tickets distributed?</li>
+<li>What does the on-call rotation actually look like in practice?</li>
+</ul>
+</div>
+<div class="card">
+<h4>Customer &amp; support</h4>
+<ul style="padding-left:18px;margin-bottom:0">
+<li>How much direct contact is there with the client, versus working through account managers?</li>
+<li>What's the escalation path when something needs engineering urgently?</li>
+<li>Are there clients or regions with particularly different needs?</li>
+</ul>
+</div>
+<div class="card">
+<h4>Technical &amp; AI</h4>
+<ul style="padding-left:18px;margin-bottom:0">
+<li>What does the tech stack look like on the support tooling side?</li>
+<li>Are there AI systems in production for support today, or is that still being built?</li>
+<li>How do you evaluate whether an AI feature is actually working?</li>
+</ul>
+</div>
+<div class="card">
+<h4>Growth &amp; team</h4>
+<ul style="padding-left:18px;margin-bottom:0">
+<li>What does growth look like from this role over two or three years?</li>
+<li>How does the team share knowledge about issues that have been solved before?</li>
+<li>What's the thing about working here that surprised you most?</li>
+</ul>
+</div>
+</div>
+
+<h3>If it's an internship and you want to ask about conversion</h3>
+<p>Ask it once, straightforwardly, near the end:</p>
+<div class="phrase">"Is there a path from this internship to a full-time role, and what would that typically depend on?"</div>
+
+<div class="warn">
+<div class="h">DON'T ASK, AT THIS STAGE</div>
+<p>Salary or stipend as your first question. Working hours framed as "how late do people stay." Anything you could have found on their website in thirty seconds &mdash; asking "what does Shipsy do?" undoes a whole interview.</p>
+</div>
+</div>
+</section>
+
+<section id="mock">
+<div class="inner">
+<h2><span class="n">Section 18</span>Rapid-fire mock</h2>
+<p class="lede">Cover the right column with your hand. Say your answer out loud, then check. Do this once tonight and once tomorrow morning.</p>
+
+<table>
+<tr><th style="width:44%">Question</th><th>The core of a good answer</th></tr>
+<tr><td>What is RAG?</td><td>Search your documents for the relevant parts, give those to the model, answer only from them. Grounded and citable.</td></tr>
+<tr><td>Why RAG over fine-tuning for support docs?</td><td>Knowledge changes weekly; update a document, not a model. And you get citations.</td></tr>
+<tr><td>Where does RAG usually fail?</td><td>Retrieval, not generation. Wrong or missing chunks.</td></tr>
+<tr><td>What is hallucination and why is it dangerous?</td><td>Confidently wrong output, with no signal that it's wrong. The customer acts on it.</td></tr>
+<tr><td>What's a vector database?</td><td>Stores embeddings and finds the nearest ones fast. ChromaDB, FAISS.</td></tr>
+<tr><td>Why LangGraph over LangChain?</td><td>Chains run in a line; agents need loops and shared state.</td></tr>
+<tr><td>What stops an agent looping forever?</td><td>A step budget in the state, and a rule that forces a final answer when it's spent.</td></tr>
+<tr><td>First thing you do when a customer reports a bug?</td><td>Acknowledge fast, then get exact details and identifiers.</td></tr>
+<tr><td>Customer is angry. First move?</td><td>Let them finish. Reflect the impact back accurately. Then say what happens next and when.</td></tr>
+<tr><td>Can't reproduce it. Next step?</td><td>Find what's different: their data, role, config, version, timezone. Then go to logs by trace ID.</td></tr>
+<tr><td>Nothing in our logs. What does that tell you?</td><td>The request probably never reached us &mdash; their integration, auth, network, or rate limiting.</td></tr>
+<tr><td>What's a 401 vs 403 vs 429 vs 500?</td><td>Not authenticated / not allowed / too many requests / our server broke.</td></tr>
+<tr><td>When do you escalate?</td><td>P1 with no workaround, needs code or access you lack, data or security risk, SLA at risk, out of hypotheses.</td></tr>
+<tr><td>What goes in an escalation?</td><td>Client, identifiers, timestamp with timezone, evidence, blast radius, impact, what you ruled out, workaround status.</td></tr>
+<tr><td>Can't fix today. What do you tell the customer?</td><td>What we know, what we don't, the workaround, and a next-update time &mdash; not a fake ETA.</td></tr>
+<tr><td>Five urgent tickets. How do you order them?</td><td>Blast radius &times; no workaround, then SLA and data integrity. Then message the other four.</td></tr>
+<tr><td>Same issue five times. What now?</td><td>Stop treating it as a ticket. One case to product with evidence, plus a documented resolution and an alert.</td></tr>
+<tr><td>How would you use AI to debug?</td><td>Summarise logs, explain unfamiliar code, rank hypotheses, generate throwaway scripts &mdash; then verify against real code and logs.</td></tr>
+<tr><td>AI's fix looks plausible. Do you apply it?</td><td>Check it exists in our code, check it explains <em>all</em> symptoms, test the failing case, get review before prod.</td></tr>
+<tr><td>What would you never paste into an AI tool?</td><td>Customer data, PII, credentials, anything under NDA.</td></tr>
+<tr><td>What's the first thing you'd build here?</td><td>Internal RAG assistant over resolved tickets and runbooks, with citations. Internal first, low risk.</td></tr>
+<tr><td>Why Shipsy?</td><td>Logistics bugs stop physical goods. 200+ enterprises. The AI-for-support layer is still being built.</td></tr>
+<tr><td>Biggest weakness?</td><td>Explaining technical things in English under pressure &mdash; plus what you're doing about it.</td></tr>
+<tr><td>Are you okay with six months of ticket work?</td><td>Yes &mdash; it's the only way to build automation that solves real problems.</td></tr>
+</table>
+
+<h3>Simulated interview flow &mdash; expect roughly this order</h3>
+<ol>
+<li>Their introduction, then "tell me about yourself." <em>(Section 4)</em></li>
+<li>Two or three questions on your internship &mdash; the deepest technical part. <em>(Section 12)</em></li>
+<li>One project, probably Casper or LegalEase, with "why did you use X." <em>(Section 11)</em></li>
+<li>A conceptual AI question &mdash; RAG, agents, or hallucination. <em>(Section 13)</em></li>
+<li>Two or three support scenarios &mdash; angry customer, can't reproduce, escalation. <em>(Sections 7&ndash;8)</em></li>
+<li>An AI-for-debugging question. <em>(Section 9)</em></li>
+<li>"Why Shipsy," "why this role," "are you comfortable with support work." <em>(Sections 2, 5)</em></li>
+<li>Your questions. <em>(Section 17)</em></li>
+</ol>
+</div>
+</section>
+
+<section id="checklist">
+<div class="inner">
+<h2><span class="n">Section 19</span>The last hour</h2>
+
+<h3>Before you sleep</h3>
+<ul class="chk">
+<li>Intro answer said out loud five times, timed under 75 seconds.</li>
+<li>ARISE steps memorised.</li>
+<li>One weakness answer chosen &mdash; A or B, decided, not both.</li>
+<li>Three "I don't know" phrases you can say without thinking.</li>
+<li>Your five questions for them, in order.</li>
+<li>Phone recording done for at least two answers.</li>
+<li>Sleep. It matters more than one more section.</li>
+</ul>
+
+<h3>Thirty minutes before</h3>
+<ul class="chk">
+<li>Quiet room, door closed, phone silent. Tell people you're unavailable.</li>
+<li>Test camera, mic and internet. Have a phone hotspot ready as backup.</li>
+<li>Water within reach. You will need it more than you expect.</li>
+<li>Resume open in a tab. Your four repos open in tabs. The JD open in a tab.</li>
+<li>Paper and pen next to you &mdash; for writing down multi-part questions so you don't lose half of them.</li>
+<li>Close everything else. Notifications off.</li>
+<li>Read Section 16 phrases one final time. That's your safety net.</li>
+</ul>
+
+<h3>In the first two minutes</h3>
+<ul>
+<li>Smile and greet them properly. First impressions form fast and are hard to undo.</li>
+<li>If your voice is shaky, that's just adrenaline. Take one slow breath before your first answer. Nobody notices what you notice.</li>
+<li>Ask them about their team early. It settles you and starts a conversation instead of an interrogation.</li>
+</ul>
+
+<h3>Three things to remember while it's happening</h3>
+<ol>
+<li><strong>They want you to do well.</strong> Interviewers aren't hunting for failure &mdash; a good candidate solves their problem. They're on your side more than it feels.</li>
+<li><strong>One bad answer doesn't decide anything.</strong> Almost nobody answers everything well. What they remember is the overall impression, and recovering calmly from a bad answer improves that impression rather than damaging it.</li>
+<li><strong>You've built things that work.</strong> A RAG pipeline with real evaluation, an agent with proper state management, a payment system, a production computer vision pipeline, and an access-controlled chatbot with real users. In third year. That's not nothing &mdash; that's genuinely more than most candidates walking into this interview.</li>
+</ol>
+
+<div class="win">
+<div class="h">ONE LAST THING</div>
+<p>The single strongest signal you can give tomorrow isn't a perfect technical answer. It's this: when they describe a messy, ambiguous customer problem, you stay calm, you ask a clarifying question, you narrow it down step by step, and you're honest about what you don't know yet.</p>
+<p>That's the whole job. And you already work that way &mdash; it's how you found the chunking bug in LegalEase and the loop bug in Casper. Tomorrow you just have to describe it out loud.</p>
+<p>Good luck, Albin.</p>
+</div>
+</div>
+</section>
+
+</main>
+</div>
+</body>
+</html>

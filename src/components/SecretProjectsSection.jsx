@@ -21,6 +21,16 @@ const projectMaterials = [
     tech: ['LangGraph', 'FastAPI', 'Python', 'OpenAI API', 'State Machines'],
     fileUrl: '/interview/Casper-2.0-Interview-Notebook.html',
     img: 'Projects/casper/casper.jpg'
+  },
+  {
+    id: 'shipsy_prep',
+    cat: 'Company Prep . 03',
+    title: 'Shipsy Interview Codex',
+    shortTitle: 'Shipsy Prep Guide',
+    desc: 'Comprehensive applied AI engineering & customer experience interview playbook for Shipsy, detailing ARISE escalation frameworks, scenario questions, support automation, and logistics systems.',
+    tech: ['Applied AI', 'Support Automation', 'ARISE Framework', 'Logistics Systems', 'RAG & Agents'],
+    fileUrl: '/interview/shipsy-interview-prep.html',
+    img: 'Projects/shipsy/shipsy.jpg'
   }
 ]
 
