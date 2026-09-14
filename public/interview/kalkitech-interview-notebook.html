@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalkitech Interview Notebook — Albin John</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F5F7;
+    --card:#FFFFFF;
+    --ink:#16222E;
+    --slate:#4A6072;
+    --mute:#6F8496;
+    --line:#D3DBE2;
+    --green:#1E6F5C;
+    --green-soft:#E4EFEB;
+    --amber:#B4760B;
+    --amber-soft:#FAF0DC;
+    --red:#9E2B25;
+    --red-soft:#F7E7E5;
+    --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:20px}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:17px;
+    line-height:1.68;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important;animation:none !important}
+  }
+
+  /* ---------- masthead / hero ---------- */
+  .masthead{
+    background:var(--card);
+    border-bottom:1px solid var(--line);
+    padding:38px 24px 30px;
+  }
+  .masthead-inner{max-width:1180px;margin:0 auto}
+  .masthead h1{
+    font-family:var(--sans);
+    font-size:clamp(28px,4.4vw,42px);
+    font-weight:600;
+    letter-spacing:-0.02em;
+    margin:0 0 6px;
+    line-height:1.14;
+  }
+  .masthead p.sub{
+    font-family:var(--sans);
+    color:var(--slate);
+    margin:0 0 26px;
+    font-size:16px;
+    max-width:62ch;
+  }
+  .sld{width:100%;max-width:820px;height:auto;display:block}
+  .sld text{font-family:var(--sans)}
+
+  /* ---------- layout ---------- */
+  .shell{
+    max-width:1180px;
+    margin:0 auto;
+    padding:34px 24px 90px;
+    display:grid;
+    grid-template-columns:238px minmax(0,1fr);
+    gap:46px;
+    align-items:start;
+  }
+  nav.toc{
+    position:sticky;
+    top:22px;
+    max-height:calc(100vh - 44px);
+    overflow-y:auto;
+    font-family:var(--sans);
+    font-size:14px;
+    padding-right:6px;
+  }
+  nav.toc h2{
+    font-size:12px;
+    font-weight:600;
+    color:var(--mute);
+    margin:0 0 12px;
+    letter-spacing:0.04em;
+  }
+  nav.toc a{
+    display:flex;
+    gap:10px;
+    padding:6px 8px 6px 6px;
+    color:var(--slate);
+    text-decoration:none;
+    border-radius:4px;
+    border-left:2px solid transparent;
+    line-height:1.35;
+  }
+  nav.toc a span.n{color:var(--mute);font-variant-numeric:tabular-nums;min-width:15px}
+  nav.toc a:hover{background:var(--green-soft);color:var(--ink)}
+  nav.toc a.active{border-left-color:var(--green);color:var(--green);font-weight:600;background:var(--green-soft)}
+  nav.toc a.active span.n{color:var(--green)}
+  .navbtn{display:none}
+
+  main{max-width:78ch;min-width:0}
+  section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:30px 34px 34px;
+    margin:0 0 26px;
+  }
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin:0 0 4px;
+    padding-bottom:12px;
+    border-bottom:2px solid var(--ink);
+  }
+  .sec-head .num{
+    font-family:var(--mono);
+    font-size:15px;
+    color:var(--green);
+    font-weight:500;
+  }
+  .sec-head h2{
+    font-family:var(--sans);
+    font-size:25px;
+    font-weight:600;
+    letter-spacing:-0.015em;
+    margin:0;
+    line-height:1.2;
+  }
+  .lede{color:var(--slate);font-size:16px;margin:14px 0 20px}
+
+  h3{
+    font-family:var(--sans);
+    font-size:18.5px;
+    font-weight:600;
+    margin:30px 0 8px;
+    letter-spacing:-0.01em;
+  }
+  h4{
+    font-family:var(--sans);
+    font-size:15.5px;
+    font-weight:600;
+    margin:20px 0 6px;
+    color:var(--slate);
+  }
+  p{margin:0 0 13px}
+  ul,ol{margin:0 0 14px;padding-left:22px}
+  li{margin-bottom:6px}
+  strong{font-weight:600}
+  a{color:var(--green)}
+  code{
+    font-family:var(--mono);
+    font-size:0.86em;
+    background:#EDF1F4;
+    border:1px solid #DDE4EA;
+    border-radius:3px;
+    padding:1px 4px;
+  }
+  pre{
+    background:var(--ink);
+    color:#E7EDF2;
+    padding:16px 18px;
+    border-radius:4px;
+    overflow-x:auto;
+    font-size:13.5px;
+    line-height:1.55;
+    margin:0 0 16px;
+  }
+  pre code{background:none;border:none;padding:0;color:inherit;font-size:13.5px}
+  pre .c{color:#8FB6A9}
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-family:var(--sans);
+    font-size:14.5px;
+    margin:0 0 18px;
+  }
+  th,td{
+    text-align:left;
+    padding:9px 12px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  th{background:#EDF1F4;font-weight:600;font-size:13.5px}
+  tr:last-child td{border-bottom:none}
+
+  .note,.warn,.say{
+    border-left:3px solid var(--green);
+    background:var(--green-soft);
+    padding:13px 16px;
+    margin:0 0 16px;
+    font-size:15.5px;
+  }
+  .warn{border-left-color:var(--amber);background:var(--amber-soft)}
+  .say{border-left-color:var(--red);background:var(--red-soft)}
+  .note p:last-child,.warn p:last-child,.say p:last-child{margin-bottom:0}
+  .tag{
+    font-family:var(--sans);
+    font-size:12px;
+    font-weight:600;
+    color:var(--slate);
+    display:block;
+    margin-bottom:3px;
+  }
+
+  /* ---------- Q&A ---------- */
+  .qa-wrap{margin-top:30px;border-top:1px solid var(--line);padding-top:22px}
+  .qa-wrap > h3{margin-top:0}
+  details.qa{
+    border:1px solid var(--line);
+    border-radius:3px;
+    margin-bottom:9px;
+    background:#FBFCFD;
+  }
+  details.qa summary{
+    cursor:pointer;
+    list-style:none;
+    padding:11px 14px 11px 34px;
+    font-family:var(--sans);
+    font-size:15px;
+    font-weight:500;
+    position:relative;
+  }
+  details.qa summary::-webkit-details-marker{display:none}
+  details.qa summary::before{
+    content:"+";
+    position:absolute;
+    left:13px;
+    top:11px;
+    color:var(--green);
+    font-family:var(--mono);
+    font-weight:500;
+  }
+  details.qa[open] summary::before{content:"\2212"}
+  details.qa[open] summary{background:var(--green-soft);border-bottom:1px solid var(--line)}
+  details.qa summary:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+  .ans{padding:14px 16px 4px 34px;font-size:16px}
+  .ans pre{font-size:13px}
+
+  .toolbar{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+    font-family:var(--sans);
+  }
+  .toolbar button{
+    font-family:var(--sans);
+    font-size:13.5px;
+    background:var(--card);
+    border:1px solid var(--line);
+    color:var(--slate);
+    padding:7px 13px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .toolbar button:hover{border-color:var(--green);color:var(--green)}
+  .toolbar button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+  footer.end{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px 70px;
+    font-family:var(--sans);
+    font-size:14px;
+    color:var(--mute);
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:880px){
+    .shell{grid-template-columns:1fr;gap:18px;padding-top:18px}
+    nav.toc{
+      position:static;
+      max-height:none;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:3px;
+      padding:14px;
+    }
+    nav.toc[data-collapsed="true"] .toc-list{display:none}
+    .navbtn{
+      display:block;
+      width:100%;
+      text-align:left;
+      font-family:var(--sans);
+      font-size:14px;
+      font-weight:600;
+      background:none;
+      border:none;
+      color:var(--ink);
+      cursor:pointer;
+      padding:0 0 4px;
+    }
+    section{padding:22px 18px 26px}
+    body{font-size:16.5px}
+    .ans{padding-left:16px}
+    details.qa summary{padding-left:30px}
+  }
+
+  @media print{
+    body{background:#fff;font-size:11pt}
+    nav.toc,.toolbar,.navbtn{display:none}
+    .shell{display:block;padding:0}
+    section{border:none;padding:0;margin-bottom:22px;page-break-inside:avoid}
+    details.qa{page-break-inside:avoid}
+    details.qa > .ans{display:block !important}
+    pre{background:#f2f2f2;color:#000;border:1px solid #ccc}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <h1>Kalkitech interview notebook</h1>
+    <p class="sub">Graduate Engineer – Product Engineering · Kochi · Two technical rounds and one HR round. Everything below is written to be read in one evening, in the order the rounds will happen.</p>
+    <svg class="sld" viewBox="0 0 820 132" role="img" aria-label="Diagram of the three interview rounds drawn as a single line diagram: Technical 1, Technical 2, HR round, leading to offer.">
+      <line x1="30" y1="42" x2="790" y2="42" stroke="#16222E" stroke-width="3"/>
+      <g stroke="#16222E" stroke-width="2" fill="none">
+        <line x1="150" y1="42" x2="150" y2="70"/>
+        <line x1="380" y1="42" x2="380" y2="70"/>
+        <line x1="610" y1="42" x2="610" y2="70"/>
+        <line x1="770" y1="42" x2="770" y2="70"/>
+      </g>
+      <g fill="#FFFFFF" stroke="#1E6F5C" stroke-width="2">
+        <rect x="136" y="70" width="28" height="18"/>
+        <rect x="366" y="70" width="28" height="18"/>
+        <rect x="596" y="70" width="28" height="18"/>
+      </g>
+      <circle cx="770" cy="79" r="9" fill="#1E6F5C" stroke="none"/>
+      <g font-size="13" fill="#16222E" text-anchor="middle">
+        <text x="150" y="108">Technical 1</text>
+        <text x="380" y="108">Technical 2</text>
+        <text x="610" y="108">HR round</text>
+        <text x="770" y="108">Offer</text>
+      </g>
+      <g font-size="11" fill="#6F8496" text-anchor="middle">
+        <text x="150" y="124">fundamentals, DSA</text>
+        <text x="380" y="124">depth, projects, puzzles</text>
+        <text x="610" y="124">fit, values, logistics</text>
+      </g>
+      <text x="30" y="30" font-size="11" fill="#6F8496">busbar: everything runs off your fundamentals</text>
+    </svg>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="toc" id="toc" data-collapsed="true">
+    <button class="navbtn" id="navbtn" aria-expanded="false">Contents</button>
+    <div class="toc-list">
+      <h2>Contents</h2>
+      <div id="toc-links"></div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="toolbar">
+      <button id="openAll">Open all answers</button>
+      <button id="closeAll">Close all answers</button>
+      <button onclick="window.print()">Print / save as PDF</button>
+    </div>
+    <section id="company" data-title="Kalkitech &amp; the role">
+      <div class="sec-head"><span class="num">1</span><h2>Kalkitech, in plain terms</h2></div>
+      <p class="lede">You will be asked "what do you know about us?" in at least one round. Two minutes of this section is the cheapest mark you can pick up.</p>
+
+      <h3>What the company actually does</h3>
+      <p>Kalkitech (legal name KALKI Communication Technologies Pvt Ltd) was founded in 1998, headquartered in Bangalore with a large engineering centre in Kochi. It builds <strong>standards-based communication, control and computing products for the energy industry</strong> — electricity utilities, smart meter OEMs, and system integrators. Its solutions are deployed in 30+ countries.</p>
+      <p>The one-sentence version to say out loud: <em>"Kalkitech connects the electrical grid to software — it takes data out of meters, relays, RTUs and substation devices using industry protocols, and makes it usable in SCADA systems and the cloud."</em></p>
+
+      <h3>The problem they solve</h3>
+      <p>A power grid is full of devices from dozens of vendors, made across four decades, each speaking a different language: an old relay speaks IEC 60870-5-101 over a serial line, a modern substation device speaks IEC 61850, an Indian smart meter speaks DLMS/COSEM, an industrial controller speaks Modbus. The utility's control room needs one coherent view of all of it. Kalkitech writes the translation layer — protocol stacks, gateways, edge software and the cloud platform that sits above them.</p>
+
+      <h3>Products worth naming</h3>
+      <table>
+        <tr><th>Name</th><th>What it is</th></tr>
+        <tr><td>Kalki.io</td><td>Their IoT/cloud platform for utilities. Edge software connects field devices (meters, RTUs, PLCs, sensors) to the cloud and supports MQTT, OPC-UA, DLMS/COSEM, DNP3, IEC 61850, IEC 101/104 and 85+ protocols. Also hosts head-end applications like meter data acquisition (MDAS), meter data management (MDM) and peak load management. <strong>This is very likely the team you'd join.</strong></td></tr>
+        <tr><td>SYNC series gateways</td><td>Protocol gateways / converters that OEMs embed in relays, RTUs and IEDs to upgrade them to modern smart-grid protocols.</td></tr>
+        <tr><td>ASE (Applied Systems Engineering)</td><td>US subsidiary acquired in 2015. Makes protocol test tools and simulators used to certify that devices conform to the standards.</td></tr>
+        <tr><td>SyncNet</td><td>AMI / smart-metering communication stack, used with Indian standards IS 15959 and IS 16444.</td></tr>
+      </table>
+
+      <h3>Your role as written in the JD</h3>
+      <p>Graduate Engineer – Product Engineering, split across two tracks:</p>
+      <ul>
+        <li><strong>Software track</strong> — web, desktop and enterprise applications in C/C++/Java/J2EE or .NET/C#/React.</li>
+        <li><strong>Firmware track</strong> — embedded C/C++ for meters, RTUs, gateways and IoT devices.</li>
+      </ul>
+      <p>Based on your resume and the senior's tip, you are being looked at for the <strong>software / kalki.io cloud side: Java backend + React frontend</strong>. Prepare the firmware basics anyway (section 13) — it costs an hour and it is exactly the kind of "will this person work across tracks?" signal they screen for.</p>
+
+      <div class="note">
+        <span class="tag">Say this when asked "why Kalkitech?"</span>
+        <p>"Most of my work so far has been on the software side — RAG systems, computer vision, a full-stack platform. What pulls me to Kalkitech is that the software here has a physical consequence: if the meter data pipeline is wrong, a utility mis-bills a district or misses an outage. I want to write software where correctness and standards matter, and energy is an industry that's going to keep growing in India for the next twenty years."</p>
+      </div>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>What do you know about Kalkitech?</summary><div class="ans"><p>Founded in 1998, works in the energy sector, builds standards-based communication and automation products for utilities and OEMs — protocol gateways, smart metering software, substation and distribution automation, and the Kalki.io cloud platform for field device data. It acquired ASE in the US for protocol test tools, and its products run in over 30 countries. Then add the honest hook: "The part I find interesting is the protocol translation layer, because that's a hard software problem with real physical consequences."</p></div></details>
+        <details class="qa"><summary>Why do you want to work in the energy/power domain when your background is AI?</summary><div class="ans"><p>Answer honestly and connect it. "My background is data-heavy — retrieval systems, vision pipelines, SQL generation. The grid is one of the largest real-time data sources there is: meters, RTUs and sensors producing time-series data continuously. The skills transfer directly, and I'd rather learn a domain deeply than keep building generic apps. Domain knowledge is the part I can't get from a tutorial, and that's what I'd be joining for."</p></div></details>
+        <details class="qa"><summary>Do you know what a smart grid is?</summary><div class="ans"><p>A traditional grid pushes power one way from a power plant to consumers, with almost no feedback. A smart grid adds two-way communication and measurement at every level — smart meters at homes, sensors and IEDs in substations, distributed sources like solar and EV chargers at the edge. That lets the utility detect outages automatically, balance load, reduce theft, bill accurately and integrate renewables. The software layer that carries and interprets that data is exactly what Kalkitech builds.</p></div></details>
+        <details class="qa"><summary>Are you okay working in Kochi or relocating to Bangalore?</summary><div class="ans"><p>Answer decisively — hesitation here costs offers. "Yes. Kochi is home ground for me and I'd be happy there. If the team needs me in Bangalore, I'm fine relocating." Don't invent conditions unless you genuinely have one.</p></div></details>
+      </div>
+    </section>
+
+    <section id="strategy" data-title="How to play the three rounds">
+      <div class="sec-head"><span class="num">2</span><h2>How to play the three rounds</h2></div>
+      <p class="lede">Your senior's read matches the public interview reports: they are testing raw thinking more than memorised depth. Optimise for visible reasoning, not for sounding rehearsed.</p>
+
+      <h3>What they're really scoring</h3>
+      <ul>
+        <li><strong>Can you think out loud?</strong> On puzzles and scenarios, a wrong answer with clean reasoning beats a right answer pulled out of thin air.</li>
+        <li><strong>Do you have real foundations?</strong> They ask a few questions per topic, not twenty. Breadth beats depth here — knowing something true about ten areas is better than knowing everything about one.</li>
+        <li><strong>Are you trainable?</strong> They explicitly train freshers. Curiosity and honesty about gaps read as trainable; bluffing reads as risky.</li>
+      </ul>
+
+      <h3>Five rules for the room</h3>
+      <ol>
+        <li><strong>Restate the question before answering.</strong> Buys three seconds and catches misunderstandings.</li>
+        <li><strong>Say "I don't know, but here's how I'd work it out."</strong> Then actually work it out. This is the single highest-scoring sentence available to a fresher.</li>
+        <li><strong>Never bluff a term you don't know.</strong> Ask what it means. They will often explain and then watch how fast you use it correctly — that's the actual test.</li>
+        <li><strong>For DSA, talk before you type.</strong> Brute force → complexity → improvement → then code. Finishing a clean brute force beats an abandoned optimal solution.</li>
+        <li><strong>Anchor to your projects.</strong> When a concept comes up you've actually used (REST, JWT, SQL, RBAC, state management), say where you used it. It converts theory into evidence.</li>
+      </ol>
+
+      <div class="warn">
+        <span class="tag">The trap round</span>
+        <p>Public reports mention candidates doing fine in the technical round and failing in the last round, which mixes technical and HR. Treat the HR round as a technical round with a friendlier tone — they still probe project claims, and they check whether your story is consistent with your resume. Section 18 covers this.</p>
+      </div>
+
+      <h3>Your 30-second opening pitch</h3>
+      <div class="say">
+        <p>"I'm Albin, final-year CSE at IIIT Kottayam with an AI and Data Science specialisation, CGPA 8.92. I've done two internships — computer vision with YOLOv8 at AI4SEES, and currently an AI internship at Klyonix building a multi-tenant chatbot that turns natural language into SQL with role-based access control. Outside that I've built a full-stack e-commerce platform with React, Node and PostgreSQL, and a RAG-based legal advisor. My strongest areas are backend and data; I'm comfortable in Python, JavaScript and SQL, and I've worked in Java and C++ through coursework. I'm looking to do product engineering where the software has a real-world system behind it."</p>
+      </div>
+      <p>Note what that pitch does: it front-loads the backend and SQL work (relevant), mentions Java honestly (coursework, not a lie), and ends pointing at their kind of work.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>Tell me about yourself.</summary><div class="ans"><p>Use the pitch above. Structure: who you are academically → two internships in one line each → one or two projects → your strengths → why this role. Ninety seconds maximum. Don't narrate your school life or hobbies unless asked.</p></div></details>
+        <details class="qa"><summary>You haven't worked in Java professionally. Why should we take you?</summary><div class="ans"><p>"I've written Java in coursework and DSA, and the concepts transfer — OOP, collections, threads, JDBC. What I bring is that I've already shipped working systems end to end: schema design, API design, auth, deployment, debugging production issues. Picking up a new language is a few weeks; knowing how to take a requirement to a working, tested module is the part I already have."</p></div></details>
+      </div>
+    </section>
+
+    <section id="oop" data-title="OOP &amp; SOLID">
+      <div class="sec-head"><span class="num">3</span><h2>OOP concepts they will definitely ask</h2></div>
+      <p class="lede">The JD lists "SDLC and OOPS concepts" explicitly. This is near-guaranteed in round 1. Keep answers short and always give an example.</p>
+
+      <h3>The four pillars</h3>
+      <table>
+        <tr><th>Pillar</th><th>Meaning</th><th>One-line example</th></tr>
+        <tr><td>Encapsulation</td><td>Bundle data with the methods that operate on it, and hide the internal state behind methods.</td><td>A <code>Meter</code> class keeps <code>reading</code> private and exposes <code>getReading()</code> so no one can set a negative value.</td></tr>
+        <tr><td>Abstraction</td><td>Expose what something does, hide how it does it.</td><td>A <code>ProtocolClient</code> interface has <code>connect()</code> and <code>read()</code>; the caller doesn't care whether it's Modbus or DNP3 underneath.</td></tr>
+        <tr><td>Inheritance</td><td>A class reuses and extends another class's behaviour — an "is-a" relationship.</td><td><code>ModbusClient extends ProtocolClient</code>.</td></tr>
+        <tr><td>Polymorphism</td><td>One interface, many behaviours. The right method is chosen by the actual object type.</td><td><code>client.read()</code> runs Modbus or DNP3 code depending on what was assigned.</td></tr>
+      </table>
+
+      <div class="note">
+        <span class="tag">The follow-up they love</span>
+        <p><strong>Abstraction vs encapsulation?</strong> Abstraction is about <em>design</em> — deciding what to expose. Encapsulation is about <em>implementation</em> — protecting the data you decided to hide. Abstraction hides complexity; encapsulation hides data.</p>
+      </div>
+
+      <h3>Overloading vs overriding</h3>
+      <table>
+        <tr><th></th><th>Overloading</th><th>Overriding</th></tr>
+        <tr><td>Where</td><td>Same class (or inherited), same method name, different parameter list</td><td>Subclass redefines a parent method with the same signature</td></tr>
+        <tr><td>Resolved</td><td>At compile time (static / early binding)</td><td>At runtime (dynamic / late binding)</td></tr>
+        <tr><td>Return type</td><td>Can differ, but that alone is not enough to overload</td><td>Must be same or a subtype (covariant)</td></tr>
+      </table>
+
+      <pre><code>class Reader {
+    int read(int channel) { return channel; }
+    int read(int channel, int timeout) { return channel + timeout; }   <span class="c">// overload</span>
+}
+class FastReader extends Reader {
+    @Override
+    int read(int channel) { return channel * 2; }                       <span class="c">// override</span>
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Reader r = new FastReader();        <span class="c">// parent reference, child object</span>
+        System.out.println(r.read(5));      <span class="c">// 10</span>
+        System.out.println(r.read(5, 3));   <span class="c">// 8</span>
+    }
+}</code></pre>
+      <p><strong>Expected output: <code>10</code> then <code>8</code>.</strong> The first call prints 10, not 5, because overridden methods are picked using the <em>actual object</em> (FastReader) at runtime, not the reference type. The second call resolves at compile time to the two-argument method in Reader, which FastReader didn't override, so you get 5 + 3 = 8.</p>
+
+      <h3>Interface vs abstract class</h3>
+      <table>
+        <tr><th>Abstract class</th><th>Interface</th></tr>
+        <tr><td>Can have constructors, fields, state</td><td>No instance state; fields are public static final</td></tr>
+        <tr><td>Can mix implemented and abstract methods</td><td>Methods are abstract by default (Java 8+ allows default and static methods)</td></tr>
+        <tr><td>A class extends only one</td><td>A class implements many</td></tr>
+        <tr><td>Use when classes share code and identity ("is-a")</td><td>Use when unrelated classes share a capability ("can-do")</td></tr>
+      </table>
+
+      <h3>SOLID, one line each</h3>
+      <ul>
+        <li><strong>S</strong>ingle responsibility — a class should have one reason to change.</li>
+        <li><strong>O</strong>pen/closed — open for extension, closed for modification. Add a new protocol by adding a class, not by editing a giant switch.</li>
+        <li><strong>L</strong>iskov substitution — a subclass must be usable anywhere the parent is, without surprises.</li>
+        <li><strong>I</strong>nterface segregation — many small interfaces beat one fat one.</li>
+        <li><strong>D</strong>ependency inversion — depend on abstractions, not concrete classes.</li>
+      </ul>
+
+      <h3>Association, aggregation, composition</h3>
+      <ul>
+        <li><strong>Association</strong> — two classes know about each other. A <code>Technician</code> services a <code>Substation</code>.</li>
+        <li><strong>Aggregation</strong> — "has-a", but parts survive the whole. A <code>Substation</code> has <code>Meters</code>; delete the substation record and the meters still exist.</li>
+        <li><strong>Composition</strong> — "has-a" and parts die with the whole. An <code>Order</code> has <code>OrderItems</code>; no order, no items.</li>
+      </ul>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>Can you achieve multiple inheritance in Java? How?</summary><div class="ans"><p>Not with classes — Java forbids it to avoid the diamond problem, where a class inherits two versions of the same method from two parents and the compiler can't pick one. You achieve the same effect with interfaces: a class can implement many interfaces. Since Java 8 interfaces can have default methods, so if two interfaces have the same default method the compiler forces you to override it and choose explicitly using <code>InterfaceName.super.method()</code>.</p></div></details>
+        <details class="qa"><summary>What is the difference between compile-time and runtime polymorphism?</summary><div class="ans"><p>Compile-time (static) polymorphism is method overloading — the compiler knows which method to call from the argument types. Runtime (dynamic) polymorphism is method overriding — the JVM looks at the actual object at execution time and calls its version of the method. Only the second one gives you the real benefit: writing code against a parent type and swapping implementations later.</p></div></details>
+        <details class="qa"><summary>Why do we need encapsulation? Isn't a public field simpler?</summary><div class="ans"><p>Public fields lock you in. The moment you need validation, logging, lazy loading or a unit change, every caller breaks. With a getter/setter you change the inside without touching callers. It also protects invariants — a meter reading can't be set to a negative value if the setter rejects it.</p></div></details>
+        <details class="qa"><summary>Give a real example of polymorphism from your own project.</summary><div class="ans"><p>From the RAG work: a retriever interface with dense and keyword implementations, so the pipeline calls <code>retrieve(query)</code> without knowing which strategy is active — that's how re-ranking was swapped in without changing the pipeline. Or from Express middleware: every middleware has the same <code>(req, res, next)</code> shape, so the framework treats them uniformly.</p></div></details>
+        <details class="qa"><summary>What is the diamond problem?</summary><div class="ans"><p>Class D inherits from B and C, both of which inherit from A and both override the same method. When you call that method on D, which version runs? C++ solves it with virtual inheritance; Java sidesteps it by banning multiple class inheritance and forcing an explicit choice when two interfaces provide conflicting default methods.</p></div></details>
+      </div>
+    </section>
+
+    <section id="java" data-title="Java core &amp; threads">
+      <div class="sec-head"><span class="num">4</span><h2>Java: the parts they ask freshers</h2></div>
+      <p class="lede">The kalki.io stack is Java and React. You don't need to be an expert — you need to answer six or seven standard questions without hesitating, and know why the answers are what they are.</p>
+
+      <h3>JDK, JRE, JVM</h3>
+      <ul>
+        <li><strong>JVM</strong> — the virtual machine that runs bytecode. It is platform-specific; that's what makes your <code>.class</code> file platform-independent.</li>
+        <li><strong>JRE</strong> — JVM + the standard class libraries. Enough to <em>run</em> a Java program.</li>
+        <li><strong>JDK</strong> — JRE + compiler (<code>javac</code>), debugger, tools. Needed to <em>write</em> Java.</li>
+      </ul>
+      <p>"Write once, run anywhere" works because <code>javac</code> compiles to bytecode, and each platform ships its own JVM that interprets or JIT-compiles that bytecode to native instructions.</p>
+
+      <h3>Memory: stack vs heap</h3>
+      <table>
+        <tr><th>Stack</th><th>Heap</th></tr>
+        <tr><td>One per thread</td><td>Shared by all threads</td></tr>
+        <tr><td>Method frames, local variables, references</td><td>All objects and their instance fields</td></tr>
+        <tr><td>Freed automatically when the method returns</td><td>Freed by the garbage collector</td></tr>
+        <tr><td>Overflow → <code>StackOverflowError</code> (usually infinite recursion)</td><td>Exhaustion → <code>OutOfMemoryError</code></td></tr>
+      </table>
+      <p><strong>Garbage collection:</strong> the JVM reclaims objects that are no longer reachable from any live reference. You cannot force it; <code>System.gc()</code> is only a suggestion. Modern JVMs use generational collection — most objects die young, so the young generation is collected frequently and cheaply, survivors are promoted to the old generation.</p>
+
+      <h3>== vs equals(), and the hashCode contract</h3>
+      <pre><code>public class StringDemo {
+    public static void main(String[] args) {
+        String a = "meter";
+        String b = "meter";
+        String c = new String("meter");
+
+        System.out.println(a == b);        <span class="c">// true</span>
+        System.out.println(a == c);        <span class="c">// false</span>
+        System.out.println(a.equals(c));   <span class="c">// true</span>
+
+        Integer x = 127, y = 127;
+        Integer p = 128, q = 128;
+        System.out.println(x == y);        <span class="c">// true</span>
+        System.out.println(p == q);        <span class="c">// false</span>
+    }
+}</code></pre>
+      <p><strong>Expected output: true, false, true, true, false.</strong> Here's why each line does what it does:</p>
+      <ul>
+        <li><code>a == b</code> is true because string literals are interned — both names point at the same object in the string pool.</li>
+        <li><code>a == c</code> is false because <code>new String(...)</code> forces a fresh object on the heap. <code>==</code> compares references, not contents.</li>
+        <li><code>a.equals(c)</code> is true because <code>String.equals</code> compares characters.</li>
+        <li>The Integer pair is the classic trap: Java caches boxed Integers from −128 to 127, so 127 gives you the same cached object but 128 creates two objects. <strong>Always use <code>.equals()</code> for object comparison.</strong></li>
+      </ul>
+      <p><strong>The contract:</strong> if two objects are equal by <code>equals()</code>, they must return the same <code>hashCode()</code>. Break it and your objects get lost in a <code>HashMap</code> — you put one in and can never retrieve it, because the map looks in the wrong bucket.</p>
+
+      <h3>Collections — the map you should be able to draw</h3>
+      <table>
+        <tr><th>Type</th><th>Use it when</th><th>Key detail</th></tr>
+        <tr><td><code>ArrayList</code></td><td>Mostly reading by index</td><td>Backed by an array. O(1) get, O(n) insert in the middle. Grows by ~50% when full.</td></tr>
+        <tr><td><code>LinkedList</code></td><td>Frequent insert/remove at the ends</td><td>Doubly linked nodes. O(1) add/remove at ends, O(n) get by index.</td></tr>
+        <tr><td><code>HashMap</code></td><td>Key → value lookup</td><td>O(1) average. No ordering. One null key allowed. Not thread-safe.</td></tr>
+        <tr><td><code>LinkedHashMap</code></td><td>You need insertion order preserved</td><td>HashMap + a linked list through the entries.</td></tr>
+        <tr><td><code>TreeMap</code></td><td>You need sorted keys or range queries</td><td>Red-black tree, O(log n).</td></tr>
+        <tr><td><code>HashSet</code></td><td>Uniqueness</td><td>It's a HashMap with a dummy value.</td></tr>
+        <tr><td><code>ConcurrentHashMap</code></td><td>Multi-threaded map access</td><td>Locks only a segment/bin, not the whole map — far better than <code>Hashtable</code>.</td></tr>
+      </table>
+      <p><strong>How HashMap works internally</strong> (a favourite question): it holds an array of buckets. <code>hashCode()</code> of the key is hashed again and mapped to a bucket index. Collisions — two keys landing in the same bucket — are chained in a linked list; since Java 8, a bucket with more than 8 entries converts to a balanced tree, so worst case degrades to O(log n) instead of O(n). When size exceeds capacity × load factor (default 0.75), the map resizes to double and rehashes everything.</p>
+
+      <h3>final, finally, finalize</h3>
+      <ul>
+        <li><code>final</code> — a keyword. Final variable can't be reassigned, final method can't be overridden, final class can't be extended.</li>
+        <li><code>finally</code> — a block that runs whether or not an exception was thrown. Used for cleanup.</li>
+        <li><code>finalize()</code> — a deprecated method the GC used to call before reclaiming an object. Don't use it; use try-with-resources.</li>
+      </ul>
+
+      <h3>Checked vs unchecked exceptions</h3>
+      <p><strong>Checked</strong> (e.g. <code>IOException</code>, <code>SQLException</code>) must be caught or declared with <code>throws</code> — the compiler enforces it. They represent recoverable, expected external failures. <strong>Unchecked</strong> (<code>RuntimeException</code> and subclasses like <code>NullPointerException</code>, <code>IllegalArgumentException</code>) are programming errors; the compiler doesn't force handling. <code>Error</code> (e.g. <code>OutOfMemoryError</code>) is for JVM-level problems you shouldn't catch.</p>
+
+      <h3>Multithreading — listed in the JD, so expect it</h3>
+      <p>A <strong>process</strong> is a program with its own memory space. A <strong>thread</strong> is a unit of execution inside a process; threads share the heap but each has its own stack. Threads are cheaper to create and switch between, but sharing memory is what creates race conditions.</p>
+      <p>Thread lifecycle: <code>New → Runnable → Running → (Blocked / Waiting / Timed Waiting) → Terminated</code>.</p>
+
+      <pre><code>public class CounterDemo {
+    static int unsafe = 0;
+    static int safe = 0;
+
+    static synchronized void incrementSafe() { safe++; }
+
+    public static void main(String[] args) throws InterruptedException {
+        Runnable job = () -> {
+            for (int i = 0; i &lt; 100000; i++) {
+                unsafe++;            <span class="c">// race condition</span>
+                incrementSafe();     <span class="c">// protected</span>
+            }
+        };
+        Thread t1 = new Thread(job);
+        Thread t2 = new Thread(job);
+        t1.start(); t2.start();
+        t1.join();  t2.join();
+
+        System.out.println("unsafe = " + unsafe);
+        System.out.println("safe   = " + safe);
+    }
+}</code></pre>
+      <p><strong>Expected output: <code>safe = 200000</code> every time; <code>unsafe</code> will be something less than 200000 and different on each run.</strong> The reason is that <code>unsafe++</code> is not one operation — it is read, add one, write back. Two threads can both read 500, both compute 501, and both write 501, so one increment vanishes. <code>synchronized</code> makes the whole increment atomic by allowing only one thread into the method at a time. <code>join()</code> makes main wait for both threads to finish, otherwise you'd print while they're still running.</p>
+
+      <h4>Terms to have ready</h4>
+      <ul>
+        <li><strong>synchronized</strong> — a lock (monitor) on an object; only one thread holds it at a time.</li>
+        <li><strong>volatile</strong> — guarantees visibility: every read goes to main memory, not a CPU cache. It does <em>not</em> make <code>i++</code> atomic.</li>
+        <li><strong>Atomic classes</strong> (<code>AtomicInteger</code>) — lock-free atomic operations using compare-and-swap.</li>
+        <li><strong>Deadlock</strong> — two threads each hold a lock the other needs. Prevent by always acquiring locks in the same global order, or using timeouts.</li>
+        <li><strong>ExecutorService</strong> — a thread pool. Creating a thread per task doesn't scale; pools reuse threads. <code>Executors.newFixedThreadPool(8)</code>.</li>
+        <li><strong>wait/notify vs sleep</strong> — <code>wait()</code> releases the lock and waits for <code>notify()</code>; <code>sleep()</code> keeps the lock and just pauses.</li>
+      </ul>
+
+      <div class="warn">
+        <span class="tag">Be honest, then be useful</span>
+        <p>If asked "how strong is your Java?", say: "I've used it for coursework and DSA, I'm solid on OOP, collections and basic threading, and I've been reading up on Spring Boot. My production work has been Python and Node, but the backend concepts are the same." Then demonstrate by answering the next question well.</p>
+      </div>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>Why is String immutable in Java?</summary><div class="ans"><p>Four reasons worth naming: (1) the string pool only works if strings can't change — otherwise changing one reference would corrupt every other holder of the same literal; (2) security — strings are used for filenames, URLs, DB connection strings and class loading, and immutability prevents a value being altered after a check; (3) thread safety for free, since nothing can mutate it; (4) the hash code can be cached, which makes String an excellent HashMap key. Use <code>StringBuilder</code> when you need to build strings in a loop, otherwise each concatenation creates a new object.</p></div></details>
+        <details class="qa"><summary>ArrayList vs LinkedList — which would you use?</summary><div class="ans"><p>ArrayList in almost all real code. It's contiguous memory, so it's cache-friendly and indexing is O(1); LinkedList's theoretical O(1) insertion only helps if you already hold the node, and its pointer-chasing is slow in practice. I'd reach for LinkedList only for a queue-like workload at both ends, and even then <code>ArrayDeque</code> is usually better.</p></div></details>
+        <details class="qa"><summary>What happens if two keys have the same hashCode?</summary><div class="ans"><p>They land in the same bucket — that's a collision. HashMap then compares keys with <code>equals()</code> to tell them apart, storing them in a linked list in that bucket, converting to a red-black tree beyond 8 entries. Lookup is still correct, just slower. If <code>hashCode()</code> returned a constant for every key, the map would degrade into a single list with O(n) lookup.</p></div></details>
+        <details class="qa"><summary>What is a race condition and how do you prevent it?</summary><div class="ans"><p>When the correctness of the result depends on the timing of two threads accessing shared data, and at least one is writing. Prevent by making the critical section mutually exclusive — <code>synchronized</code>, a <code>ReentrantLock</code>, or an atomic class — or by removing the sharing altogether (thread-confined or immutable data, which is usually the better fix).</p></div></details>
+        <details class="qa"><summary>Difference between Runnable and Thread?</summary><div class="ans"><p><code>Thread</code> is a class you extend; <code>Runnable</code> is an interface you implement and pass to a Thread. Prefer Runnable: Java allows only one superclass, so extending Thread burns your inheritance slot, and Runnable separates the task from the mechanism of running it — which is what lets you hand the same task to a thread pool.</p></div></details>
+        <details class="qa"><summary>What is a memory leak in Java if there's a garbage collector?</summary><div class="ans"><p>The GC only frees unreachable objects. A leak in Java means you're still holding references you don't need — a static collection that grows forever, listeners never unregistered, a cache with no eviction, or a long-lived map keyed by objects that are never removed. The object is reachable, so the GC can't touch it, and the heap fills up.</p></div></details>
+      </div>
+    </section>
+
+    <section id="dotnet" data-title="C# and .NET">
+      <div class="sec-head"><span class="num">5</span><h2>C# and .NET, enough to hold a conversation</h2></div>
+      <p class="lede">Your senior said "be thorough with backend and dotnet". You're not going to become a .NET developer overnight — aim to answer confidently for ten minutes and map everything back to Java, which is what an interviewer will do anyway.</p>
+
+      <h3>The architecture in four terms</h3>
+      <ul>
+        <li><strong>CLR</strong> (Common Language Runtime) — .NET's equivalent of the JVM. Handles JIT compilation, memory management and garbage collection.</li>
+        <li><strong>IL / MSIL</strong> — intermediate language, the equivalent of Java bytecode. C#, F# and VB.NET all compile to it.</li>
+        <li><strong>Managed code</strong> — code that runs under the CLR and gets automatic memory management. Unmanaged code (raw C++) does not.</li>
+        <li><strong>.NET Core / .NET 5+</strong> — the modern cross-platform, open-source rewrite. The old .NET Framework was Windows-only.</li>
+      </ul>
+
+      <h3>C# vs Java, side by side</h3>
+      <table>
+        <tr><th>Concept</th><th>Java</th><th>C#</th></tr>
+        <tr><td>Package/namespace</td><td><code>package</code></td><td><code>namespace</code></td></tr>
+        <tr><td>Inheritance root</td><td><code>Object</code></td><td><code>System.Object</code></td></tr>
+        <tr><td>Properties</td><td>Manual getters/setters</td><td>Built in: <code>public int Id { get; set; }</code></td></tr>
+        <tr><td>Value types</td><td>Primitives only</td><td><code>struct</code> — user-defined value types on the stack</td></tr>
+        <tr><td>Virtual by default?</td><td>Methods are virtual unless <code>final</code></td><td>Methods are non-virtual unless marked <code>virtual</code>, and the child must say <code>override</code></td></tr>
+        <tr><td>Delegates/events</td><td>Functional interfaces</td><td><code>delegate</code>, <code>event</code>, <code>Func&lt;&gt;</code>, <code>Action&lt;&gt;</code></td></tr>
+        <tr><td>LINQ</td><td>Streams API</td><td>LINQ, with SQL-like syntax over collections</td></tr>
+        <tr><td>Async</td><td><code>CompletableFuture</code></td><td><code>async/await</code> with <code>Task</code></td></tr>
+      </table>
+
+      <h3>Things you might be asked directly</h3>
+      <ul>
+        <li><strong>Value vs reference type</strong> — <code>struct</code> and primitives are copied on assignment and live on the stack; <code>class</code> instances live on the heap and variables hold references. Boxing is wrapping a value type in an object; unboxing is the reverse, and it costs performance in hot loops.</li>
+        <li><strong><code>ref</code> vs <code>out</code></strong> — both pass by reference. <code>ref</code> needs the variable initialised before the call; <code>out</code> doesn't, but the method must assign it before returning.</li>
+        <li><strong><code>const</code> vs <code>readonly</code></strong> — <code>const</code> is compile-time and implicitly static; <code>readonly</code> is set once at runtime, in the constructor.</li>
+        <li><strong>IEnumerable vs IQueryable</strong> — <code>IEnumerable</code> filters in memory after fetching; <code>IQueryable</code> builds an expression tree that the provider (e.g. Entity Framework) translates to SQL, so the filtering happens in the database. Getting this wrong pulls a whole table into memory.</li>
+        <li><strong>Dispose / using</strong> — <code>IDisposable</code> plus a <code>using</code> block deterministically releases unmanaged resources like file handles and DB connections. Java's equivalent is try-with-resources.</li>
+        <li><strong>ASP.NET Core</strong> — the web framework. A request flows through a middleware pipeline, hits a controller, which returns a response; dependency injection is built into the framework and configured at startup.</li>
+      </ul>
+
+      <pre><code>// C# LINQ — the most-shown-off feature. Filter, project, sort in one expression.
+var highLoad = meters
+    .Where(m =&gt; m.LoadKw &gt; 50)
+    .OrderByDescending(m =&gt; m.LoadKw)
+    .Select(m =&gt; new { m.Id, m.LoadKw })
+    .ToList();
+
+foreach (var m in highLoad)
+    Console.WriteLine($"{m.Id}: {m.LoadKw} kW");</code></pre>
+      <p><strong>What this prints:</strong> every meter with load above 50 kW, highest first, as "id: load kW". The useful thing to say about it is that LINQ is lazy — nothing executes until <code>ToList()</code> or the <code>foreach</code> forces enumeration, which is exactly the same idea as Java streams being lazy until a terminal operation.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>What is the difference between .NET Framework and .NET Core?</summary><div class="ans"><p>.NET Framework is the original, Windows-only, tied to the OS and now in maintenance. .NET Core (and .NET 5 onwards, where the names merged) is cross-platform, open source, modular via NuGet, higher performance, and can be deployed self-contained. New development goes on .NET 6/7/8.</p></div></details>
+        <details class="qa"><summary>Explain async/await.</summary><div class="ans"><p>When a method awaits an I/O operation, the thread isn't blocked waiting — it's returned to the pool and the rest of the method is resumed as a continuation when the operation completes. That's why async matters for servers: with a hundred concurrent requests hitting a database, blocking threads means a hundred parked threads, while async means a handful of threads handling all of them. It doesn't make anything faster in isolation; it makes the system scale.</p></div></details>
+        <details class="qa"><summary>You haven't used C#. Is that a problem?</summary><div class="ans"><p>"I haven't shipped C#, but I've read enough to know it's structurally close to Java — CLR instead of JVM, same OOP model, properties and LINQ as the main additions. I've picked up Node, React and FastAPI on the job before; a C-family language with the same concepts is a couple of weeks, not a couple of months." Then show you know one non-obvious thing — LINQ laziness or IEnumerable vs IQueryable is a good one.</p></div></details>
+      </div>
+    </section>
+
+    <section id="react" data-title="React">
+      <div class="sec-head"><span class="num">6</span><h2>React</h2></div>
+      <p class="lede">You've built two React frontends, so this should be your strongest technical section. The questions will be conceptual — make sure you can explain <em>why</em>, not just what you typed.</p>
+
+      <h3>The core model</h3>
+      <p>React is a library for building UI out of components. You describe what the UI should look like <strong>for a given state</strong>, and React works out the DOM changes needed to get there. That's the whole idea: UI as a function of state, <code>UI = f(state)</code>.</p>
+
+      <h4>Virtual DOM and reconciliation</h4>
+      <p>Direct DOM manipulation is slow because every change can trigger layout and repaint. React keeps a lightweight JavaScript copy of the DOM tree. When state changes it builds a new virtual tree, <strong>diffs</strong> it against the previous one, and applies only the minimal set of real DOM updates — this diffing step is called reconciliation. Two rules make the diff fast: elements of different types are replaced wholesale, and children are matched by their <code>key</code>.</p>
+
+      <div class="note">
+        <span class="tag">Why keys matter</span>
+        <p>Without stable keys, React matches list children by position. Insert an item at the top and every subsequent element looks "changed", so React re-renders all of them and component state can attach to the wrong row. Using array index as a key has the same bug for any list that reorders or has items inserted. Use a real id.</p>
+      </div>
+
+      <h3>Props vs state</h3>
+      <table>
+        <tr><th>Props</th><th>State</th></tr>
+        <tr><td>Passed in from the parent</td><td>Owned and managed inside the component</td></tr>
+        <tr><td>Read-only inside the component</td><td>Updated with the setter from <code>useState</code></td></tr>
+        <tr><td>Changing them re-renders the child</td><td>Changing it re-renders this component and its subtree</td></tr>
+      </table>
+      <p>Data flows one way: parent to child. To let a child affect a parent, the parent passes down a callback. When two siblings need the same data, you <strong>lift state up</strong> to their nearest common parent.</p>
+
+      <h3>Hooks you must be able to explain</h3>
+      <pre><code>import { useState, useEffect, useMemo, useRef } from "react";
+
+function MeterPanel({ meterId }) {
+  const [readings, setReadings] = useState([]);
+  const [loading, setLoading]   = useState(true);
+  const renderCount             = useRef(0);
+
+  useEffect(() =&gt; {
+    let cancelled = false;                      // guard against a stale response
+    setLoading(true);
+
+    fetch(`/api/meters/${meterId}/readings`)
+      .then(r =&gt; r.json())
+      .then(data =&gt; { if (!cancelled) { setReadings(data); setLoading(false); } });
+
+    return () =&gt; { cancelled = true; };          // cleanup runs before the next effect
+  }, [meterId]);                                 // re-run only when meterId changes
+
+  const average = useMemo(
+    () =&gt; readings.reduce((s, r) =&gt; s + r.kwh, 0) / (readings.length || 1),
+    [readings]
+  );
+
+  renderCount.current += 1;                      // survives renders, does NOT re-render
+
+  if (loading) return &lt;p&gt;Loading readings…&lt;/p&gt;;
+
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;Meter {meterId} — average {average.toFixed(2)} kWh&lt;/h3&gt;
+      &lt;ul&gt;
+        {readings.map(r =&gt; &lt;li key={r.id}&gt;{r.timestamp}: {r.kwh}&lt;/li&gt;)}
+      &lt;/ul&gt;
+      &lt;small&gt;renders: {renderCount.current}&lt;/small&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+      <p><strong>What this component does and why each piece is there:</strong></p>
+      <ul>
+        <li><code>useState</code> gives you a value plus a setter. Calling the setter schedules a re-render. State updates are asynchronous and batched — reading the variable immediately after setting it gives you the old value.</li>
+        <li><code>useEffect</code> runs after render, for side effects: fetching, subscriptions, timers. The dependency array controls when it re-runs — <code>[]</code> means once on mount, <code>[meterId]</code> means whenever meterId changes, and omitting the array means after every render (a common cause of infinite loops when the effect also sets state).</li>
+        <li>The returned function is <strong>cleanup</strong> — it runs on unmount and before each re-run. Here it prevents a slow response for an old meter overwriting the new one; in real code you'd also clear intervals and close sockets here.</li>
+        <li><code>useMemo</code> caches an expensive computed value between renders unless its dependencies change. Don't sprinkle it everywhere — it costs memory and comparison.</li>
+        <li><code>useRef</code> holds a mutable value that persists across renders without causing a re-render. Also the standard way to grab a DOM node.</li>
+      </ul>
+
+      <h4>The rules of hooks</h4>
+      <p>Only call hooks at the top level of a component (never inside conditions, loops or nested functions) and only from React components or custom hooks. React tracks hooks by call order, so a conditional hook shifts the order and state gets attached to the wrong hook.</p>
+
+      <h3>Controlled vs uncontrolled components</h3>
+      <p>A controlled input's value comes from state, so React is the single source of truth — <code>&lt;input value={name} onChange={e =&gt; setName(e.target.value)} /&gt;</code>. An uncontrolled input keeps its own value in the DOM and you read it with a ref. Controlled is the default choice: it makes validation, formatting and disabled-submit logic straightforward.</p>
+
+      <h3>State management beyond useState</h3>
+      <ul>
+        <li><strong>Context API</strong> — for data many components need at different depths (auth user, theme, cart). Avoids "prop drilling". Downside: every consumer re-renders when the context value changes, so don't put rapidly changing data in one big context. <em>You used this for the SpiceNest cart — be ready to justify it over Redux.</em></li>
+        <li><strong>Redux / Zustand</strong> — for larger apps with complex shared state and a need for time-travel debugging or middleware. For a cart and an auth user, Context is the proportionate choice.</li>
+      </ul>
+
+      <h3>Performance questions</h3>
+      <ul>
+        <li><code>React.memo</code> skips re-rendering a component if its props are shallowly equal.</li>
+        <li><code>useCallback</code> keeps a function identity stable so memoised children don't re-render.</li>
+        <li>Code splitting with <code>React.lazy</code> and <code>Suspense</code> to cut initial bundle size.</li>
+        <li>Virtualise long lists rather than rendering ten thousand rows.</li>
+      </ul>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>What is the virtual DOM and why is it faster?</summary><div class="ans"><p>It's an in-memory JavaScript representation of the UI tree. React renders to it, diffs the new tree against the old one, and then makes only the necessary real DOM changes in a batch. It's not that the virtual DOM is intrinsically fast — a hand-optimised direct DOM update would beat it. The win is that it gives you declarative code with predictable performance, and it avoids the naive pattern of re-rendering large chunks of HTML on every change.</p></div></details>
+        <details class="qa"><summary>Why does my useEffect run in an infinite loop?</summary><div class="ans"><p>Usually because the effect sets state and either has no dependency array, or has a dependency that's recreated every render — an object, array or function literal. Each render makes a new reference, the dependency comparison fails, the effect runs, sets state, triggers a render, and round it goes. Fix by stabilising the dependency with <code>useMemo</code>/<code>useCallback</code>, moving it outside the component, or depending on a primitive value instead.</p></div></details>
+        <details class="qa"><summary>Class components vs functional components?</summary><div class="ans"><p>Class components use lifecycle methods (<code>componentDidMount</code>, <code>componentDidUpdate</code>, <code>componentWillUnmount</code>) and <code>this.state</code>. Functional components with hooks cover all of that with less code and let you extract stateful logic into reusable custom hooks, which classes couldn't do cleanly. <code>useEffect</code> with an empty dependency array is roughly <code>componentDidMount</code>; with dependencies it is <code>componentDidUpdate</code>; the cleanup function is <code>componentWillUnmount</code>.</p></div></details>
+        <details class="qa"><summary>How did you manage the cart state in your e-commerce project, and why?</summary><div class="ans"><p>React Context API with a provider at the app root, exposing the cart array and add/remove/update functions. The reasoning: the cart is needed by the navbar badge, product cards and the checkout page, which are at completely different depths, so prop drilling would have been noisy. It doesn't change often enough for context re-renders to matter, and Redux would have been a lot of boilerplate for one slice of state. If the app grew to many interdependent slices, I'd move to a dedicated store.</p></div></details>
+        <details class="qa"><summary>What is prop drilling and how do you avoid it?</summary><div class="ans"><p>Passing a prop through several intermediate components that don't use it themselves, just to reach a deep child. It makes refactoring painful and couples unrelated components. Fixes: Context for genuinely global data, component composition (pass JSX as children so the data stays where it's created), or a state library for large apps.</p></div></details>
+        <details class="qa"><summary>What happens when you call setState twice in a row?</summary><div class="ans"><p>React batches updates, so <code>setCount(count + 1); setCount(count + 1);</code> increments by one — both read the same stale <code>count</code>. Use the functional form <code>setCount(c =&gt; c + 1)</code> when the new value depends on the old one; then each update receives the latest value and you get two increments.</p></div></details>
+      </div>
+    </section>
+
+    <section id="backend" data-title="Backend &amp; web services">
+      <div class="sec-head"><span class="num">7</span><h2>Backend and web services</h2></div>
+      <p class="lede">The JD says "web services, multithreading" outright. You've built REST APIs in Express and FastAPI, so speak from that experience rather than from definitions.</p>
+
+      <h3>HTTP in the detail they'll probe</h3>
+      <table>
+        <tr><th>Method</th><th>Purpose</th><th>Safe?</th><th>Idempotent?</th></tr>
+        <tr><td>GET</td><td>Read a resource</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>POST</td><td>Create a resource / non-idempotent action</td><td>No</td><td>No</td></tr>
+        <tr><td>PUT</td><td>Replace a resource entirely</td><td>No</td><td>Yes</td></tr>
+        <tr><td>PATCH</td><td>Partially update</td><td>No</td><td>Not necessarily</td></tr>
+        <tr><td>DELETE</td><td>Remove a resource</td><td>No</td><td>Yes</td></tr>
+      </table>
+      <p><strong>Idempotent</strong> means calling it five times leaves the system in the same state as calling it once. It matters in the real world: if a gateway retries a request after a timeout, a PUT is safe to retry and a POST may create duplicates. This is a very good thing to bring up unprompted.</p>
+
+      <h4>Status codes</h4>
+      <ul>
+        <li><strong>2xx</strong> — 200 OK, 201 Created (return the new resource's location), 204 No Content.</li>
+        <li><strong>3xx</strong> — 301 permanent redirect, 304 Not Modified (caching).</li>
+        <li><strong>4xx client error</strong> — 400 bad request, 401 unauthenticated, 403 authenticated but not allowed, 404 not found, 409 conflict, 429 too many requests.</li>
+        <li><strong>5xx server error</strong> — 500 internal, 502 bad gateway, 503 unavailable, 504 gateway timeout.</li>
+      </ul>
+      <p><strong>401 vs 403</strong> is a classic: 401 means "I don't know who you are"; 403 means "I know who you are and you can't do this". You implemented exactly this distinction with RBAC at Klyonix — say so.</p>
+
+      <h3>REST, and what makes an API RESTful</h3>
+      <ul>
+        <li><strong>Resources, not actions</strong> — <code>/meters/42/readings</code>, not <code>/getMeterReadings?id=42</code>. Nouns in the path, verbs in the HTTP method.</li>
+        <li><strong>Stateless</strong> — the server keeps no session memory between requests; every request carries what it needs (e.g. a JWT). This is what lets you run ten identical servers behind a load balancer.</li>
+        <li><strong>Uniform interface</strong> and consistent representations (usually JSON).</li>
+        <li><strong>Cacheable</strong> responses, layered system.</li>
+      </ul>
+
+      <h4>REST vs SOAP</h4>
+      <table>
+        <tr><th></th><th>REST</th><th>SOAP</th></tr>
+        <tr><td>Style</td><td>Architectural style over HTTP</td><td>Strict protocol</td></tr>
+        <tr><td>Format</td><td>Usually JSON</td><td>XML only, with an envelope</td></tr>
+        <tr><td>Contract</td><td>OpenAPI/Swagger, optional</td><td>WSDL, mandatory</td></tr>
+        <tr><td>Strengths</td><td>Light, fast, easy to consume from a browser</td><td>Built-in standards for security (WS-Security), transactions, reliable messaging</td></tr>
+        <tr><td>Seen in</td><td>Modern web and mobile APIs</td><td>Enterprise, banking, telecom, older utility middleware</td></tr>
+      </table>
+      <p>Worth knowing because industrial and utility software is full of legacy SOAP services — an honest "I've built REST APIs, and I understand SOAP is contract-first XML over a strict envelope, common in enterprise integration" is enough.</p>
+
+      <h3>Authentication</h3>
+      <p><strong>Session-based:</strong> server stores a session, client holds a session id cookie. Stateful, easy to revoke. <strong>Token-based (JWT):</strong> server signs a token containing claims; client sends it in the <code>Authorization: Bearer</code> header; server only verifies the signature, stores nothing. Stateless and scalable, but you can't easily revoke a token before it expires — hence short-lived access tokens plus refresh tokens.</p>
+      <p>A JWT has three base64url parts: header (algorithm), payload (claims — user id, role, expiry), signature. <strong>The payload is encoded, not encrypted</strong> — anyone can read it, so never put secrets in it. The signature is what prevents tampering.</p>
+      <p>Also know: <strong>hashing vs encryption</strong>. Passwords are hashed with bcrypt (one-way, salted, deliberately slow to resist brute force); data you need to read back is encrypted (two-way, with a key). You used bcryptjs in SpiceNest — explain the salt: it makes identical passwords produce different hashes, so precomputed rainbow tables are useless.</p>
+
+      <h3>Architecture words you should own</h3>
+      <ul>
+        <li><strong>Monolith vs microservices</strong> — a monolith is one deployable unit: simpler to build, test and deploy, harder to scale selectively. Microservices are independently deployable services communicating over the network: scale and fail independently, at the cost of distributed complexity, network latency and harder debugging. The right fresher answer is "start with a monolith; split when a specific part actually needs separate scaling or a separate team."</li>
+        <li><strong>MVC</strong> — Model (data and rules), View (presentation), Controller (handles input, coordinates). Keeps business logic out of the UI.</li>
+        <li><strong>Message queue / broker</strong> — Kafka, RabbitMQ, MQTT brokers. Decouples producer from consumer, absorbs bursts, allows retries. Highly relevant here: thousands of meters publishing readings is exactly a queue-shaped problem.</li>
+        <li><strong>Load balancer</strong> — distributes requests across servers; needs stateless servers or sticky sessions.</li>
+        <li><strong>Caching</strong> — Redis in front of the DB for hot reads. The hard part is invalidation.</li>
+      </ul>
+
+      <h3>CORS, because every fresher hits it</h3>
+      <p>Browsers enforce the same-origin policy: JavaScript on <code>site-a.com</code> can't read a response from <code>api-b.com</code> unless the server opts in with <code>Access-Control-Allow-Origin</code> headers. For non-simple requests the browser first sends an OPTIONS <strong>preflight</strong> asking what's allowed. It's a browser restriction, not a server one — which is why the same call works fine from Postman or curl.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>What is a web service?</summary><div class="ans"><p>Software that exposes functionality over a network using a standard protocol, so that programs written in different languages and running on different machines can talk to each other. REST over HTTP with JSON, and SOAP with XML over HTTP, are the two common styles. The point is interoperability through an agreed contract — which is the same idea as the grid protocols Kalkitech works with, just at the application layer.</p></div></details>
+        <details class="qa"><summary>Why is REST stateless? What's the benefit?</summary><div class="ans"><p>Each request carries all the context the server needs, so no request depends on server memory of a previous one. The benefit is horizontal scaling and resilience: any server can handle any request, a crashed server loses nothing, and you can add instances behind a load balancer without session replication. The cost is a slightly larger request payload and repeated authentication work.</p></div></details>
+        <details class="qa"><summary>How would you design an API for collecting readings from a million smart meters?</summary><div class="ans"><p>Think out loud through the flow. Devices publish over MQTT to a broker rather than HTTP — it's lightweight and built for many constrained publishers. An ingestion service subscribes and writes to a queue so bursts don't hit the database directly. Store readings in a time-series or partitioned table keyed by meter and timestamp, with writes batched. Keep raw data hot for a short window, roll up to hourly/daily aggregates for reporting, and archive the rest. Expose a separate read API for dashboards, so a heavy report can never starve ingestion. Mention idempotency: a meter retrying a publish shouldn't create duplicate rows, so use a device-supplied id plus timestamp as a natural key.</p></div></details>
+        <details class="qa"><summary>What is the difference between authentication and authorisation?</summary><div class="ans"><p>Authentication proves who you are (login, token verification). Authorisation decides what you're allowed to do once identified (roles, permissions). In the chatbot I built at Klyonix, authentication was the login layer and authorisation was RBAC applied at the LLM layer — the generated SQL was constrained so a user could only ever query rows their role could see, which matters because the model itself can't be trusted to enforce a boundary.</p></div></details>
+        <details class="qa"><summary>What is an API rate limit and why would you add one?</summary><div class="ans"><p>A cap on requests per client per time window, returning 429 when exceeded. It protects against abuse and accidental infinite loops in client code, keeps one noisy tenant from degrading service for others, and controls cost when each call hits an expensive downstream service. Common implementations are token bucket or sliding window counters in Redis.</p></div></details>
+      </div>
+    </section>
+
+    <section id="sql" data-title="Databases &amp; SQL">
+      <div class="sec-head"><span class="num">8</span><h2>RDBMS and SQL</h2></div>
+      <p class="lede">"RDBMS, SQL proficiency" is an essential skill in the JD, and you have genuine experience here — Prisma with PostgreSQL, plus a whole text-to-SQL pipeline. Expect a query to write on paper.</p>
+
+      <h3>ACID</h3>
+      <ul>
+        <li><strong>Atomicity</strong> — a transaction is all or nothing.</li>
+        <li><strong>Consistency</strong> — a transaction moves the database from one valid state to another, respecting constraints.</li>
+        <li><strong>Isolation</strong> — concurrent transactions don't see each other's half-finished work.</li>
+        <li><strong>Durability</strong> — once committed, it survives a crash (write-ahead log).</li>
+      </ul>
+
+      <h4>Isolation levels and the problems they stop</h4>
+      <table>
+        <tr><th>Level</th><th>Dirty read</th><th>Non-repeatable read</th><th>Phantom read</th></tr>
+        <tr><td>Read Uncommitted</td><td>Possible</td><td>Possible</td><td>Possible</td></tr>
+        <tr><td>Read Committed</td><td>Prevented</td><td>Possible</td><td>Possible</td></tr>
+        <tr><td>Repeatable Read</td><td>Prevented</td><td>Prevented</td><td>Possible</td></tr>
+        <tr><td>Serializable</td><td>Prevented</td><td>Prevented</td><td>Prevented</td></tr>
+      </table>
+      <p><strong>Dirty read</strong> — you read another transaction's uncommitted change. <strong>Non-repeatable read</strong> — you read the same row twice and get different values. <strong>Phantom read</strong> — you run the same query twice and new rows have appeared.</p>
+
+      <h3>Normalisation</h3>
+      <ul>
+        <li><strong>1NF</strong> — atomic values only; no repeating groups or comma-separated lists in a column.</li>
+        <li><strong>2NF</strong> — 1NF plus no partial dependency: non-key columns depend on the <em>whole</em> composite key, not part of it.</li>
+        <li><strong>3NF</strong> — 2NF plus no transitive dependency: non-key columns don't depend on other non-key columns.</li>
+      </ul>
+      <p>Why it matters: it removes redundancy and update anomalies. <strong>Denormalisation</strong> is deliberately reintroducing redundancy to avoid expensive joins on read-heavy workloads — a valid engineering trade-off, not a mistake, as long as you know you're making it.</p>
+
+      <h3>Joins, drawn in words</h3>
+      <ul>
+        <li><strong>INNER JOIN</strong> — only rows matching in both tables.</li>
+        <li><strong>LEFT JOIN</strong> — all rows from the left table, NULLs where the right has no match.</li>
+        <li><strong>RIGHT JOIN</strong> — the mirror image.</li>
+        <li><strong>FULL OUTER JOIN</strong> — everything from both, NULL-padded.</li>
+        <li><strong>CROSS JOIN</strong> — cartesian product; every row with every row.</li>
+        <li><strong>SELF JOIN</strong> — a table joined to itself, e.g. employee to manager.</li>
+      </ul>
+
+      <h3>Queries to have at your fingertips</h3>
+      <pre><code><span class="c">-- 1. Second highest salary (classic). Two ways:</span>
+SELECT MAX(salary) FROM employees
+WHERE salary &lt; (SELECT MAX(salary) FROM employees);
+
+SELECT DISTINCT salary FROM employees
+ORDER BY salary DESC
+OFFSET 1 LIMIT 1;
+
+<span class="c">-- 2. Nth highest using a window function</span>
+SELECT name, salary FROM (
+  SELECT name, salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
+  FROM employees
+) t WHERE rnk = 3;
+
+<span class="c">-- 3. Find duplicates</span>
+SELECT email, COUNT(*) AS c
+FROM users
+GROUP BY email
+HAVING COUNT(*) &gt; 1;
+
+<span class="c">-- 4. Employees earning more than their department average</span>
+SELECT e.name, e.salary, e.dept_id
+FROM employees e
+JOIN (SELECT dept_id, AVG(salary) AS avg_sal
+      FROM employees GROUP BY dept_id) d
+  ON e.dept_id = d.dept_id
+WHERE e.salary &gt; d.avg_sal;
+
+<span class="c">-- 5. Departments with no employees (LEFT JOIN + NULL check)</span>
+SELECT d.name
+FROM departments d
+LEFT JOIN employees e ON e.dept_id = d.id
+WHERE e.id IS NULL;
+
+<span class="c">-- 6. Latest reading per meter — the one most relevant to this company</span>
+SELECT DISTINCT ON (meter_id) meter_id, reading_kwh, recorded_at
+FROM readings
+ORDER BY meter_id, recorded_at DESC;</code></pre>
+      <p><strong>How to explain #1 in the room:</strong> the subquery finds the maximum, then the outer query finds the maximum of everything strictly below it. Mention the edge case before they do — if every salary is identical, this returns NULL, and the <code>DENSE_RANK</code> version handles ties the way most interviewers expect.</p>
+
+      <div class="note">
+        <span class="tag">WHERE vs HAVING</span>
+        <p><code>WHERE</code> filters rows <em>before</em> grouping; <code>HAVING</code> filters groups <em>after</em> aggregation. You cannot use an aggregate function in <code>WHERE</code>. Execution order: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT. Knowing that order explains why you can't use a SELECT alias in WHERE but can in ORDER BY.</p>
+      </div>
+
+      <h3>Indexes</h3>
+      <p>An index is a separate B-tree structure that lets the database find rows without scanning the whole table — the book-index analogy is fine to use. Cost: every INSERT, UPDATE and DELETE must also maintain the index, and it consumes disk. So index columns you filter, join or sort on; don't index everything.</p>
+      <ul>
+        <li><strong>Clustered index</strong> — determines the physical order of rows; one per table (the primary key, typically).</li>
+        <li><strong>Non-clustered</strong> — a separate structure pointing at rows; many per table.</li>
+        <li><strong>Composite index</strong> — on (a, b). It helps queries filtering on <code>a</code> or on <code>a AND b</code>, but generally not on <code>b</code> alone — the leftmost-prefix rule.</li>
+        <li>An index on a column wrapped in a function (<code>WHERE YEAR(created_at) = 2026</code>) won't be used. Rewrite as a range condition.</li>
+      </ul>
+
+      <h3>Keys and constraints</h3>
+      <p><strong>Primary key</strong> — unique and not null, one per table. <strong>Candidate key</strong> — any column set that could serve as primary. <strong>Composite key</strong> — a primary key made of two or more columns. <strong>Foreign key</strong> — references a primary key elsewhere, enforcing referential integrity. <strong>Unique</strong> — allows one NULL (in most databases), unlike a primary key.</p>
+
+      <h3>SQL vs NoSQL</h3>
+      <p>Relational when you have structured data with relationships and need transactions and strong consistency — billing, user accounts, device inventory. NoSQL when the schema varies, the volume is huge, or the access pattern is a simple key lookup — document stores for flexible payloads, time-series databases for sensor readings, key-value stores for caching. Real systems use both: meter master data in PostgreSQL, raw readings in a time-series store.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>DELETE vs TRUNCATE vs DROP</summary><div class="ans"><p><code>DELETE</code> is DML, removes rows one at a time, can have a WHERE clause, fires triggers and can be rolled back. <code>TRUNCATE</code> is DDL, removes all rows by deallocating pages — much faster, no WHERE, resets identity counters, generally can't be rolled back in all engines. <code>DROP</code> removes the table structure itself.</p></div></details>
+        <details class="qa"><summary>What is a deadlock in a database and how do you avoid it?</summary><div class="ans"><p>Transaction A holds a lock on row 1 and wants row 2; transaction B holds row 2 and wants row 1. Neither can proceed. Databases detect this and kill one transaction as the victim. Avoid it by accessing tables and rows in a consistent order everywhere in the codebase, keeping transactions short, and using the lowest isolation level that's still correct.</p></div></details>
+        <details class="qa"><summary>What is a stored procedure? When would you use one?</summary><div class="ans"><p>Precompiled SQL stored in the database and called by name. Advantages: reduced network round trips for multi-statement logic, a permission boundary (grant execute without granting table access), and reuse. Disadvantages: business logic living in the database is harder to version control, test and migrate. Modern practice keeps logic in the application, with procedures for heavy data-local batch operations.</p></div></details>
+        <details class="qa"><summary>A query is slow. Walk me through what you do.</summary><div class="ans"><p>Read the execution plan first — <code>EXPLAIN ANALYZE</code> — and look for a sequential scan on a big table, a nested loop over many rows, or a sort spilling to disk. Then check whether the filter and join columns are indexed, whether an index exists but is unusable because the column is wrapped in a function or has the wrong type, and whether I'm selecting far more columns and rows than needed. After that, look at the shape of the query: correlated subqueries that run per row, N+1 query patterns from the ORM, missing pagination. Last resort is denormalising or adding a materialised view.</p></div></details>
+        <details class="qa"><summary>Why did you use Prisma instead of raw SQL?</summary><div class="ans"><p>Type safety and migrations, mainly. The schema is one file, migrations are generated and versioned, and queries are checked at compile time so a renamed column breaks the build rather than production. The trade-off is less control over the exact SQL emitted and the N+1 risk if you're careless with relations — which is why I'd still drop to raw SQL for complex reporting queries.</p></div></details>
+      </div>
+    </section>
+
+    <section id="networks" data-title="Computer networks">
+      <div class="sec-head"><span class="num">9</span><h2>Computer networks</h2></div>
+      <p class="lede">Multiple reports say they ask about layers "and stuff" — no surprise, since everything this company sells is a communication product. This is the section to over-prepare.</p>
+
+      <h3>The OSI model</h3>
+      <table>
+        <tr><th>#</th><th>Layer</th><th>Job</th><th>Units / examples</th></tr>
+        <tr><td>7</td><td>Application</td><td>What the user's software speaks</td><td>HTTP, FTP, SMTP, DNS, MQTT, Modbus, DNP3</td></tr>
+        <tr><td>6</td><td>Presentation</td><td>Encoding, encryption, compression</td><td>TLS, JPEG, ASCII</td></tr>
+        <tr><td>5</td><td>Session</td><td>Establishing and managing sessions</td><td>RPC, NetBIOS</td></tr>
+        <tr><td>4</td><td>Transport</td><td>End-to-end delivery, ports, reliability</td><td>TCP, UDP — segments</td></tr>
+        <tr><td>3</td><td>Network</td><td>Logical addressing and routing between networks</td><td>IP, ICMP, routers — packets</td></tr>
+        <tr><td>2</td><td>Data link</td><td>Node-to-node delivery on the same link, MAC addressing, error detection</td><td>Ethernet, ARP, switches — frames</td></tr>
+        <tr><td>1</td><td>Physical</td><td>Bits on the wire, voltages, connectors</td><td>Cables, RS-485, radio — bits</td></tr>
+      </table>
+      <p>Mnemonic top-down: <strong>A</strong>ll <strong>P</strong>eople <strong>S</strong>eem <strong>T</strong>o <strong>N</strong>eed <strong>D</strong>ata <strong>P</strong>rocessing.</p>
+      <p>The <strong>TCP/IP model</strong> is the one actually implemented: Application (OSI 5–7), Transport, Internet, Network Access (OSI 1–2). If asked "which is used in practice", the answer is TCP/IP; OSI is the teaching and troubleshooting reference.</p>
+
+      <div class="note">
+        <span class="tag">Tie it to the company</span>
+        <p>Modbus RTU runs over RS-485 — a physical/data-link serial standard. Modbus TCP wraps the same application-layer messages in TCP/IP. That single example proves you understand layering as something real rather than memorised, and it's directly their world.</p>
+      </div>
+
+      <h3>TCP vs UDP</h3>
+      <table>
+        <tr><th></th><th>TCP</th><th>UDP</th></tr>
+        <tr><td>Connection</td><td>Connection-oriented (handshake first)</td><td>Connectionless, fire and forget</td></tr>
+        <tr><td>Reliability</td><td>Acknowledgements, retransmission, ordering</td><td>None — packets may be lost, duplicated or reordered</td></tr>
+        <tr><td>Control</td><td>Flow control and congestion control</td><td>Neither</td></tr>
+        <tr><td>Header</td><td>20 bytes</td><td>8 bytes</td></tr>
+        <tr><td>Used by</td><td>HTTP, email, file transfer, Modbus TCP, SCADA polling</td><td>DNS queries, VoIP, video streaming, most IoT telemetry, SNMP</td></tr>
+      </table>
+      <p><strong>Three-way handshake:</strong> client sends SYN → server replies SYN-ACK → client sends ACK. Now both sides have agreed sequence numbers and the connection is open. Closing takes four steps (FIN, ACK, FIN, ACK) because each direction is shut down separately.</p>
+
+      <h3>What actually happens when you type a URL</h3>
+      <ol>
+        <li>Browser checks its cache, then the OS resolver, then asks DNS: recursive resolver → root → TLD (.com) → authoritative server, returning an IP.</li>
+        <li>ARP resolves the next-hop MAC address on the local network.</li>
+        <li>TCP three-way handshake to the server's IP on port 443.</li>
+        <li>TLS handshake: certificate check, key exchange, agree on a symmetric session key.</li>
+        <li>HTTP GET sent; server responds with HTML.</li>
+        <li>Browser parses, requests CSS/JS/images, builds the DOM and renders.</li>
+      </ol>
+      <p>This one question tests DNS, ARP, TCP, TLS and HTTP at once, which is why it's asked so often. Practise saying it in sixty seconds.</p>
+
+      <h3>Addressing</h3>
+      <ul>
+        <li><strong>IPv4</strong> — 32 bits, dotted decimal. <strong>IPv6</strong> — 128 bits, hex, solves exhaustion and is relevant here because smart metering networks use 6LoWPAN, which is IPv6 over low-power wireless.</li>
+        <li><strong>Private ranges</strong> — 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. Not routable on the internet, so <strong>NAT</strong> maps many private addresses onto one public address.</li>
+        <li><strong>Subnet mask / CIDR</strong> — <code>192.168.1.0/24</code> means the first 24 bits are the network, leaving 8 bits for hosts: 256 addresses, 254 usable (one network address, one broadcast). <code>/26</code> gives 64 addresses, 62 usable.</li>
+        <li><strong>DHCP</strong> assigns addresses automatically (DORA: Discover, Offer, Request, Acknowledge). <strong>MAC</strong> is the permanent hardware address used within a LAN; <strong>ARP</strong> maps IP to MAC.</li>
+        <li><strong>Ports</strong> to know: 20/21 FTP, 22 SSH, 23 Telnet, 25 SMTP, 53 DNS, 80 HTTP, 443 HTTPS, 1883 MQTT, 3306 MySQL, 5432 PostgreSQL, 502 Modbus TCP, 20000 DNP3, 2404 IEC 60870-5-104.</li>
+      </ul>
+
+      <h3>Devices</h3>
+      <p><strong>Hub</strong> (layer 1) repeats to all ports — obsolete. <strong>Switch</strong> (layer 2) forwards frames by MAC address to the right port. <strong>Router</strong> (layer 3) forwards packets between different networks by IP. <strong>Gateway</strong> translates between different protocols — which is, quite literally, Kalkitech's core product.</p>
+
+      <h3>HTTP vs MQTT, and why IoT chose MQTT</h3>
+      <p>HTTP is request-response: the client must ask. MQTT is publish-subscribe through a broker: a device publishes to a topic and any number of subscribers receive it. MQTT has a tiny 2-byte minimum header, keeps one long-lived TCP connection open (so a device behind NAT can receive commands without a public IP), and supports three quality-of-service levels — 0 at most once, 1 at least once, 2 exactly once — plus a "last will" message the broker publishes if a device drops off. For thousands of low-power meters on flaky networks, that's decisive.</p>
+
+      <h3>Diagnostics</h3>
+      <p><code>ping</code> uses ICMP echo to test reachability and latency. <code>traceroute</code> increments TTL to reveal each hop. <code>netstat</code>/<code>ss</code> lists connections and listening ports. <code>nslookup</code>/<code>dig</code> queries DNS. <strong>Wireshark</strong> captures packets — and protocol analysers are explicitly mentioned in the JD's optional skills, so name it.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>Explain the OSI model.</summary><div class="ans"><p>Walk down from application to physical with one line each (use the table above), then add the insight: each layer adds its own header as data goes down the stack — encapsulation — and strips it going up. The value of the model is that a change at one layer doesn't break the others, which is why the same Modbus application messages can run over a serial line or over TCP/IP.</p></div></details>
+        <details class="qa"><summary>Which is better, TCP or UDP?</summary><div class="ans"><p>Neither — it depends on what failure costs you. If losing a byte corrupts the meaning (a file, a billing record, a control command), you want TCP's retransmission and ordering. If late data is useless anyway (live video, voice, a sensor reading that will be superseded in one second), UDP's low overhead wins and the application can add whatever reliability it actually needs. It's a trade of latency against guaranteed delivery.</p></div></details>
+        <details class="qa"><summary>What is the difference between a switch and a router?</summary><div class="ans"><p>A switch works at layer 2 and forwards frames within one network using MAC addresses, learning which device is on which port. A router works at layer 3, connects different networks, and decides the next hop using IP addresses and a routing table. Put simply, a switch moves traffic inside your building; a router moves it between your building and the outside.</p></div></details>
+        <details class="qa"><summary>How does HTTPS actually protect data?</summary><div class="ans"><p>TLS does three things: it authenticates the server via a certificate signed by a trusted CA, it uses asymmetric cryptography during the handshake to agree on a shared symmetric key, and then it encrypts all traffic with that symmetric key — symmetric because it's much faster for bulk data. It also provides integrity, so tampering in transit is detected. Without it, anyone on the path can read and modify the traffic.</p></div></details>
+        <details class="qa"><summary>A device in the field stops reporting data. How do you debug it?</summary><div class="ans"><p>This is a scenario question — show a layered method, not a guess. Start at the bottom: is it powered, is the cable or radio link up, any link lights. Then network: can I ping it, is it getting an address from DHCP, is there a routing or NAT issue, is a firewall blocking the port. Then transport: is the TCP port open, does a telnet or netcat to the port connect. Then application: is the protocol session established, are we polling the right register or object, did credentials or a certificate expire. Then the other end: is the server up, is the broker accepting connections, do the logs show rejected messages. Capture packets with Wireshark at the last uncertain point to see whether the request leaves and whether anything comes back.</p></div></details>
+        <details class="qa"><summary>What is latency vs bandwidth vs throughput?</summary><div class="ans"><p>Latency is delay — how long one packet takes to arrive. Bandwidth is capacity — the maximum data rate the link can carry. Throughput is what you actually achieve, which is always less than bandwidth because of protocol overhead, congestion and retransmission. A satellite link can have high bandwidth and terrible latency; for control commands on a grid, latency is what matters.</p></div></details>
+      </div>
+    </section>
+
+    <section id="os" data-title="Operating systems">
+      <div class="sec-head"><span class="num">10</span><h2>Operating systems</h2></div>
+      <p class="lede">A public interview report for this company says round 2 focused on DSA and OS topics. Don't skip this one.</p>
+
+      <h3>Process vs thread</h3>
+      <table>
+        <tr><th>Process</th><th>Thread</th></tr>
+        <tr><td>Independent memory space</td><td>Shares the process's heap and code; own stack and registers</td></tr>
+        <tr><td>Expensive to create; context switch flushes more state</td><td>Cheap to create and switch</td></tr>
+        <tr><td>Crash is isolated</td><td>A crash can take down the whole process</td></tr>
+        <tr><td>Communicate via IPC (pipes, sockets, shared memory, message queues)</td><td>Communicate via shared variables — hence the need for synchronisation</td></tr>
+      </table>
+      <p>A <strong>context switch</strong> is the kernel saving one task's CPU state (registers, program counter, stack pointer) and restoring another's. It's pure overhead, which is why too many threads makes a system slower, not faster.</p>
+
+      <h3>Scheduling algorithms</h3>
+      <ul>
+        <li><strong>FCFS</strong> — simple, but one long job delays everyone (convoy effect).</li>
+        <li><strong>SJF</strong> — shortest job first gives minimum average waiting time, but you need to know burst times and long jobs can starve.</li>
+        <li><strong>Round robin</strong> — each process gets a time quantum; fair and responsive, the standard for interactive systems. Small quantum = more switching overhead.</li>
+        <li><strong>Priority scheduling</strong> — highest priority first; risk of starvation, solved by <em>ageing</em> (gradually raising the priority of waiting processes).</li>
+        <li><strong>Preemptive vs non-preemptive</strong> — whether the OS can forcibly take the CPU away. Real-time systems are preemptive and priority-based.</li>
+      </ul>
+
+      <h3>Deadlock</h3>
+      <p>Four conditions must all hold — Coffman's conditions:</p>
+      <ol>
+        <li><strong>Mutual exclusion</strong> — a resource can be held by only one process.</li>
+        <li><strong>Hold and wait</strong> — a process holds one resource while waiting for another.</li>
+        <li><strong>No preemption</strong> — resources can't be forcibly taken.</li>
+        <li><strong>Circular wait</strong> — a cycle of processes each waiting on the next.</li>
+      </ol>
+      <p>Break any one and deadlock is impossible. Practical handling: <strong>prevention</strong> (impose a global lock ordering — this kills circular wait and is what real code does), <strong>avoidance</strong> (Banker's algorithm, requires knowing maximum needs in advance), <strong>detection and recovery</strong> (find the cycle, kill a victim — what databases do), or <strong>ignore it</strong> (the ostrich algorithm, which is what general-purpose OSes largely do).</p>
+      <p><strong>Starvation</strong> is different from deadlock: nothing is stuck in a cycle, a process just never gets scheduled because others keep jumping ahead.</p>
+
+      <h3>Synchronisation</h3>
+      <ul>
+        <li><strong>Critical section</strong> — the part of code touching shared data; only one thread should be inside at a time.</li>
+        <li><strong>Mutex</strong> — a lock with ownership; the thread that locks it must unlock it. Binary.</li>
+        <li><strong>Semaphore</strong> — a counter with wait/signal. A counting semaphore allows N concurrent holders (e.g. a pool of 5 connections); a binary semaphore is like a mutex but without ownership, so any thread can signal it.</li>
+        <li><strong>Spinlock</strong> — busy-waits instead of sleeping. Good only when the wait is shorter than a context switch, common in kernels and drivers.</li>
+      </ul>
+
+      <h3>Memory management</h3>
+      <ul>
+        <li><strong>Virtual memory</strong> — each process sees a private contiguous address space; the MMU translates virtual pages to physical frames using page tables. It gives isolation, lets programs exceed physical RAM, and simplifies allocation.</li>
+        <li><strong>Paging</strong> — fixed-size blocks (pages/frames). Causes internal fragmentation. <strong>Segmentation</strong> — variable-size logical units; causes external fragmentation.</li>
+        <li><strong>Page fault</strong> — the page isn't in RAM, so the OS fetches it from disk. Normal in small numbers.</li>
+        <li><strong>Thrashing</strong> — so little RAM per process that the system spends more time swapping pages than executing. Fix by reducing the degree of multiprogramming or adding memory.</li>
+        <li><strong>Page replacement</strong> — FIFO (suffers Belady's anomaly), LRU (good, approximated in practice with a reference bit), Optimal (theoretical benchmark only).</li>
+        <li><strong>TLB</strong> — a cache of recent virtual-to-physical translations, because walking the page table on every access would be far too slow.</li>
+      </ul>
+
+      <h3>Real-time operating systems, since firmware is on the table</h3>
+      <p>An RTOS guarantees that a task will respond within a bounded time — determinism matters more than throughput. It's preemptive and priority-based, with very small, predictable interrupt latency. Examples: FreeRTOS, VxWorks, Zephyr. <strong>Hard real-time</strong> means a missed deadline is a system failure (protection relay tripping a breaker); <strong>soft real-time</strong> means a missed deadline degrades quality (a dashboard refresh). A general-purpose OS like Linux optimises for average throughput and fairness, so its worst-case latency is unbounded — which is why grid protection devices don't run on stock Linux.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>What happens when you run a program?</summary><div class="ans"><p>The shell asks the OS to create a process. The OS allocates a PCB, sets up a virtual address space, loads the executable's text and data segments (lazily, via demand paging), sets up stack and heap, links shared libraries, and puts the process on the ready queue. The scheduler eventually gives it the CPU, the loader jumps to the entry point, and from there it runs until it blocks on I/O, is preempted, or exits — at which point the OS reclaims its memory and reports the exit status to the parent.</p></div></details>
+        <details class="qa"><summary>Mutex vs semaphore — when would you use each?</summary><div class="ans"><p>Mutex for mutual exclusion over one shared resource, where the same thread locks and unlocks — protecting a shared data structure. Semaphore for counting or signalling: limiting concurrent access to N identical resources, or letting one thread signal another that work is ready (producer-consumer). The ownership distinction is the crisp answer: a mutex has an owner, a semaphore doesn't.</p></div></details>
+        <details class="qa"><summary>What is the difference between concurrency and parallelism?</summary><div class="ans"><p>Concurrency is dealing with several tasks at once by interleaving them — it can happen on a single core. Parallelism is actually executing them at the same instant, which needs multiple cores. Concurrency is a structuring concept; parallelism is an execution property. A single-core system running ten threads is concurrent but not parallel.</p></div></details>
+        <details class="qa"><summary>Why does a system slow down when RAM is full?</summary><div class="ans"><p>Because the OS starts swapping pages between RAM and disk. Disk access is orders of magnitude slower than memory, so processes block on page faults constantly, and the CPU sits idle while the disk thrashes. Adding more processes at that point makes it worse, not better.</p></div></details>
+        <details class="qa"><summary>Explain the producer-consumer problem.</summary><div class="ans"><p>A producer writes items into a bounded buffer and a consumer removes them. Two hazards: the producer must not write into a full buffer and the consumer must not read from an empty one, and neither may touch the buffer while the other is mid-update. The standard solution uses a mutex for mutual exclusion plus two counting semaphores — one counting empty slots, one counting full slots. It maps directly onto a real ingestion pipeline: devices produce readings, workers consume them, and the queue in between is the bounded buffer.</p></div></details>
+      </div>
+    </section>
+
+    <section id="dsa" data-title="DSA problems">
+      <div class="sec-head"><span class="num">11</span><h2>DSA: one question, easy to medium</h2></div>
+      <p class="lede">Your senior confirmed one DSA question, not hard. The code below is complete and runnable — type it, run it, and read the explanation of what the output means. Java is used because that's their stack, but say up front which language you're most comfortable in; they normally let you choose.</p>
+
+      <h3>Complexity, in one table</h3>
+      <table>
+        <tr><th>Operation</th><th>Array</th><th>HashMap</th><th>Balanced BST</th></tr>
+        <tr><td>Search</td><td>O(n), O(log n) if sorted</td><td>O(1) average</td><td>O(log n)</td></tr>
+        <tr><td>Insert</td><td>O(n)</td><td>O(1) average</td><td>O(log n)</td></tr>
+        <tr><td>Access by index</td><td>O(1)</td><td>—</td><td>—</td></tr>
+      </table>
+      <p>Sorting: merge sort O(n log n) always and stable but O(n) extra space; quicksort O(n log n) average, O(n²) worst case, in-place; heap sort O(n log n) in-place but not stable. Binary search is O(log n) and requires sorted input.</p>
+
+      <h3>Problem 1 — Two Sum (the hash map pattern)</h3>
+      <pre><code>import java.util.HashMap;
+import java.util.Map;
+
+public class TwoSum {
+    static int[] twoSum(int[] nums, int target) {
+        Map&lt;Integer, Integer&gt; seen = new HashMap&lt;&gt;();   <span class="c">// value -&gt; index</span>
+        for (int i = 0; i &lt; nums.length; i++) {
+            int need = target - nums[i];
+            if (seen.containsKey(need)) {
+                return new int[]{ seen.get(need), i };
+            }
+            seen.put(nums[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {2, 7, 11, 15};
+        int[] r = twoSum(nums, 26);
+        System.out.println(r[0] + " " + r[1]);
+    }
+}</code></pre>
+      <p><strong>Expected output: <code>2 3</code>.</strong> At index 2 the value is 11 and we need 15, which hasn't been seen yet, so 11 goes into the map. At index 3 the value is 15 and we need 11, which is in the map at index 2 — so we return [2, 3]. The whole trick is storing what you've already passed so you never have to look backwards with a second loop: O(n) time, O(n) space, versus O(n²) for the nested-loop version. <strong>Say the brute force out loud first, then improve it</strong> — that sequence is what they're scoring.</p>
+
+      <h3>Problem 2 — Reverse a string / check palindrome (two pointers)</h3>
+      <pre><code>public class Palindrome {
+    static boolean isPalindrome(String s) {
+        int i = 0, j = s.length() - 1;
+        while (i &lt; j) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+            i++; j--;
+        }
+        return true;
+    }
+
+    static String reverse(String s) {
+        char[] c = s.toCharArray();
+        int i = 0, j = c.length - 1;
+        while (i &lt; j) {
+            char t = c[i]; c[i] = c[j]; c[j] = t;
+            i++; j--;
+        }
+        return new String(c);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isPalindrome("racecar"));  <span class="c">// true</span>
+        System.out.println(isPalindrome("kalki"));    <span class="c">// false</span>
+        System.out.println(reverse("kalkitech"));
+    }
+}</code></pre>
+      <p><strong>Expected output: <code>true</code>, <code>false</code>, <code>hcetiklak</code>.</strong> Two pointers start at both ends and walk inward, which halves the work and needs no extra string. Note the loop condition <code>i &lt; j</code> — with <code>i &lt;= j</code> the middle character would be compared with itself, harmless here but a swap in <code>reverse</code> would undo itself. If they ask for case-insensitive and alphanumeric-only, add a skip for non-letters and lowercase both characters.</p>
+
+      <h3>Problem 3 — Reverse a linked list (the most common fresher question)</h3>
+      <pre><code>public class ReverseList {
+    static class Node {
+        int val; Node next;
+        Node(int v) { val = v; }
+    }
+
+    static Node reverse(Node head) {
+        Node prev = null, curr = head;
+        while (curr != null) {
+            Node next = curr.next;   <span class="c">// 1. remember the rest</span>
+            curr.next = prev;        <span class="c">// 2. flip the pointer</span>
+            prev = curr;             <span class="c">// 3. advance prev</span>
+            curr = next;             <span class="c">// 4. advance curr</span>
+        }
+        return prev;                 <span class="c">// prev is the new head</span>
+    }
+
+    public static void main(String[] args) {
+        Node head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+        head.next.next.next = new Node(4);
+
+        Node r = reverse(head);
+        while (r != null) { System.out.print(r.val + " "); r = r.next; }
+    }
+}</code></pre>
+      <p><strong>Expected output: <code>4 3 2 1</code>.</strong> Three pointers is the whole idea: you must save <code>curr.next</code> before overwriting it, or you lose the rest of the list permanently. When the loop ends <code>curr</code> is null and <code>prev</code> sits on the last node processed, which is the new head. O(n) time, O(1) space. If asked for the recursive version, note it costs O(n) stack space.</p>
+
+      <h3>Problem 4 — First non-repeating character (frequency counting)</h3>
+      <pre><code>import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class FirstUnique {
+    static char firstUnique(String s) {
+        Map&lt;Character, Integer&gt; count = new LinkedHashMap&lt;&gt;();
+        for (char c : s.toCharArray())
+            count.put(c, count.getOrDefault(c, 0) + 1);
+
+        for (Map.Entry&lt;Character, Integer&gt; e : count.entrySet())
+            if (e.getValue() == 1) return e.getKey();
+
+        return '_';
+    }
+
+    public static void main(String[] args) {
+        System.out.println(firstUnique("swiss"));
+        System.out.println(firstUnique("aabb"));
+    }
+}</code></pre>
+      <p><strong>Expected output: <code>w</code> then <code>_</code>.</strong> Two passes: count everything, then return the first entry with count 1. <code>LinkedHashMap</code> is the key detail — a plain <code>HashMap</code> has no defined iteration order, so the "first" would be arbitrary. Mention that choice out loud; interviewers notice it.</p>
+
+      <h3>Problem 5 — Maximum subarray sum (Kadane's algorithm)</h3>
+      <pre><code>public class Kadane {
+    static int maxSubarray(int[] a) {
+        int best = a[0], current = a[0];
+        for (int i = 1; i &lt; a.length; i++) {
+            current = Math.max(a[i], current + a[i]);
+            best = Math.max(best, current);
+        }
+        return best;
+    }
+
+    public static void main(String[] args) {
+        int[] a = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        System.out.println(maxSubarray(a));
+    }
+}</code></pre>
+      <p><strong>Expected output: <code>6</code>.</strong> That's the subarray [4, −1, 2, 1]. The insight to state: at every element you make one decision — extend the previous subarray, or start fresh here. You start fresh whenever the running sum has gone so negative that the current element alone is bigger. One pass, O(n), no extra space. Starting both variables at <code>a[0]</code> rather than 0 is what makes it correct for all-negative arrays.</p>
+
+      <h3>Problem 6 — Fizzbuzz and factorial, in case they open easy</h3>
+      <pre><code>public class Warmups {
+    static long factorial(int n) {
+        return (n &lt;= 1) ? 1 : n * factorial(n - 1);
+    }
+
+    public static void main(String[] args) {
+        for (int i = 1; i &lt;= 15; i++) {
+            if (i % 15 == 0)      System.out.println("FizzBuzz");
+            else if (i % 3 == 0)  System.out.println("Fizz");
+            else if (i % 5 == 0)  System.out.println("Buzz");
+            else                  System.out.println(i);
+        }
+        System.out.println(factorial(10));
+    }
+}</code></pre>
+      <p><strong>Expected output:</strong> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, then 3628800. Check <code>% 15</code> first — testing 3 before 15 is the classic bug, because 15 would print "Fizz" and stop. For factorial, mention that <code>int</code> overflows past 12! and even <code>long</code> past 20!, so real code uses <code>BigInteger</code>. Spotting overflow unprompted is a genuine signal of care.</p>
+
+      <h3>Six more to skim tonight</h3>
+      <ul>
+        <li><strong>Remove duplicates from a sorted array</strong> — two pointers, one write index.</li>
+        <li><strong>Check if two strings are anagrams</strong> — sort both, or count with a 26-length array.</li>
+        <li><strong>Find the missing number in 1..n</strong> — expected sum <code>n(n+1)/2</code> minus actual sum, or XOR everything.</li>
+        <li><strong>Detect a cycle in a linked list</strong> — Floyd's slow and fast pointers; they meet if there's a loop.</li>
+        <li><strong>Balanced parentheses</strong> — push openers on a stack, pop and match on closers, stack must end empty.</li>
+        <li><strong>Binary search</strong> — write <code>mid = low + (high - low) / 2</code> and be ready to say why: <code>(low + high)</code> can overflow.</li>
+      </ul>
+
+      <div class="warn">
+        <span class="tag">In the room</span>
+        <p>Ask about input constraints before coding: can the array be empty, can values be negative, are duplicates allowed, is it sorted. One clarifying question is a plus; five is stalling. Then state your approach and complexity, write it, and dry-run it on a small input out loud — walking through <code>[2,7,11,15]</code> step by step is more convincing than perfect syntax.</p>
+      </div>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>What's the time complexity of your solution, and can you do better?</summary><div class="ans"><p>Always answer in two parts: time and space. Then say what the bottleneck is — "it's O(n log n) because of the sort; if I trade space for time with a hash map I can get O(n)". If you genuinely can't improve it, say so and explain the lower bound: comparison sorting can't beat O(n log n), and any algorithm that must examine every element is at least O(n).</p></div></details>
+        <details class="qa"><summary>When would you use a stack vs a queue?</summary><div class="ans"><p>Stack (LIFO) when the most recent item matters first: undo, expression parsing, balanced brackets, DFS, function call frames. Queue (FIFO) when order of arrival matters: BFS, scheduling, print jobs, buffering readings between a producer and a consumer.</p></div></details>
+        <details class="qa"><summary>What is recursion and what are its costs?</summary><div class="ans"><p>A function solving a problem by calling itself on a smaller input, with a base case that stops it. It's clean for tree and divide-and-conquer problems. Costs: every call adds a stack frame, so deep recursion risks a StackOverflowError, and naive recursion can recompute the same subproblem repeatedly — naive Fibonacci is exponential, and memoisation or an iterative version fixes it.</p></div></details>
+      </div>
+    </section>
+
+    <section id="protocols" data-title="Grid protocols &amp; domain">
+      <div class="sec-head"><span class="num">12</span><h2>Grid protocols: your unfair advantage</h2></div>
+      <p class="lede">The JD lists "willingness to learn" these protocols as optional. Nobody else in the queue will have read about them. Twenty minutes here buys you the single most memorable moment of the interview — but present it as curiosity, never as expertise.</p>
+
+      <h3>The cast of characters in a utility system</h3>
+      <ul>
+        <li><strong>IED</strong> (Intelligent Electronic Device) — a microprocessor-based device in a substation: a protective relay, a breaker controller, a meter.</li>
+        <li><strong>RTU</strong> (Remote Terminal Unit) — collects data from field devices and reports it upstream; executes control commands.</li>
+        <li><strong>Gateway / protocol converter</strong> — speaks protocol A on one side and protocol B on the other. Kalkitech's core product.</li>
+        <li><strong>SCADA</strong> (Supervisory Control and Data Acquisition) — the control-room system that polls devices, displays the grid state on an HMI, raises alarms, and issues commands.</li>
+        <li><strong>AMI</strong> (Advanced Metering Infrastructure) — smart meters plus the communication network plus the head-end system. <strong>MDAS</strong> acquires meter data; <strong>MDM</strong> validates, estimates and stores it for billing and analytics.</li>
+        <li><strong>DER</strong> (Distributed Energy Resources) — rooftop solar, storage, EV chargers, wind. The reason the grid got complicated.</li>
+      </ul>
+
+      <h3>The protocols, one paragraph each</h3>
+      <table>
+        <tr><th>Protocol</th><th>What to say about it</th></tr>
+        <tr><td><strong>Modbus</strong></td><td>The oldest and simplest, from 1979. Master-slave, register-based: you read and write numbered holding registers and coils. Modbus RTU runs over serial (RS-232/RS-485), Modbus TCP over Ethernet on port 502. No built-in security or self-description — you need a separate map telling you what register 40001 means.</td></tr>
+        <tr><td><strong>DNP3</strong></td><td>Distributed Network Protocol, dominant in North American utilities. Adds what Modbus lacks: time-stamped events, report-by-exception (the device only reports changes instead of being polled for everything), unsolicited responses, and data quality flags. Runs over serial or TCP (port 20000). Secure Authentication is a bolt-on extension.</td></tr>
+        <tr><td><strong>IEC 60870-5-101 / -104</strong></td><td>The European equivalent of DNP3. 101 is serial, 104 is the TCP/IP version (port 2404). Common in Indian and European utilities for SCADA telecontrol.</td></tr>
+        <tr><td><strong>IEC 61850</strong></td><td>The modern substation standard, and conceptually the most interesting. It's object-oriented: instead of raw register numbers, devices are described by a standard data model (logical nodes with self-describing names), and configuration is exchanged as SCL/XML files. It includes GOOSE messaging — layer-2 multicast for very fast peer-to-peer trip signals between relays, in milliseconds — and Sampled Values for digitised current and voltage waveforms.</td></tr>
+        <tr><td><strong>DLMS/COSEM</strong></td><td>The smart metering standard (IEC 62056). COSEM is the object model — each quantity like active energy has an OBIS code identifying it; DLMS is the messaging layer. This is what Indian smart meters use, under IS 15959.</td></tr>
+        <tr><td><strong>MQTT</strong></td><td>Lightweight publish/subscribe over TCP, the standard for getting field data to the cloud. Covered in section 9.</td></tr>
+        <tr><td><strong>OPC-UA</strong></td><td>Platform-independent industrial interoperability standard with a rich information model and built-in security. Common between plant systems and enterprise IT.</td></tr>
+      </table>
+
+      <div class="note">
+        <span class="tag">The one comparison to memorise</span>
+        <p><strong>Modbus vs IEC 61850, in a sentence each.</strong> Modbus tells you the value in register 40001 and you need a manual to know what that means. IEC 61850 tells you it's the measured current on phase A of a specific circuit breaker, with a timestamp and a quality flag, because the device describes itself. That's the shift from raw registers to a semantic data model — and it's why interoperability testing and protocol conversion is a business.</p>
+      </div>
+
+      <h3>Why any of this needs software engineers</h3>
+      <p>Because every deployment mixes generations. A distribution utility will have 20-year-old relays on serial Modbus, newer IEDs on IEC 61850, meters on DLMS, and a cloud analytics platform expecting JSON over MQTT. Someone has to write the stacks, the mapping configuration, the gateway firmware, the test tools that prove conformance, and the cloud services that store and serve the data. That's the product engineering job you're interviewing for.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>Have you heard of any of these protocols?</summary><div class="ans"><p>Be honest and specific: "I haven't worked with them, but I read up on the basics before today. My rough understanding is Modbus is the simple register-based one, DNP3 and IEC 60870-5-104 are the SCADA telecontrol protocols with event reporting and timestamps, IEC 61850 is the modern object-oriented substation standard, and DLMS/COSEM is for smart meters. MQTT is the one I'd actually be closest to from IoT work. Is that roughly right?" That last question is the strong move — it invites them to teach you, which is exactly the dynamic they want with a trainee.</p></div></details>
+        <details class="qa"><summary>Why do we need so many different protocols? Why not just use HTTP?</summary><div class="ans"><p>Constraints and history. Field devices are power- and memory-limited, links are narrowband and sometimes serial, and some messages must arrive within milliseconds to trip a breaker — HTTP's overhead and request-response model doesn't fit. Add forty years of installed equipment that can't be replaced and regional standardisation, and you get a permanent need for translation between protocols rather than one winner.</p></div></details>
+        <details class="qa"><summary>What is report-by-exception and why does it matter?</summary><div class="ans"><p>Instead of the master polling every point on a schedule, the device reports only when a value changes beyond a deadband, with a timestamp. On a narrowband link with thousands of points that's the difference between a system that works and one that saturates the channel. It also preserves the true time of an event rather than the time it happened to be polled, which matters for fault analysis.</p></div></details>
+      </div>
+    </section>
+
+    <section id="firmware" data-title="Embedded basics">
+      <div class="sec-head"><span class="num">13</span><h2>Embedded and firmware basics</h2></div>
+      <p class="lede">You're most likely on the software track, but the JD covers both and they may probe. Aim for "I can hold a conversation and I'd be happy to learn this side", not expertise.</p>
+
+      <h3>Ten things to know</h3>
+      <ul>
+        <li><strong>Microprocessor vs microcontroller</strong> — a microprocessor is just the CPU and needs external RAM, storage and peripherals; a microcontroller integrates CPU, RAM, flash, timers and I/O on one chip, for low cost and low power.</li>
+        <li><strong><code>volatile</code> in C</strong> — tells the compiler this variable can change outside the program's control (hardware register, ISR-modified flag), so don't cache it in a register or optimise the read away. Classic interview question; the classic bug is a polling loop on a flag that never exits because the compiler hoisted the read.</li>
+        <li><strong>ISR rules</strong> — interrupt service routines must be short, must not block or call malloc/printf, and should just set a flag or push to a buffer for the main loop to handle. Shared variables between an ISR and main code must be <code>volatile</code>.</li>
+        <li><strong>Polling vs interrupt</strong> — polling wastes CPU and adds latency but is simple and predictable; interrupts are efficient and responsive but introduce concurrency hazards.</li>
+        <li><strong>UART, SPI, I2C</strong> — UART is asynchronous serial, two wires, point to point, needs matching baud rates. SPI is synchronous, fast, full-duplex, four wires, one chip-select per slave. I2C is two wires (SDA/SCL), addressed, multi-device, slower.</li>
+        <li><strong>Watchdog timer</strong> — a hardware counter that resets the device unless the firmware "kicks" it regularly. Recovers from hangs in a device sitting on a pole with no one to press reset.</li>
+        <li><strong>Endianness</strong> — byte order. Big-endian puts the most significant byte first (network byte order); little-endian is what x86 and most ARM configurations use. Protocol code lives and dies by getting conversion right.</li>
+        <li><strong>Memory sections</strong> — text (code), data (initialised globals), BSS (zero-initialised globals), heap, stack. Embedded systems often avoid the heap entirely because fragmentation over months of uptime is fatal.</li>
+        <li><strong>Bit manipulation</strong> — set a bit <code>x |= (1 &lt;&lt; n)</code>, clear <code>x &amp;= ~(1 &lt;&lt; n)</code>, toggle <code>x ^= (1 &lt;&lt; n)</code>, test <code>(x &gt;&gt; n) &amp; 1</code>. Expect one of these.</li>
+        <li><strong>Pointers</strong> — be able to explain a null pointer vs a dangling pointer (pointing at freed memory) vs a wild pointer (uninitialised), and what a memory leak is in C.</li>
+      </ul>
+
+      <pre><code><span class="c">/* Reading a hardware status flag set by an interrupt.
+   Without volatile, the compiler may cache dataReady in a register
+   and this loop will spin forever. */</span>
+volatile uint8_t dataReady = 0;
+
+void UART_ISR(void) {
+    dataReady = 1;          /* keep ISRs this short */
+}
+
+int main(void) {
+    while (1) {
+        if (dataReady) {
+            dataReady = 0;
+            processFrame();
+        }
+        kickWatchdog();
+    }
+}</code></pre>
+      <p><strong>What to say about this:</strong> it's the standard main-loop-plus-ISR structure. The ISR does the minimum — set a flag — and the main loop does the work. <code>volatile</code> is doing the load-bearing job: it forces the compiler to re-read the variable from memory on every iteration, because nothing in the visible code path ever changes it.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>Would you be willing to work on the firmware track?</summary><div class="ans"><p>Say yes if you mean it, with a real reason: "My hands-on work is on the software side, but I've done C and C++ in coursework and I'm genuinely interested in the layer where software meets hardware — it's harder to learn on your own than web development, which is exactly why I'd want to learn it here. I'd be glad to go wherever the team needs, with a slight lean toward the cloud and backend side where I can contribute fastest."</p></div></details>
+        <details class="qa"><summary>What's the difference between RAM and flash on a microcontroller?</summary><div class="ans"><p>Flash is non-volatile — it holds the firmware and any persisted configuration, survives power loss, and has a limited number of write cycles. RAM is volatile working memory for the stack, heap and variables, much faster to write, and cleared on reset. Firmware runs from flash and keeps its variables in RAM, which is typically the scarcer resource — tens of kilobytes on a small device.</p></div></details>
+      </div>
+    </section>
+
+    <section id="cloud" data-title="Cloud, Git, Docker">
+      <div class="sec-head"><span class="num">14</span><h2>Cloud, Git and Docker</h2></div>
+      <p class="lede">"AWS/Azure exposure" is an essential skill in the JD and version control is optional-but-expected. Keep these answers short; they're checkbox questions.</p>
+
+      <h3>Cloud basics</h3>
+      <ul>
+        <li><strong>IaaS</strong> — you rent machines and manage the OS upward (EC2, Azure VM). <strong>PaaS</strong> — you deploy code, the platform handles the runtime (App Service, Elastic Beanstalk). <strong>SaaS</strong> — you just use the software (Gmail).</li>
+        <li><strong>Core AWS services</strong> — EC2 (compute), S3 (object storage), RDS (managed relational DB), Lambda (serverless functions), IoT Core (device connectivity with MQTT), CloudWatch (logs and metrics), VPC (private network). Azure equivalents: Virtual Machines, Blob Storage, Azure SQL, Functions, IoT Hub, Monitor.</li>
+        <li><strong>Vertical vs horizontal scaling</strong> — a bigger machine vs more machines. Horizontal needs statelessness but has no ceiling and survives single-node failure.</li>
+        <li><strong>Why cloud for a utility platform</strong> — elastic ingestion for millions of meter readings, managed time-series storage, and no data centre for each customer. The counter-argument you should also know: utilities have strict data residency and security requirements, so many deployments are on-premise or hybrid.</li>
+      </ul>
+
+      <h3>Docker in four sentences</h3>
+      <p>A container packages an application with its dependencies so it runs identically everywhere — "works on my machine" stops being a problem. Unlike a VM, containers share the host kernel, so they start in milliseconds and are far lighter. An <strong>image</strong> is the immutable template built from a Dockerfile; a <strong>container</strong> is a running instance of it. <code>docker build</code>, <code>docker run</code>, <code>docker ps</code>, <code>docker logs</code> is 90% of daily use.</p>
+
+      <h3>Git commands you should be able to rattle off</h3>
+      <pre><code>git clone &lt;url&gt;                 # copy a repo locally
+git checkout -b feature/login   # create and switch to a branch
+git status                      # what's changed
+git add . &amp;&amp; git commit -m "…"  # stage and record
+git pull --rebase origin main   # get others' work, replay yours on top
+git push origin feature/login   # publish your branch
+git merge main                  # bring main into your branch
+git log --oneline --graph       # see history
+git revert &lt;commit&gt;             # undo a commit with a new commit (safe on shared branches)
+git reset --hard &lt;commit&gt;       # move the branch pointer, discard changes (dangerous)
+git stash                       # shelve uncommitted work</code></pre>
+      <p><strong>Merge vs rebase:</strong> merge preserves true history and creates a merge commit; rebase rewrites your commits on top of the target branch for a linear history. The rule: never rebase a branch others have already pulled. <strong>Resolving a conflict:</strong> Git marks the conflicting region in the file, you edit it to the correct final content, remove the markers, <code>git add</code> the file and continue.</p>
+
+      <h3>CI/CD</h3>
+      <p>Continuous integration means every push triggers an automated build and test run, so integration problems surface in minutes rather than at release. Continuous delivery/deployment extends that to automatically shipping a passing build to staging or production. Tools: GitHub Actions, Jenkins, GitLab CI. The point to make: it's not about tools, it's about shortening the feedback loop between writing a bug and finding it.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>Have you used any cloud services?</summary><div class="ans"><p>Answer from real experience — deployments to Render and Neon serverless PostgreSQL count, so say so: "I've deployed backends to managed platforms and used Neon's serverless PostgreSQL for a project, so I understand managed databases, connection pooling and environment configuration. I haven't run production infrastructure on AWS directly, but I know the core service categories and I'm comfortable learning the specifics."</p></div></details>
+        <details class="qa"><summary>What is the difference between a VM and a container?</summary><div class="ans"><p>A VM virtualises hardware and runs a full guest OS on a hypervisor — heavy, slow to boot, but strongly isolated. A container virtualises the OS: it shares the host kernel and isolates processes with namespaces and cgroups — lightweight, seconds to start, but weaker isolation and tied to the host kernel type. You use VMs for strong isolation and different OSes, containers for packaging and scaling applications.</p></div></details>
+      </div>
+    </section>
+
+    <section id="sdlc" data-title="SDLC &amp; design patterns">
+      <div class="sec-head"><span class="num">15</span><h2>SDLC, Agile and design patterns</h2></div>
+      <p class="lede">The JD names SDLC, design patterns, test automation and requirement management practices. These questions are easy marks if you've read them once.</p>
+
+      <h3>SDLC phases</h3>
+      <p>Requirements → design → implementation → testing → deployment → maintenance. Models:</p>
+      <ul>
+        <li><strong>Waterfall</strong> — sequential, each phase completed before the next. Works when requirements are fixed and certification matters; painful when they change.</li>
+        <li><strong>V-model</strong> — waterfall with a matching test level for each design level (unit for module design, system test for system design). Common in safety-critical and industrial products, so relevant here.</li>
+        <li><strong>Agile/Scrum</strong> — short iterations (sprints), working software each sprint, requirements allowed to evolve. Ceremonies: sprint planning, daily standup, review, retrospective. Roles: product owner, scrum master, dev team. Artifacts: product backlog, sprint backlog, increment.</li>
+      </ul>
+      <p><strong>User story format:</strong> "As a [role], I want [capability], so that [benefit]." <strong>Acceptance criteria</strong> are the testable conditions that decide whether the story is done — "Given a meter with no readings in 24 hours, when the dashboard loads, then it shows a 'no data' alert." Being able to write one is exactly what the JD's "requirement management practices" line is about.</p>
+
+      <h3>Testing</h3>
+      <ul>
+        <li><strong>Unit</strong> — one function or class in isolation, dependencies mocked. Fast, run on every commit.</li>
+        <li><strong>Integration</strong> — modules together, including the real database or a real protocol stack.</li>
+        <li><strong>System / end-to-end</strong> — the whole product against requirements.</li>
+        <li><strong>Regression</strong> — re-running old tests to prove a change broke nothing.</li>
+        <li><strong>Smoke</strong> — a quick check that the build is worth testing at all.</li>
+        <li><strong>Black box vs white box</strong> — testing against the spec without seeing the code, vs testing with knowledge of the internals and aiming for branch coverage.</li>
+      </ul>
+
+      <h3>The five design patterns worth knowing</h3>
+      <table>
+        <tr><th>Pattern</th><th>Problem it solves</th><th>Where you've seen it</th></tr>
+        <tr><td><strong>Singleton</strong></td><td>Exactly one instance, globally reachable</td><td>Database connection pool, logger, app config</td></tr>
+        <tr><td><strong>Factory</strong></td><td>Create objects without the caller knowing the concrete class</td><td><code>ProtocolClientFactory.create("dnp3")</code> returning the right client</td></tr>
+        <tr><td><strong>Observer</strong></td><td>Notify many dependents when one object changes</td><td>Event listeners, pub/sub, React state triggering re-renders</td></tr>
+        <tr><td><strong>Strategy</strong></td><td>Swap an algorithm at runtime behind one interface</td><td>Different retrieval or ranking strategies in a RAG pipeline</td></tr>
+        <tr><td><strong>Adapter</strong></td><td>Make an incompatible interface usable</td><td>Wrapping a legacy protocol library behind your own interface — the pattern this company is built on</td></tr>
+      </table>
+
+      <pre><code>// Singleton — thread-safe, lazy, using the holder idiom
+public class ConfigManager {
+    private ConfigManager() { }                    <span class="c">// private constructor</span>
+
+    private static class Holder {
+        private static final ConfigManager INSTANCE = new ConfigManager();
+    }
+
+    public static ConfigManager getInstance() {
+        return Holder.INSTANCE;
+    }
+}
+
+// Factory
+interface ProtocolClient { void read(); }
+class ModbusClient implements ProtocolClient { public void read() { System.out.println("modbus read"); } }
+class Dnp3Client   implements ProtocolClient { public void read() { System.out.println("dnp3 read");   } }
+
+class ClientFactory {
+    static ProtocolClient create(String type) {
+        switch (type) {
+            case "modbus": return new ModbusClient();
+            case "dnp3":   return new Dnp3Client();
+            default: throw new IllegalArgumentException("unknown protocol: " + type);
+        }
+    }
+}</code></pre>
+      <p><strong>Why the singleton is written that way:</strong> the inner holder class isn't loaded until <code>getInstance()</code> is first called, and the JVM guarantees class initialisation is thread-safe — so you get lazy loading and thread safety without any synchronisation cost. If asked for the naive version, write it, then mention that <code>if (instance == null)</code> without locking is broken under concurrency. And be ready for the pushback: singletons are global state, which makes unit testing harder, so dependency injection is usually preferred in modern code.</p>
+
+      <div class="qa-wrap">
+        <h3>Sample questions</h3>
+        <details class="qa"><summary>Which SDLC model would you choose for a product that goes into substations?</summary><div class="ans"><p>Something closer to V-model or a hybrid than pure Agile. The firmware has certification and interoperability requirements against fixed standards, field updates are expensive, and a defect can trip a breaker — so you want formal requirements and matching verification at each level. The cloud and web layers above it can run Agile sprints because they're deployed continuously and the cost of a fix is low. Real companies run both, which is the answer that shows judgement rather than fashion.</p></div></details>
+        <details class="qa"><summary>What is the difference between a library and a framework?</summary><div class="ans"><p>You call a library; a framework calls you. With a library like Lodash you decide the flow of control. With a framework like Spring or Angular the framework owns the flow and invokes your code at defined points — that's inversion of control. React sits in between, which is why it's called a library.</p></div></details>
+        <details class="qa"><summary>What is technical debt?</summary><div class="ans"><p>A shortcut taken to ship faster that will cost more to fix later — skipped tests, duplicated logic, a hardcoded value, a missing abstraction. It's not automatically bad; taking on debt deliberately to hit a deadline is a legitimate decision as long as it's recorded and paid down. It becomes a problem when it's accidental and invisible.</p></div></details>
+      </div>
+    </section>
+
+    <section id="puzzles" data-title="Puzzles &amp; reasoning">
+      <div class="sec-head"><span class="num">16</span><h2>Puzzles, riddles and scenarios</h2></div>
+      <p class="lede">Your senior's single clearest signal: they test how you think. Public reports mention a paper round of basic logic questions. Work through these tonight — not to memorise answers, but so the <em>shape</em> of the reasoning is familiar.</p>
+
+      <div class="warn">
+        <span class="tag">How to answer a puzzle</span>
+        <p>Say your first thought out loud, even if it's wrong. Then constrain: what's the goal, what's allowed, what's the limiting resource. Then look for the trick — almost every classic puzzle turns on doing two things at once, encoding information cleverly, or working backwards from the end. If you've heard the puzzle before, <strong>say so</strong> and then explain the reasoning anyway. Pretending to derive a memorised answer is transparent and costs you more than honesty ever will.</p>
+      </div>
+
+      <details class="qa"><summary>Two ropes each burn in exactly 60 minutes, but not uniformly. Measure 45 minutes.</summary><div class="ans"><p>Light rope A at both ends and rope B at one end simultaneously. A burns out in 30 minutes regardless of the uneven rate, because two flames consume it from both ends. At that instant, B has 30 minutes of rope left — so light B's other end too, and it burns out in 15 more. Total 45. <strong>The transferable idea:</strong> burning from both ends halves the time, and you can start a new measurement at the moment an old one ends.</p></div></details>
+
+      <details class="qa"><summary>Three switches outside a room, three bulbs inside. You may enter once. Which switch controls which bulb?</summary><div class="ans"><p>Turn switch 1 on for ten minutes, then turn it off and turn switch 2 on. Enter. The lit bulb is switch 2, the bulb that's off but warm is switch 1, and the cold, dark one is switch 3. <strong>The idea:</strong> when you're limited to one observation, find a second physical channel to carry information — here, heat.</p></div></details>
+
+      <details class="qa"><summary>Eight identical-looking balls, one is heavier. Find it in two weighings on a balance scale.</summary><div class="ans"><p>Split into 3, 3, 2. Weigh the two groups of three. If they balance, the heavy ball is in the pair — weigh those two, done. If one group of three is heavier, take any two of those three and weigh them: if one is heavier it's that one, if they balance it's the third. <strong>The idea:</strong> a balance has three outcomes, not two, so divide into three groups rather than halves. Nine balls works identically; twelve balls with an unknown heavy-or-light ball needs three weighings.</p></div></details>
+
+      <details class="qa"><summary>Four people cross a bridge at night with one torch. They take 1, 2, 5 and 10 minutes; at most two cross at a time and the pair moves at the slower speed. Minimum total time?</summary><div class="ans"><p>17 minutes. The greedy approach — always send the fastest person back — gives 19 and is the trap. The trick is to make the two slow people cross <em>together</em> so 5 and 10 are paid only once: 1 and 2 cross (2), 1 returns (1), 5 and 10 cross (10), 2 returns (2), 1 and 2 cross (2). Total 2+1+10+2+2 = 17. <strong>The idea:</strong> pair the expensive items so their cost overlaps.</p></div></details>
+
+      <details class="qa"><summary>A bat and a ball cost ₹110 together. The bat costs ₹100 more than the ball. What does the ball cost?</summary><div class="ans"><p>₹5, not ₹10. If the ball is x, the bat is x + 100, so 2x + 100 = 110 and x = 5. Check: 105 + 5 = 110 and the difference is 100. This is a deliberate test of whether you check your intuition with arithmetic — always verify before answering a question that seems too easy.</p></div></details>
+
+      <details class="qa"><summary>100 lockers, all closed. Person 1 toggles every locker, person 2 every 2nd, person 3 every 3rd, up to 100. Which lockers are open?</summary><div class="ans"><p>The perfect squares: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100 — ten lockers. Locker n is toggled once per divisor of n. Divisors come in pairs (for 12: 1×12, 2×6, 3×4), so most numbers have an even count and end closed. Only perfect squares have an odd number of divisors, because one pair is a number times itself.</p></div></details>
+
+      <details class="qa"><summary>You have 1000 bottles of wine, exactly one is poisoned, and 10 test strips. Results take a day. Find the poisoned bottle in one day.</summary><div class="ans"><p>Number the bottles 0–999 in binary; 10 bits covers 1024. Assign each strip to one bit position, and drop onto strip i a sample of every bottle whose i-th bit is 1. The next day, read the strips as a 10-bit binary number where positive = 1 — that number is the poisoned bottle. <strong>The idea:</strong> n binary tests distinguish 2ⁿ possibilities. Same principle as the 8-ball problem, different base.</p></div></details>
+
+      <details class="qa"><summary>25 horses, a track that races 5 at a time, no timer. How many races to find the top 3?</summary><div class="ans"><p>Seven. Race five groups of five (5 races). Race the five winners (race 6) — this ranks the groups; call them A &gt; B &gt; C &gt; D &gt; E. The overall winner is A1. Anything in groups D and E is eliminated, as is C2 and below, B3 and below, and A4 and below. The remaining candidates for places 2 and 3 are A2, A3, B1, B2 and C1 — exactly five. Race them (race 7); the top two finish the podium.</p></div></details>
+
+      <details class="qa"><summary>Two eggs, a 100-floor building. Find the highest floor an egg survives, minimising worst-case drops.</summary><div class="ans"><p>14. With one egg you must go floor by floor, so the first egg's drops must get progressively cheaper: drop from 14, then 27, then 39, 50, 60, 69, 77, 84, 90, 95, 99, 100 — each step decreasing by one. If the first egg breaks after k jumps, you have 14 − k linear floors left to test with the second egg, so every path costs 14. The equation is n(n+1)/2 ≥ 100, giving n = 14.</p></div></details>
+
+      <details class="qa"><summary>Monty Hall: three doors, a car behind one. You pick door 1; the host opens door 3 showing a goat and offers a switch. Do you switch?</summary><div class="ans"><p>Yes — switching wins 2/3 of the time. Your original pick had a 1/3 chance of being right, and that doesn't change when a door is opened. The remaining 2/3 collapses onto the single unopened door. The reason it works is that the host knows where the car is and deliberately opens a goat door, which injects information. If the host opened a door at random and it happened to show a goat, the odds would be 50/50 — say this if pushed, it's the part most people can't explain.</p></div></details>
+
+      <details class="qa"><summary>Measure exactly 4 litres with a 5-litre and a 3-litre jug.</summary><div class="ans"><p>Fill the 5, pour into the 3 (5 has 2 left), empty the 3, pour the 2 litres into the 3, fill the 5 again, top up the 3 from the 5 — that takes only 1 litre, leaving exactly 4 in the 5-litre jug. State the general rule if you want a bonus: with jugs of capacity a and b you can measure any multiple of gcd(a, b).</p></div></details>
+
+      <details class="qa"><summary>What is the angle between the hands of a clock at 3:15?</summary><div class="ans"><p>7.5 degrees. The minute hand is exactly at 90° (the 3 position). The hour hand isn't at 90° — it has moved a quarter of the way toward 4, and since each hour is 30°, that's 90 + 7.5 = 97.5°. Difference: 7.5°. The general formula is |30H − 5.5M|.</p></div></details>
+
+      <details class="qa"><summary>Why are manhole covers round?</summary><div class="ans"><p>A circle is the only common shape with constant width, so a round cover can't fall through its own hole at any angle — a square cover fits diagonally and drops in. Secondary reasons: it can be rolled rather than lifted, it needs no alignment when replacing, and a circle resists the compressive load of soil and traffic evenly. Give the safety answer first; that's the one they're after.</p></div></details>
+
+      <details class="qa"><summary>How many petrol pumps are there in Kerala?</summary><div class="ans"><p>They don't want a number, they want your method. Kerala's population is roughly 3.5 crore. Say there's about one vehicle per four people — around 90 lakh vehicles, though most are two-wheelers. A busy pump might serve 500–800 vehicles a day, and a vehicle refuels maybe once a week, so daily demand is around 13 lakh refuels; at ~600 per pump that's roughly 2,000–2,500 pumps. State your assumptions as you go, keep the numbers round, and finish by sanity-checking: that's about one pump per 15,000 people, which sounds plausible for a dense state. Being explicit about assumptions is the entire score.</p></div></details>
+
+      <details class="qa"><summary>A scenario: our dashboard shows meter readings from yesterday but today's are missing. Where do you look?</summary><div class="ans"><p>Narrow it down by asking where the data stops rather than guessing a cause. Is it all meters or some? If all, the problem is central — ingestion service down, broker unreachable, disk full, a credential or certificate expired overnight, a failed deployment. If some, it's regional — a gateway or a communication link. Then follow the pipeline end to end: are devices publishing, is the broker receiving, is the consumer writing, are rows in the database, is the API querying the right time window, or is this purely a display problem with timezone handling? Check the obvious dumb causes too — a daylight or timezone boundary, a certificate that expired at midnight, a cron that didn't run. Finish with: "and I'd check whether anything was deployed yesterday", because that's the answer more often than anything clever.</p></div></details>
+
+      <div class="note">
+        <span class="tag">If you're stuck and the clock is ticking</span>
+        <p>Say what you've ruled out. "A pure divide-in-half approach doesn't use all the information the scale gives me, so let me try three groups instead." An interviewer who sees you narrowing the space will usually nudge you, and accepting a hint gracefully scores better than silence.</p>
+      </div>
+    </section>
+
+    <section id="resume" data-title="Defending your resume">
+      <div class="sec-head"><span class="num">17</span><h2>Your own resume, line by line</h2></div>
+      <p class="lede">Everything on your resume is fair game, and a claim you can't defend does more damage than one you never made. For each item: a 30-second pitch, the likely follow-up, and the honest answer.</p>
+
+      <h3>Klyonix — RAG + Text-to-SQL chatbot</h3>
+      <p><strong>Pitch:</strong> "A multi-tenant chatbot that lets non-technical users query relational databases in plain English. It combines retrieval over schema and documentation with dynamic SQL generation, and enforces role-based access control at the LLM layer so a user can only ever get data their role is allowed to see."</p>
+      <ul>
+        <li><strong>"How do you stop it generating a wrong or dangerous query?"</strong> Constrain generation with the schema in context, validate the generated SQL before execution, allow only SELECT against a read-only connection, enforce row-level filters from the user's role rather than trusting the model, and cap result sizes. The principle: treat model output as untrusted input.</li>
+        <li><strong>"What does the 60% reduction in reporting effort mean?"</strong> Be precise and honest — it's the time saved against manually writing and running the recurring reports that pipeline replaced. If you don't have a rigorous measurement, say "that's the estimate from the team whose reports it replaced", never invent a methodology.</li>
+        <li><strong>"What's multi-tenant?"</strong> Multiple customer organisations served by one application instance, with their data isolated from each other — by separate schemas, or by a tenant id filter enforced below the application layer. Directly relevant to a utility platform serving multiple utilities.</li>
+      </ul>
+
+      <h3>AI4SEES — computer vision with YOLOv8</h3>
+      <p><strong>Pitch:</strong> "Real-time object detection, segmentation and hazard tracking on video streams, with a fine-tuned theft detection model and a React dashboard for monitoring."</p>
+      <ul>
+        <li><strong>"How did you optimise for high FPS?"</strong> Frame skipping and resolution tuning, batching, running inference on GPU, using a smaller model variant where accuracy allowed, and decoupling capture from inference so a slow model doesn't stall the stream.</li>
+        <li><strong>"What is fine-tuning?"</strong> Taking a model already trained on a large general dataset and continuing training on your specific data, usually with a lower learning rate. You keep the learned general features and adapt the final layers to your classes, which is why it works with a few thousand images instead of a few million.</li>
+        <li><strong>"What was the hardest part?"</strong> A real answer, not a humble brag — edge cases and false positives. Good performance on a test set and good performance on a live camera at dusk are different problems.</li>
+      </ul>
+
+      <h3>SpiceNest — full-stack e-commerce</h3>
+      <p>This is your best asset in this interview, because it's the closest thing to what they build: a real backend, a relational schema, auth, payments, and a React frontend. Be ready on schema design (products, users, orders, order_items and why order_items stores the price at purchase time rather than joining to the current product price), JWT flow, bcrypt salting, and why you chose Context over Redux. If they ask what you'd do differently: add proper server-side validation on every endpoint, idempotency keys on the payment callback, and tests.</p>
+
+      <h3>LegalEase — RAG legal advisor</h3>
+      <ul>
+        <li><strong>"What is RAG in one sentence?"</strong> Instead of relying on what a language model memorised, you retrieve relevant documents at query time and put them in the prompt, so answers are grounded in a source you control and can cite.</li>
+        <li><strong>"What is re-ranking and why FlashRank?"</strong> First-stage retrieval is fast but approximate — it fetches, say, 50 candidates by vector similarity. A cross-encoder re-ranker then scores each candidate against the query properly and keeps the best 5. Two stages because the accurate model is too slow to run over the whole corpus.</li>
+        <li><strong>"What does 92% faithfulness mean?"</strong> A RAGAS metric: the proportion of claims in the generated answer that are actually supported by the retrieved context. It measures hallucination, not correctness — say that distinction, it shows you understand your own numbers.</li>
+        <li><strong>"What's semantic chunking?"</strong> Splitting documents at meaning boundaries rather than fixed character counts, so a clause isn't cut in half and retrieval returns coherent passages.</li>
+      </ul>
+
+      <h3>The three questions you must have an answer for</h3>
+      <div class="say">
+        <p><strong>"Your resume is all AI. This job is Java, React and embedded systems. Why are you here?"</strong></p>
+        <p>"Because what I actually enjoy is building systems, and AI happened to be where my last two internships were. Look at what those projects have in common — a backend, a database schema, an API, access control, a deployment. That's product engineering. I'd rather go deep on a domain with real engineering constraints than keep gluing models together, and this is a place where the software has to be correct because something physical depends on it."</p>
+      </div>
+      <div class="say">
+        <p><strong>"Will you leave for an AI job in a year?"</strong></p>
+        <p>Don't over-promise a decade. "I'm looking for a place to become a real engineer, which takes more than a year. What would make me stay is interesting problems and people who are better than me to learn from — and from what I've read about the protocol and platform work here, that's the case." Honest and specific beats a scripted 'I see myself growing with the company'.</p>
+      </div>
+      <div class="say">
+        <p><strong>"Which of your projects are you proudest of, and what went wrong in it?"</strong></p>
+        <p>Pick one, and answer the second half properly — the failure is the real question. Something like: the first version of the RAG pipeline retrieved chunks that were technically similar but useless in context, and it took measuring faithfulness with RAGAS before that was obvious. The lesson is that without evaluation you're tuning on vibes.</p>
+      </div>
+    </section>
+
+    <section id="hr" data-title="HR round">
+      <div class="sec-head"><span class="num">18</span><h2>The HR round</h2></div>
+      <p class="lede">This round decides offers more often than people expect, and public reports mention candidates failing at the last stage. Treat it seriously: prepare answers, but say them in your own words, not in the words below.</p>
+
+      <h3>What Kalkitech seems to value</h3>
+      <p>From their own positioning and forty-plus years of combined product history, four things come through. Use them as themes, not as slogans to recite:</p>
+      <ul>
+        <li><strong>Standards and correctness.</strong> Their entire business is built on conforming exactly to published specifications and proving it with test tools. Sloppiness isn't a style difference here; it's a product defect.</li>
+        <li><strong>Long-term R&amp;D and deep domain work.</strong> Founded 1998, still building in the same industry. They value people who go deep rather than chase the newest framework.</li>
+        <li><strong>Interoperability and partnership.</strong> They sit between OEMs, utilities and integrators, so the work is collaborative and cross-functional by nature.</li>
+        <li><strong>Real-world consequence.</strong> Grid software affects billing, outages and safety. Care and thoroughness are the cultural currency.</li>
+      </ul>
+      <p>Whenever you can, align an answer with one of these rather than with generic corporate virtues.</p>
+
+      <h3>The STAR method</h3>
+      <p>For every behavioural question — <strong>S</strong>ituation (context in one sentence), <strong>T</strong>ask (what you had to do), <strong>A</strong>ction (what <em>you</em> specifically did), <strong>R</strong>esult (outcome, ideally measurable, plus what you learned). Most candidates spend too long on situation and skip the result. Aim for 20% situation, 60% action, 20% result.</p>
+
+      <div class="qa-wrap">
+        <h3>Questions and how to answer them</h3>
+
+        <details class="qa"><summary>Why should we hire you?</summary><div class="ans"><p>Three specifics, no adjectives. "One: I've shipped complete systems, not just assignments — schema to deployment, including the boring parts like auth and error handling. Two: I pick up stacks fast, and I've done it under deadline in two internships. Three: I want the domain. I've spent time reading about smart grid protocols before this interview because it genuinely interests me, and that's the part you can't train into someone."</p></div></details>
+
+        <details class="qa"><summary>What is your greatest strength?</summary><div class="ans"><p>Pick one and prove it with an example. Good one for you: "Debugging systems I didn't design. The theft detection model and the inference pipeline at AI4SEES were handed to me partly built, and most of my value was finding why things failed on real video rather than on the test set." Avoid 'hard worker' and 'perfectionist'.</p></div></details>
+
+        <details class="qa"><summary>What is your greatest weakness?</summary><div class="ans"><p>A real one, with the correction already in progress — not a disguised strength. For example: "I tend to go deep into building before I've validated the approach. On the RAG project I spent a week tuning retrieval before setting up an evaluation pipeline, and once RAGAS was in place I realised I'd been optimising the wrong thing. Now I set up a way to measure before I start tuning." Never say "I work too hard" — interviewers hear it every day and it reads as evasion.</p></div></details>
+
+        <details class="qa"><summary>Where do you see yourself in five years?</summary><div class="ans"><p>"Technically deep in one domain rather than shallow across ten. In five years I'd want to own a module or a product area end to end, know this industry's standards well enough to be the person others ask, and have mentored at least one person through what I'm about to go through. Whether that's with a title or not matters less to me than being genuinely useful."</p></div></details>
+
+        <details class="qa"><summary>Tell me about a conflict in a team and how you handled it.</summary><div class="ans"><p>Use STAR, and pick a real disagreement, not a personality clash. Something from a project or your role as House Captain: two people wanted incompatible approaches, you got both to state the requirement rather than the solution, found the actual constraint, and picked based on that. Result: decision made without resentment. End with the lesson — most technical arguments are really about unstated assumptions.</p></div></details>
+
+        <details class="qa"><summary>Tell me about a time you failed.</summary><div class="ans"><p>Choose something genuine with a clear correction, and don't pick a failure that questions your reliability. The RAG evaluation story works. So does an over-committed deadline where you learned to communicate slippage early instead of hoping to catch up. The structure matters more than the story: what happened, what you owned, what changed afterwards.</p></div></details>
+
+        <details class="qa"><summary>How do you handle pressure or tight deadlines?</summary><div class="ans"><p>Answer with a method, not a mood. "I break the work into what must ship versus what's nice to have, and I flag risk early rather than at the deadline. During the internship I had a delivery colliding with end-semester exams, so I front-loaded the parts that blocked other people and told my lead which piece would land two days later. Nobody minds a moved date they hear about in advance."</p></div></details>
+
+        <details class="qa"><summary>Are you comfortable working on something that isn't AI?</summary><div class="ans"><p>Yes, clearly and without hedging. "Honestly, the best parts of my AI projects were the system parts — pipelines, data modelling, APIs, making things reliable. I'd be glad to work on the platform and backend side, and I'd be happy on firmware if that's where I'm needed. I'm at the stage where depth in a real product matters more to me than the label on the work."</p></div></details>
+
+        <details class="qa"><summary>What are your salary expectations?</summary><div class="ans"><p>As a fresher, don't anchor low or negotiate hard. "I'm expecting something in line with your standard package for graduate engineers. At this point the training and the work matter more to me than optimising the number, so I'm comfortable with your structure." If they press for a figure, give a range based on what the company offers freshers in Kerala and add "and I'm open to discussing it."</p></div></details>
+
+        <details class="qa"><summary>Do you have any other offers?</summary><div class="ans"><p>Tell the truth. If you have one, say so plainly and without using it as leverage: "I have one other process ongoing, but I'm here because this role is the better fit for what I want to do." If you don't, say you're interviewing but this is the one you've prepared most for — which will be true by tomorrow.</p></div></details>
+
+        <details class="qa"><summary>Are you willing to sign a training bond / service agreement?</summary><div class="ans"><p>Don't commit on the spot to terms you haven't read. "I'd want to read the terms, but I'm not looking to switch quickly — I'm looking for somewhere to spend the first serious years of my career." Then actually read it before signing. Ask about the duration and the amount if it comes up.</p></div></details>
+
+        <details class="qa"><summary>Do you have any questions for us?</summary><div class="ans"><p>Always have three ready; "no" reads as disinterest. Good ones here:</p><ul><li>"What does the first six months look like for a graduate engineer — how is the training structured, and when do you start working on real modules?"</li><li>"Would I be on the kalki.io platform side or closer to the device and protocol layer, and how much movement is there between the two?"</li><li>"What separates the graduate engineers who do really well here from the ones who plateau?"</li></ul><p>Avoid asking about leave policy, work from home, or appraisal cycles in the first interview.</p></div></details>
+      </div>
+
+      <div class="warn">
+        <span class="tag">Three things not to do</span>
+        <p>Don't criticise a previous employer, college or teammate — it's the fastest way to lose a room. Don't claim a technology you can't discuss for two minutes. Don't answer "why this company" with "because it's a good opportunity"; name something specific about what they build.</p>
+      </div>
+    </section>
+
+    <section id="checklist" data-title="Tonight &amp; tomorrow">
+      <div class="sec-head"><span class="num">19</span><h2>Tonight, and tomorrow morning</h2></div>
+
+      <h3>If you only have three hours tonight</h3>
+      <ol>
+        <li><strong>45 min</strong> — OOP (3), Java core (4), and the DSA problems (11). Type at least two of them out.</li>
+        <li><strong>40 min</strong> — Computer networks (9) and OS (10). These are the highest-probability, lowest-effort marks.</li>
+        <li><strong>25 min</strong> — React (6) and backend (7). You know this; you're just rehearsing the words.</li>
+        <li><strong>20 min</strong> — Puzzles (16). Read the answers, then re-derive two of them without looking.</li>
+        <li><strong>20 min</strong> — Company and protocols (1, 12). This is the differentiator nobody else prepares.</li>
+        <li><strong>20 min</strong> — Say your opening pitch, your "why Kalkitech" and your project pitches out loud. Out loud, not in your head — the first time you hear yourself say something shouldn't be in the interview.</li>
+        <li><strong>10 min</strong> — Write your three questions for them on paper and put it in your bag.</li>
+      </ol>
+      <p>Then sleep. A tired brain fails puzzle rounds; one more hour of revision will not beat six hours of sleep.</p>
+
+      <h3>The one-page recall sheet</h3>
+      <table>
+        <tr><th>If they ask</th><th>First sentence out of your mouth</th></tr>
+        <tr><td>OOP pillars</td><td>Encapsulation hides data, abstraction hides complexity, inheritance reuses, polymorphism substitutes.</td></tr>
+        <tr><td>Overloading vs overriding</td><td>Compile-time, same class, different parameters — versus runtime, subclass, same signature.</td></tr>
+        <tr><td>== vs equals</td><td>References versus contents; and never compare boxed Integers with ==.</td></tr>
+        <tr><td>Process vs thread</td><td>Separate memory versus shared heap with separate stacks.</td></tr>
+        <tr><td>Deadlock</td><td>Mutual exclusion, hold and wait, no preemption, circular wait — break any one.</td></tr>
+        <tr><td>TCP vs UDP</td><td>Reliable, ordered, connection-oriented versus fast, connectionless, lossy.</td></tr>
+        <tr><td>OSI layers</td><td>Physical, data link, network, transport, session, presentation, application.</td></tr>
+        <tr><td>ACID</td><td>All-or-nothing, valid states, no interference, survives crashes.</td></tr>
+        <tr><td>WHERE vs HAVING</td><td>Before grouping versus after aggregation.</td></tr>
+        <tr><td>Index trade-off</td><td>Faster reads, slower writes, more disk.</td></tr>
+        <tr><td>Virtual DOM</td><td>Diff an in-memory tree, apply the minimum real DOM changes.</td></tr>
+        <tr><td>useEffect dependencies</td><td>Empty array is on mount; dependencies are on change; none is every render.</td></tr>
+        <tr><td>REST statelessness</td><td>Every request carries its own context, so any server can handle it.</td></tr>
+        <tr><td>401 vs 403</td><td>I don't know who you are, versus I know and you're not allowed.</td></tr>
+        <tr><td>Idempotent</td><td>Calling it five times leaves the same state as calling it once.</td></tr>
+        <tr><td>MQTT</td><td>Lightweight publish/subscribe through a broker, built for many constrained devices.</td></tr>
+        <tr><td>Modbus vs IEC 61850</td><td>Raw registers you need a manual for, versus self-describing objects with timestamps and quality.</td></tr>
+        <tr><td>What Kalkitech does</td><td>Connects the grid to software using standards-based protocols, from device firmware to the cloud platform.</td></tr>
+      </table>
+
+      <h3>Tomorrow morning</h3>
+      <ul>
+        <li>Carry printed copies of your resume, a notebook and two working pens. The paper round is real — write legibly.</li>
+        <li>Reach early enough that traffic can't matter. Fifteen minutes of sitting calmly beats arriving breathless.</li>
+        <li>Re-read only the recall sheet above and your three questions. No new topics on the day.</li>
+        <li>Between rounds, don't replay what went wrong. Each interviewer starts fresh; your face shouldn't tell them otherwise.</li>
+      </ul>
+
+      <div class="note">
+        <p>Last thing. They're hiring a fresher, so they already assume you don't know their domain — they're checking whether you think clearly, tell the truth about what you don't know, and would be good to sit next to for two years. You can do all three of those without knowing a single thing more than you know right now. The rest of this notebook is just insurance.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="end">
+  <p>Built for Albin John · Kalkitech interview, Kochi. Good luck.</p>
+</footer>
+
+<script>
+  // Build the contents list from the sections themselves.
+  const secs = Array.from(document.querySelectorAll('main section'));
+  const links = document.getElementById('toc-links');
+  secs.forEach((s, i) => {
+    const a = document.createElement('a');
+    a.href = '#' + s.id;
+    a.innerHTML = '<span class="n">' + (i + 1) + '</span><span>' + s.dataset.title + '</span>';
+    links.appendChild(a);
+  });
+
+  const anchors = Array.from(links.querySelectorAll('a'));
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = secs.indexOf(e.target);
+        anchors.forEach(a => a.classList.remove('active'));
+        if (anchors[idx]) anchors[idx].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -75% 0px' });
+  secs.forEach(s => spy.observe(s));
+
+  document.getElementById('openAll').onclick = () =>
+    document.querySelectorAll('details.qa').forEach(d => d.open = true);
+  document.getElementById('closeAll').onclick = () =>
+    document.querySelectorAll('details.qa').forEach(d => d.open = false);
+
+  const nav = document.getElementById('toc');
+  const navbtn = document.getElementById('navbtn');
+  navbtn.onclick = () => {
+    const collapsed = nav.dataset.collapsed === 'true';
+    nav.dataset.collapsed = collapsed ? 'false' : 'true';
+    navbtn.setAttribute('aria-expanded', collapsed ? 'true' : 'false');
+  };
+  links.addEventListener('click', () => {
+    if (window.innerWidth <= 880) {
+      nav.dataset.collapsed = 'true';
+      navbtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+</body>
+</html>

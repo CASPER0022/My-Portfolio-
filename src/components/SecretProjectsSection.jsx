@@ -31,6 +31,16 @@ const projectMaterials = [
     tech: ['Applied AI', 'Support Automation', 'ARISE Framework', 'Logistics Systems', 'RAG & Agents'],
     fileUrl: '/interview/shipsy-interview-prep.html',
     img: 'Projects/shipsy/shipsy.jpg'
+  },
+  {
+    id: 'kalkitech_prep',
+    cat: 'Company Prep . 04',
+    title: 'Kalkitech Interview Codex',
+    shortTitle: 'Kalkitech Prep Guide',
+    desc: 'Comprehensive technical interview reference and playbook for Kalkitech, covering power system automation, DLMS/COSEM, IEC 61850, Modbus, SCADA protocols, and smart grid IoT architectures.',
+    tech: ['DLMS/COSEM', 'IEC 61850', 'Modbus', 'SCADA & Smart Grid', 'Embedded & IoT'],
+    fileUrl: '/interview/kalkitech-interview-notebook.html',
+    img: 'interview/kalkitech.png'
   }
 ]
 
