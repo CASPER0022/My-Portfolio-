@@ -41,6 +41,16 @@ const projectMaterials = [
     tech: ['DLMS/COSEM', 'IEC 61850', 'Modbus', 'SCADA & Smart Grid', 'Embedded & IoT'],
     fileUrl: '/interview/kalkitech-interview-notebook.html',
     img: 'interview/kalkitech.png'
+  },
+  {
+    id: 'soti_prep',
+    cat: 'Company Prep . 05',
+    title: 'SOTI SDET Interview Codex',
+    shortTitle: 'SOTI SDET Prep Guide',
+    desc: 'Comprehensive technical interview manual for SOTI SDET, covering Enterprise Mobility Management (MobiControl), test automation frameworks, API & UI testing, C#/.NET automation, and QA architecture.',
+    tech: ['C# / .NET', 'Test Automation', 'API & UI Testing', 'EMM / MobiControl', 'QA Architecture'],
+    fileUrl: '/interview/SOTI-SDET-Interview-Notebook.html',
+    img: 'interview/soti.png'
   }
 ]
 
