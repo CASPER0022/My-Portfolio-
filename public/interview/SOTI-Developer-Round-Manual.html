@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOTI Kochi — Developer Round Field Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F6F8;
+  --surface:#FFFFFF;
+  --ink:#0E151C;
+  --ink-2:#36434F;
+  --muted:#66757F;
+  --pine:#0A5D9B;
+  --pine-lt:#1478BF;
+  --pine-wash:rgba(10,93,155,.07);
+  --clay:#A33529;
+  --clay-wash:rgba(163,53,41,.07);
+  --amber:#8A5A0B;
+  --amber-wash:rgba(138,90,11,.09);
+  --rule:#D8E0E6;
+  --slate:#111D28;
+  --slate-2:#1A2937;
+  --code-ink:#DCE7EF;
+
+  --f-head:"Archivo",system-ui,-apple-system,sans-serif;
+  --f-body:"Source Serif 4",Georgia,serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+
+  --rail:300px;
+  --measure:70ch;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1217;--surface:#111A21;--ink:#E7EEF3;--ink-2:#BFCCD6;--muted:#8A9AA5;
+    --pine:#5AB2EE;--pine-lt:#79C4F7;--pine-wash:rgba(90,178,238,.10);
+    --clay:#E48679;--clay-wash:rgba(228,134,121,.10);
+    --amber:#D6A559;--amber-wash:rgba(214,165,89,.12);
+    --rule:#22313C;--slate:#0A1117;--slate-2:#131F29;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C1217;--surface:#111A21;--ink:#E7EEF3;--ink-2:#BFCCD6;--muted:#8A9AA5;
+  --pine:#5AB2EE;--pine-lt:#79C4F7;--pine-wash:rgba(90,178,238,.10);
+  --clay:#E48679;--clay-wash:rgba(228,134,121,.10);
+  --amber:#D6A559;--amber-wash:rgba(214,165,89,.12);
+  --rule:#22313C;--slate:#0A1117;--slate-2:#131F29;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:1.5rem}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+#progress{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--pine);z-index:300}
+
+#rail{position:fixed;top:0;left:0;width:var(--rail);height:100vh;overflow-y:auto;background:var(--surface);
+  border-right:1px solid var(--rule);padding:1.5rem 1rem 4rem;z-index:200}
+#rail .mark{font-family:var(--f-head);font-weight:700;font-size:1.15rem;letter-spacing:-.02em;margin:0 0 .1rem}
+#rail .marksub{font-family:var(--f-mono);font-size:.66rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.5}
+#rail a{display:flex;gap:.6rem;text-decoration:none;color:var(--ink-2);font-family:var(--f-head);font-size:.83rem;
+  font-weight:500;line-height:1.3;padding:.4rem .5rem;border-radius:4px;border-left:2px solid transparent}
+#rail a .n{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);flex:0 0 1.5rem}
+#rail a:hover{background:var(--pine-wash);color:var(--pine)}
+#rail a.on{background:var(--pine-wash);border-left-color:var(--pine);color:var(--pine);font-weight:600}
+#rail a.on .n{color:var(--pine)}
+.railgroup{font-family:var(--f-mono);font-size:.62rem;color:var(--muted);margin:1.2rem 0 .3rem .5rem;
+  border-top:1px solid var(--rule);padding-top:.7rem}
+.railgroup:first-of-type{border-top:0;margin-top:0}
+
+#burger{display:none;position:fixed;top:.6rem;left:.6rem;z-index:250;background:var(--pine);color:#fff;border:0;
+  border-radius:6px;padding:.5rem .75rem;font-family:var(--f-head);font-size:.78rem;font-weight:600;cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.25)}
+
+main{margin-left:var(--rail);padding:0 clamp(1rem,4vw,3.5rem) 7rem}
+.wrap{max-width:var(--measure);margin:0 auto}
+
+.hero{padding:4.5rem 0 2.5rem;border-bottom:2px solid var(--ink)}
+.hero .meta{font-family:var(--f-mono);font-size:.72rem;color:var(--pine);margin-bottom:1rem;line-height:1.7}
+.hero h1{font-family:var(--f-head);font-weight:700;font-size:clamp(2.2rem,5.6vw,3.5rem);line-height:1;letter-spacing:-.035em;margin:0 0 .6rem}
+.hero .sub{font-size:clamp(1.05rem,2.3vw,1.28rem);color:var(--ink-2);margin:0 0 1.6rem;line-height:1.5}
+
+.runsheet{border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--surface);margin:2rem 0 1rem}
+.runsheet .rshead{background:var(--slate);color:#E7EEF3;padding:.7rem 1rem;font-family:var(--f-head);font-size:.85rem;
+  font-weight:600;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.runsheet .rshead span{font-family:var(--f-mono);font-size:.7rem;color:#93B8D2;font-weight:400}
+.runsheet .row{display:flex;gap:.9rem;padding:.7rem 1rem;border-top:1px solid var(--rule);align-items:baseline}
+.runsheet .row:first-of-type{border-top:0}
+.runsheet .clock{font-family:var(--f-mono);font-size:.72rem;color:var(--pine);flex:0 0 5.2rem;font-weight:500}
+.runsheet .what{flex:1;font-size:.95rem;line-height:1.45}
+.runsheet .what b{font-family:var(--f-head);font-weight:600;display:block;font-size:.95rem}
+.runsheet .what i{font-style:normal;color:var(--muted);font-size:.87rem}
+
+section{padding:3.6rem 0 1rem;border-bottom:1px solid var(--rule)}
+.tag{font-family:var(--f-mono);font-size:.7rem;color:var(--pine);margin-bottom:.5rem}
+h2{font-family:var(--f-head);font-weight:700;font-size:clamp(1.6rem,3.4vw,2.2rem);line-height:1.1;letter-spacing:-.03em;margin:0 0 .8rem}
+h3{font-family:var(--f-head);font-weight:600;font-size:1.18rem;line-height:1.3;margin:2.2rem 0 .5rem}
+h4{font-family:var(--f-head);font-weight:600;font-size:.98rem;margin:1.4rem 0 .3rem;color:var(--pine)}
+p{margin:.75rem 0}
+ul,ol{margin:.6rem 0;padding-left:1.2rem}
+li{margin:.3rem 0}
+li::marker{color:var(--pine)}
+strong{font-weight:600}
+code{font-family:var(--f-mono);font-size:.84em;background:var(--pine-wash);border-radius:3px;padding:.08em .32em;color:var(--pine)}
+a.ext{color:var(--pine);text-decoration:underline;text-underline-offset:2px}
+
+.note{border-left:3px solid var(--pine);background:var(--pine-wash);border-radius:0 6px 6px 0;padding:.75rem 1rem;margin:1.2rem 0}
+.note .lbl{display:block;font-family:var(--f-head);font-size:.78rem;font-weight:600;color:var(--pine);margin-bottom:.15rem}
+.note p{margin:.3rem 0}
+.note.trap{border-left-color:var(--clay);background:var(--clay-wash)}
+.note.trap .lbl{color:var(--clay)}
+.note.watch{border-left-color:var(--amber);background:var(--amber-wash)}
+.note.watch .lbl{color:var(--amber)}
+
+.say{border:1px solid var(--rule);border-left:3px solid var(--ink);background:var(--surface);border-radius:0 6px 6px 0;padding:.8rem 1rem;margin:1.1rem 0}
+.say .lbl{display:block;font-family:var(--f-mono);font-size:.68rem;color:var(--muted);margin-bottom:.35rem}
+.say p{margin:.3rem 0;font-size:1.02rem;line-height:1.6}
+
+pre{background:var(--slate);color:var(--code-ink);border-radius:7px;padding:.9rem 1rem;overflow-x:auto;
+  font-family:var(--f-mono);font-size:.795rem;line-height:1.65;margin:1rem 0;border:1px solid var(--slate-2)}
+pre code{background:none;padding:0;color:inherit;font-size:1em}
+pre .c{color:#7E9AAD}
+pre .k{color:#79C4F7}
+pre .s{color:#E0B87C}
+.filename{font-family:var(--f-mono);font-size:.68rem;color:var(--muted);margin:1rem 0 -.7rem;display:block}
+
+.tablewrap{overflow-x:auto;margin:1.1rem 0;border:1px solid var(--rule);border-radius:7px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:420px}
+th{background:var(--pine-wash);text-align:left;font-family:var(--f-head);font-weight:600;font-size:.8rem;padding:.55rem .7rem;border-bottom:1px solid var(--rule);color:var(--ink)}
+td{padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5}
+tr:last-child td{border-bottom:0}
+td code{font-size:.8em}
+
+.draw{background:var(--surface);border:1px dashed var(--pine);border-radius:8px;padding:.9rem 1rem;margin:1.2rem 0}
+.draw .lbl{font-family:var(--f-head);font-size:.78rem;font-weight:600;color:var(--pine);margin-bottom:.4rem}
+.draw pre{background:none;color:var(--ink-2);border:0;padding:0;font-size:.72rem;line-height:1.5;margin:.4rem 0}
+
+.qa{margin:1.8rem 0 .5rem}
+.qahead{display:flex;align-items:center;gap:.7rem;margin-bottom:.7rem}
+.qahead h3{margin:0;font-size:1.05rem}
+.qahead .bar{flex:1;height:1px;background:var(--rule)}
+.qahead button{font-family:var(--f-head);font-size:.7rem;font-weight:600;color:var(--pine);background:var(--pine-wash);
+  border:1px solid var(--rule);border-radius:20px;padding:.25rem .7rem;cursor:pointer}
+details{background:var(--surface);border:1px solid var(--rule);border-radius:7px;margin:.45rem 0;overflow:hidden}
+details[open]{border-color:var(--pine)}
+summary{cursor:pointer;padding:.65rem .9rem;font-family:var(--f-head);font-weight:500;font-size:.93rem;line-height:1.4;
+  list-style:none;display:flex;gap:.6rem;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"Q";font-family:var(--f-mono);font-size:.7rem;color:var(--pine);flex:0 0 auto;font-weight:500}
+details[open] summary{border-bottom:1px solid var(--rule);background:var(--pine-wash)}
+.ans{padding:.7rem .9rem .9rem 2.1rem;font-size:.95rem}
+.ans p:first-child{margin-top:0}
+.ans p:last-child{margin-bottom:0}
+summary:focus-visible{outline:2px solid var(--pine);outline-offset:-2px}
+
+.check{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:.5rem .3rem;margin:1.2rem 0}
+.check label{display:flex;gap:.6rem;align-items:flex-start;padding:.42rem .8rem;cursor:pointer;font-size:.93rem;line-height:1.45}
+.check label:hover{background:var(--pine-wash)}
+.check input{margin-top:.42rem;accent-color:var(--pine);flex:0 0 auto}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+
+.pills{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0}
+.pill{font-family:var(--f-head);font-size:.76rem;background:var(--surface);border:1px solid var(--rule);border-radius:20px;padding:.25rem .7rem;color:var(--ink-2)}
+.pill b{color:var(--pine);font-weight:600}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.1rem 0}
+.col{background:var(--surface);border:1px solid var(--rule);border-radius:7px;padding:.75rem .9rem}
+.col h4{margin-top:0}
+.col p{font-size:.9rem;margin:.3rem 0}
+.col ul{font-size:.9rem;margin:.3rem 0}
+
+.tier{display:flex;gap:.7rem;align-items:flex-start;background:var(--surface);border:1px solid var(--rule);
+  border-radius:8px;padding:.8rem .9rem;margin:.6rem 0}
+.tier .badge{font-family:var(--f-mono);font-size:.65rem;font-weight:500;color:#fff;background:var(--pine);
+  border-radius:4px;padding:.2rem .45rem;flex:0 0 auto;margin-top:.15rem}
+.tier .badge.two{background:var(--amber)}
+.tier .badge.three{background:var(--muted)}
+.tier b{font-family:var(--f-head);font-size:.95rem;display:block}
+.tier p{margin:.15rem 0 0;font-size:.9rem;color:var(--ink-2)}
+
+@media (max-width:1020px){
+  #rail{transform:translateX(-100%);transition:transform .2s ease;box-shadow:0 0 30px rgba(0,0,0,.2)}
+  #rail.open{transform:none}
+  #burger{display:block}
+  main{margin-left:0;padding-top:3rem}
+  .cols{grid-template-columns:1fr}
+  body{font-size:16.5px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<button id="burger">Contents</button>
+
+<nav id="rail">
+  <div class="mark">SOTI Kochi · Dev</div>
+  <div class="marksub">Associate Software Developer + SDET<br>Common technical round · volume II</div>
+
+  <div class="railgroup">Orientation</div>
+  <a href="#s0"><span class="n">00</span><span>What changed &amp; today's plan</span></a>
+  <a href="#s1"><span class="n">01</span><span>Two JDs, one room</span></a>
+
+  <div class="railgroup">Tier 1 — study first</div>
+  <a href="#s2"><span class="n">02</span><span>DSA &amp; the coding round</span></a>
+  <a href="#s3"><span class="n">03</span><span>OOP, SOLID, clean code</span></a>
+  <a href="#s4"><span class="n">04</span><span>Data modelling &amp; SQL</span></a>
+  <a href="#s5"><span class="n">05</span><span>JavaScript, Node, React</span></a>
+
+  <div class="railgroup">Tier 2 — know cold</div>
+  <a href="#s6"><span class="n">06</span><span>REST, HTTP, JSON</span></a>
+  <a href="#s7"><span class="n">07</span><span>OS &amp; networking</span></a>
+  <a href="#s8"><span class="n">08</span><span>Git, CI/CD, Agile</span></a>
+
+  <div class="railgroup">Your work &amp; the room</div>
+  <a href="#s9"><span class="n">09</span><span>SpiceNest as a developer</span></a>
+  <a href="#s10"><span class="n">10</span><span>Design on paper</span></a>
+  <a href="#s11"><span class="n">11</span><span>Testing a dev must know</span></a>
+  <a href="#s12"><span class="n">12</span><span>Behavioural &amp; "which role?"</span></a>
+  <a href="#s13"><span class="n">13</span><span>Rapid-fire 50</span></a>
+</nav>
+
+<main>
+<div class="wrap">
+
+<header class="hero">
+  <div class="meta">Albin John · IIIT Kottayam · B.Tech CSE (AI &amp; DS), 2027<br>SOTI Kochi · Associate Software Developer &amp; Associate SDET · common technical panel</div>
+  <h1>The developer round, prioritised</h1>
+  <p class="sub">If the panel is shared between the developer and SDET roles, the syllabus is the union of both — so the real question isn't what to study, it's what to study <em>first</em>. This is that list, in order, with answers.</p>
+
+  <div class="note">
+    <span class="lbl">How this fits with the notebook you already have</span>
+    <p>Volume I covers the testing half — test case design, BDD and Gherkin, automation frameworks, and the defect register for your own project. <strong>Don't re-read it cover to cover.</strong> This volume is the developer half, which is now the larger share of the interview. Section 11 here tells you the small, specific slice of volume I to revise so the SDET interviewer also leaves satisfied.</p>
+  </div>
+
+  <div class="runsheet">
+    <div class="rshead">A shared panel, reshaped <span>the developer JD pushes coding and fundamentals up, testing down</span></div>
+    <div class="row"><div class="clock">0:00–0:10</div><div class="what"><b>Intro &amp; resume</b><i>Same as before. Your pitch doesn't change.</i></div></div>
+    <div class="row"><div class="clock">0:10–0:40</div><div class="what"><b>Coding</b><i>Now the biggest block. Arrays, strings, recursion, hashing, maybe a graph or DP. Expect to write real code.</i></div></div>
+    <div class="row"><div class="clock">0:40–1:05</div><div class="what"><b>CS fundamentals</b><i>OOP and SOLID, DBMS and SQL, OS, networking. The developer JD names data modelling explicitly.</i></div></div>
+    <div class="row"><div class="clock">1:05–1:30</div><div class="what"><b>Project + stack depth</b><i>SpiceNest end to end, then JavaScript, Node, REST and React internals — they're your claimed stack and theirs.</i></div></div>
+    <div class="row"><div class="clock">1:30–1:50</div><div class="what"><b>Design / quality</b><i>Clean code, code review, unit and integration tests, and possibly a small design on paper.</i></div></div>
+    <div class="row"><div class="clock">1:50–2:00</div><div class="what"><b>Managerial &amp; your questions</b><i>Including, very likely: which of the two roles do you actually want?</i></div></div>
+  </div>
+</header>
+
+<section id="s0">
+  <div class="tag">00 · Today</div>
+  <h2>What changed, and how to spend today</h2>
+
+  <p>The second job description is a straight software engineering role in Kochi: build products, write clean testable code, fix defects, write unit and integration tests, do code reviews. It names <strong>C++, C#, Java, Python and JavaScript</strong>, <strong>relational data modelling and SQL</strong>, and <strong>JavaScript, HTML5, CSS3, AngularJS, NodeJS, REST APIs and JSON</strong>. It also names clean code and <strong>SOLID principles</strong> outright, plus Scrum/XP and continuous delivery.</p>
+
+  <p>Three consequences for tonight:</p>
+  <ol>
+    <li><strong>Coding gets the most hours.</strong> A developer panel will make you write code and reason about complexity. This is now your highest-yield block.</li>
+    <li><strong>Your stack overlap is unusually good.</strong> They list Node, REST, JSON and JavaScript; you have shipped exactly that. Section 05 makes sure you can talk about it at engine level, not tutorial level.</li>
+    <li><strong>Testing isn't dropped, it's demoted.</strong> A developer who writes tests is what both JDs describe. You still bring the defect register from volume I — it's just no longer the centrepiece.</li>
+  </ol>
+
+  <h3>Tonight, in this order</h3>
+  <div class="check" data-key="tonight">
+    <label><input type="checkbox"><span><strong>Two hours — coding.</strong> Type and run the drill file in section 02, then hand-write five of them on paper with no reference.</span></label>
+    <label><input type="checkbox"><span><strong>Forty minutes — JavaScript internals.</strong> Section 05. Run the trap snippets and make sure you can explain each output aloud.</span></label>
+    <label><input type="checkbox"><span><strong>Forty minutes — OOP, SOLID and the four design patterns</strong> in section 03. These are named in the JD, so they are fair game and easy marks.</span></label>
+    <label><input type="checkbox"><span><strong>Thirty minutes — SQL and data modelling.</strong> Section 04. Write the three query shapes by hand.</span></label>
+    <label><input type="checkbox"><span><strong>Thirty minutes — SpiceNest.</strong> Re-read your backend. Practise drawing the architecture and saying the 60-second pitch out loud.</span></label>
+    <label><input type="checkbox"><span><strong>Twenty minutes — OS and networking skim</strong> (section 07). You covered these in volume I; this is refresh only.</span></label>
+    <label><input type="checkbox"><span><strong>Fifteen minutes — the "which role do you want" answer</strong> in section 12. Say it out loud until it sounds like you mean it.</span></label>
+    <label><input type="checkbox"><span><strong>Then stop and sleep.</strong> A tired candidate loses more marks on the coding block than an under-prepared rested one.</span></label>
+  </div>
+
+  <h3>Tomorrow morning — revision only, no new topics</h3>
+  <div class="check" data-key="morning2">
+    <label><input type="checkbox"><span>Rapid-fire 50 in section 13.</span></label>
+    <label><input type="checkbox"><span>Your own resume, line by line. Every line is a fair question.</span></label>
+    <label><input type="checkbox"><span>Pitch once, architecture drawn once, then close the laptop.</span></label>
+  </div>
+</section>
+
+<section id="s1">
+  <div class="tag">01 · The setup</div>
+  <h2>Two job descriptions, one room</h2>
+
+  <p>A shared panel usually means one set of interviewers screening a pool of candidates, then deciding who fits where. That's good news: <strong>you don't have to pick a lane before they do</strong>, and strength in either direction counts. But it changes how you answer.</p>
+
+  <h3>What the two descriptions share</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Common ground</th><th>What it means in the room</th></tr>
+    <tr><td>Both want someone who can <strong>write real code</strong></td><td>The coding block is unavoidable and matters for both roles.</td></tr>
+    <tr><td>Both mention <strong>the full development lifecycle</strong> and Agile rituals</td><td>Know the ceremonies and what you contribute to each.</td></tr>
+    <tr><td>Both mention <strong>code review</strong></td><td>Have a structured review checklist ready — it's in section 11.</td></tr>
+    <tr><td>Both mention <strong>tests</strong></td><td>Developer JD: unit and integration tests. SDET JD: BDD and automation. A developer who tests is the overlap.</td></tr>
+    <tr><td>Both are <strong>mobile / IoT device management</strong></td><td>Same product knowledge. MobiControl, XSight, Snap, Connect, SOTI ONE.</td></tr>
+  </table></div>
+
+  <h3>Where they diverge</h3>
+  <div class="cols">
+    <div class="col"><h4>Developer role adds</h4><ul>
+      <li>C++, C#, Java, Python, JavaScript by name</li>
+      <li>Data modelling and relational storage</li>
+      <li>Front-end and back-end versatility — HTML5, CSS3, AngularJS, NodeJS, REST, JSON</li>
+      <li><strong>Clean code and SOLID principles</strong>, stated explicitly</li>
+      <li>Scrum/XP and continuous delivery</li>
+      <li>Detect, investigate and <em>fix</em> defects</li>
+    </ul></div>
+    <div class="col"><h4>SDET role adds</h4><ul>
+      <li>Designing and writing test cases</li>
+      <li>BDD and feature files</li>
+      <li>Reviewing dev code to find gaps</li>
+      <li>Building testing utilities</li>
+      <li>Cross-platform mobility testing</li>
+      <li>POCs on tooling</li>
+    </ul></div>
+  </div>
+
+  <div class="note watch">
+    <span class="lbl">The strategic read</span>
+    <p>Answer every technical question as a <strong>developer</strong>, and finish the occasional answer with a testing sentence. That ordering fits both interviewers: the dev interviewer hears a competent engineer, the SDET interviewer hears an engineer who thinks about failure. The reverse ordering — testing-first, engineering as an afterthought — only satisfies one of them.</p>
+  </div>
+
+  <h3>The Kochi detail worth carrying</h3>
+  <p>The developer posting is explicitly <strong>Kochi</strong>, which matches the campus drive you're in and the SOTI Kochi office. A candidate who interviewed there through their university reported both the online test and the technical round leaning heavily on <strong>computer networks</strong> — DNS, DHCP, firewalls. Keep section 07 in your revision list even though it's tier 2.</p>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>Which role are you applying for — developer or SDET?</summary><div class="ans">
+      <p>Don't hedge into mush, and don't lock yourself out of one. "I applied for the SDET role and I've prepared for it seriously, but I'd be glad in either — what I want is to write code on a product where correctness matters. The overlap is most of the job anyway: both descriptions are about building well-designed, testable software and finding defects before customers do. If you think I'm a better fit on the development side, I'd take that happily."</p>
+      <p>That answer is honest, flexible, and signals you understand the roles rather than just wanting <em>a</em> job.</p>
+    </div></details>
+
+    <details><summary>Why should we put you on the development side?</summary><div class="ans">
+      <p>"Because I've shipped. SpiceNest is a full-stack production system with real orders — React frontend, Node and Express backend, PostgreSQL through Prisma, two payment gateways, authentication, caching. I designed the schema, wrote the APIs and handled the deployment. And because I keep going back and improving it: I can tell you six things wrong with it and how I'd fix each. That's the habit that makes a developer useful after the first six months."</p>
+    </div></details>
+
+    <details><summary>You've only worked in Python and JavaScript. We use C# and C++.</summary><div class="ans">
+      <p>"That's accurate. I've written Java and C++ in coursework and Python and JavaScript in production. The fundamentals carry — OOP, memory, data structures, complexity — and the specific gap is idiom and tooling rather than concepts. I picked up Prisma, a payment integration and a serverless Postgres setup from scratch in about a week each for SpiceNest, so I've got evidence that I learn stacks quickly rather than just a claim."</p>
+      <p>If you have time tonight, skim C# syntax for 15 minutes — properties, <code>var</code>, LINQ basics, <code>async/await</code>, interfaces — purely so the syntax doesn't look alien if they show you a snippet.</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="tag">02 · Tier 1 · highest yield</div>
+  <h2>DSA and the coding round</h2>
+
+  <p>For a developer panel this is the block that decides most of your score, because it's the only part where they watch you actually build something. Reported SOTI fresher problems cluster around <strong>strings, arrays, recursion and hashing</strong>, with occasional dynamic programming and graphs.</p>
+
+  <h3>The pattern map — if you know these eight, you can attempt almost anything they'll ask</h3>
+  <div class="tier"><span class="badge">1</span><div><b>Hashing / frequency counting</b><p>Anagrams, first unique character, two sum, duplicates, group anagrams. The moment you think "I need to look something up fast", reach for a map. Turns O(n²) into O(n).</p></div></div>
+  <div class="tier"><span class="badge">2</span><div><b>Two pointers</b><p>Palindromes, reversing in place, pair sums in a sorted array, removing duplicates. One pointer from each end, or a slow and a fast one.</p></div></div>
+  <div class="tier"><span class="badge">3</span><div><b>Sliding window</b><p>"Longest / maximum / smallest subarray or substring with property X." Expand the right edge, shrink the left when the property breaks.</p></div></div>
+  <div class="tier"><span class="badge">4</span><div><b>Binary search</b><p>Any sorted input, or any "find the smallest value that works" question. Get the <code>lo &lt;= hi</code> and <code>mid</code> update right — that's where people fail, not the concept.</p></div></div>
+  <div class="tier"><span class="badge">5</span><div><b>Stack</b><p>Balanced brackets, next greater element, undo behaviour, expression evaluation. Anything with nesting.</p></div></div>
+  <div class="tier"><span class="badge">6</span><div><b>Recursion &amp; backtracking</b><p>Permutations, subsets, string generation, tree traversal. Always state the base case first, out loud, before writing anything.</p></div></div>
+  <div class="tier"><span class="badge">7</span><div><b>BFS / DFS on graphs and trees</b><p>Shortest path in an unweighted graph is BFS with a queue. Reachability, connected components and cycle detection are DFS with a visited set.</p></div></div>
+  <div class="tier"><span class="badge">8</span><div><b>Dynamic programming, the easy tier</b><p>Fibonacci, climbing stairs, house robber, coin change. The formula: define the state, write the recurrence, add memoisation, then convert to a loop if you want O(1) space.</p></div></div>
+
+  <h3>Complexity — say it unprompted, every time</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Shape</th><th>Complexity</th><th>You'll see it in</th></tr>
+    <tr><td>Single pass</td><td>O(n)</td><td>Counting, max, hash-map lookups</td></tr>
+    <tr><td>Nested loop over the same data</td><td>O(n²)</td><td>The brute force you should name before improving it</td></tr>
+    <tr><td>Halving each step</td><td>O(log n)</td><td>Binary search, balanced-tree operations</td></tr>
+    <tr><td>Sort</td><td>O(n log n)</td><td>Any "sort then scan" solution</td></tr>
+    <tr><td>Recursion branching twice, no memo</td><td>O(2ⁿ)</td><td>Naive Fibonacci, naive subsets</td></tr>
+  </table></div>
+  <p>Space complexity counts too: a hash map that stores every element is O(n) extra space, and "can you do it in O(1) space?" is the standard follow-up. Have an answer ready — usually two pointers, in-place swapping, or an arithmetic trick like the sum formula.</p>
+
+  <h3>Drill file two — run it, then hand-write five of them</h3>
+  <p>Volume I has the string-and-array set (palindrome, first unique character, two sum, anagram, second largest, substring search, missing number, balanced brackets, memoised Fibonacci). <strong>Run that one too.</strong> This file adds the patterns a developer panel is more likely to push into.</p>
+
+  <span class="filename">dsa_patterns.py — run with: python3 dsa_patterns.py</span>
+<pre><code><span class="k">from</span> collections <span class="k">import</span> deque, defaultdict
+
+<span class="k">def</span> max_sum_window(nums, k):                 <span class="c"># sliding window — O(n), not O(n*k)</span>
+    <span class="k">if</span> len(nums) &lt; k: <span class="k">return</span> <span class="k">None</span>
+    window = sum(nums[:k]); best = window
+    <span class="k">for</span> i <span class="k">in</span> range(k, len(nums)):
+        window += nums[i] - nums[i - k]          <span class="c"># add the new, drop the old</span>
+        best = max(best, window)
+    <span class="k">return</span> best
+
+<span class="k">def</span> longest_unique_substring(s):              <span class="c"># sliding window + hash map — O(n)</span>
+    last = {}; start = <span class="s">0</span>; best = <span class="s">0</span>
+    <span class="k">for</span> i, ch <span class="k">in</span> enumerate(s):
+        <span class="k">if</span> ch <span class="k">in</span> last <span class="k">and</span> last[ch] &gt;= start:
+            start = last[ch] + <span class="s">1</span>                 <span class="c"># jump the window past the repeat</span>
+        last[ch] = i
+        best = max(best, i - start + <span class="s">1</span>)
+    <span class="k">return</span> best
+
+<span class="k">def</span> binary_search(nums, target):              <span class="c"># O(log n) — sorted input required</span>
+    lo, hi = <span class="s">0</span>, len(nums) - <span class="s">1</span>
+    <span class="k">while</span> lo &lt;= hi:
+        mid = (lo + hi) // <span class="s">2</span>
+        <span class="k">if</span> nums[mid] == target: <span class="k">return</span> mid
+        <span class="k">if</span> nums[mid] &lt; target: lo = mid + <span class="s">1</span>
+        <span class="k">else</span>: hi = mid - <span class="s">1</span>
+    <span class="k">return</span> -<span class="s">1</span>
+
+<span class="k">class</span> Node:
+    <span class="k">def</span> __init__(self, val, nxt=<span class="k">None</span>): self.val, self.next = val, nxt
+
+<span class="k">def</span> reverse_list(head):                       <span class="c"># O(n) time, O(1) space — three-pointer walk</span>
+    prev = <span class="k">None</span>
+    <span class="k">while</span> head:
+        head.next, prev, head = prev, head, head.next
+    <span class="k">return</span> prev
+
+<span class="k">def</span> to_list(head):
+    out = []
+    <span class="k">while</span> head: out.append(head.val); head = head.next
+    <span class="k">return</span> out
+
+<span class="k">def</span> bfs(graph, start):                        <span class="c"># queue — level by level</span>
+    seen, order, q = {start}, [], deque([start])
+    <span class="k">while</span> q:
+        node = q.popleft(); order.append(node)
+        <span class="k">for</span> nb <span class="k">in</span> graph[node]:
+            <span class="k">if</span> nb <span class="k">not in</span> seen:
+                seen.add(nb); q.append(nb)
+    <span class="k">return</span> order
+
+<span class="k">def</span> dfs(graph, node, seen=<span class="k">None</span>):             <span class="c"># recursion — go deep first</span>
+    <span class="k">if</span> seen <span class="k">is</span> <span class="k">None</span>: seen = set()
+    seen.add(node); order = [node]
+    <span class="k">for</span> nb <span class="k">in</span> graph[node]:
+        <span class="k">if</span> nb <span class="k">not in</span> seen: order += dfs(graph, nb, seen)
+    <span class="k">return</span> order
+
+<span class="k">def</span> climb_stairs(n):                          <span class="c"># DP in O(1) space — it's Fibonacci in disguise</span>
+    a, b = <span class="s">1</span>, <span class="s">1</span>
+    <span class="k">for</span> _ <span class="k">in</span> range(n - <span class="s">1</span>): a, b = b, a + b
+    <span class="k">return</span> b
+
+<span class="k">def</span> group_anagrams(words):                    <span class="c"># hashing on a canonical key</span>
+    groups = defaultdict(list)
+    <span class="k">for</span> w <span class="k">in</span> words: groups[<span class="s">""</span>.join(sorted(w))].append(w)
+    <span class="k">return</span> list(groups.values())
+
+<span class="k">if</span> __name__ == <span class="s">"__main__"</span>:
+    print(<span class="s">"max window sum  "</span>, max_sum_window([<span class="s">2</span>,<span class="s">1</span>,<span class="s">5</span>,<span class="s">1</span>,<span class="s">3</span>,<span class="s">2</span>], <span class="s">3</span>))
+    print(<span class="s">"longest unique  "</span>, longest_unique_substring(<span class="s">"abcabcbb"</span>), longest_unique_substring(<span class="s">"bbbb"</span>))
+    print(<span class="s">"binary search   "</span>, binary_search([<span class="s">1</span>,<span class="s">3</span>,<span class="s">5</span>,<span class="s">7</span>,<span class="s">9</span>,<span class="s">11</span>], <span class="s">7</span>), binary_search([<span class="s">1</span>,<span class="s">3</span>,<span class="s">5</span>], <span class="s">4</span>))
+    head = Node(<span class="s">1</span>, Node(<span class="s">2</span>, Node(<span class="s">3</span>)))
+    print(<span class="s">"reversed list   "</span>, to_list(reverse_list(head)))
+    g = {<span class="s">"A"</span>:[<span class="s">"B"</span>,<span class="s">"C"</span>], <span class="s">"B"</span>:[<span class="s">"D"</span>], <span class="s">"C"</span>:[<span class="s">"D"</span>,<span class="s">"E"</span>], <span class="s">"D"</span>:[<span class="s">"E"</span>], <span class="s">"E"</span>:[]}
+    print(<span class="s">"bfs / dfs       "</span>, bfs(g,<span class="s">"A"</span>), dfs(g,<span class="s">"A"</span>))
+    print(<span class="s">"climb stairs(5) "</span>, climb_stairs(<span class="s">5</span>))
+    print(<span class="s">"group anagrams  "</span>, group_anagrams([<span class="s">"eat"</span>,<span class="s">"tea"</span>,<span class="s">"tan"</span>,<span class="s">"ate"</span>,<span class="s">"nat"</span>,<span class="s">"bat"</span>]))</code></pre>
+
+  <h4>The output, and what each line is teaching you</h4>
+<pre><code>max window sum   9
+longest unique   3 1
+binary search    3 -1
+reversed list    [3, 2, 1]
+bfs / dfs        ['A', 'B', 'C', 'D', 'E'] ['A', 'B', 'D', 'E', 'C']
+climb stairs(5)  8
+group anagrams   [['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]</code></pre>
+  <ul>
+    <li><strong>max window sum → 9.</strong> The best three consecutive values are 5+1+3. The point isn't the answer, it's that the window <em>slides</em>: each step adds one element and subtracts one, so you never re-add the middle. The naive version recomputes the whole window every time and is O(n·k).</li>
+    <li><strong>longest unique → 3 then 1.</strong> In "abcabcbb" the answer is "abc". The subtle part is <code>last[ch] &gt;= start</code>: a repeat that sits <em>before</em> the current window start must be ignored, otherwise the window jumps backwards. That one condition is the whole difficulty of the problem — mention it and you look like you've actually written this before. "bbbb" gives 1.</li>
+    <li><strong>binary search → 3 and −1.</strong> Index 3 holds 7. The second call returns −1 because 4 isn't present, which is the case interviewers check for. Say <code>lo + (hi - lo) // 2</code> if they ask about overflow in Java or C#, where <code>lo + hi</code> can exceed the integer range.</li>
+    <li><strong>reversed list → [3, 2, 1].</strong> The tuple assignment does the classic three-pointer dance in one line. On paper, write it as three separate statements with a <code>next_node</code> temporary — it's easier to explain and harder to get wrong under pressure.</li>
+    <li><strong>bfs / dfs → different orders from the same graph.</strong> BFS visits A, then both its neighbours B and C, then D and E — level by level, using a queue. DFS dives A → B → D → E before backtracking to C, using recursion (the call stack). Being able to say "BFS uses a queue and gives shortest paths in an unweighted graph; DFS uses a stack or recursion" is the answer to a very common question.</li>
+    <li><strong>climb stairs(5) → 8.</strong> Ways to reach step n = ways to reach n−1 plus ways to reach n−2, because your last move was either one step or two. That's Fibonacci, and the two-variable loop gives O(n) time in O(1) space. Name the state and the recurrence out loud — that's what DP interviews grade.</li>
+    <li><strong>group anagrams.</strong> Sorting each word produces a canonical key, so all anagrams collide in the same bucket. O(n·k log k). The alternative key is a 26-length character count, which is O(n·k) and worth mentioning as the optimisation.</li>
+  </ul>
+
+  <div class="note">
+    <span class="lbl">Say this while you code, every single time</span>
+    <p>1. Restate the problem with one example. 2. Ask about constraints — empty input, duplicates, case sensitivity, size. 3. Name the brute force and its complexity. 4. Name the better approach and why. 5. Write it, narrating. 6. Dry-run one normal case and one edge case aloud. 7. State time and space complexity. A candidate who does all seven with a slightly imperfect solution beats a silent candidate with a perfect one.</p>
+  </div>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>Which data structure would you use, and why?</summary><div class="ans">
+      <p>Have the mapping instant: <strong>array</strong> for indexed access and cache locality; <strong>hash map</strong> for O(1) lookup by key, when order doesn't matter; <strong>set</strong> for membership and de-duplication; <strong>stack</strong> for nesting and undo; <strong>queue</strong> for FIFO and BFS; <strong>heap</strong> for "top k" and priority scheduling; <strong>balanced tree / sorted map</strong> when you need order <em>and</em> fast lookup; <strong>graph</strong> for relationships and reachability. Then justify with the operation you need to be fast.</p>
+    </div></details>
+
+    <details><summary>Array vs linked list?</summary><div class="ans">
+      <p>"Arrays give O(1) random access and better cache behaviour, but inserting or deleting in the middle is O(n) because everything shifts. Linked lists give O(1) insertion and deletion once you hold the node, but access is O(n) and every node costs a pointer plus poor locality. In practice I reach for a dynamic array almost always, and a linked list when I'm doing heavy insertion and deletion at known positions — an LRU cache being the classic example, where a hash map plus a doubly linked list gives O(1) for everything."</p>
+    </div></details>
+
+    <details><summary>How does a hash map work internally?</summary><div class="ans">
+      <p>"A hash function turns the key into an index into an array of buckets. Ideally that's O(1). Two keys can hash to the same bucket — a collision — which is handled either by chaining (a list or tree in each bucket) or by open addressing (probe for the next free slot). When the load factor gets too high the table resizes and everything is rehashed, which is why insertion is O(1) <em>amortised</em> rather than guaranteed. Worst case degrades to O(n) if every key collides, which is why keys need a good hash and why mutable objects make bad keys."</p>
+    </div></details>
+
+    <details><summary>Recursion or iteration — which and why?</summary><div class="ans">
+      <p>"Recursion when the problem is naturally self-similar — trees, backtracking, divide and conquer — because the code matches the structure and is far easier to get right. Iteration when depth could be large, because every recursive call consumes stack space and deep recursion means a stack overflow. Python caps recursion around a thousand frames by default, so anything linear over a big input I'd write as a loop."</p>
+    </div></details>
+
+    <details><summary>Your solution works but is O(n²). Improve it.</summary><div class="ans">
+      <p>Run through the standard escalation out loud: "Can I sort first and use two pointers — that's O(n log n)? Can I trade memory for time with a hash map, which usually gets me to O(n)? Is there a sliding window, since I'm looking at contiguous ranges? Can I avoid recomputing by caching sub-results?" Naming the ladder shows method even if you don't land the optimum immediately.</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="tag">03 · Tier 1 · named in the JD</div>
+  <h2>OOP, SOLID and clean code</h2>
+
+  <p>The developer JD says it directly: <em>"write well designed, scalable, reliable, testable and reusable code by using best software development practices, clean code and solid principles."</em> When a JD names SOLID, someone in the room will ask about it. This is the easiest set of marks in the whole interview.</p>
+
+  <h3>The four pillars — with examples from your own code</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Pillar</th><th>One-line definition</th><th>Your example</th></tr>
+    <tr><td><strong>Encapsulation</strong></td><td>Bundle data with the methods that use it; hide the internals behind a controlled interface</td><td>SpiceNest's <code>MemoryCache</code> class — callers only see <code>get</code>, <code>set</code>, <code>delete</code>; the expiry check and the internal Map are private concerns</td></tr>
+    <tr><td><strong>Abstraction</strong></td><td>Expose what something does, hide how it does it</td><td>A <code>PaymentGateway</code> interface with <code>createOrder</code> and <code>verifySignature</code> — Razorpay and Stripe implement it differently, checkout doesn't care</td></tr>
+    <tr><td><strong>Inheritance</strong></td><td>A child acquires a parent's properties and behaviour — an "is-a" relationship</td><td>A <code>BaseRepository</code> holding shared database access, extended by product and order repositories</td></tr>
+    <tr><td><strong>Polymorphism</strong></td><td>One interface, many implementations — compile time (overloading) or run time (overriding)</td><td>Calling <code>gateway.createOrder()</code> without knowing which gateway is behind it</td></tr>
+  </table></div>
+  <p>Follow-ups to have ready: <strong>overloading vs overriding</strong> (same name different parameters, resolved at compile time, vs same signature in a child, resolved at run time); <strong>abstract class vs interface</strong> (shared state and partial implementation, single inheritance, "is-a" vs pure contract, multiple implementation, "can-do"); <strong>composition vs inheritance</strong> ("has-a" beats "is-a" most of the time, because deep hierarchies become fragile).</p>
+
+  <h3>SOLID, in plain language</h3>
+  <div class="tier"><span class="badge">S</span><div><b>Single responsibility</b><p>A class should have one reason to change. A route handler that validates input, computes prices, writes to the database and sends an email has four reasons to change — and four ways to break. Split it.</p></div></div>
+  <div class="tier"><span class="badge">O</span><div><b>Open/closed</b><p>Open for extension, closed for modification. Adding a third payment gateway should mean writing a new class that implements the interface, not editing a growing <code>if/else</code> chain inside checkout.</p></div></div>
+  <div class="tier"><span class="badge">L</span><div><b>Liskov substitution</b><p>Anywhere the parent type works, a child must work too, without surprises. If <code>Square</code> extends <code>Rectangle</code> but setting the width secretly changes the height, code written against <code>Rectangle</code> breaks. That's the classic example — use it.</p></div></div>
+  <div class="tier"><span class="badge">I</span><div><b>Interface segregation</b><p>Many small interfaces beat one fat one. Don't force a class to implement methods it has no use for — a read-only report service shouldn't be made to implement <code>delete()</code>.</p></div></div>
+  <div class="tier"><span class="badge">D</span><div><b>Dependency inversion</b><p>Depend on abstractions, not concrete classes. Your order service should depend on a <code>PaymentGateway</code> interface, with the concrete Razorpay client injected in. <strong>This is the one that makes code testable</strong> — you can inject a fake gateway in a unit test. Say that; it connects both JDs in one sentence.</p></div></div>
+
+  <div class="note">
+    <span class="lbl">The honest, high-scoring version of the SOLID answer</span>
+    <p>Don't recite all five and stop. Name them, then say where you fell short: <em>"In SpiceNest my payment route violates single responsibility badly — one handler verifies the signature, computes totals, creates the order, decrements stock and triggers an email. I'd extract a payment verifier, an order service and a notification service. And I hard-coded both gateways rather than putting them behind an interface, which is a dependency-inversion problem — it's also why they're awkward to test."</em> Self-critique with a concrete fix is worth far more than perfect recitation.</p>
+  </div>
+
+  <h3>Clean code — the rules they'll expect you to hold</h3>
+  <ul>
+    <li><strong>Names carry meaning.</strong> <code>parseWeightToKg</code> tells you the input, the output and the unit. <code>calc()</code> tells you nothing.</li>
+    <li><strong>Small functions that do one thing.</strong> If you need "and" to describe it, it's two functions.</li>
+    <li><strong>No magic numbers.</strong> <code>subtotal &lt; 500</code> should be <code>FREE_SHIPPING_THRESHOLD</code> — one named constant, one place to change it, and the test reads the same word as the code.</li>
+    <li><strong>Comments explain <em>why</em>, not what.</strong> The code already says what. A comment earns its place by recording a decision or a trap.</li>
+    <li><strong>Handle errors deliberately.</strong> Never swallow an exception silently. Fail with a message someone can act on.</li>
+    <li><strong>Don't repeat yourself — but don't over-abstract either.</strong> Two similar things aren't necessarily the same thing; premature abstraction is as expensive as duplication.</li>
+    <li><strong>Consistent formatting, enforced by tooling</strong> rather than argued about in review — linters and formatters in the pipeline.</li>
+  </ul>
+
+  <h3>Four design patterns worth knowing by name</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Pattern</th><th>What it solves</th><th>Where you've met it</th></tr>
+    <tr><td><strong>Singleton</strong></td><td>Exactly one instance, globally reachable</td><td>A database client. SpiceNest creates a <code>PrismaClient</code> per route file — which is arguably the anti-pattern version, since a shared single instance is the recommended approach and avoids connection-pool exhaustion. Good self-critique.</td></tr>
+    <tr><td><strong>Factory</strong></td><td>Create objects without the caller knowing the concrete class</td><td>A <code>getGateway("razorpay")</code> returning the right implementation; a WebDriver factory returning Chrome or Firefox</td></tr>
+    <tr><td><strong>Strategy</strong></td><td>Swap an algorithm at run time behind one interface</td><td>Different pricing or discount rules selected per order; different retry policies</td></tr>
+    <tr><td><strong>Observer</strong></td><td>Notify many listeners when something changes</td><td>Event emitters in Node; React state updates re-rendering subscribed components</td></tr>
+  </table></div>
+  <p>If they push for a fifth, <strong>Repository</strong> (data access behind an interface) and <strong>Decorator</strong> (wrap to add behaviour — Express middleware is essentially this) are safe additions.</p>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>What are SOLID principles?</summary><div class="ans">
+      <p>Name all five with a one-line example each, then land on dependency inversion and testability. If you only remember one properly, make it that one — it's the principle with the clearest practical payoff and it bridges to the testing half of the panel.</p>
+    </div></details>
+
+    <details><summary>What makes code "testable"?</summary><div class="ans">
+      <p>A question both interviewers care about. "Small functions with clear inputs and outputs; dependencies injected rather than constructed inside, so they can be replaced with fakes; no hidden global state; side effects pushed to the edges so the core logic is pure; and deterministic behaviour — no direct calls to the clock or a random generator buried in business logic, because you can't assert against those. In SpiceNest, <code>parseWeightToKg</code> is trivially testable and my payment handler is not, and the difference is entirely about dependencies and side effects."</p>
+    </div></details>
+
+    <details><summary>Have you used any design patterns?</summary><div class="ans">
+      <p>Don't invent. Name what you genuinely used: "Not deliberately by name in most cases, but a few appear in my code — React's Context API is essentially an observer setup, Express middleware is a decorator chain, and my cache wrapper is a small facade over a Map. Where I'd consciously add one now is a factory plus strategy for the two payment gateways, because right now they're hard-coded branches."</p>
+    </div></details>
+
+    <details><summary>What's the difference between an abstract class and an interface, and when do you use each?</summary><div class="ans">
+      <p>Definition first, then the decision rule: "I use an abstract class when several implementations genuinely share state and behaviour I don't want to duplicate — a base repository with a shared connection. I use an interface when I only want to guarantee a contract and the implementations have nothing in common internally — payment gateways being the obvious case. And since a class can implement many interfaces but extend only one parent, interfaces compose better."</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="tag">04 · Tier 1 · explicitly required</div>
+  <h2>Data modelling and SQL</h2>
+
+  <p>The JD asks for <em>"good understanding of data modelling and storage with well-known relational database (preferably SQL)"</em>. You have a real eight-table schema you designed yourself, which is a far stronger answer than textbook normalisation. Lead with it.</p>
+
+  <h3>Modelling — the questions to answer out loud</h3>
+  <ol>
+    <li><strong>What are the entities?</strong> Nouns in the problem: user, product, order, supplier.</li>
+    <li><strong>What are the relationships and their cardinality?</strong> One-to-many (a user has many orders), many-to-many (a product belongs to many categories — which needs a join table).</li>
+    <li><strong>What identifies each row?</strong> Primary key — surrogate (auto-increment or UUID) or natural (an email). Prefer surrogate: natural keys change.</li>
+    <li><strong>What must always be true?</strong> Constraints: not null, unique, foreign keys, check constraints. Enforce rules in the database, not only in application code — the database is the last line of defence.</li>
+    <li><strong>What happens on delete?</strong> Cascade, set null, or restrict. A deliberate choice, not a default.</li>
+    <li><strong>What will be queried most?</strong> That's where the indexes go.</li>
+  </ol>
+
+  <h4>Your schema as the worked example</h4>
+  <p>Talk through the three decisions that show judgement rather than memorised rules:</p>
+  <ul>
+    <li><strong>Order items snapshot the product name and price.</strong> Deliberate denormalisation, because an order is a historical record — repricing a product must not rewrite old invoices.</li>
+    <li><strong>The cart's composite unique key</strong> <code>(userId, productId, weight)</code> — the same spice in 100g and 250g is two distinct lines, and the database enforces that rather than trusting the application.</li>
+    <li><strong>Soft delete via <code>isArchived</code>, and <code>onDelete: SetNull</code> on order items</strong> — a product referenced by past orders can't simply vanish.</li>
+  </ul>
+
+  <h3>Normalisation, quickly</h3>
+  <p><strong>1NF:</strong> atomic values, no repeating groups. <strong>2NF:</strong> no partial dependency on part of a composite key. <strong>3NF:</strong> no transitive dependency — non-key columns depend only on the key. <strong>Denormalise deliberately</strong> when reads dominate or history must be preserved, and be able to say which you did and why.</p>
+
+  <h3>The SQL shapes to have in your hand</h3>
+<pre><code><span class="c">-- JOIN + aggregate: top customers by spend</span>
+<span class="k">SELECT</span> u.name, <span class="k">COUNT</span>(o.id) <span class="k">AS</span> orders, <span class="k">SUM</span>(o."totalAmount") <span class="k">AS</span> spend
+<span class="k">FROM</span> "User" u
+<span class="k">JOIN</span> "Order" o <span class="k">ON</span> o."userId" = u.id
+<span class="k">GROUP BY</span> u.id, u.name
+<span class="k">HAVING</span> <span class="k">SUM</span>(o."totalAmount") &gt; <span class="s">5000</span>
+<span class="k">ORDER BY</span> spend <span class="k">DESC</span>;
+
+<span class="c">-- LEFT JOIN + IS NULL: find the orphans (products never ordered)</span>
+<span class="k">SELECT</span> p.id, p.name
+<span class="k">FROM</span> "Product" p
+<span class="k">LEFT JOIN</span> "OrderItem" oi <span class="k">ON</span> oi."productId" = p.id
+<span class="k">WHERE</span> oi.id <span class="k">IS NULL</span>;
+
+<span class="c">-- Second highest — the interview classic, two ways</span>
+<span class="k">SELECT</span> <span class="k">MAX</span>(price) <span class="k">FROM</span> "Product"
+<span class="k">WHERE</span> price &lt; (<span class="k">SELECT</span> <span class="k">MAX</span>(price) <span class="k">FROM</span> "Product");
+
+<span class="k">SELECT DISTINCT</span> price <span class="k">FROM</span> "Product"
+<span class="k">ORDER BY</span> price <span class="k">DESC</span> <span class="k">OFFSET</span> <span class="s">1</span> <span class="k">LIMIT</span> <span class="s">1</span>;
+
+<span class="c">-- Duplicates — a data-integrity check worth knowing by heart</span>
+<span class="k">SELECT</span> email, <span class="k">COUNT</span>(*) <span class="k">FROM</span> "User"
+<span class="k">GROUP BY</span> email <span class="k">HAVING</span> <span class="k">COUNT</span>(*) &gt; <span class="s">1</span>;
+
+<span class="c">-- Transaction: the fix for SpiceNest's atomicity problem</span>
+<span class="k">BEGIN</span>;
+  <span class="k">UPDATE</span> "Product" <span class="k">SET</span> stock = stock - <span class="s">0.25</span>
+   <span class="k">WHERE</span> id = <span class="s">7</span> <span class="k">AND</span> stock &gt;= <span class="s">0.25</span>;   <span class="c">-- 0 rows affected = out of stock, roll back</span>
+  <span class="k">INSERT INTO</span> "Order" (...) <span class="k">VALUES</span> (...);
+<span class="k">COMMIT</span>;</code></pre>
+  <p><strong>Reading the second-highest queries:</strong> the first asks for the largest price strictly below the maximum, and returns <code>NULL</code> instead of erroring when every price is identical — that's the edge case they're probing. The second sorts descending, skips one row and takes the next; the <code>DISTINCT</code> matters, because two products tied at the top would otherwise make the "second highest" the same number.</p>
+  <p><strong>Reading the transaction:</strong> the <code>AND stock &gt;= 0.25</code> is the whole trick. It makes the check and the update a single atomic operation, so two concurrent buyers can't both pass the check — exactly the race condition in your own checkout flow. If the update affects zero rows, you roll back and tell the customer it's out of stock.</p>
+
+  <h3>Things they may ask beyond queries</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Topic</th><th>The answer</th></tr>
+    <tr><td><strong>ACID</strong></td><td>Atomicity, Consistency, Isolation, Durability — and be ready to give a checkout example for each</td></tr>
+    <tr><td><strong>Index</strong></td><td>Usually a B-tree; faster reads, slower writes, extra storage. Index what you filter, join and sort by. Too many indexes slow down writes.</td></tr>
+    <tr><td><strong>WHERE vs HAVING</strong></td><td>Rows before grouping vs groups after</td></tr>
+    <tr><td><strong>DELETE / TRUNCATE / DROP</strong></td><td>Remove rows (rollback-able) / empty the table fast / remove the table itself</td></tr>
+    <tr><td><strong>N+1 query problem</strong></td><td>Fetching a list then querying once per row. Fix with a join or an eager <code>include</code>. Worth naming — you use Prisma's <code>include</code> for exactly this.</td></tr>
+    <tr><td><strong>SQL vs NoSQL</strong></td><td>Relational, schema, joins, transactions vs flexible documents and horizontal scale. "Orders and payments need transactions, so Postgres."</td></tr>
+    <tr><td><strong>SQL injection</strong></td><td>Never concatenate user input into a query; use parameterised queries or an ORM that does. Prisma parameterises by default, which is part of why I used it.</td></tr>
+  </table></div>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>Design the schema for an e-commerce site on this whiteboard.</summary><div class="ans">
+      <p>You have done this for real — draw your own. User, Product, Farmer/Supplier, Order, OrderItem, CartItem, Review, WishlistItem, with the foreign keys drawn as arrows. Then narrate the three judgement calls: snapshotting on order items, the composite unique key on cart lines, and soft delete. Finish with "and the indexes I'd add are on the foreign keys and on anything I filter by, like category and archived status."</p>
+    </div></details>
+
+    <details><summary>How would you handle a query that's suddenly slow?</summary><div class="ans">
+      <p>"Measure before guessing — run <code>EXPLAIN ANALYZE</code> and look at the plan. A sequential scan on a large table usually means a missing index on the filter or join column. Then check whether the query is doing work it doesn't need: selecting every column, fetching every row instead of paginating, or an N+1 pattern where the application queries once per result. If the plan is fine and it's still slow, it's contention or data volume, and caching or denormalisation comes next."</p>
+    </div></details>
+
+    <details><summary>Why did you choose PostgreSQL for your project?</summary><div class="ans">
+      <p>"The data is inherently relational — users have orders, orders have items, items reference products — and money and stock need transactional guarantees. That's exactly what a relational database is for. I also wanted real constraints, like the composite unique key on cart lines, enforced by the database rather than trusted to application code. I used Neon because it's serverless Postgres, so I didn't have to run a database server for a student project, and Prisma on top for a typed schema and migrations."</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="tag">05 · Tier 1 · your stack and theirs</div>
+  <h2>JavaScript, Node and React</h2>
+
+  <p>The JD asks for versatility across <strong>JavaScript, HTML5, CSS3, AngularJS, NodeJS, REST APIs and JSON</strong>. You have shipped a React and Node application, so this is the block where you can sound genuinely experienced rather than merely prepared — provided you can explain the engine, not just the framework.</p>
+
+  <div class="note watch">
+    <span class="lbl">On AngularJS</span>
+    <p>It's listed, but it's the legacy framework — today's equivalent is Angular (2+), and SOTI's console work may use either that or React. Don't claim it. If asked: "I haven't used Angular; I work in React. The concepts map — components, one-way data flow in modern Angular, a module and dependency-injection system, and RxJS where React uses hooks and state. I'd expect the transition to be a couple of weeks." Honest, informed, no bluffing.</p>
+  </div>
+
+  <h3>The trap snippets — run these, then explain each aloud</h3>
+  <span class="filename">js_traps.js — run with: node js_traps.js</span>
+<pre><code><span class="c">// 1. event loop ordering</span>
+console.log(<span class="s">"A"</span>);
+setTimeout(() =&gt; console.log(<span class="s">"B"</span>), <span class="s">0</span>);
+Promise.resolve().then(() =&gt; console.log(<span class="s">"C"</span>));
+console.log(<span class="s">"D"</span>);
+
+<span class="c">// 2. var vs let in a loop</span>
+<span class="k">for</span> (<span class="k">var</span> i = <span class="s">0</span>; i &lt; <span class="s">3</span>; i++) setTimeout(() =&gt; console.log(<span class="s">"var:"</span>, i), <span class="s">0</span>);
+<span class="k">for</span> (<span class="k">let</span> j = <span class="s">0</span>; j &lt; <span class="s">3</span>; j++) setTimeout(() =&gt; console.log(<span class="s">"let:"</span>, j), <span class="s">0</span>);
+
+<span class="c">// 3. hoisting</span>
+console.log(<span class="k">typeof</span> x);
+<span class="k">var</span> x = <span class="s">5</span>;
+
+<span class="c">// 4. equality and coercion</span>
+console.log(<span class="s">0</span> == <span class="s">"0"</span>, <span class="s">0</span> === <span class="s">"0"</span>, <span class="k">null</span> == <span class="k">undefined</span>, <span class="k">null</span> === <span class="k">undefined</span>, <span class="k">NaN</span> === <span class="k">NaN</span>);
+
+<span class="c">// 5. floating point</span>
+console.log(<span class="s">0.1</span> + <span class="s">0.2</span>, <span class="s">0.1</span> + <span class="s">0.2</span> === <span class="s">0.3</span>);
+
+<span class="c">// 6. this binding</span>
+<span class="k">const</span> obj = { name: <span class="s">"SpiceNest"</span>, normal() { <span class="k">return</span> <span class="k">this</span>.name; }, arrow: () =&gt; <span class="k">this</span>.name };
+console.log(obj.normal(), obj.arrow());
+
+<span class="c">// 7. closures</span>
+<span class="k">function</span> makeCounter() { <span class="k">let</span> c = <span class="s">0</span>; <span class="k">return</span> () =&gt; ++c; }
+<span class="k">const</span> inc = makeCounter();
+console.log(inc(), inc(), inc(), makeCounter()());</code></pre>
+
+  <h4>The output, line by line</h4>
+<pre><code>A  D  C  B
+var: 3   var: 3   var: 3
+let: 0   let: 1   let: 2
+undefined
+true false true false false
+0.30000000000000004   false
+SpiceNest undefined
+1 2 3 1</code></pre>
+
+  <ul>
+    <li><strong>A D C B — the event loop.</strong> Synchronous code runs first, so A then D. Then the <em>microtask</em> queue drains, which is where promise callbacks live, giving C. Only then does the event loop take from the <em>macrotask</em> queue, where <code>setTimeout</code> callbacks sit, giving B. <code>setTimeout(fn, 0)</code> does not mean "now" — it means "after the current synchronous work and all pending microtasks". This is the single most-asked JavaScript question and you should be able to say "microtask queue has priority over the macrotask queue" without hesitating.</li>
+    <li><strong>var: 3 three times, let: 0 1 2 — scope.</strong> <code>var</code> is function-scoped, so all three callbacks close over the <em>same</em> variable, which is 3 by the time they run. <code>let</code> is block-scoped and gets a fresh binding per iteration, so each callback captures its own value. Before <code>let</code> existed, the fix was an IIFE to create a new scope per iteration.</li>
+    <li><strong>undefined — hoisting.</strong> <code>var x</code> is hoisted to the top of the scope and initialised to <code>undefined</code>, so the access doesn't throw. With <code>let</code> or <code>const</code> the same code throws a <code>ReferenceError</code>, because those sit in the "temporal dead zone" until the declaration is reached. Name that phrase — it's the mark of someone who has read about this rather than guessed.</li>
+    <li><strong>true false true false false — equality.</strong> <code>==</code> coerces types, so <code>0 == "0"</code> passes; <code>===</code> doesn't, so it fails. <code>null == undefined</code> is true by specification, but <code>===</code> distinguishes them. And <code>NaN === NaN</code> is false — NaN is not equal to anything, including itself, which is why you need <code>Number.isNaN()</code>. The rule to state: <strong>always use <code>===</code> unless you deliberately want coercion.</strong></li>
+    <li><strong>0.30000000000000004 — floating point.</strong> Binary floating point can't represent 0.1 or 0.2 exactly, so the sum drifts. This is why money should be stored as integer paise or cents — and it's a live issue in SpiceNest, where prices and stock are floats.</li>
+    <li><strong>SpiceNest, then undefined — <code>this</code>.</strong> A normal method gets <code>this</code> from the object it was called on. An arrow function has no <code>this</code> of its own; it inherits from the enclosing lexical scope, which here is the module, not the object — so <code>this.name</code> is undefined. The practical rule: <strong>arrow functions for callbacks where you want to keep the outer <code>this</code>, normal functions for object methods.</strong></li>
+    <li><strong>1 2 3 then 1 — closures.</strong> The returned function keeps a live reference to <code>c</code> in the enclosing scope even after <code>makeCounter</code> has returned. Each call to <code>makeCounter</code> creates a brand-new scope, which is why the fresh counter starts at 1 again. That's the definition of a closure, and it's also how private state is done in JavaScript without classes.</li>
+  </ul>
+
+  <h3>Node and the runtime</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Question</th><th>The answer</th></tr>
+    <tr><td><strong>Is Node single-threaded?</strong></td><td>Your JavaScript runs on one thread with an event loop, so you never block it. But Node isn't single-threaded overall — libuv keeps a thread pool for file I/O, DNS and crypto, and there are worker threads for CPU-heavy work.</td></tr>
+    <tr><td><strong>Why is it good for I/O?</strong></td><td>Waiting on a database or network call doesn't occupy the thread — the callback is queued and the loop serves other requests meanwhile. That's why one Node process handles thousands of concurrent connections.</td></tr>
+    <tr><td><strong>What's it bad at?</strong></td><td>CPU-bound work. A heavy synchronous loop blocks the event loop and every other request stalls. Fix with worker threads, a separate service, or a queue.</td></tr>
+    <tr><td><strong>Callback → Promise → async/await</strong></td><td>Three generations of the same idea. Callbacks nest into "callback hell"; promises flatten it with <code>.then</code> chains and proper error propagation; <code>async/await</code> is syntax over promises that reads like synchronous code. Always pair <code>await</code> with <code>try/catch</code>.</td></tr>
+    <tr><td><strong>Express middleware</strong></td><td>Functions in a chain, each receiving <code>(req, res, next)</code>, either responding or calling <code>next()</code>. That's how SpiceNest does CORS, JSON body parsing, rate limiting and JWT verification — each is a middleware, and order matters.</td></tr>
+    <tr><td><strong>Promise.all vs sequential awaits</strong></td><td>Sequential <code>await</code>s in a loop run one after another; <code>Promise.all</code> runs them concurrently and resolves when all finish. <strong>Relevant to your code</strong> — the stock-decrement loop awaits each update in turn when they're independent.</td></tr>
+  </table></div>
+
+  <h3>React — the parts they'll probe</h3>
+  <ul>
+    <li><strong>Why components and one-way data flow?</strong> State flows down through props, changes flow up through callbacks, so there's one direction to debug.</li>
+    <li><strong>The virtual DOM.</strong> React builds an in-memory tree, diffs it against the previous one and applies the minimum set of real DOM updates, because touching the real DOM is the expensive part.</li>
+    <li><strong>Keys in lists.</strong> Stable identity so React can tell which items moved rather than re-rendering everything. Using the array index as a key breaks on reorder or deletion — a classic bug.</li>
+    <li><strong><code>useState</code> vs <code>useEffect</code>.</strong> State holds values that cause a re-render when they change; effects run side effects after render — fetching, subscriptions, timers — and the dependency array controls when. A missing dependency causes stale values; an unstable one causes an infinite loop.</li>
+    <li><strong>Context API.</strong> Shares state without passing props through every level. SpiceNest uses four contexts — Auth, Cart, Wishlist, Viewed. Trade-off worth naming: every consumer re-renders when the context value changes, so it suits low-frequency state like auth, not high-frequency state.</li>
+    <li><strong>Controlled vs uncontrolled inputs.</strong> Controlled means React state is the single source of truth for the field's value.</li>
+  </ul>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>Explain the JavaScript event loop.</summary><div class="ans">
+      <p>"JavaScript runs on a single call stack. When asynchronous work finishes, its callback goes into a queue rather than interrupting whatever is running. The event loop takes from a queue only when the stack is empty. There are two priorities: microtasks, which are promise callbacks, and macrotasks, which are timers and I/O — and the microtask queue drains completely before the next macrotask. That's why a <code>setTimeout(fn, 0)</code> still runs after a promise resolution registered later."</p>
+      <p>Then the practical consequence: "It's also why a long synchronous loop freezes an entire Node server — nothing else gets a turn until it finishes."</p>
+    </div></details>
+
+    <details><summary>var, let and const — what's the difference?</summary><div class="ans">
+      <p>"<code>var</code> is function-scoped, hoisted and initialised to undefined, and can be redeclared — which causes the classic loop-capture bug. <code>let</code> and <code>const</code> are block-scoped and sit in the temporal dead zone until declared, so accessing them early throws instead of silently giving undefined. <code>const</code> prevents reassignment of the binding, not mutation of the object it points at — you can still push to a <code>const</code> array. I default to <code>const</code>, use <code>let</code> when I must reassign, and never use <code>var</code>."</p>
+    </div></details>
+
+    <details><summary>What is a closure and where have you used one?</summary><div class="ans">
+      <p>"A closure is a function that keeps access to the variables of the scope it was created in, even after that scope has returned. Practically, it's how you get private state and factory functions in JavaScript. In my project, the CORS origin check in Express is a closure over the allow-list array, and the cache instance closes over its own Map and TTL — nothing outside can reach either."</p>
+    </div></details>
+
+    <details><summary>Why did you use React for this instead of plain JavaScript?</summary><div class="ans">
+      <p>"Because the UI is stateful in a lot of places at once — cart contents, auth state, wishlist, filters — and keeping the DOM manually in sync with that state is where bugs come from. React lets me describe what the UI should look like for a given state and handles the updating. Component reuse mattered too: one product card renders across the shop, the wishlist and recently-viewed. For a static page I wouldn't reach for it."</p>
+    </div></details>
+
+    <details><summary>Callback hell — what is it and how do you avoid it?</summary><div class="ans">
+      <p>"Deeply nested callbacks where each asynchronous step is inside the previous one's handler. It's hard to read and error handling gets duplicated at every level. Promises flatten it into a chain with a single <code>.catch</code>, and <code>async/await</code> makes it read like sequential code with ordinary <code>try/catch</code>. The one thing to watch with await is accidentally serialising independent operations — if three calls don't depend on each other, <code>Promise.all</code> runs them together."</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="tag">06 · Tier 2</div>
+  <h2>REST, HTTP and JSON</h2>
+
+  <p>Named in the JD, and you've designed a real API — so answer from your own routes rather than from a definition.</p>
+
+  <h3>What makes an API RESTful</h3>
+  <ul>
+    <li><strong>Resources, not actions, in the URL.</strong> <code>/api/products/7</code>, not <code>/api/getProduct?id=7</code>. The verb is the HTTP method.</li>
+    <li><strong>Stateless.</strong> Every request carries what's needed to serve it — which is why the JWT travels in the <code>Authorization</code> header instead of a server-side session.</li>
+    <li><strong>Correct methods and status codes.</strong> GET reads and never changes state; POST creates; PUT replaces; PATCH updates part; DELETE removes.</li>
+    <li><strong>Consistent representation</strong> — JSON in, JSON out, with a predictable error shape.</li>
+    <li><strong>Cacheable where it makes sense</strong>, and layered, so a proxy or load balancer can sit in front without the client knowing.</li>
+  </ul>
+
+  <div class="tablewrap"><table>
+    <tr><th>Code</th><th>Meaning</th><th>When you'd return it</th></tr>
+    <tr><td>200 / 201 / 204</td><td>OK / Created / No content</td><td>201 after a successful create</td></tr>
+    <tr><td>400</td><td>Bad request</td><td>Missing or malformed input</td></tr>
+    <tr><td>401</td><td>Unauthenticated</td><td>No token, expired token, bad token</td></tr>
+    <tr><td>403</td><td>Forbidden</td><td>Valid token, insufficient permission — a normal user hitting an admin route</td></tr>
+    <tr><td>404</td><td>Not found</td><td>Valid-looking ID that doesn't exist</td></tr>
+    <tr><td>409</td><td>Conflict</td><td>Registering an email that already exists</td></tr>
+    <tr><td>429</td><td>Too many requests</td><td>Rate limiter trips</td></tr>
+    <tr><td>500</td><td>Server error</td><td>Unhandled — and it must never leak a stack trace to the client</td></tr>
+  </table></div>
+
+  <div class="note trap">
+    <span class="lbl">A real defect in your own API — bring it up</span>
+    <p>SpiceNest's <code>verifyToken</code> middleware returns <strong>400</strong> for an invalid or expired token where it should return <strong>401</strong>. Small, but it means a client can't distinguish "your request was malformed" from "your session expired, log in again". Naming a contract bug in your own code, unprompted, is one of the strongest signals you can send in either role.</p>
+  </div>
+
+  <h3>Authentication concepts</h3>
+  <p><strong>JWT:</strong> three base64url parts — header, payload, signature. The server signs it with a secret; anyone can <em>read</em> the payload, so never put secrets in it. The server verifies the signature rather than looking the session up, which makes it stateless and horizontally scalable. The cost is that you can't revoke a token before it expires — hence short-lived access tokens plus refresh tokens in real systems.</p>
+  <p><strong>Sessions vs tokens:</strong> a session ID means server-side state and easy revocation; a token means no server state but harder revocation. <strong>Authentication vs authorisation:</strong> who you are vs what you're allowed to do — and both must be enforced, on every protected route, server-side.</p>
+  <p><strong>Hashing passwords:</strong> bcrypt with a per-user salt, deliberately slow. Never a fast hash like SHA-256, and never encryption, because passwords should not be recoverable at all.</p>
+
+  <h3>Idempotency, and why it matters</h3>
+  <p>GET, PUT and DELETE are idempotent — repeating them has the same effect as doing them once. POST isn't, which is exactly why a retried checkout can create two orders. SpiceNest guards this with a unique <code>razorpayOrderId</code> plus an early return when the order already exists. That's a concrete, senior-sounding example of a real distributed-systems concern.</p>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>Design a REST API for a shopping cart.</summary><div class="ans">
+      <p>Speak in resources: <code>GET /api/cart</code> to read the current user's cart, <code>POST /api/cart</code> to add or update an item with a product ID, weight and quantity in the body, <code>PATCH /api/cart/:itemId</code> for quantity, <code>DELETE /api/cart/:itemId</code> to remove one, <code>DELETE /api/cart</code> to clear. Then add the details that show experience: "The cart is always scoped to the authenticated user from the token, never to a user ID in the URL — otherwise anyone can read anyone's cart. Prices are computed server-side from the database, never accepted from the client. And add/update is an upsert keyed on user, product and weight, so adding the same thing twice doesn't create duplicate lines."</p>
+    </div></details>
+
+    <details><summary>PUT vs PATCH vs POST?</summary><div class="ans">
+      <p>"POST creates a new resource or triggers an action, and it's the only one of the three that isn't idempotent — sending it twice creates two things. PUT replaces a resource entirely, so sending it twice leaves the same result. PATCH applies a partial update. In practice most APIs use POST for creation and PATCH for edits, and the important discipline is being consistent so clients can retry safely."</p>
+    </div></details>
+
+    <details><summary>How do you secure an API?</summary><div class="ans">
+      <p>Give a layered answer: "HTTPS everywhere. Authentication on every protected route and authorisation checked separately — being logged in isn't permission. Validate and allow-list all input at the boundary rather than trusting the client, because the client is not under my control. Never trust prices, totals, roles or user IDs sent in a request body — my own project got that wrong and computed order totals from client-supplied prices. Parameterised queries to prevent injection. Rate limiting on authentication endpoints. Generic error messages so you don't leak which emails are registered. And no sensitive data in URLs or logs."</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="tag">07 · Tier 2 · refresh, don't relearn</div>
+  <h2>Operating systems and networking</h2>
+
+  <p>Volume I covers both in depth — this is the compressed revision pass. Skim it, then close the page and see whether you can say each row from the prompt alone.</p>
+
+  <h3>OS — the eight answers</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Concept</th><th>The answer in one or two sentences</th></tr>
+    <tr><td><strong>Process vs thread</strong></td><td>A process is a program in execution with its own memory space; threads live inside a process and share its memory. Threads are cheaper to create and switch, and sharing memory is precisely what makes concurrency bugs possible.</td></tr>
+    <tr><td><strong>Concurrency vs parallelism</strong></td><td>Dealing with many things at once, interleaved, versus doing many at once on multiple cores. Node is concurrent but single-threaded for your code.</td></tr>
+    <tr><td><strong>Deadlock</strong></td><td>Each party holds a resource the other needs, so nobody proceeds. Four conditions must all hold — mutual exclusion, hold and wait, no preemption, circular wait — and breaking any one prevents it. Consistent lock ordering is the usual fix.</td></tr>
+    <tr><td><strong>Race condition</strong></td><td>The outcome depends on timing. Fixed with locks, atomic operations or a database transaction. <strong>You have one in your own checkout</strong> — the stock check and the decrement happen in separate requests.</td></tr>
+    <tr><td><strong>Mutex vs semaphore</strong></td><td>One holder with ownership vs N concurrent holders with no ownership.</td></tr>
+    <tr><td><strong>Scheduling</strong></td><td>FCFS, shortest job first, round robin (time slices, good responsiveness), priority. Starvation is a low-priority task never running; ageing fixes it.</td></tr>
+    <tr><td><strong>Virtual memory &amp; paging</strong></td><td>Memory split into fixed pages mapped to physical frames, letting a program address more than physically exists. A page fault is a reference to a page not in RAM; thrashing is paging more than working.</td></tr>
+    <tr><td><strong>Memory leak</strong></td><td>Memory that's allocated and never released — in garbage-collected languages, usually a reference you forgot to drop. Your cache never evicts expired keys unless they're read again, which is a slow leak in a long-running process.</td></tr>
+  </table></div>
+
+  <h3>Networking — the ten answers</h3>
+  <p>Keep this one warm: a candidate who interviewed at SOTI Kochi reported the technical round leaning heavily on networking.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Concept</th><th>The answer</th></tr>
+    <tr><td><strong>OSI layers</strong></td><td>Physical, Data Link, Network, Transport, Session, Presentation, Application. TCP/IP collapses this to four.</td></tr>
+    <tr><td><strong>TCP vs UDP</strong></td><td>Connection-oriented, reliable, ordered, heavier vs connectionless, best-effort, fast. HTTP and SSH use TCP; DNS queries, DHCP, streaming and VoIP use UDP.</td></tr>
+    <tr><td><strong>Three-way handshake</strong></td><td>SYN → SYN-ACK → ACK, so both sides confirm each other's sequence numbers. Teardown is a four-way FIN/ACK exchange.</td></tr>
+    <tr><td><strong>DNS</strong></td><td>Name to IP. Local cache → recursive resolver → root → TLD → authoritative, cached by TTL. Records: A, AAAA, CNAME, MX, TXT, NS. Port 53, usually UDP.</td></tr>
+    <tr><td><strong>DHCP</strong></td><td>Automatic IP configuration by lease, via Discover, Offer, Request, Acknowledge. Also supplies subnet mask, gateway and DNS servers.</td></tr>
+    <tr><td><strong>Firewall</strong></td><td>Rule-based filtering by IP, port and protocol; stateful firewalls track connections and permit return traffic for sessions started inside.</td></tr>
+    <tr><td><strong>NAT</strong></td><td>Many private addresses behind one public IP. It's why an outside server usually can't dial into a device — devices connect outward and keep the channel open.</td></tr>
+    <tr><td><strong>HTTPS / TLS</strong></td><td>Encryption, integrity and server identity. The certificate proves domain control; asymmetric crypto establishes a shared session key, then fast symmetric encryption carries the traffic.</td></tr>
+    <tr><td><strong>Typing a URL</strong></td><td>Cache → DNS → TCP handshake → TLS handshake → HTTP request → server and database → response → parse HTML, fetch assets, build the DOM, render, run JavaScript.</td></tr>
+    <tr><td><strong>Ports</strong></td><td>22 SSH, 53 DNS, 80 HTTP, 443 HTTPS, 3306 MySQL, 5432 Postgres.</td></tr>
+  </table></div>
+
+  <p>Diagnostics worth naming: <code>ping</code>, <code>traceroute</code>, <code>nslookup</code>/<code>dig</code>, <code>netstat</code>, <code>curl</code>, and Wireshark or Fiddler for inspecting traffic you can't see in devtools.</p>
+
+  <div class="note">
+    <span class="lbl">Turn networking into a product answer</span>
+    <p>If they ask something networking-adjacent, land it on their world: <em>"For a device-management product all of this is the operating environment — devices sit behind NAT and corporate firewalls, connectivity in a warehouse is unreliable, so the agent dials out, holds the connection, and commands have to be queued, retried and idempotent."</em> That sentence works for both roles.</p>
+  </div>
+</section>
+
+<section id="s8">
+  <div class="tag">08 · Tier 2</div>
+  <h2>Git, CI/CD and Agile</h2>
+
+  <h3>Git — what a fresher is expected to know</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Question</th><th>Answer</th></tr>
+    <tr><td><strong>merge vs rebase</strong></td><td>Merge creates a commit joining two histories and preserves what actually happened. Rebase replays your commits on top of the target branch for a linear history, but rewrites commit hashes — so never rebase a branch others have pulled.</td></tr>
+    <tr><td><strong>fetch vs pull</strong></td><td><code>fetch</code> downloads remote changes without touching your working tree; <code>pull</code> is fetch plus merge.</td></tr>
+    <tr><td><strong>Resolving a conflict</strong></td><td>Git marks the competing regions; you decide the correct combined result, remove the markers, test, then stage and commit. The real answer is prevention: small, frequent merges from the mainline.</td></tr>
+    <tr><td><strong>reset vs revert</strong></td><td><code>reset</code> moves the branch pointer and can discard history — fine locally. <code>revert</code> creates a new commit undoing an old one — the safe choice on a shared branch.</td></tr>
+    <tr><td><strong>stash, cherry-pick</strong></td><td>Park uncommitted work temporarily; copy one specific commit onto another branch.</td></tr>
+    <tr><td><strong>Branching strategy</strong></td><td>Short-lived feature branches off main, pull request with review and green CI before merge. Long-lived branches cause painful merges.</td></tr>
+    <tr><td><strong>A good commit</strong></td><td>One logical change, an imperative subject line explaining <em>why</em>, and nothing unrelated smuggled in.</td></tr>
+  </table></div>
+
+  <h3>CI/CD</h3>
+  <p><strong>Continuous integration:</strong> every push triggers an automated build and test run, so integration problems surface in minutes. <strong>Continuous delivery:</strong> every passing build is deployable at the press of a button. <strong>Continuous deployment:</strong> it ships automatically. The JD mentions continuous delivery by name.</p>
+  <p>The pipeline in order: lint → unit tests → build → integration tests → deploy to staging → smoke tests → deploy to production. The rule to state: <strong>fast deterministic tests gate the merge; slow broad ones run behind it.</strong> Deployment strategies worth naming: blue-green, canary, and feature flags.</p>
+  <p>You have real material here — SpiceNest deploys from a Git push to Vercel, which is continuous deployment in practice. Say that rather than reciting theory.</p>
+
+  <h3>Agile — Scrum and XP</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Ritual</th><th>Purpose</th><th>Your contribution as a developer</th></tr>
+    <tr><td>Backlog refinement</td><td>Clarify upcoming stories</td><td>Raise technical unknowns and hidden complexity before anyone commits to an estimate</td></tr>
+    <tr><td>Sprint planning</td><td>Commit to the sprint's work</td><td>Estimate honestly, flag dependencies</td></tr>
+    <tr><td>Daily stand-up</td><td>Sync and unblock</td><td>Raise blockers on day one, not day three</td></tr>
+    <tr><td>Sprint review / demo</td><td>Show working software</td><td>Demo what you built and what's not finished</td></tr>
+    <tr><td>Retrospective</td><td>Improve the process</td><td>Bring specifics, not complaints</td></tr>
+  </table></div>
+  <p>Vocabulary: <strong>user story</strong> ("As a role, I want a goal, so that a benefit") with <strong>acceptance criteria</strong>; <strong>Definition of Done</strong>, which should include code review and tests; <strong>story points</strong> as relative effort rather than hours; <strong>velocity</strong> for forecasting. <strong>Scrum</strong> is time-boxed sprints, <strong>XP</strong> adds engineering practices — pair programming, TDD, continuous integration, small releases. <strong>Kanban</strong> is continuous flow with WIP limits.</p>
+
+  <div class="note watch">
+    <span class="lbl">Be honest about scale</span>
+    <p>"In my internships we worked in short cycles with stand-ups and demos rather than formal Scrum with story points and velocity, so I know the rhythm and would expect the ceremonies and tooling to be new." That reads far better than claiming three years of Scrum as a student.</p>
+  </div>
+</section>
+
+<section id="s9">
+  <div class="tag">09 · Your evidence</div>
+  <h2>SpiceNest, from the developer's side</h2>
+
+  <p>Volume I covers this project from a testing angle. Here's the same project pitched as engineering — which is what a developer interviewer wants to hear.</p>
+
+  <div class="say">
+    <span class="lbl">The 60-second pitch</span>
+    <p>"SpiceNest is a full-stack e-commerce platform for spices sourced directly from farmers in Idukki — it's live on a real domain with real orders. React 19 with Vite and Tailwind on the frontend, deployed to Vercel; Node and Express on the backend, talking to a serverless PostgreSQL database through Prisma. Authentication is JWT with bcrypt, and payments go through Razorpay with Stripe as a fallback. The design decisions I'd point to are that products are sold by weight, so stock is tracked in kilograms and the same product in two weights is two cart lines enforced by a composite unique constraint; order line items snapshot the product name and price so old invoices don't change when the catalogue does; and reads of the catalogue go through a small in-process cache with explicit invalidation. I designed the schema, wrote the API, did the payment integration and deployed it."</p>
+  </div>
+
+  <h3>Draw this</h3>
+  <div class="draw">
+    <div class="lbl">Three minutes with a pen — practise until it's automatic</div>
+<pre>   BROWSER                    VERCEL                    SERVER                     DATA
+  ┌────────┐  HTTPS  ┌──────────────────┐  REST/JSON  ┌──────────────┐        ┌──────────────┐
+  │ React  │ ──────► │ Static React app │ ──────────► │  Express API │ ─────► │  PostgreSQL  │
+  │19+Vite │         │   (Vite build)   │             │    (Node)    │ Prisma │ (Neon)       │
+  └────────┘         └──────────────────┘             │  ┌────────┐  │        └──────────────┘
+      │ localStorage: token, user, guest cart         │  │ CORS   │  │        ┌──────────────┐
+      │ Context: Auth · Cart · Wishlist · Viewed      │  │ rate   │  │ ─────► │ Razorpay /   │
+      │                                               │  │ limit  │  │        │ Stripe       │
+      │                                               │  │ JWT    │  │        └──────────────┘
+      │                                               │  └────────┘  │        ┌──────────────┐
+      └───────────────────────────────────────────────┴─ cache (5m) ─┴──────► │ Email (Brevo)│
+                                                                               └──────────────┘
+   Routes: /api/auth · /api/products · /api/cart · /api/wishlist · /api/reviews · /api/payment
+</pre>
+  </div>
+
+  <h3>The decisions, each defended in one sentence</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Decision</th><th>Defence</th></tr>
+    <tr><td>PostgreSQL over MongoDB</td><td>Orders, stock and payments need transactions and real relationships; the data is inherently relational.</td></tr>
+    <tr><td>Prisma</td><td>A typed schema as the single source of truth, migrations, parameterised queries by default, and one-line relation loading.</td></tr>
+    <tr><td>JWT over server sessions</td><td>Stateless, so the API scales horizontally with no shared session store. The cost is revocation, which is why I revalidate against the database on load.</td></tr>
+    <tr><td>Stock in kilograms</td><td>Spices sell by weight — 250g and 1kg must draw from one pool, converted at purchase.</td></tr>
+    <tr><td>Snapshotting order items</td><td>An order is a historical record; repricing must not rewrite past invoices.</td></tr>
+    <tr><td>Soft delete</td><td>Products referenced by orders can't vanish; archiving hides them without destroying history.</td></tr>
+    <tr><td>In-process cache, not Redis</td><td>Single instance, small read-heavy catalogue — thirty lines beat another service, and the moment there are two instances it becomes wrong.</td></tr>
+  </table></div>
+  <p>Notice the pattern: <strong>decision → reason → the condition under which it stops being right</strong>. Most freshers give the first two. The third clause is what gets written down.</p>
+
+  <h3>What you'd do differently — have three ready</h3>
+  <ol>
+    <li><strong>Wrap order creation and stock decrement in one transaction</strong> with a conditional update, so two simultaneous buyers can't oversell the last packet.</li>
+    <li><strong>Compute totals server-side from database prices</strong> instead of trusting the prices in the request body, and move order creation onto the gateway's webhook so a closed browser can't lose an order.</li>
+    <li><strong>Store money as integer paise</strong> rather than floats, and split the payment route — one handler currently verifies, prices, writes, decrements and emails, which is a single-responsibility violation and the reason it's hard to test.</li>
+  </ol>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>What was the hardest part of building it?</summary><div class="ans">
+      <p>Pick something with real substance. "The checkout, because it's the only place where three systems have to agree — my database, the payment gateway and the user's browser. Getting stock, pricing and the payment confirmation consistent when any of them can fail halfway is much harder than it looks, and it's where the remaining flaws in the system still are: the stock check and the decrement aren't atomic, and order creation depends on the browser calling back after payment."</p>
+    </div></details>
+
+    <details><summary>How would you scale it to 100× traffic?</summary><div class="ans">
+      <p>In order of what actually breaks: "The in-process cache first, because with several instances behind a load balancer each has its own copy and users see inconsistent stock — that becomes Redis. Then database reads: indexes on filter and join columns, pagination instead of returning the full catalogue, read replicas. Then the rating calculation, which currently averages every review on every fetch — that becomes a stored aggregate. Then images to a CDN. And I'd do each only after measuring that it's the bottleneck."</p>
+    </div></details>
+
+    <details><summary>Show me a piece of code you're proud of, and a piece you're not.</summary><div class="ans">
+      <p>Proud: the weight-aware cart model — the composite unique key, the price tiers and the kilogram conversion hang together and the database enforces the rule rather than the application hoping. Not proud: the payment confirmation handler, which does five jobs in one function and trusts client-supplied prices. Being able to name both, specifically, is the answer. Vague humility scores nothing.</p>
+    </div></details>
+
+    <details><summary>If I gave you a week on this codebase, what would you do?</summary><div class="ans">
+      <p>"Day one, the transaction and server-side pricing, because those are correctness and money. Day two, split the payment route into a verifier, an order service and a notifier so it's testable. Days three and four, unit tests on the pricing and weight logic plus API tests on auth, cart and checkout, wired into CI. Day five, webhook-driven order creation. That order is risk first, then testability, then robustness."</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s10">
+  <div class="tag">10 · The whiteboard</div>
+  <h2>Design on paper</h2>
+
+  <p>For a fresher this is a thinking test, not a scale test. Follow the same six steps every time and the content writes itself.</p>
+
+  <ol>
+    <li><strong>Clarify and scope.</strong> Who uses it, the two or three core use cases, what's out of scope. "I'll assume X — tell me if that's wrong."</li>
+    <li><strong>Rough numbers.</strong> Users, requests per day, read-versus-write ratio. Even crude estimates show you think about load.</li>
+    <li><strong>Boxes and arrows.</strong> Client → API → service → database, plus cache, queue and third parties, left to right, arrows labelled.</li>
+    <li><strong>Data model.</strong> The core entities and relationships. Never skip this — it's where the real thinking lives, and it's the part the JD names.</li>
+    <li><strong>Walk one flow end to end</strong> with your finger on the diagram.</li>
+    <li><strong>Trade-offs and failure modes.</strong> What breaks first, what you'd monitor, what changes at 100×, and — one sentence, for the SDET interviewer — how you'd test it.</li>
+  </ol>
+
+  <div class="note">
+    <span class="lbl">Paper discipline</span>
+    <p>Write big, use the top-left two-thirds for boxes, leave white space for what you'll add later, and <strong>talk continuously</strong>. A silent candidate drawing a beautiful diagram scores worse than a messy one who narrates.</p>
+  </div>
+
+  <h3>Four likely prompts</h3>
+
+  <h4>"Design an e-commerce checkout"</h4>
+  <p>You've built one — draw SpiceNest, then improve it out loud: idempotency keys on the payment request, the gateway webhook as the source of truth rather than the browser callback, stock <em>reservation</em> with a timeout instead of check-then-decrement, and an outbox table for the confirmation email so it can't be lost if the mail service is down.</p>
+
+  <h4>"Design a simplified device management system"</h4>
+  <p>Close to their own product, so it's a gift.</p>
+  <div class="draw">
+    <div class="lbl">MobiControl at fresher resolution</div>
+<pre>  ┌──────────┐   outbound, persistent   ┌───────────────┐      ┌──────────────┐
+  │  Device  │ ───── connection ──────► │  Gateway /    │ ───► │  Command     │
+  │  agent   │ ◄──── commands ───────── │  connection   │      │  service     │
+  │ Android  │                          │  server       │      └──────────────┘
+  │ iOS Win  │ ───── telemetry ───────► └───────────────┘             │
+  └──────────┘                                  │                     ▼
+                                                ▼              ┌──────────────┐
+  ┌──────────┐      ┌──────────────┐    ┌──────────────┐       │  Device DB   │
+  │  Admin   │ ───► │  Console API │───►│ Policy engine│ ─────►│  state,      │
+  │  console │      │  auth + RBAC │    │ groups,      │       │  policies,   │
+  └──────────┘      └──────────────┘    │ compliance   │       │  inventory   │
+                                        └──────────────┘       └──────────────┘
+</pre>
+  </div>
+  <p>The three insights to voice: <strong>the device dials out</strong>, because it's behind NAT and a firewall; <strong>commands are queued, not immediate</strong>, because devices go offline in warehouses; and <strong>everything must be idempotent</strong>, because a reconnecting device may receive a command twice. Then: "the hard part is convergence — a device that missed three policy updates must end up in the right state when it comes back."</p>
+
+  <h4>"Design a URL shortener"</h4>
+  <p>Shorten, redirect, count clicks. Table: id, short code, long URL, owner, created, expiry. Generate by base-62 encoding an auto-increment id, or hash and handle collisions. Overwhelmingly read-heavy, so cache aggressively; 301 if permanent, 302 if you want to keep counting. Edge cases: duplicate long URLs, expired links, invalid codes, and shortening a short URL.</p>
+
+  <h4>"Design a rate limiter" or "an LRU cache"</h4>
+  <p>Both are really data-structure questions. Rate limiter: a counter per key per window (simple, bursty at boundaries) versus a sliding window or token bucket (smoother). LRU cache: a hash map for O(1) lookup plus a doubly linked list for O(1) recency updates — evict from the tail. You've written a small TTL cache already, so connect it: "mine is TTL-based rather than capacity-based, which is simpler but means it never evicts under memory pressure."</p>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>How would you add a new feature to an existing large codebase?</summary><div class="ans">
+      <p>"Read before writing. Find the closest existing feature and follow it end to end so I match the codebase's conventions rather than importing my own. Confirm the requirement and the edge cases with whoever owns it. Then a small vertical slice — schema change and migration, API, then UI — behind a flag if it's risky, with tests written alongside rather than after. Small pull requests, reviewed early, instead of a two-week branch that nobody can review properly."</p>
+    </div></details>
+
+    <details><summary>How do you approach debugging a production issue?</summary><div class="ans">
+      <p>The JD says "detect, report, investigate and fix product defects", so have a real method. "Reproduce first, or get as close as I can — exact steps, environment, build, timestamp. Then narrow the layer: is the API response wrong, or is the UI rendering it wrong? If the API is wrong, is the database wrong or the read path — caching is a common culprit, and my own project serves stale stock from an in-process cache. Check logs around the timestamp, and check what changed recently, since most incidents follow a deploy. Fix the cause rather than the symptom, then add the test that would have caught it."</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s11">
+  <div class="tag">11 · The overlap</div>
+  <h2>The testing a developer must know</h2>
+
+  <p>Both descriptions ask for it — the developer JD says <em>"automation, including writing unit and integration tests"</em>, the SDET JD asks for test design and BDD. If you only revise four things from volume I, make it these.</p>
+
+  <h3>1 · The test pyramid and what each layer is for</h3>
+  <p>Many unit tests (milliseconds, one function, mocked dependencies), fewer integration tests (real database, several units together), fewest end-to-end tests (slow, brittle, most realistic). The rule: <strong>push every check to the lowest level that can prove it.</strong> A suite built upside down takes an hour, fails randomly and gets ignored.</p>
+
+  <h3>2 · What a unit test actually looks like</h3>
+  <span class="filename">pricing.test.js — the shape they want to see you know</span>
+<pre><code><span class="k">import</span> { getWeightAdjustedPrice, shippingFor } <span class="k">from</span> <span class="s">"./pricing.js"</span>;
+
+describe(<span class="s">"weight-adjusted pricing"</span>, () =&gt; {
+  test(<span class="s">"100g is the base price"</span>, () =&gt; {
+    expect(getWeightAdjustedPrice(<span class="s">100</span>, <span class="s">"100g"</span>)).toBe(<span class="s">100</span>);
+  });
+
+  test(<span class="s">"250g is 2.5x with a 5% discount"</span>, () =&gt; {
+    expect(getWeightAdjustedPrice(<span class="s">100</span>, <span class="s">"250g"</span>)).toBe(<span class="s">237.5</span>);
+  });
+
+  test(<span class="s">"an unknown weight should be rejected, not silently priced as base"</span>, () =&gt; {
+    expect(() =&gt; getWeightAdjustedPrice(<span class="s">100</span>, <span class="s">"750g"</span>)).toThrow();
+  });
+});
+
+describe(<span class="s">"free shipping threshold"</span>, () =&gt; {
+  <span class="c">// boundary value analysis: the bug lives at &lt; versus &lt;=</span>
+  test.each([
+    [<span class="s">499</span>, <span class="s">100</span>],
+    [<span class="s">500</span>, <span class="s">0</span>],
+    [<span class="s">501</span>, <span class="s">0</span>],
+  ])(<span class="s">"subtotal %i charges %i shipping"</span>, (subtotal, expected) =&gt; {
+    expect(shippingFor(subtotal)).toBe(expected);
+  });
+});</code></pre>
+  <p><strong>What this demonstrates without you saying it:</strong> the <strong>arrange-act-assert</strong> shape, one behaviour per test, descriptive names that read as sentences, a parameterised table for boundary values, and — in the third test — asserting on a <em>desired</em> behaviour that the current code doesn't have, which is how you encode a bug you intend to fix. If they ask you to write a test on paper, write something with this shape.</p>
+
+  <h3>3 · Mocking, stubbing and why dependency injection matters</h3>
+  <p>A unit test shouldn't hit the network, the clock or a real database — those make it slow and non-deterministic. You replace them with a fake. That's only possible if the dependency comes in from outside rather than being constructed inside the function, which is the practical payoff of dependency inversion. Say both halves together and you've answered a SOLID question and a testing question at once.</p>
+
+  <h3>4 · Test design vocabulary, the minimum set</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Term</th><th>One line</th></tr>
+    <tr><td>Unit / integration / E2E</td><td>One function mocked / units together with real dependencies / the whole journey through the UI</td></tr>
+    <tr><td>Smoke vs regression</td><td>Wide-and-shallow gate on a new build vs proving nothing previously working has broken</td></tr>
+    <tr><td>Equivalence partitioning</td><td>Group inputs the system treats identically; test one from each group</td></tr>
+    <tr><td>Boundary value analysis</td><td>Test the edges — 499, 500, 501 — because that's where <code>&lt;</code> versus <code>&lt;=</code> hides</td></tr>
+    <tr><td>Severity vs priority</td><td>Technical impact vs business urgency</td></tr>
+    <tr><td>BDD / Gherkin</td><td>Behaviour written as Given-When-Then in a <code>.feature</code> file, wired to step definitions — SpecFlow in .NET, Cucumber elsewhere</td></tr>
+    <tr><td>Flaky test</td><td>Passes and fails without code changing; usually timing, shared state or test order. Quarantine it, don't rerun until green.</td></tr>
+    <tr><td>Shift left</td><td>Test earlier — review requirements, unit tests, static analysis — where defects are cheapest</td></tr>
+  </table></div>
+
+  <div class="note">
+    <span class="lbl">Still your strongest single move</span>
+    <p>Whatever the mix of interviewers, the defect register from volume I works: <em>"I went back through my own live project as a reviewer rather than an author and found six real defects — client-supplied prices, a stock race condition, a non-atomic write, stale cache after a sale, unvalidated cart input, and identity granted without verification. I can tell you the fix for each."</em> A developer interviewer hears engineering maturity; an SDET interviewer hears the job description.</p>
+  </div>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>Do you write tests for your own code?</summary><div class="ans">
+      <p>Be honest, then show you know what good looks like: "Not systematically on SpiceNest, and that's a gap I can see clearly now — I tested by using the application rather than by writing tests. What I'd start with is the pure logic: the weight-to-kilogram conversion, the pricing tiers and the shipping threshold, because those are trivially unit-testable and they're where a silent arithmetic bug would cost real money. Then API-level tests on auth and checkout. In my internships I leaned more on evaluation harnesses, because for the AI work correctness was measured statistically rather than asserted exactly."</p>
+    </div></details>
+
+    <details><summary>What's the difference between unit and integration testing?</summary><div class="ans">
+      <p>"A unit test exercises one function or class in isolation with its dependencies replaced by fakes, so it's fast and deterministic and a failure points at one place. An integration test exercises several real components together — my cart route actually writing to and reading from Postgres — so it catches the wiring problems unit tests can't see, at the cost of speed and setup. You need both: unit tests tell you the logic is right, integration tests tell you the pieces actually fit."</p>
+    </div></details>
+
+    <details><summary>How much test coverage is enough?</summary><div class="ans">
+      <p>"Coverage is a useful signal and a terrible target. A hundred percent line coverage with no meaningful assertions proves nothing, and chasing a number produces tests written for the metric. What I'd actually want is that the critical paths — anything touching money, data or authentication — are covered including their failure cases, and that every fixed bug gets a regression test. If I had to name a number for general code I'd say around 70–80% as a health check, with the real judgement being about risk."</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s12">
+  <div class="tag">12 · The human round</div>
+  <h2>Behavioural, and the "which role" question</h2>
+
+  <p>Reported SOTI questions: the project discussion, why SOTI, how you manage deadlines and stress, and location preference. With a shared panel, add the question about which role you want.</p>
+
+  <h3>STAR, 90 seconds</h3>
+  <p><strong>S</strong>ituation (one sentence) → <strong>T</strong>ask (what was yours) → <strong>A</strong>ction (most of the time here, and say "I" not "we") → <strong>R</strong>esult (with a number if you have one).</p>
+
+  <div class="tablewrap"><table>
+    <tr><th>Story to prepare</th><th>Your material</th></tr>
+    <tr><td>A hard technical problem</td><td>The payment integration, or the guest-cart merge on login — an ordering problem between auth state and cart state</td></tr>
+    <tr><td>A failure and what you learned</td><td>Shipping code that trusted client-supplied prices. "I built and reviewed it as the author. Now I read my own code asking what a hostile client would send."</td></tr>
+    <tr><td>Conflict or disagreement</td><td>A group project or the house captain role — resolved with evidence rather than volume</td></tr>
+    <tr><td>Leadership and pressure</td><td>House captain for a 500-student contingent, 15+ events, runner-up finish; inter-IIIT badminton. Competitive sport is pressure you've actually lived, which makes it a real answer rather than a rehearsed one.</td></tr>
+  </table></div>
+
+  <h3>The answers worth rehearsing word for word</h3>
+
+  <div class="say">
+    <span class="lbl">"Why should we hire you?"</span>
+    <p>"Three things. I've shipped and operated a real full-stack system rather than a tutorial — schema, APIs, payments, deployment, live users. I keep going back to it critically: I can name six defects in my own code and the fix for each, which is the habit that makes someone useful past the first six months. And I pick up stacks fast — Prisma, a payment gateway and serverless Postgres were all new to me when I started that project. The gap is C# and enterprise tooling, and I'd rather say that plainly than pretend."</p>
+  </div>
+
+  <div class="say">
+    <span class="lbl">"Why SOTI?"</span>
+    <p>"The product is infrastructure — when device management fails, someone's warehouse stops, so correctness actually matters. The engineering problem is genuinely hard in a way I find interesting: a matrix of operating systems, versions and hardware, devices behind firewalls on bad networks, and upgrades that can't break a fleet. And the role is described as full lifecycle — analysis, design, implementation and test — which is how I already work rather than a role where I'd only be handed tickets."</p>
+  </div>
+
+  <div class="say">
+    <span class="lbl">"Where do you see yourself in five years?"</span>
+    <p>"Still technical, and deeper. In five years I'd want to own a component or service end to end — its design, its quality and the decisions behind it — and to have brought a couple of juniors up. I'm not looking to move off engineering."</p>
+  </div>
+
+  <div class="say">
+    <span class="lbl">"Your biggest weakness?"</span>
+    <p>"I over-build before validating. On SpiceNest I wrote a lot of frontend before confirming the flows with the person who'd actually run the shop, and some of it was wasted. I've started sketching the flow and confirming it before writing code." Real, specific, already being worked on — never "I'm a perfectionist".</p>
+  </div>
+
+  <h3>Questions to ask them</h3>
+  <ul>
+    <li>"What does the stack look like day to day for an associate on this team — is it mostly C# services, or is there front-end work too?"</li>
+    <li>"How is work split between the developer and SDET sides — do they sit in the same team?"</li>
+    <li>"What does a good first six months look like in this role?"</li>
+    <li>"What's the hardest engineering problem the Kochi team is working on right now?"</li>
+  </ul>
+  <p>Not in the technical round: salary, hours, leave, work from home. Those belong to HR. And never answer "no questions" — it reads as indifference.</p>
+
+  <h3>Location</h3>
+  <p>The developer posting is Kochi. Answer directly, with no hedging: "Kochi works well for me — I'm from Kerala. I'd also be open to Gurugram if that's where the team is." Hesitation here loses offers.</p>
+
+  <div class="qa">
+    <div class="qahead"><h3>Ask me this</h3><span class="bar"></span><button class="revealall">Reveal all</button></div>
+
+    <details><summary>You're an AI and ML person. Why a product engineering role?</summary><div class="ans">
+      <p>"My specialisation is AI and data science, but most of what I've actually shipped is software engineering — a full-stack platform, APIs, a database schema, a payment integration, a React dashboard for the vision work. Even the AI work was mostly engineering: pipelines, access control, evaluation harnesses. What I want is to build systems people depend on, and this team builds infrastructure that thousands of businesses depend on."</p>
+    </div></details>
+
+    <details><summary>How do you handle pressure and deadlines?</summary><div class="ans">
+      <p>"By getting concrete early. When the sports meet collided with end-semester exams, what saved it was writing down what actually had to happen versus what I'd like to happen, and delegating the second list. Same with code: under a deadline I'd rather cover the highest-risk paths properly and say clearly what isn't done, than do everything shallowly and pretend it's fine."</p>
+    </div></details>
+
+    <details><summary>What if you're asked something you've never heard of?</summary><div class="ans">
+      <p>Say so, then show method. "I haven't come across that. From the name I'd guess it's about X — is that the right area? If I hit it on the job I'd read the docs and try the smallest possible example first." Almost nobody scores full marks on every question; bluffing costs you twice, because they'll follow up.</p>
+    </div></details>
+
+    <details><summary>Anything you'd like to add?</summary><div class="ans">
+      <p>Take it, and keep it to three sentences. "Only that my strongest evidence isn't on the resume — it's that I've kept a real system running and kept finding things wrong with it. I can talk through six defects in my own code and how I'd fix each. Whichever side of the team you think fits, that's how I'd work."</p>
+    </div></details>
+  </div>
+</section>
+
+<section id="s13">
+  <div class="tag">13 · Tomorrow morning</div>
+  <h2>Rapid-fire 50</h2>
+
+  <p>Cover the right column and work down. If you can answer 42 of these in a sentence, you're ready for either interviewer.</p>
+
+  <div class="tablewrap"><table>
+    <tr><th>Question</th><th>One-line answer</th></tr>
+    <tr><td>Four pillars of OOP</td><td>Encapsulation, abstraction, inheritance, polymorphism</td></tr>
+    <tr><td>Overloading vs overriding</td><td>Same name different parameters, compile time vs same signature in a child, run time</td></tr>
+    <tr><td>Abstract class vs interface</td><td>Shared state and partial implementation, one parent vs pure contract, many implemented</td></tr>
+    <tr><td>Composition vs inheritance</td><td>"Has-a" vs "is-a" — prefer composition, deep hierarchies get fragile</td></tr>
+    <tr><td>SOLID</td><td>Single responsibility, Open/closed, Liskov, Interface segregation, Dependency inversion</td></tr>
+    <tr><td>Why dependency inversion matters</td><td>Depend on abstractions so implementations can be swapped — and faked in tests</td></tr>
+    <tr><td>Singleton / Factory / Strategy / Observer</td><td>One instance / create without naming the class / swap algorithms / notify listeners</td></tr>
+    <tr><td>What makes code testable</td><td>Small pure functions, injected dependencies, no hidden global state, deterministic</td></tr>
+    <tr><td>DRY, and its limit</td><td>Don't repeat yourself — but two similar things aren't always the same thing</td></tr>
+    <tr><td>Magic number</td><td>An unexplained literal; replace with a named constant</td></tr>
+    <tr><td>Big-O of a nested loop</td><td>O(n²) — usually collapsible to O(n) with a hash map</td></tr>
+    <tr><td>Binary search complexity</td><td>O(log n), requires sorted input</td></tr>
+    <tr><td>Array vs linked list</td><td>O(1) access, O(n) insert vs O(n) access, O(1) insert at a known node</td></tr>
+    <tr><td>How a hash map works</td><td>Hash the key to a bucket; collisions chain or probe; resize on load factor; O(1) amortised</td></tr>
+    <tr><td>Stack vs queue</td><td>LIFO vs FIFO — DFS and nesting vs BFS and scheduling</td></tr>
+    <tr><td>BFS vs DFS</td><td>Queue, level by level, shortest path unweighted vs recursion/stack, deep first</td></tr>
+    <tr><td>When to use a heap</td><td>Top-k and priority scheduling — O(log n) insert and extract</td></tr>
+    <tr><td>Memoisation</td><td>Cache sub-results so a recursion stops recomputing — O(2ⁿ) becomes O(n)</td></tr>
+    <tr><td>Recursion vs iteration</td><td>Self-similar problems vs deep inputs where the stack would overflow</td></tr>
+    <tr><td>Stable sort</td><td>Equal elements keep their original relative order</td></tr>
+    <tr><td>ACID</td><td>Atomicity, Consistency, Isolation, Durability</td></tr>
+    <tr><td>Normalisation to 3NF</td><td>Atomic values, no partial dependency, no transitive dependency</td></tr>
+    <tr><td>When to denormalise</td><td>Read-heavy access, or history that must not change — like order line items</td></tr>
+    <tr><td>Primary vs foreign key</td><td>Uniquely identifies a row vs references another table's key</td></tr>
+    <tr><td>Index trade-off</td><td>Faster reads, slower writes, more storage</td></tr>
+    <tr><td>WHERE vs HAVING</td><td>Rows before grouping vs groups after</td></tr>
+    <tr><td>INNER vs LEFT JOIN</td><td>Only matches vs everything on the left with NULLs for missing matches</td></tr>
+    <tr><td>Second highest value</td><td>MAX below the MAX, or ORDER BY DESC with DISTINCT, OFFSET 1 LIMIT 1</td></tr>
+    <tr><td>N+1 query problem</td><td>One query per row of a list; fix with a join or eager include</td></tr>
+    <tr><td>SQL injection defence</td><td>Parameterised queries — never concatenate user input</td></tr>
+    <tr><td>Transaction for stock</td><td>Conditional update inside a transaction: <code>SET stock = stock - x WHERE stock &gt;= x</code></td></tr>
+    <tr><td>Event loop</td><td>Sync code, then microtasks (promises), then macrotasks (timers, I/O)</td></tr>
+    <tr><td>var vs let vs const</td><td>Function-scoped and hoisted vs block-scoped with a temporal dead zone; const blocks reassignment only</td></tr>
+    <tr><td>== vs ===</td><td>Coercing vs strict — always use strict unless you want coercion</td></tr>
+    <tr><td>Closure</td><td>A function that retains access to its creating scope after that scope returns</td></tr>
+    <tr><td>Arrow vs normal function</td><td>Arrow inherits <code>this</code> lexically and has no own binding</td></tr>
+    <tr><td>Promise vs async/await</td><td>Same machinery; await is syntax that reads sequentially — pair it with try/catch</td></tr>
+    <tr><td>Promise.all</td><td>Runs independent async work concurrently instead of one after another</td></tr>
+    <tr><td>Is Node single-threaded?</td><td>Your JS is; libuv keeps a thread pool for I/O, and worker threads exist for CPU work</td></tr>
+    <tr><td>Express middleware</td><td>A chain of <code>(req, res, next)</code> functions — order matters</td></tr>
+    <tr><td>Virtual DOM</td><td>Diff an in-memory tree and apply the minimum real DOM updates</td></tr>
+    <tr><td>React keys</td><td>Stable identity in lists; array index breaks on reorder or delete</td></tr>
+    <tr><td>useState vs useEffect</td><td>Values that trigger re-render vs side effects after render, controlled by dependencies</td></tr>
+    <tr><td>REST constraints</td><td>Resources in URLs, correct methods, stateless, consistent representation, cacheable, layered</td></tr>
+    <tr><td>401 vs 403</td><td>Not authenticated vs authenticated but not permitted</td></tr>
+    <tr><td>Idempotent methods</td><td>GET, PUT, DELETE — POST is not, which is why retries duplicate orders</td></tr>
+    <tr><td>JWT</td><td>Signed header, payload, signature; readable by anyone, so no secrets in it; stateless but hard to revoke</td></tr>
+    <tr><td>Why bcrypt not SHA-256</td><td>Deliberately slow and salted — a fast hash is the wrong tool for passwords</td></tr>
+    <tr><td>Process vs thread</td><td>Own memory vs shared memory inside a process — which is why races exist</td></tr>
+    <tr><td>TCP vs UDP + handshake</td><td>Reliable and ordered vs fast and best-effort; SYN, SYN-ACK, ACK</td></tr>
+    <tr><td>DNS and DHCP</td><td>Name to IP via resolver/root/TLD/authoritative vs automatic IP config by lease (DORA)</td></tr>
+  </table></div>
+
+  <h3>The morning checklist</h3>
+  <div class="check" data-key="dayof2">
+    <label><input type="checkbox"><span>Printed resume copies, pen, notebook, ID.</span></label>
+    <label><input type="checkbox"><span>SpiceNest live site and GitHub repo open in phone tabs.</span></label>
+    <label><input type="checkbox"><span>If online: camera, mic and connection tested an hour early; quiet room, charged laptop.</span></label>
+    <label><input type="checkbox"><span>Your numbers ready: CGPA 8.92, graduating 2027, dates of both internships.</span></label>
+    <label><input type="checkbox"><span>Pitch rehearsed, architecture drawable, three defects ready, "which role" answer ready.</span></label>
+    <label><input type="checkbox"><span>Two questions to ask them.</span></label>
+  </div>
+
+  <h3>In the room</h3>
+  <ul>
+    <li><strong>Think out loud.</strong> Silence is the only unrecoverable mistake — they can't grade reasoning they can't hear.</li>
+    <li><strong>Ask one clarifying question</strong> before starting any problem. It reads as competence, not confusion.</li>
+    <li><strong>When stuck, say where.</strong> "I know this needs a hash map, I'm just not seeing how to handle duplicates yet." Interviewers help candidates who narrate.</li>
+    <li><strong>Never bluff.</strong> A clean "I don't know, here's how I'd find out" costs one question. A bluff costs their trust in everything you've already said.</li>
+    <li><strong>State complexity unprompted</strong>, and name the edge cases you'd test. That one habit satisfies both interviewers at once.</li>
+  </ul>
+
+  <div class="note">
+    <span class="lbl">Last thing</span>
+    <p>You're not walking in as a student who has read about software. You've designed a schema, shipped an API, integrated payments, deployed to a real domain, and then gone back and found what's wrong with all of it. Whichever role they're screening for, that's the story — tell it plainly and let it do the work.</p>
+  </div>
+</section>
+
+<footer style="padding:3rem 0 1rem;font-family:var(--f-mono);font-size:.74rem;color:var(--muted);line-height:1.8">
+  Volume II · prepared 16 September 2026 for the SOTI Kochi Associate Software Developer and Associate SDET panel.<br>
+  Process details reconstructed from the two job descriptions and publicly reported candidate experiences — a map, not a guarantee.<br>
+  Volume I covers the testing half. Read section 11 here to know which parts of it to revise.
+</footer>
+
+</div>
+</main>
+
+<script>
+(function () {
+  var rail = document.getElementById('rail');
+  var burger = document.getElementById('burger');
+  var links = Array.prototype.slice.call(rail.querySelectorAll('a'));
+  var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+
+  burger.addEventListener('click', function () { rail.classList.toggle('open'); });
+  links.forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (window.innerWidth <= 1020) rail.classList.remove('open');
+    });
+  });
+
+  var bar = document.getElementById('progress');
+  function onScroll() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    var pos = h.scrollTop + 120, current = 0;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i] && sections[i].offsetTop <= pos) current = i;
+    }
+    links.forEach(function (a, i) { a.classList.toggle('on', i === current); });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  document.querySelectorAll('.revealall').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var qa = btn.closest('.qa');
+      var items = qa.querySelectorAll('details');
+      var anyClosed = Array.prototype.some.call(items, function (d) { return !d.open; });
+      items.forEach(function (d) { d.open = anyClosed; });
+      btn.textContent = anyClosed ? 'Hide all' : 'Reveal all';
+    });
+  });
+
+  document.querySelectorAll('.check').forEach(function (box) {
+    var key = 'soti-dev-' + (box.dataset.key || 'x');
+    var saved = [];
+    try { saved = JSON.parse(localStorage.getItem(key) || '[]'); } catch (e) { saved = []; }
+    var inputs = Array.prototype.slice.call(box.querySelectorAll('input[type=checkbox]'));
+    inputs.forEach(function (input, i) {
+      if (saved[i]) input.checked = true;
+      input.addEventListener('change', function () {
+        try {
+          localStorage.setItem(key, JSON.stringify(inputs.map(function (x) { return x.checked; })));
+        } catch (e) { /* storage unavailable — page still works */ }
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

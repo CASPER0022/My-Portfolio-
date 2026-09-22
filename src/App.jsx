@@ -18,15 +18,117 @@ import InterviewDocView from './components/InterviewDocView'
 import SecretProjectsSection from './components/SecretProjectsSection'
 import AllMaterialsView from './components/AllMaterialsView'
 import DsaConceptsSection from './components/DsaConceptsSection'
+import { projects } from './data/projects'
+import { findMaterialById } from './data/materials'
+
+// --- Lightweight History-API router -----------------------------------
+// This app is a single page of scroll sections plus a handful of
+// full-screen "pages" (a project's details, a placement-material doc,
+// the all-materials list, the secret-projects list, the DSA list).
+// Each full-screen page is represented as an entry in a `stack`. The top
+// of the stack is what's rendered; pushing a screen updates the URL via
+// pushState, and the browser Back button (popstate) restores the exact
+// stack that was current at that point in history, so Back always closes
+// the current page instead of leaving the site.
+
+const HOME_SCREEN = { type: 'home' }
+
+function pathForScreen(screen) {
+  switch (screen.type) {
+    case 'project-doc':
+      return `/projects/${screen.project.id}`
+    case 'material-doc':
+      return `/materials/${screen.material.id}`
+    case 'materials-list':
+      return '/materials'
+    case 'dsa-list':
+      return '/dsa-concepts'
+    case 'secret-list':
+      return '/secret-projects'
+    default:
+      return '/'
+  }
+}
+
+// Resolves whatever full-screen page a URL path points to, so a direct
+// visit or a hard refresh on a deep link (e.g. /materials/dbms) lands on
+// the right page instead of always showing the home landing section.
+function resolveStackFromPath(pathname) {
+  const projectMatch = pathname.match(/^\/projects\/([^/]+)\/?$/)
+  if (projectMatch) {
+    const project = projects.find((p) => String(p.id) === projectMatch[1])
+    if (project) return [HOME_SCREEN, { type: 'project-doc', project }]
+  }
+
+  const materialMatch = pathname.match(/^\/materials\/([^/]+)\/?$/)
+  if (materialMatch) {
+    if (materialMatch[1] === 'dsa') return [HOME_SCREEN, { type: 'dsa-list' }]
+    const material = findMaterialById(materialMatch[1])
+    if (material) return [HOME_SCREEN, { type: 'material-doc', material }]
+  }
+
+  if (/^\/materials\/?$/.test(pathname)) return [HOME_SCREEN, { type: 'materials-list' }]
+  if (/^\/dsa-concepts\/?$/.test(pathname)) return [HOME_SCREEN, { type: 'dsa-list' }]
+  if (/^\/secret-projects\/?$/.test(pathname)) return [HOME_SCREEN, { type: 'secret-list' }]
+
+  return [HOME_SCREEN]
+}
 
 export default function App() {
   const [showHero, setShowHero] = useState(true)
   const [active, setActive] = useState('Landing')
-  const [selectedProject, setSelectedProject] = useState(null)
-  const [selectedMaterial, setSelectedMaterial] = useState(null)
-  const [showSecret, setShowSecret] = useState(false)
-  const [showAllMaterials, setShowAllMaterials] = useState(false)
-  const [showDsaConcepts, setShowDsaConcepts] = useState(false)
+  const [stack, setStack] = useState(() => resolveStackFromPath(window.location.pathname))
+
+  const current = stack[stack.length - 1]
+
+  // Attach the resolved stack to the initial history entry (replacing,
+  // not pushing) so that a later Back press has correct state to restore,
+  // and so an unresolvable deep link corrects the URL back to "/".
+  useEffect(() => {
+    window.history.replaceState({ stack }, '', pathForScreen(current))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Browser Back/Forward: restore whatever stack was active at that point
+  // in history, and (when landing back on the home screen) scroll to the
+  // section the user was viewing before they opened the sub-page.
+  useEffect(() => {
+    const onPopState = (event) => {
+      const restored = (event.state && event.state.stack) || [HOME_SCREEN]
+      const leaving = stack[stack.length - 1]
+      const landingOnHome = restored.length === 1 && restored[0].type === 'home'
+
+      setStack(restored)
+
+      if (landingOnHome) {
+        let anchor = null
+        if (leaving.type === 'project-doc') anchor = 'work'
+        else if (leaving.type === 'material-doc') anchor = 'interview'
+
+        if (anchor) {
+          setTimeout(() => {
+            const el = document.getElementById(anchor)
+            if (el) el.scrollIntoView({ behavior: 'instant' })
+          }, 80)
+        } else {
+          window.scrollTo({ top: 0, behavior: 'instant' })
+        }
+      }
+    }
+
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [stack])
+
+  const navigate = useCallback((newStack) => {
+    const top = newStack[newStack.length - 1]
+    window.history.pushState({ stack: newStack }, '', pathForScreen(top))
+    setStack(newStack)
+  }, [])
+
+  const goBack = useCallback(() => {
+    window.history.back()
+  }, [])
 
   const handleHeroDone = useCallback(() => {
     setShowHero(false)
@@ -78,8 +180,13 @@ export default function App() {
     if (id === 'placement materials' || id === 'placement' || id === 'interview' || id === 'interview prep') id = 'interview'
     if (id === 'certifications') id = 'cv'
 
-    setSelectedProject(null)
-    setSelectedMaterial(null)
+    setStack((prevStack) => {
+      if (prevStack.length > 1) {
+        window.history.pushState({ stack: [HOME_SCREEN] }, '', '/')
+        return [HOME_SCREEN]
+      }
+      return prevStack
+    })
 
     setTimeout(() => {
       const el = document.getElementById(id)
@@ -93,6 +200,20 @@ export default function App() {
   const handleViewWork = useCallback(() => handleNav('PROJECTS'), [handleNav])
   const handleViewMaterials = useCallback(() => handleNav('PLACEMENT MATERIALS'), [handleNav])
 
+  const openMaterial = useCallback((material) => {
+    if (material.id === 'dsa') {
+      navigate([...stack, { type: 'dsa-list' }])
+    } else {
+      navigate([...stack, { type: 'material-doc', material }])
+    }
+  }, [navigate, stack])
+
+  const navbarActive = current.type === 'project-doc'
+    ? 'PROJECTS'
+    : current.type === 'material-doc' || current.type === 'materials-list' || current.type === 'dsa-list' || current.type === 'secret-list'
+      ? 'PLACEMENT MATERIALS'
+      : active
+
   return (
     <div style={{ background: '#ffffff', minHeight: '100vh', position: 'relative' }}>
       <Cursor />
@@ -100,63 +221,43 @@ export default function App() {
 
       {/* Floating Top Navbar (Sticky by index.css rules) */}
       {!showHero && (
-        <Navbar 
-          active={selectedMaterial ? 'PLACEMENT MATERIALS' : selectedProject ? 'PROJECTS' : active} 
-          onNav={handleNav} 
+        <Navbar
+          active={navbarActive}
+          onNav={handleNav}
         />
       )}
 
       {/* Conditionally display separate Material/Project Page */}
-      {selectedMaterial ? (
+      {current.type === 'material-doc' ? (
         <InterviewDocView
-          material={selectedMaterial}
-          onBack={() => {
-            setSelectedMaterial(null)
-            if (!showSecret && !showAllMaterials) {
-              setTimeout(() => {
-                const el = document.getElementById('interview')
-                if (el) el.scrollIntoView({ behavior: 'instant' })
-              }, 80)
-            }
-          }}
+          material={current.material}
+          onBack={goBack}
         />
-      ) : selectedProject ? (
-        <ProjectDetailsView 
-          project={selectedProject} 
-          onBack={() => {
-            setSelectedProject(null)
-            setTimeout(() => {
-              const el = document.getElementById('work')
-              if (el) el.scrollIntoView({ behavior: 'instant' })
-            }, 80)
-          }} 
+      ) : current.type === 'project-doc' ? (
+        <ProjectDetailsView
+          project={current.project}
+          onBack={goBack}
         />
-      ) : showSecret ? (
+      ) : current.type === 'secret-list' ? (
         <SecretProjectsSection
-          onSelectMaterial={setSelectedMaterial}
-          onBack={() => setShowSecret(false)}
+          onSelectMaterial={(material) => navigate([...stack, { type: 'material-doc', material }])}
+          onBack={goBack}
         />
-      ) : showDsaConcepts ? (
+      ) : current.type === 'dsa-list' ? (
         <DsaConceptsSection
-          onSelectMaterial={setSelectedMaterial}
-          onBack={() => setShowDsaConcepts(false)}
+          onSelectMaterial={(material) => navigate([...stack, { type: 'material-doc', material }])}
+          onBack={goBack}
         />
-      ) : showAllMaterials ? (
+      ) : current.type === 'materials-list' ? (
         <AllMaterialsView
-          onSelectMaterial={(material) => {
-            if (material.id === 'dsa') {
-              setShowDsaConcepts(true)
-            } else {
-              setSelectedMaterial(material)
-            }
-          }}
-          onBack={() => setShowAllMaterials(false)}
+          onSelectMaterial={openMaterial}
+          onBack={goBack}
         />
       ) : (
         /* Standard Document Flow with Sticky/Fixed Navigation */
-        <div 
-        style={{ 
-          opacity: showHero ? 0 : 1, 
+        <div
+        style={{
+          opacity: showHero ? 0 : 1,
           transition: 'opacity 0.5s ease 0.3s',
           pointerEvents: showHero ? 'none' : 'auto'
         }}
@@ -170,8 +271,8 @@ export default function App() {
         {/* Section 1.25: About Me Section */}
         <div id="about" className="w-full relative" style={{ background: 'linear-gradient(to bottom, #112240, #0a0c14)' }}>
           {/* Top smooth light-to-dark transition out of Landing section */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               top: 0,
               left: 0,
@@ -188,8 +289,8 @@ export default function App() {
         {/* Section 2: Selected Work (Auto height for luxury 3-column 6-card grid) */}
         <div id="work" className="w-full relative overflow-hidden" style={{ background: '#f8f9fb' }}>
           {/* Top smooth dark transition out of About section */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               top: 0,
               left: 0,
@@ -201,8 +302,8 @@ export default function App() {
             }}
           />
           {/* Background Image Layer with reduced opacity */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               inset: 0,
               backgroundImage: "url('luxury_topo_bg.png')",
@@ -215,15 +316,15 @@ export default function App() {
             }}
           />
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <WorkSection onSelectProject={setSelectedProject} />
+            <WorkSection onSelectProject={(project) => navigate([...stack, { type: 'project-doc', project }])} />
           </div>
         </div>
 
         {/* Section 1.5: Curated Work Experience Journey */}
         <div id="experience" className="w-full relative overflow-hidden" style={{ background: '#f8f9fb' }}>
           {/* Background Image Layer with reduced opacity */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               inset: 0,
               backgroundImage: "url('experience_topo_bg.png')",
@@ -243,8 +344,8 @@ export default function App() {
         {/* Section 1.75: Placement & Interview Materials */}
         <div id="interview" className="w-full relative overflow-hidden" style={{ background: '#f8f9fb' }}>
           {/* Background Image Layer with reduced opacity */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               inset: 0,
               backgroundImage: "url('luxury_topo_bg.png')",
@@ -257,23 +358,17 @@ export default function App() {
             }}
           />
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <InterviewSection 
-              onSelectMaterial={(material) => {
-                if (material.id === 'dsa') {
-                  setShowDsaConcepts(true)
-                } else {
-                  setSelectedMaterial(material)
-                }
-              }} 
+            <InterviewSection
+              onSelectMaterial={openMaterial}
               onViewAll={() => {
-                setShowAllMaterials(true)
+                navigate([...stack, { type: 'materials-list' }])
                 window.scrollTo({ top: 0, behavior: 'instant' })
               }}
             />
           </div>
           {/* Bottom smooth dark transition into Skills section */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               bottom: 0,
               left: 0,
@@ -289,8 +384,8 @@ export default function App() {
         {/* Section 3: Technical Skills & Expertise */}
         <div id="skills" className="w-full relative overflow-hidden" style={{ background: '#0a0c14' }}>
           {/* Background Image Layer with reduced opacity */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               inset: 0,
               backgroundImage: "url('skills_tech_bg.png')",
@@ -310,8 +405,8 @@ export default function App() {
         {/* Section 4: CV Timeline */}
         <div id="cv" className="w-full relative overflow-hidden" style={{ background: '#ededed' }}>
           {/* Top smooth dark-to-light transition out of Skills section */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               top: 0,
               left: 0,
@@ -323,8 +418,8 @@ export default function App() {
             }}
           />
           {/* Background Image Layer with reduced opacity */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               inset: 0,
               backgroundImage: "url('cv_timeline_bg.png')",
@@ -344,8 +439,8 @@ export default function App() {
         {/* Section 4.5: Leadership & Extracurricular Section */}
         <div id="extracurricular" className="w-full bg-[#0a0c14] relative">
           {/* Top smooth light-to-dark transition out of CV section */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               top: 0,
               left: 0,
@@ -362,8 +457,8 @@ export default function App() {
         {/* Section 5: Dynamic Contact & Canvas Drawing */}
         <div id="contact" className="w-full bg-[#ededed] relative flex flex-col justify-between overflow-hidden">
           {/* Top smooth dark-to-light transition out of Extracurricular section */}
-          <div 
-            style={{ 
+          <div
+            style={{
               position: 'absolute',
               top: 0,
               left: 0,
@@ -381,7 +476,7 @@ export default function App() {
 
         {/* Section 6: Premium Footer */}
         <Footer onSecretClick={() => {
-          setShowSecret(true)
+          navigate([...stack, { type: 'secret-list' }])
           window.scrollTo({ top: 0, behavior: 'instant' })
         }} />
       </div>

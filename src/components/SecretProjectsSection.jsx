@@ -1,58 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-
-const projectMaterials = [
-  {
-    id: 'legalease_prep',
-    cat: 'Project Prep . 01',
-    title: 'LegalEase Codex',
-    shortTitle: 'LegalEase Prep Guide',
-    desc: 'Advanced technical reference and interview preparation guide for LegalEase, detailing retrieval-augmented generation architectures, semantic ingestion pipelines, context synthesis, and potential interview Q&A.',
-    tech: ['FastAPI', 'LangChain', 'ChromaDB', 'BM25 Hybrid RAG', 'Evaluation'],
-    fileUrl: '/interview/LegalEase-Interview-Codex.html',
-    img: 'Projects/Legal ease/legalease.jpg'
-  },
-  {
-    id: 'casper_prep',
-    cat: 'Project Prep . 02',
-    title: 'Casper Codex',
-    shortTitle: 'Casper Prep Guide',
-    desc: 'Deep-dive reference and interview preparation guide for Casper, covering stateful multi-agent topology, supervisor node routers, Sandboxed code execution, and LangGraph workflow orchestration.',
-    tech: ['LangGraph', 'FastAPI', 'Python', 'OpenAI API', 'State Machines'],
-    fileUrl: '/interview/Casper-2.0-Interview-Notebook.html',
-    img: 'Projects/casper/casper.jpg'
-  },
-  {
-    id: 'shipsy_prep',
-    cat: 'Company Prep . 03',
-    title: 'Shipsy Interview Codex',
-    shortTitle: 'Shipsy Prep Guide',
-    desc: 'Comprehensive applied AI engineering & customer experience interview playbook for Shipsy, detailing ARISE escalation frameworks, scenario questions, support automation, and logistics systems.',
-    tech: ['Applied AI', 'Support Automation', 'ARISE Framework', 'Logistics Systems', 'RAG & Agents'],
-    fileUrl: '/interview/shipsy-interview-prep.html',
-    img: 'Projects/shipsy/shipsy.jpg'
-  },
-  {
-    id: 'kalkitech_prep',
-    cat: 'Company Prep . 04',
-    title: 'Kalkitech Interview Codex',
-    shortTitle: 'Kalkitech Prep Guide',
-    desc: 'Comprehensive technical interview reference and playbook for Kalkitech, covering power system automation, DLMS/COSEM, IEC 61850, Modbus, SCADA protocols, and smart grid IoT architectures.',
-    tech: ['DLMS/COSEM', 'IEC 61850', 'Modbus', 'SCADA & Smart Grid', 'Embedded & IoT'],
-    fileUrl: '/interview/kalkitech-interview-notebook.html',
-    img: 'interview/kalkitech.png'
-  },
-  {
-    id: 'soti_prep',
-    cat: 'Company Prep . 05',
-    title: 'SOTI SDET Interview Codex',
-    shortTitle: 'SOTI SDET Prep Guide',
-    desc: 'Comprehensive technical interview manual for SOTI SDET, covering Enterprise Mobility Management (MobiControl), test automation frameworks, API & UI testing, C#/.NET automation, and QA architecture.',
-    tech: ['C# / .NET', 'Test Automation', 'API & UI Testing', 'EMM / MobiControl', 'QA Architecture'],
-    fileUrl: '/interview/SOTI-SDET-Interview-Notebook.html',
-    img: 'interview/soti.png'
-  }
-]
+import { projectPrepMaterials as projectMaterials } from '../data/materials'
 
 // Tactile 3D Card for Project Prep
 function ProjectPrepCard({ p, i, onSelect }) {

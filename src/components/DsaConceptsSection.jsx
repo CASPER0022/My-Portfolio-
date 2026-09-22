@@ -1,28 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-
-const dsaConcepts = [
-  {
-    id: 'binary_search',
-    cat: 'DSA Concept . 01',
-    title: 'Binary Search',
-    shortTitle: 'Binary Search Notebook',
-    desc: 'Deep-dive Binary Search study guide, covering search spaces, dynamic ranges, numerical search, double binary search, and 30+ interview drills.',
-    tech: ['Binary Search', 'Divide & Conquer', 'Search Space', 'Drill Questions'],
-    fileUrl: '/interview/Binary-Search-Notebook.html',
-    img: 'interview/binary search.png'
-  },
-  {
-    id: 'arrays',
-    cat: 'DSA Concept . 02',
-    title: 'Arrays',
-    shortTitle: 'Arrays Notebook',
-    desc: 'Complete Arrays placement revision notebook covering all 40 problems from Striver A2Z sheet, including 10 reusable patterns, brute-to-optimal progressions, complexity analysis, and C++/Python solutions.',
-    tech: ['Contiguous Blocks', 'Two Pointers', 'Sliding Window', 'In-place Swaps', 'Prefix Sums'],
-    fileUrl: '/interview/Arrays-Notebook.html',
-    img: 'interview/array.png'
-  }
-]
+import { dsaConcepts } from '../data/materials'
 
 export default function DsaConceptsSection({ onSelectMaterial, onBack }) {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
