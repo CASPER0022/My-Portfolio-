@@ -104,6 +104,16 @@ export const placementMaterials = [
     img: '/interview/sql.png'
   },
   {
+    id: 'sql_problems',
+    cat: 'Placement Material . 12',
+    title: 'SQL Problems',
+    shortTitle: 'SQL Query Ladder',
+    desc: 'Interactive SQL Query Ladder practice notebook with progressive query challenges, problem sets, and practical SQL drills for interview preparation.',
+    tech: ['SQL Drills', 'Aggregations', 'Joins & Subqueries', 'Window Functions', 'Query Optimization'],
+    fileUrl: '/interview/sql-query-ladder.html',
+    img: '/interview/SQL Problems.png'
+  },
+  {
     id: 'backend_development',
     cat: 'Placement Material . 11',
     title: 'Backend Development',

@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SQL Query Ladder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F3F5F7; --surface:#FFFFFF; --surface-2:#EAEEF2; --line:#DCE2E8;
+  --ink:#122230; --ink-2:#4A5B6A; --ink-3:#7C8B98;
+  --accent:#0B7A8F; --accent-soft:#D6EEF2; --accent-ink:#075867;
+  --easy:#1E8A55; --easy-bg:#DDF2E6; --med:#B46A00; --med-bg:#FBEBD2; --hard:#C23A3A; --hard-bg:#F8DEDE;
+  --star:#D99A00; --done-row:#F4FAF8;
+  --kw:#8A3FB5;
+  --shadow:0 1px 2px rgba(18,34,48,.06),0 4px 16px rgba(18,34,48,.05);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E151C; --surface:#151F28; --surface-2:#1C2833; --line:#26343F;
+    --ink:#E6EDF2; --ink-2:#A7B5C0; --ink-3:#71818E;
+    --accent:#3CC3D8; --accent-soft:#12343B; --accent-ink:#8FE3F0;
+    --easy:#4CCB8A; --easy-bg:#13301F; --med:#F0A73A; --med-bg:#3A2A10; --hard:#F07272; --hard-bg:#3A1717;
+    --star:#F5C040; --done-row:#132520; --kw:#D39BF5;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E151C; --surface:#151F28; --surface-2:#1C2833; --line:#26343F;
+  --ink:#E6EDF2; --ink-2:#A7B5C0; --ink-3:#71818E;
+  --accent:#3CC3D8; --accent-soft:#12343B; --accent-ink:#8FE3F0;
+  --easy:#4CCB8A; --easy-bg:#13301F; --med:#F0A73A; --med-bg:#3A2A10; --hard:#F07272; --hard-bg:#3A1717;
+  --star:#F5C040; --done-row:#132520; --kw:#D39BF5;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:40px 80px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* header */
+.prompt{font-family:var(--mono);font-size:13px;color:var(--ink-3);margin:0 0 10px}
+.prompt b{color:var(--kw);font-weight:600}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,54px);line-height:1.02;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1 span{color:var(--accent)}
+.lede{color:var(--ink-2);max-width:62ch;margin:14px 0 0}
+
+.summary{margin-top:28px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow)}
+.ring{position:relative;width:112px;height:112px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{stroke:var(--surface-2)}
+.ring .fill{stroke:var(--accent);transition:stroke-dashoffset .5s ease}
+.ring .num{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring .num strong{font-family:var(--display);font-size:28px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.ring .num small{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:4px}
+.bars{display:grid;gap:12px}
+.bar-row{display:grid;grid-template-columns:70px 1fr 64px;gap:12px;align-items:center;font-size:13px}
+.bar-row .lbl{font-weight:600}
+.bar-row .cnt{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums}
+.meter{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.meter i{display:block;height:100%;border-radius:inherit;width:0;transition:width .5s ease}
+.e .lbl{color:var(--easy)} .e .meter i{background:var(--easy)}
+.m .lbl{color:var(--med)} .m .meter i{background:var(--med)}
+.h .lbl{color:var(--hard)} .h .meter i{background:var(--hard)}
+.sync{grid-column:1/-1;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;border-top:1px dashed var(--line);padding-top:14px;font-size:12.5px;color:var(--ink-3)}
+.sync .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink-3);margin-right:7px;vertical-align:1px}
+.sync.cloud .dot{background:var(--easy)}
+.reset{font:inherit;font-size:12.5px;background:none;border:1px solid var(--line);color:var(--ink-2);border-radius:8px;padding:5px 10px;cursor:pointer}
+.reset:hover{border-color:var(--hard);color:var(--hard)}
+.reset.arm{background:var(--hard);border-color:var(--hard);color:#fff}
+
+/* toolbar */
+.toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-top:22px;padding-block:12px;background:var(--bg);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.search{flex:1 1 220px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:0 12px}
+.search span{font-family:var(--mono);font-size:12px;color:var(--kw);font-weight:600}
+.search input{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:inherit;font-size:14px;padding:9px 0;outline:none}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{font:inherit;font-size:13px;font-weight:500;border:0;background:none;color:var(--ink-2);padding:5px 10px;border-radius:7px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.toggle{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:7px 12px;border-radius:10px;cursor:pointer}
+.toggle[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+
+/* steps */
+.steps{display:grid;gap:16px;margin-top:8px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.step-head{width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:18px 20px;background:none;border:0;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.step-no{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:8px;padding:6px 8px;letter-spacing:.04em}
+.step-title{font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.step-kw{display:block;font-family:var(--mono);font-size:12px;color:var(--kw);margin-top:3px;font-weight:500}
+.step-side{display:flex;align-items:center;gap:12px}
+.step-count{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.step-meter{width:90px;height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.step-meter i{display:block;height:100%;background:var(--accent);width:0;transition:width .4s ease}
+.step.complete .step-meter i{background:var(--easy)}
+.chev{width:18px;height:18px;color:var(--ink-3);transition:transform .2s}
+.step[data-open="false"] .chev{transform:rotate(-90deg)}
+.step[data-open="false"] .rows{display:none}
+.rows{border-top:1px solid var(--line)}
+
+.row{display:grid;grid-template-columns:28px 52px 1fr auto auto 36px;gap:12px;align-items:center;padding:11px 20px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row.done{background:var(--done-row)}
+.row.done .title{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.cb{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:2px solid var(--line);border-radius:6px;cursor:pointer;display:grid;place-content:center;background:var(--surface);margin:0;transition:all .15s}
+.cb:hover{border-color:var(--accent)}
+.cb:checked{background:var(--easy);border-color:var(--easy)}
+.cb:checked::after{content:"";width:10px;height:6px;border:2.5px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.qno{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tcell{min-width:0}
+.title{font-weight:500;text-decoration:none;display:inline}
+.title:hover{color:var(--accent)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:3px}
+.concept{font-family:var(--mono);font-size:11px;color:var(--ink-2);background:var(--surface-2);border-radius:5px;padding:1px 6px}
+.s50{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--accent-ink);border:1px solid var(--accent);border-radius:5px;padding:0 5px;letter-spacing:.03em}
+.diff{font-size:12px;font-weight:600;border-radius:99px;padding:3px 10px;white-space:nowrap}
+.diff.Easy{color:var(--easy);background:var(--easy-bg)}
+.diff.Medium{color:var(--med);background:var(--med-bg)}
+.diff.Hard{color:var(--hard);background:var(--hard-bg)}
+.solve{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;white-space:nowrap}
+.solve:hover{border-color:var(--accent);background:var(--accent-soft)}
+.star{background:none;border:0;cursor:pointer;color:var(--ink-3);padding:4px;border-radius:6px;display:grid;place-content:center}
+.star svg{width:18px;height:18px}
+.star[aria-pressed="true"]{color:var(--star)}
+.star[aria-pressed="true"] path{fill:currentColor}
+.empty{padding:40px 20px;text-align:center;color:var(--ink-3);background:var(--surface);border:1px dashed var(--line);border-radius:16px}
+.foot{margin-top:28px;font-size:12.5px;color:var(--ink-3);display:flex;gap:18px;flex-wrap:wrap}
+.foot b{color:var(--ink-2);font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding-inline:16px;padding-block:28px 60px}
+  .summary{grid-template-columns:1fr;justify-items:start;gap:18px;padding:18px}
+  .summary .bars{width:100%}
+  .step-head{grid-template-columns:auto 1fr;padding:16px}
+  .step-side{grid-column:1/-1}
+  .step-meter{flex:1}
+  .row{grid-template-columns:26px 1fr auto;grid-template-areas:"cb t star" "cb d solve";row-gap:8px;padding:12px 16px}
+  .row .cb{grid-area:cb;align-self:start;margin-top:2px}
+  .row .qno{display:none}
+  .row .tcell{grid-area:t}
+  .row .diff{grid-area:d;justify-self:start}
+  .row .solve{grid-area:solve}
+  .row .star{grid-area:star}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="prompt"><b>SELECT</b> * <b>FROM</b> leetcode <b>WHERE</b> topic = 'sql' <b>ORDER BY</b> concept;</p>
+  <h1>SQL Query <span>Ladder</span></h1>
+  <p class="lede">77 free LeetCode SQL problems in 7 steps, arranged from your first <code>SELECT</code> to window functions and hard analytics queries. Open a problem, solve it on LeetCode, then tick it off here. Star anything you want to revisit before interviews.</p>
+
+  <section class="summary" aria-label="Progress">
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52" fill="none" stroke-width="10"/><circle class="fill" id="ringFill" cx="60" cy="60" r="52" fill="none" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="326.73"/></svg>
+      <div class="num"><strong id="pct">0%</strong><small id="totalCnt">0 / 0</small></div>
+    </div>
+    <div class="bars">
+      <div class="bar-row e"><span class="lbl">Easy</span><div class="meter"><i id="mE"></i></div><span class="cnt" id="cE">0/0</span></div>
+      <div class="bar-row m"><span class="lbl">Medium</span><div class="meter"><i id="mM"></i></div><span class="cnt" id="cM">0/0</span></div>
+      <div class="bar-row h"><span class="lbl">Hard</span><div class="meter"><i id="mH"></i></div><span class="cnt" id="cH">0/0</span></div>
+    </div>
+    <div class="sync" id="sync"><span><span class="dot"></span><span id="syncText">Saved in this browser</span></span><button class="reset" id="resetBtn" type="button">Reset progress</button></div>
+  </section>
+
+  <div class="toolbar" role="toolbar" aria-label="Filters">
+    <label class="search"><span>LIKE</span><input id="q" type="search" placeholder="Search by name, number or concept" autocomplete="off"></label>
+    <div class="seg" id="diffSeg" aria-label="Difficulty">
+      <button type="button" data-v="all" aria-pressed="true">All</button><button type="button" data-v="Easy" aria-pressed="false">Easy</button><button type="button" data-v="Medium" aria-pressed="false">Medium</button><button type="button" data-v="Hard" aria-pressed="false">Hard</button>
+    </div>
+    <div class="seg" id="statSeg" aria-label="Status">
+      <button type="button" data-v="all" aria-pressed="true">Any</button><button type="button" data-v="todo" aria-pressed="false">To do</button><button type="button" data-v="done" aria-pressed="false">Solved</button><button type="button" data-v="star" aria-pressed="false">★ Revisit</button>
+    </div>
+    <button type="button" class="toggle" id="s50" aria-pressed="false">SQL 50 only</button>
+  </div>
+
+  <div class="steps" id="steps"></div>
+
+  <div class="foot">
+    <span><b>SQL 50</b> marks problems from LeetCode's SQL 50 study plan.</span>
+    <span><b>Tip:</b> MySQL is the most common dialect in interviews; LeetCode also supports PostgreSQL, MS SQL Server and Oracle.</span>
+  </div>
+</div>
+
+<script>
+const S50 = new Set([1757,584,595,1148,1683,1378,1068,1581,197,1661,577,1280,570,1934,620,1251,1075,1633,1211,1193,1174,550,2356,1141,1070,596,1729,619,1045,1731,1789,610,180,1164,1204,1907,1978,626,1341,1321,602,585,185,1667,1527,196,176,1484,1327,1517]);
+const E="Easy",M="Medium",H="Hard";
+const STEPS = [
+ {t:"Select, filter and shape rows", kw:"SELECT · WHERE · CASE · UPDATE · DELETE", q:[
+  [1757,"Recyclable and Low Fat Products","recyclable-and-low-fat-products",E,"WHERE AND"],
+  [584,"Find Customer Referee","find-customer-referee",E,"NULL handling"],
+  [595,"Big Countries","big-countries",E,"WHERE OR"],
+  [1148,"Article Views I","article-views-i",E,"DISTINCT + ORDER BY"],
+  [1683,"Invalid Tweets","invalid-tweets",E,"CHAR_LENGTH"],
+  [620,"Not Boring Movies","not-boring-movies",E,"MOD + filter"],
+  [610,"Triangle Judgement","triangle-judgement",E,"CASE WHEN"],
+  [1873,"Calculate Special Bonus","calculate-special-bonus",E,"CASE + LIKE"],
+  [627,"Swap Salary","swap-salary",E,"UPDATE"],
+  [196,"Delete Duplicate Emails","delete-duplicate-emails",E,"DELETE with self join"],
+  [1795,"Rearrange Products Table","rearrange-products-table",E,"UNION ALL (unpivot)"]
+ ]},
+ {t:"Joins", kw:"INNER · LEFT · SELF · CROSS JOIN", q:[
+  [175,"Combine Two Tables","combine-two-tables",E,"LEFT JOIN"],
+  [1378,"Replace Employee ID With The Unique Identifier","replace-employee-id-with-the-unique-identifier",E,"LEFT JOIN"],
+  [1068,"Product Sales Analysis I","product-sales-analysis-i",E,"INNER JOIN"],
+  [183,"Customers Who Never Order","customers-who-never-order",E,"anti join"],
+  [1581,"Customer Who Visited but Did Not Make Any Transactions","customer-who-visited-but-did-not-make-any-transactions",E,"LEFT JOIN + IS NULL"],
+  [181,"Employees Earning More Than Their Managers","employees-earning-more-than-their-managers",E,"self join"],
+  [197,"Rising Temperature","rising-temperature",E,"self join on dates"],
+  [1661,"Average Time of Process per Machine","average-time-of-process-per-machine",E,"self join + AVG"],
+  [577,"Employee Bonus","employee-bonus",E,"LEFT JOIN + NULL"],
+  [607,"Sales Person","sales-person",E,"NOT IN + joins"],
+  [1731,"The Number of Employees Which Report to Each Employee","the-number-of-employees-which-report-to-each-employee",E,"self join + GROUP BY"],
+  [1280,"Students and Examinations","students-and-examinations",E,"CROSS JOIN"],
+  [570,"Managers with at Least 5 Direct Reports","managers-with-at-least-5-direct-reports",M,"join + HAVING"],
+  [1934,"Confirmation Rate","confirmation-rate",M,"LEFT JOIN + ratio"],
+  [1158,"Market Analysis I","market-analysis-i",M,"join condition vs WHERE"]
+ ]},
+ {t:"Aggregation and grouping", kw:"COUNT · SUM · AVG · GROUP BY · HAVING", q:[
+  [182,"Duplicate Emails","duplicate-emails",E,"GROUP BY + HAVING"],
+  [596,"Classes More Than 5 Students","classes-more-than-5-students",E,"HAVING COUNT"],
+  [586,"Customer Placing the Largest Number of Orders","customer-placing-the-largest-number-of-orders",E,"ORDER BY COUNT LIMIT"],
+  [1050,"Actors and Directors Who Cooperated At Least Three Times","actors-and-directors-who-cooperated-at-least-three-times",E,"GROUP BY 2 cols"],
+  [2356,"Number of Unique Subjects Taught by Each Teacher","number-of-unique-subjects-taught-by-each-teacher",E,"COUNT DISTINCT"],
+  [1729,"Find Followers Count","find-followers-count",E,"GROUP BY"],
+  [619,"Biggest Single Number","biggest-single-number",E,"HAVING + MAX"],
+  [511,"Game Play Analysis I","game-play-analysis-i",E,"MIN per group"],
+  [1741,"Find Total Time Spent by Each Employee","find-total-time-spent-by-each-employee",E,"SUM per group"],
+  [1693,"Daily Leads and Partners","daily-leads-and-partners",E,"COUNT DISTINCT"],
+  [1075,"Project Employees I","project-employees-i",E,"AVG + ROUND"],
+  [1251,"Average Selling Price","average-selling-price",E,"weighted average"],
+  [1633,"Percentage of Users Attended a Contest","percentage-of-users-attended-a-contest",E,"percentage"],
+  [1211,"Queries Quality and Percentage","queries-quality-and-percentage",E,"conditional AVG"],
+  [1407,"Top Travellers","top-travellers",E,"IFNULL + SUM"],
+  [1587,"Bank Account Summary II","bank-account-summary-ii",E,"HAVING SUM"],
+  [1084,"Sales Analysis III","sales-analysis-iii",E,"HAVING MIN/MAX"],
+  [1327,"List the Products Ordered in a Period","list-the-products-ordered-in-a-period",E,"date range + SUM"],
+  [1141,"User Activity for the Past 30 Days I","user-activity-for-the-past-30-days-i",E,"date window"],
+  [1193,"Monthly Transactions I","monthly-transactions-i",M,"conditional SUM"],
+  [1393,"Capital Gain/Loss","capital-gainloss",M,"SUM(CASE ...)"],
+  [1070,"Product Sales Analysis III","product-sales-analysis-iii",M,"first per group"],
+  [1174,"Immediate Food Delivery II","immediate-food-delivery-ii",M,"first order per user"],
+  [550,"Game Play Analysis IV","game-play-analysis-iv",M,"retention fraction"],
+  [1045,"Customers Who Bought All Products","customers-who-bought-all-products",M,"relational division"]
+ ]},
+ {t:"Subqueries and set operations", kw:"IN · EXISTS · UNION · scalar subquery", q:[
+  [1965,"Employees With Missing Information","employees-with-missing-information",E,"UNION of anti joins"],
+  [1978,"Employees Whose Manager Left the Company","employees-whose-manager-left-the-company",E,"NOT IN subquery"],
+  [1789,"Primary Department for Each Employee","primary-department-for-each-employee",E,"UNION / subquery"],
+  [176,"Second Highest Salary","second-highest-salary",M,"scalar subquery"],
+  [177,"Nth Highest Salary","nth-highest-salary",M,"function + LIMIT OFFSET"],
+  [608,"Tree Node","tree-node",M,"CASE + IN"],
+  [1164,"Product Price at a Given Date","product-price-at-a-given-date",M,"latest before date"],
+  [1907,"Count Salary Categories","count-salary-categories",M,"UNION to keep zeros"],
+  [585,"Investments in 2016","investments-in-2016",M,"IN with GROUP BY"],
+  [602,"Friend Requests II: Who Has the Most Friends","friend-requests-ii-who-has-the-most-friends",M,"UNION ALL + count"],
+  [1341,"Movie Rating","movie-rating",M,"UNION ALL of two tops"]
+ ]},
+ {t:"String, pattern and date functions", kw:"CONCAT · SUBSTRING · REGEXP · GROUP_CONCAT · DATE", q:[
+  [1667,"Fix Names in a Table","fix-names-in-a-table",E,"UPPER + SUBSTRING"],
+  [1527,"Patients With a Condition","patients-with-a-condition",E,"LIKE patterns"],
+  [1517,"Find Users With Valid E-Mails","find-users-with-valid-e-mails",E,"REGEXP"],
+  [1484,"Group Sold Products By The Date","group-sold-products-by-the-date",E,"GROUP_CONCAT"],
+  [1890,"The Latest Login in 2020","the-latest-login-in-2020",E,"YEAR() + MAX"]
+ ]},
+ {t:"Window functions and CTEs", kw:"ROW_NUMBER · RANK · DENSE_RANK · LAG · SUM() OVER · WITH", q:[
+  [178,"Rank Scores","rank-scores",M,"DENSE_RANK"],
+  [184,"Department Highest Salary","department-highest-salary",M,"RANK per partition"],
+  [180,"Consecutive Numbers","consecutive-numbers",M,"LAG / LEAD"],
+  [626,"Exchange Seats","exchange-seats",M,"LEAD / LAG or CASE"],
+  [1204,"Last Person to Fit in the Bus","last-person-to-fit-in-the-bus",M,"running SUM"],
+  [1321,"Restaurant Growth","restaurant-growth",M,"moving window"],
+  [185,"Department Top Three Salaries","department-top-three-salaries",H,"DENSE_RANK top N"]
+ ]},
+ {t:"Hard analytics and pivots", kw:"PIVOT · gaps-and-islands · multi-join ratios", q:[
+  [1179,"Reformat Department Table","reformat-department-table",E,"pivot with CASE"],
+  [262,"Trips and Users","trips-and-users",H,"multi-join ratio"],
+  [601,"Human Traffic of Stadium","human-traffic-of-stadium",H,"gaps and islands"]
+ ]}
+];
+const ALL = []; STEPS.forEach((s,i)=>s.q.forEach(r=>ALL.push({n:r[0],t:r[1],slug:r[2],d:r[3],c:r[4],step:i})));
+
+/* ---------- state ---------- */
+let state = {done:{},star:{}};
+const LS="sql-ladder-v1";
+try{const raw=localStorage.getItem(LS); if(raw){const p=JSON.parse(raw); state.done=p.done||{}; state.star=p.star||{};}}catch(e){}
+let ui={q:"",diff:"all",stat:"all",s50:false,open:{}};
+try{const u=JSON.parse(localStorage.getItem(LS+"-ui")||"null"); if(u&&u.open) ui.open=u.open;}catch(e){}
+
+let dbRef=null, saving=false, pending=false, timer=null;
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){}}
+function saveUi(){try{localStorage.setItem(LS+"-ui",JSON.stringify({open:ui.open}));}catch(e){}}
+function queueSave(){
+  saveLocal();
+  if(!dbRef) return;
+  clearTimeout(timer); timer=setTimeout(flush,700);
+}
+async function flush(){
+  if(saving){pending=true;return;}
+  saving=true;
+  try{await dbRef.set({done:state.done,star:state.star,updated:Date.now()}); setSync(true,"Saved to your account");}
+  catch(e){setSync(false,"Couldn't save to your account. Saved in this browser.");}
+  saving=false;
+  if(pending){pending=false;flush();}
+}
+function setSync(cloud,text){const s=document.getElementById("sync");s.classList.toggle("cloud",cloud);document.getElementById("syncText").textContent=text;}
+
+/* ---------- render ---------- */
+const starSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"/></svg>';
+const chev='<svg class="chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5"/></svg>';
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function matches(p){
+  if(ui.diff!=="all"&&p.d!==ui.diff) return false;
+  if(ui.s50&&!S50.has(p.n)) return false;
+  if(ui.stat==="todo"&&state.done[p.n]) return false;
+  if(ui.stat==="done"&&!state.done[p.n]) return false;
+  if(ui.stat==="star"&&!state.star[p.n]) return false;
+  const q=ui.q.trim().toLowerCase();
+  if(q && !(p.t.toLowerCase().includes(q)||String(p.n).includes(q)||p.c.toLowerCase().includes(q))) return false;
+  return true;
+}
+function render(){
+  const root=document.getElementById("steps"); let html="", any=false;
+  const filtering = ui.q||ui.diff!=="all"||ui.stat!=="all"||ui.s50;
+  STEPS.forEach((s,i)=>{
+    const items=ALL.filter(p=>p.step===i); const vis=items.filter(matches);
+    if(!vis.length) return; any=true;
+    const done=items.filter(p=>state.done[p.n]).length;
+    const open = filtering ? true : (ui.open[i]!==false);
+    html+=`<section class="step${done===items.length?" complete":""}" data-open="${open}" data-i="${i}">
+      <button class="step-head" type="button" aria-expanded="${open}" data-toggle="${i}">
+        <span class="step-no">STEP ${String(i+1).padStart(2,"0")}</span>
+        <span><span class="step-title">${esc(s.t)}</span><span class="step-kw">${esc(s.kw)}</span></span>
+        <span class="step-side"><span class="step-meter"><i style="width:${done/items.length*100}%"></i></span><span class="step-count">${done} / ${items.length}</span>${chev}</span>
+      </button><div class="rows">`;
+    vis.forEach(p=>{
+      const d=!!state.done[p.n], st=!!state.star[p.n], url=`https://leetcode.com/problems/${p.slug}/`;
+      html+=`<div class="row${d?" done":""}">
+        <input class="cb" type="checkbox" id="cb-${p.n}" data-n="${p.n}" ${d?"checked":""} aria-label="Mark ${esc(p.t)} as solved">
+        <span class="qno">#${p.n}</span>
+        <div class="tcell"><a class="title" href="${url}" target="_blank" rel="noopener">${esc(p.t)}</a>
+          <div class="meta"><span class="concept">${esc(p.c)}</span>${S50.has(p.n)?'<span class="s50">SQL 50</span>':""}</div></div>
+        <span class="diff ${p.d}">${p.d}</span>
+        <a class="solve" href="${url}" target="_blank" rel="noopener">Solve ↗</a>
+        <button type="button" class="star" data-star="${p.n}" aria-pressed="${st}" aria-label="Star ${esc(p.t)} to revisit">${starSvg}</button>
+      </div>`;
+    });
+    html+=`</div></section>`;
+  });
+  root.innerHTML = any ? html : `<div class="empty">No problems match these filters.</div>`;
+  renderSummary();
+}
+function renderSummary(){
+  const tot=ALL.length, dn=ALL.filter(p=>state.done[p.n]).length;
+  document.getElementById("pct").textContent=Math.round(dn/tot*100)+"%";
+  document.getElementById("totalCnt").textContent=`${dn} / ${tot}`;
+  document.getElementById("ringFill").style.strokeDashoffset=326.73*(1-dn/tot);
+  [["E",E],["M",M],["H",H]].forEach(([k,d])=>{
+    const a=ALL.filter(p=>p.d===d), b=a.filter(p=>state.done[p.n]).length;
+    document.getElementById("c"+k).textContent=`${b}/${a.length}`;
+    document.getElementById("m"+k).style.width=(a.length?b/a.length*100:0)+"%";
+  });
+}
+
+/* ---------- events ---------- */
+document.getElementById("steps").addEventListener("click",e=>{
+  const tg=e.target.closest("[data-toggle]");
+  if(tg){const i=+tg.dataset.toggle; const sec=tg.closest(".step"); const open=sec.dataset.open!=="true"; sec.dataset.open=open; tg.setAttribute("aria-expanded",open); ui.open[i]=open; saveUi(); return;}
+  const sb=e.target.closest("[data-star]");
+  if(sb){const n=sb.dataset.star; if(state.star[n]) delete state.star[n]; else state.star[n]=true; sb.setAttribute("aria-pressed",!!state.star[n]); queueSave(); if(ui.stat==="star") render();}
+});
+document.getElementById("steps").addEventListener("change",e=>{
+  const cb=e.target.closest(".cb"); if(!cb) return;
+  const n=cb.dataset.n; if(cb.checked) state.done[n]=true; else delete state.done[n];
+  queueSave();
+  if(ui.stat!=="all") render(); else { cb.closest(".row").classList.toggle("done",cb.checked); updateStepHead(cb.closest(".step")); renderSummary(); }
+});
+function updateStepHead(sec){
+  const i=+sec.dataset.i, items=ALL.filter(p=>p.step===i), d=items.filter(p=>state.done[p.n]).length;
+  sec.querySelector(".step-meter i").style.width=(d/items.length*100)+"%";
+  sec.querySelector(".step-count").textContent=`${d} / ${items.length}`;
+  sec.classList.toggle("complete",d===items.length);
+}
+function seg(id,key){document.getElementById(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;ui[key]=b.dataset.v;[...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();});}
+seg("diffSeg","diff"); seg("statSeg","stat");
+document.getElementById("s50").addEventListener("click",e=>{ui.s50=!ui.s50;e.currentTarget.setAttribute("aria-pressed",ui.s50);render();});
+document.getElementById("q").addEventListener("input",e=>{ui.q=e.target.value;render();});
+const rb=document.getElementById("resetBtn"); let armT;
+rb.addEventListener("click",()=>{
+  if(!rb.classList.contains("arm")){rb.classList.add("arm");rb.textContent="Click again to clear all";clearTimeout(armT);armT=setTimeout(()=>{rb.classList.remove("arm");rb.textContent="Reset progress";},3500);return;}
+  clearTimeout(armT);rb.classList.remove("arm");rb.textContent="Reset progress";
+  state={done:{},star:{}};queueSave();render();
+});
+
+render();
+
+/* ---------- account sync ---------- */
+(async()=>{
+  if(!window.claude||!claude.use) return;
+  try{
+    const [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+    if(!db||!user) return;
+    const uid=await user.id(); if(!uid) return;
+    const ref=db.doc("data/users/"+uid+"/progress");
+    const snap=await ref.get();
+    dbRef=ref;
+    if(snap.exists){
+      const d=snap.data()||{};
+      state.done=Object.assign({},state.done,d.done||{});
+      state.star=Object.assign({},state.star,d.star||{});
+      saveLocal(); render();
+      if(Object.keys(state.done).length!==Object.keys(d.done||{}).length||Object.keys(state.star).length!==Object.keys(d.star||{}).length) flush();
+      else setSync(true,"Saved to your account");
+    }else if(Object.keys(state.done).length||Object.keys(state.star).length){ flush(); }
+    else setSync(true,"Saved to your account");
+  }catch(e){ dbRef=null; }
+})();
+</script>
+</body>
+</html>
