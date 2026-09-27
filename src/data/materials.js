@@ -122,6 +122,16 @@ export const placementMaterials = [
     tech: ['HTTP & REST', 'Database & Transactions', 'Caching & Redis', 'Auth & Security', 'Scaling & System Design'],
     fileUrl: '/interview/Backend-Development-Notebook.html',
     img: '/interview/backend-development.png'
+  },
+  {
+    id: 'gate',
+    cat: 'Placement Material . 13',
+    title: 'GATE CS Series',
+    shortTitle: 'GATE CS Guide',
+    desc: 'Comprehensive GATE CS preparation series featuring mock tests, subject-wise practice papers, key concepts, detailed solutions, and performance analysis.',
+    tech: ['GATE CS', 'Mock Tests', 'Algorithms & OS', 'DBMS & Networks', 'Theory of Computation'],
+    fileUrl: '',
+    img: '/interview/gate.png'
   }
 ]
 
@@ -187,7 +197,7 @@ export const dsaConcepts = [
     desc: 'Deep-dive Binary Search study guide, covering search spaces, dynamic ranges, numerical search, double binary search, and 30+ interview drills.',
     tech: ['Binary Search', 'Divide & Conquer', 'Search Space', 'Drill Questions'],
     fileUrl: '/interview/Binary-Search-Notebook.html',
-    img: 'interview/binary search.png'
+    img: '/interview/binary search.png'
   },
   {
     id: 'arrays',
@@ -197,7 +207,20 @@ export const dsaConcepts = [
     desc: 'Complete Arrays placement revision notebook covering all 40 problems from Striver A2Z sheet, including 10 reusable patterns, brute-to-optimal progressions, complexity analysis, and C++/Python solutions.',
     tech: ['Contiguous Blocks', 'Two Pointers', 'Sliding Window', 'In-place Swaps', 'Prefix Sums'],
     fileUrl: '/interview/Arrays-Notebook.html',
-    img: 'interview/array.png'
+    img: '/interview/array.png'
+  }
+]
+
+export const gateConcepts = [
+  {
+    id: 'gate_mock_test_1',
+    cat: 'GATE CS . Section 01',
+    title: 'GATE CS Mock Test 1',
+    shortTitle: 'GATE CS Mock Test 16-08-2026',
+    desc: 'Full length GATE Computer Science mock test (16-08-2026) with comprehensive solutions, question breakdowns, and subject-wise score evaluation.',
+    tech: ['GATE CS', 'Full Mock Test', 'Detailed Solutions', 'CS Subjects'],
+    fileUrl: '/interview/GATE-CS-Mock-Test-16-08-2026.html',
+    img: '/interview/gatemock1.png'
   }
 ]
 
@@ -208,6 +231,8 @@ export function findMaterialById(id) {
     placementMaterials.find((m) => m.id === id) ||
     projectPrepMaterials.find((m) => m.id === id) ||
     dsaConcepts.find((m) => m.id === id) ||
+    gateConcepts.find((m) => m.id === id) ||
     null
   )
 }
+

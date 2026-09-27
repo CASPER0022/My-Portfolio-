@@ -18,6 +18,7 @@ import InterviewDocView from './components/InterviewDocView'
 import SecretProjectsSection from './components/SecretProjectsSection'
 import AllMaterialsView from './components/AllMaterialsView'
 import DsaConceptsSection from './components/DsaConceptsSection'
+import GateConceptsSection from './components/GateConceptsSection'
 import { projects } from './data/projects'
 import { findMaterialById } from './data/materials'
 
@@ -43,6 +44,8 @@ function pathForScreen(screen) {
       return '/materials'
     case 'dsa-list':
       return '/dsa-concepts'
+    case 'gate-list':
+      return '/gate-concepts'
     case 'secret-list':
       return '/secret-projects'
     default:
@@ -63,12 +66,14 @@ function resolveStackFromPath(pathname) {
   const materialMatch = pathname.match(/^\/materials\/([^/]+)\/?$/)
   if (materialMatch) {
     if (materialMatch[1] === 'dsa') return [HOME_SCREEN, { type: 'dsa-list' }]
+    if (materialMatch[1] === 'gate') return [HOME_SCREEN, { type: 'gate-list' }]
     const material = findMaterialById(materialMatch[1])
     if (material) return [HOME_SCREEN, { type: 'material-doc', material }]
   }
 
   if (/^\/materials\/?$/.test(pathname)) return [HOME_SCREEN, { type: 'materials-list' }]
   if (/^\/dsa-concepts\/?$/.test(pathname)) return [HOME_SCREEN, { type: 'dsa-list' }]
+  if (/^\/gate-concepts\/?$/.test(pathname)) return [HOME_SCREEN, { type: 'gate-list' }]
   if (/^\/secret-projects\/?$/.test(pathname)) return [HOME_SCREEN, { type: 'secret-list' }]
 
   return [HOME_SCREEN]
@@ -203,6 +208,8 @@ export default function App() {
   const openMaterial = useCallback((material) => {
     if (material.id === 'dsa') {
       navigate([...stack, { type: 'dsa-list' }])
+    } else if (material.id === 'gate') {
+      navigate([...stack, { type: 'gate-list' }])
     } else {
       navigate([...stack, { type: 'material-doc', material }])
     }
@@ -210,7 +217,7 @@ export default function App() {
 
   const navbarActive = current.type === 'project-doc'
     ? 'PROJECTS'
-    : current.type === 'material-doc' || current.type === 'materials-list' || current.type === 'dsa-list' || current.type === 'secret-list'
+    : current.type === 'material-doc' || current.type === 'materials-list' || current.type === 'dsa-list' || current.type === 'gate-list' || current.type === 'secret-list'
       ? 'PLACEMENT MATERIALS'
       : active
 
@@ -245,6 +252,11 @@ export default function App() {
         />
       ) : current.type === 'dsa-list' ? (
         <DsaConceptsSection
+          onSelectMaterial={(material) => navigate([...stack, { type: 'material-doc', material }])}
+          onBack={goBack}
+        />
+      ) : current.type === 'gate-list' ? (
+        <GateConceptsSection
           onSelectMaterial={(material) => navigate([...stack, { type: 'material-doc', material }])}
           onBack={goBack}
         />
