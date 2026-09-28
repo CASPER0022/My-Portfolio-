@@ -27,8 +27,8 @@ export const projects = [
     id: 2,
     cat: 'Project. 03',
     title: 'Casper',
-    desc: 'A high-performance multi-agent conversational AI assistant engineered with LangGraph.',
-    tech: ['React.js', 'LangGraph', 'FastAPI', 'Python', 'OpenAI'],
+    desc: 'An autonomous web-research agent built with LangGraph that searches, reflects and cites, streaming its reasoning live.',
+    tech: ['React.js', 'LangGraph', 'FastAPI', 'Python', 'Groq'],
     github: 'https://github.com/CASPER0022/Casper-2.0-Web-Assistant',
     live: 'https://casper.app',
     img: '/Projects/casper/casper.jpg'
@@ -47,20 +47,20 @@ export const projects = [
     id: 4,
     cat: 'Project. 05',
     title: 'Spectral Encoder GCN',
-    desc: 'A research-driven graph neural network framework applying extended spectral encoding to diverse network types, with Jupyter notebooks, datasets, and LaTeX paper.',
-    tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'Tailwind CSS'],
-    github: 'https://github.com/AlbinJohn/NeuralFlow',
-    live: 'https://neuralflow-app.vercel.app',
+    desc: 'Replication and weighted extension of SE-GCN for finding influential spreaders, evaluated against SIR simulations on four real networks.',
+    tech: ['PyTorch', 'NetworkX', 'Python', 'Jupyter', 'LaTeX'],
+    github: 'https://github.com/CASPER0022/Spectral-Encoder-GCN',
+    live: null,
     img: '/Projects/spectral gcn/spectral gcn.jpg'
   },
   {
     id: 6,
     cat: 'Project. 06',
     title: 'Parallel Image Processing',
-    desc: 'Medical image processor leveraging C++ and OpenMP for efficient serial and parallel PNG transformations, featuring negative and edge detection filters.',
-    tech: ['C++', 'C', 'OpenMP'],
-    github: 'https://github.com/AlbinJohn/VectorMind',
-    live: 'https://vectormind-search.vercel.app',
+    desc: 'Serial vs OpenMP negative and Sobel edge detection on CT scans in C++, 3.28x faster on a six-slice batch.',
+    tech: ['C++17', 'OpenMP', 'stb_image'],
+    github: 'https://github.com/CASPER0022/Parallel-Medical-Image-Processing',
+    live: null,
     img: '/Projects/parallel processing/parallel processing.jpg'
   }
 ]

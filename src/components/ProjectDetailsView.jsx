@@ -1,5 +1,17 @@
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import LegalEaseCaseStudy from './case-studies/LegalEaseCaseStudy'
+import CasperCaseStudy from './case-studies/CasperCaseStudy'
+import ParallelImagingCaseStudy from './case-studies/ParallelImagingCaseStudy'
+import SEGCNCaseStudy from './case-studies/SEGCNCaseStudy'
+
+// Projects with a full deep-dive page; the rest use the generic layout below.
+const caseStudies = {
+  1: LegalEaseCaseStudy,
+  2: CasperCaseStudy,
+  4: SEGCNCaseStudy,
+  6: ParallelImagingCaseStudy
+}
 
 export default function ProjectDetailsView({ project, onBack }) {
   // Scroll to top when view is opened
@@ -11,34 +23,6 @@ export default function ProjectDetailsView({ project, onBack }) {
 
   // Custom detailed data per project to render the requested detailed desc, tech, architecture
   const detailedData = {
-    1: {
-      subtitle: 'AI-Powered Legal Document Intelligence Platform',
-      architectureText: 'The LegalEase system is structured across a three-tier RAG (Retrieval-Augmented Generation) framework designed to optimize retrieval accuracy while maintaining low latency.',
-      architecturePoints: [
-        { title: 'Semantic Ingestion Pipeline', desc: 'Converts unstructured PDFs into normalized text chunks using customized paragraph-aware recursive chunk splitters, capturing context headers.' },
-        { title: 'Vector Embeddings & Storage', desc: 'Chunks are vectorized through OpenAI text-embedding-3-small and indexed in ChromaDB with hierarchical navigators.' },
-        { title: 'Hybrid Retrieval Engine', desc: 'Employs a custom BM25 + Vector ranking algorithm inside FastAPI to compile high-scoring legal paragraphs.' },
-        { title: 'Context-Synthesized Generation', desc: 'Structured prompts route context to GPT-4o, generating a clear summary complete with exact document source citations.' }
-      ],
-      details: [
-        { title: 'The Legal Inefficiencies', desc: 'Reviewing hundreds of compliance pages and complex contracts manually creates a massive bottleneck for legal counsels. LegalEase automates context compilation down to seconds.' },
-        { title: 'Key Innovations', desc: 'Implements absolute source citation mapping, preventing LLM hallucinations, alongside customizable legal summarization templates tailored for distinct contract profiles.' }
-      ]
-    },
-    2: {
-      subtitle: 'High-Performance Multi-Agent Conversational Workspace',
-      architectureText: 'Casper leverages a stateful multi-agent topology orchestrated via LangGraph, enabling high-autonomy task planning, execution, and self-debugging.',
-      architecturePoints: [
-        { title: 'Supervisor Node Router', desc: 'Parses the prompt, breaks tasks down into distinct sub-tasks, and handles conditional state routing across worker nodes.' },
-        { title: 'Web Scraping & Tavily Agent', desc: 'Autonomously queries search engines, fetches live web structures, and summarizes findings into a state dictionary.' },
-        { title: 'Safe Python Exec Sandbox', desc: 'Worker agent runs generated code blocks inside an isolated secure sandbox environment, returning stdout and traceback errors.' },
-        { title: 'State Synchronization Core', desc: 'Maintains transaction locks and memory checks across all nodes to ensure state consistency during parallel execution.' }
-      ],
-      details: [
-        { title: 'Autonomous Workflow Execution', desc: 'Unlike linear chat assistants, Casper can loop recursively between writing, executing, and debugging code without human intervention until the final goal is met.' },
-        { title: 'Real-Time State Mapping', desc: 'Provides a live visual log of which agent currently holds execution focus, making deep reasoning processes fully transparent to the user.' }
-      ]
-    },
     3: {
       subtitle: 'Hybrid AI-Powered Image Forgery Detection Platform',
       architectureText: 'AuthentiScan combines low-level noise analysis with deep learning models to capture compression anomalies and altered edge splicing boundaries.',
@@ -51,20 +35,6 @@ export default function ProjectDetailsView({ project, onBack }) {
       details: [
         { title: 'Combating Visual Forgery', desc: 'As generative AI and advanced photo editing software become ubiquitous, digital forensics require hybrid solutions. AuthentiScan validates visual integrity across multiple layers of proof.' },
         { title: 'Visual Heatmap Rendering', desc: 'Outputs interactive dual-view canvas layouts displaying the original image side-by-side with an ELA contrast heatmap, highlighting tampered pixels.' }
-      ]
-    },
-    4: {
-      subtitle: 'Spectral Graph Convolutional Neural Network Framework',
-      architectureText: 'Spectral GCN implements node classification and link prediction using Graph Laplacian eigendecompositions, capturing global topological frequencies.',
-      architecturePoints: [
-        { title: 'Normalized Laplacian Solver', desc: 'Computes normalized laplacian matrices of graph inputs to extract eigenvectors, mapping graph structures into spectral domains.' },
-        { title: 'Fourier Domain Filters', desc: 'Applies learned convolution filters in the spectral domain, filtering high-frequency noise from global spatial signals.' },
-        { title: 'Hybrid Message Passing', desc: 'Integrates graph spatial neighbors with eigenvalues to prevent over-smoothing issues in deeper GNN layers.' },
-        { title: 'Benchmark Processing pipeline', desc: 'Preconfigured pipelines load, normalize, and split standard node classification datasets (Cora, Citeseer, PubMed).' }
-      ],
-      details: [
-        { title: 'Research-Driven Design', desc: 'Structures deep spectral graph convolutions to analyze highly non-linear relations in citation and social networks.' },
-        { title: 'Comprehensive Evaluation Notebooks', desc: 'Packaged with structured Jupyter notebooks demonstrating train/val loss convergence and multi-class node cluster projections.' }
       ]
     },
     5: {
@@ -80,22 +50,10 @@ export default function ProjectDetailsView({ project, onBack }) {
         { title: 'Connecting Farmers directly', desc: 'Brings high-quality organic spices straight from agricultural estates in Kerala to global users, bypassing complex middleman chains.' },
         { title: 'Immersive Catalog Browsing', desc: 'Features advanced catalog filters, live stock tracking, secure account signups, and transaction receipt compilations.' }
       ]
-    },
-    6: {
-      subtitle: 'Multi-Threaded PNG Processing Engine in C++/OpenMP',
-      architectureText: 'This parallel engine load PNG pixels into contiguous shared memory arrays, applying heavy calculations across CPU threads via OpenMP.',
-      architecturePoints: [
-        { title: 'Shared Memory Array Layout', desc: 'Raw binary PNG row segments are mapped into shared memory buffers to prevent memory access bottlenecking.' },
-        { title: 'OpenMP Thread Scheduling', desc: 'Employs parallel loop scheduling constructs to dynamically distribute image rows across multicore processing cores.' },
-        { title: 'Cache Contiguity Optimization', desc: 'Loops are aligned contiguous in row-major memory order to prevent cache line trashing and false sharing.' },
-        { title: 'Multi-threaded Filter Kernels', desc: 'Applies discrete 3x3 mathematical convolution matrices across pixel grids for sharpening, edge detection, and blur.' }
-      ],
-      details: [
-        { title: 'Low-Level Acceleration', desc: 'Demonstrates maximum performance scaling, showing substantial execution speedup ratios over traditional sequential C++ processing.' },
-        { title: 'Forensic Medical Application', desc: 'Tailored for high-speed batch transformation of massive medical imagery sets, making negative transformations instantly scalable.' }
-      ]
     }
   }
+
+  const CaseStudy = caseStudies[project.id]
 
   const pData = detailedData[project.id] || {
     subtitle: 'Advanced Software Engineering Project',
@@ -223,7 +181,7 @@ export default function ProjectDetailsView({ project, onBack }) {
               </svg>
               GitHub
             </a>
-            <a 
+            {project.live && (<a 
               href={project.live} 
               target="_blank" 
               rel="noopener noreferrer"
@@ -254,10 +212,11 @@ export default function ProjectDetailsView({ project, onBack }) {
               <svg style={{ width: '13px', height: '13px' }} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
               </svg>
-            </a>
+            </a>)}
           </div>
         </div>
 
+        {CaseStudy ? <CaseStudy project={project} /> : (<>
         {/* WooCommerce Split Row: Left for Image, Right for Product Info */}
         <div className="project-details-hero-row">
           {/* Left Column: Big Product-style Image */}
@@ -559,6 +518,7 @@ export default function ProjectDetailsView({ project, onBack }) {
             </div>
           </div>
         </div>
+        </>)}
 
         {/* Bottom Back Button Action */}
         <div 
